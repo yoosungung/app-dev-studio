@@ -1,6 +1,0 @@
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
-<%@ include file="/WEB-INF/tiles/shared/include/PageHeader.jspf" %>
-
-<%@ include file="ResourceManageList.jsp" %>
-<%-- @ include file="ResourceManageFormRead.jsp" --%>
-<%-- @ include file="ResourceManageFormEdit.jsp" --%>

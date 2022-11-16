@@ -1,7 +1,0 @@
-com.atomikos.icatch.enable_logging=true
-com.atomikos.icatch.console_log_level=debug
-com.atomikos.icatch.console_file_name=atomikos.out
-com.atomikos.icatch.output_dir=data/atomikos-real/output
-com.atomikos.icatch.log_base_dir=data/atomikos-real/logs
-com.atomikos.icatch.log_base_name=atomikos
-com.atomikos.icatch.serial_jta_transactions=false

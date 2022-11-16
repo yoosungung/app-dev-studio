@@ -1,8 +1,0 @@
-package kr.ac.jj.shared.application.bbs.faq.model;
-
-/**
- * 게시판(FAQ) Model
- */
-public class BbsFaqModel {
-
-}
