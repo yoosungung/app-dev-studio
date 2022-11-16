@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 설문 결과 Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.application.result.mapper.SurveyResultMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TSQ.SURVEY_QESTNR_ID
+                 , SD.NAME
+                 , TSR.SURVEY_REALM_NM
+                 , CONCAT_WS('', DATE_FORMAT(SD.START_DT, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(SD.END_DT, '%Y-%m-%d')) AS PD_DT
+                 , SD.END_YN
+                 , CASE WHEN SD.END_YN = '1' THEN '종료' ELSE '진행중' END AS END_YN_NM
+                 , (SELECT COUNT(1)
+                    FROM   TB_SURVEY_QESTNR_PERSON TSQP
+                    WHERE  TSQP.SURVEY_QESTNR_ID = TSQ.SURVEY_QESTNR_ID
+                   ) AS PERSON_CO
+                 , (SELECT COUNT(1)
+                    FROM   TB_SURVEY_QESTNR_PERSON TSQP
+                           INNER JOIN SURVEY S ON S.ID = TSQP.SURVEY_ID
+                    WHERE  TSQP.SURVEY_QESTNR_ID = TSQ.SURVEY_QESTNR_ID
+                   ) AS SURVEY_CO
+                 , (SELECT COUNT(1)
+                    FROM   TB_SURVEY_QESTNR_PERSON TSQP
+                           INNER JOIN SURVEY S ON S.ID = TSQP.SURVEY_ID
+                    WHERE  TSQP.SURVEY_QESTNR_ID = TSQ.SURVEY_QESTNR_ID
+                    AND    S.STATUS = 'S'
+                   ) AS SUBMIT_CO
+            FROM   TB_SURVEY_QESTNR TSQ
+                   INNER JOIN TB_SURVEY_REALM TSR ON TSQ.SURVEY_REALM_ID = TSR.SURVEY_REALM_ID
+                   INNER JOIN (
+                        SELECT SD.ID
+                             , SD.NAME
+                             , SD.START_DT
+                             , SD.END_DT
+                             , CASE WHEN SD.END_DT < SYSDATE() THEN '1' ELSE '0' END AS END_YN
+                        FROM   SURVEY_DEFINITION SD
+                   ) SD ON SD.ID = TSQ.SURVEY_DEFINITION_ID
+            WHERE  TSQ.SURVEY_QESTNR_ID IN (
+                        SELECT VPSQ.SURVEY_QESTNR_ID
+                        FROM   VW_PERSON_SURVEY_QESTNR VPSQ
+                        WHERE  VPSQ.PERSON_ID = #{$var.loginUser.personId}
+                   )
+            AND    TSQ.SNDNG_YN = '1'
+        ]]>
+
+        <!-- 설문 이름 -->
+        <if test='search != null and search.name != null and search.name != ""'>
+            <![CDATA[
+            AND    UPPER(SD.NAME) LIKE CONCAT_WS('', '%', UPPER(#{search.name}), '%')
+            ]]>
+        </if>
+
+        <!-- 설문 분야 -->
+        <if test='search != null and search.surveyRealmId != null and search.surveyRealmId != ""'>
+            <![CDATA[
+            AND    TSQ.SURVEY_REALM_ID = #{search.surveyRealmId}
+            ]]>
+        </if>
+    </select>
+
+    <!-- 디바이스별 응답 목록 조회 -->
+    <select id="selectDeviceSubmitList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT IFNULL(A.SUBMIT_DATE, '합계') AS SUBMIT_DATE
+                 , SUM(A.NORMAL_I_CO) AS NORMAL_I_CO
+                 , SUM(A.NORMAL_S_CO) AS NORMAL_S_CO
+                 , SUM(A.MOBILE_I_CO) AS MOBILE_I_CO
+                 , SUM(A.MOBILE_S_CO) AS MOBILE_S_CO
+                 , SUM(A.SUM_I_CO) AS SUM_I_CO
+                 , SUM(A.SUM_S_CO) AS SUM_S_CO
+            FROM   (SELECT TSQP.SURVEY_QESTNR_ID
+                         , TSQP.SURVEY_ID
+                         , S.SUBMIT_DATE
+                         , CASE WHEN IFNULL(TSQP.CONECT_DEVICE, 'NORMAL')  = 'NORMAL' AND S.STATUS != 'S' THEN 1 ELSE 0 END AS NORMAL_I_CO
+                         , CASE WHEN IFNULL(TSQP.CONECT_DEVICE, 'NORMAL')  = 'NORMAL' AND S.STATUS  = 'S' THEN 1 ELSE 0 END AS NORMAL_S_CO
+                         , CASE WHEN IFNULL(TSQP.CONECT_DEVICE, 'NORMAL') != 'NORMAL' AND S.STATUS != 'S' THEN 1 ELSE 0 END AS MOBILE_I_CO
+                         , CASE WHEN IFNULL(TSQP.CONECT_DEVICE, 'NORMAL') != 'NORMAL' AND S.STATUS  = 'S' THEN 1 ELSE 0 END AS MOBILE_S_CO
+                         , CASE WHEN S.STATUS != 'S' THEN 1 ELSE 0 END AS SUM_I_CO
+                         , CASE WHEN S.STATUS  = 'S' THEN 1 ELSE 0 END AS SUM_S_CO
+                    FROM   TB_SURVEY_QESTNR_PERSON TSQP
+                           INNER JOIN (
+                                SELECT S.ID
+                                     , S.STATUS
+                                     , IFNULL(DATE_FORMAT(IFNULL(S.SUBMISSION_DATE, S.CREATION_DATE), '%Y-%m-%d'), '') AS SUBMIT_DATE
+                                FROM   SURVEY S
+                           ) S ON S.ID = TSQP.SURVEY_ID
+                   ) A
+            WHERE  A.SURVEY_QESTNR_ID = #{surveyQestnrId}
+            GROUP BY A.SUBMIT_DATE WITH ROLLUP
+        ]]>
+    </select>
+
+    <!-- 공통문항/만족도 응답 목록 조회 -->
+    <select id="selectCmmnRspnsList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT VSQCC.SURVEY_DIV
+                 , VSQCC.SURVEY_CODE
+                 , VSQCC.CODE_TITLE
+                 , VSQCC.CODE_VALUE
+                 , VSQCC.CODE_VALUE_NM
+                 , VSCRC.RSPNS_CO
+                 , VSQCC.SORT_ORDR1
+                 , VSQCC.SORT_ORDR2
+                 , NULL AS SORT_ORDR3
+            FROM   VW_SURVEY_QESTNR_CMMN_CODE VSQCC
+                   LEFT JOIN VW_SURVEY_CMMN_RSPNS_CO VSCRC ON VSCRC.SURVEY_QESTNR_ID = VSQCC.SURVEY_QESTNR_ID
+                            AND VSCRC.SURVEY_CODE = VSQCC.SURVEY_CODE AND VSCRC.CODE_VALUE = VSQCC.CODE_VALUE
+            WHERE  VSQCC.SURVEY_QESTNR_ID = #{surveyQestnrId}
+            AND    VSQCC.SURVEY_CODE NOT IN ('SUBJCT')
+            UNION ALL
+            SELECT VSQCC.SURVEY_DIV
+                 , VSQCC.SURVEY_CODE
+                 , VSQCC.CODE_TITLE
+                 , VSCRC.CODE_VALUE
+                 , VSCRC.CODE_VALUE AS CODE_VALUE_NM
+                 , VSCRC.RSPNS_CO
+                 , VSQCC.SORT_ORDR1
+                 , VSQCC.SORT_ORDR2
+                 , VSCRC.CODE_VALUE AS SORT_ORDR3
+            FROM   VW_SURVEY_QESTNR_CMMN_CODE VSQCC
+                   INNER JOIN VW_SURVEY_CMMN_RSPNS_CO VSCRC ON VSCRC.SURVEY_QESTNR_ID = VSQCC.SURVEY_QESTNR_ID
+                            AND VSCRC.SURVEY_CODE = VSQCC.SURVEY_CODE
+            WHERE  VSQCC.SURVEY_QESTNR_ID = #{surveyQestnrId}
+            AND    VSQCC.SURVEY_CODE IN ('SUBJCT')
+            ORDER BY SORT_ORDR1, SORT_ORDR2, SORT_ORDR3
+        ]]>
+    </select>
+
+    <!-- 공통문항/만족도 컬럼 목록 조회 -->
+    <select id="selectCmmnColumnList" resultType="java.lang.String">
+        <![CDATA[
+            SELECT VSQC.SURVEY_CODE AS COLUMN_NAME
+            FROM   VW_SURVEY_QESTNR_CMMN VSQC
+            WHERE  VSQC.SURVEY_QESTNR_ID = #{surveyQestnrId}
+            ORDER BY VSQC.SORT_ORDR
+        ]]>
+    </select>
+
+    <!-- 질문 목록 조회 -->
+    <select id="selectSurveyQuestionList" resultType="kr.ac.jj.survey.application.result.model.SurveyResultQuestion">
+        <![CDATA[
+            SELECT VSQC.SURVEY_CODE AS QUESTION_KEY
+                 , 0 AS PAGE_ORDER
+                 , NULL AS ID
+                 , NULL AS TYPE
+                 , VSQC.SORT_ORDR AS QUESTION_ORDER
+                 , VSQC.CODE_TITLE AS QUESTION_TEXT
+                 , NULL AS TIP
+                 , NULL AS REQUIRED
+                 , NULL AS DUPLICATE
+                 , NULL AS DATA_SET_ID
+                 , NULL AS ALLOW_OTHER_TEXT_BOX
+                 , NULL AS DIRECTION
+                 , NULL AS WIDTH
+                 , NULL AS HEIGHT
+                 , NULL AS DATE_MAXIMUM
+                 , NULL AS DATE_MINIMUM
+                 , NULL AS DECIMAL_MAXIMUM
+                 , NULL AS DECIMAL_MINIMUM
+                 , NULL AS INTEGER_MAXIMUM
+                 , NULL AS INTEGER_MINIMUM
+                 , NULL AS MULTIMEDIA_LINK
+                 , NULL AS RANDOMIZE_OPTIONS
+                 , NULL AS REGULAR_EXPRESSION
+                 , NULL AS VISIBLE
+                 , NULL AS SURVEY_DEFINITION_PAGE_ID
+                 , NULL AS VERSION
+            FROM   TB_SURVEY_QESTNR TSQ
+                   INNER JOIN VW_SURVEY_QESTNR_CMMN VSQC ON VSQC.SURVEY_QESTNR_ID = TSQ.SURVEY_QESTNR_ID
+            WHERE  TSQ.SURVEY_DEFINITION_ID = #{surveyDefinitionId}
+            UNION ALL
+            SELECT CONCAT_WS('', 'p', SDP.PAGE_ORDER, 'q', SQ.QUESTION_ORDER) AS QUESTION_KEY
+                 , SDP.PAGE_ORDER
+                 , SQ.ID
+                 , SQ.TYPE
+                 , SQ.QUESTION_ORDER
+                 , SQ.QUESTION_TEXT
+                 , SQ.TIP
+                 , SQ.REQUIRED
+                 , SQ.DUPLICATE
+                 , SQ.DATA_SET_ID
+                 , SQ.ALLOW_OTHER_TEXT_BOX
+                 , SQ.DIRECTION
+                 , SQ.WIDTH
+                 , SQ.HEIGHT
+                 , SQ.DATE_MAXIMUM
+                 , SQ.DATE_MINIMUM
+                 , SQ.DECIMAL_MAXIMUM
+                 , SQ.DECIMAL_MINIMUM
+                 , SQ.INTEGER_MAXIMUM
+                 , SQ.INTEGER_MINIMUM
+                 , SQ.MULTIMEDIA_LINK
+                 , SQ.RANDOMIZE_OPTIONS
+                 , SQ.REGULAR_EXPRESSION
+                 , SQ.VISIBLE
+                 , SQ.SURVEY_DEFINITION_PAGE_ID
+                 , SQ.VERSION
+            FROM   SURVEY_DEFINITION_PAGE SDP
+                   INNER JOIN SURVEY_QUESTION SQ ON SQ.SURVEY_DEFINITION_PAGE_ID = SDP.ID
+            WHERE  SDP.SURVEY_DEFINITION_ID = #{surveyDefinitionId}
+            ORDER BY PAGE_ORDER, QUESTION_ORDER
+        ]]>
+    </select>
+
+    <!-- 질문 옵션 목록 조회 -->
+    <select id="selectSurveyQuestionOptionList" resultType="kr.ac.jj.survey.application.result.model.SurveyResultQuestionOption">
+        <![CDATA[
+            SELECT CONCAT_WS('', 'p', SDP.PAGE_ORDER, 'q', SQ.QUESTION_ORDER, 'o', SQO.OPTION_VALUE) AS OPTION_KEY
+                 , SQO.ID
+                 , SQO.OPTION_TEXT
+                 , SQO.OPTION_VALUE
+                 , SQO.OPTION_ORDER
+                 , SQO.QUESTION_ID
+                 , SQO.VERSION
+            FROM   SURVEY_DEFINITION_PAGE SDP
+                   INNER JOIN SURVEY_QUESTION SQ ON SQ.SURVEY_DEFINITION_PAGE_ID = SDP.ID
+                   INNER JOIN SURVEY_QUESTION_OPTION SQO ON SQO.QUESTION_ID = SQ.ID
+            WHERE  SDP.SURVEY_DEFINITION_ID = #{surveyDefinitionId}
+            ORDER BY SDP.PAGE_ORDER, SQ.QUESTION_ORDER, SQO.OPTION_ORDER
+        ]]>
+    </select>
+
+    <!-- 행렬 라벨 목록 조회 -->
+    <select id="selectSurveyProcessionLabelList" resultType="kr.ac.jj.survey.application.result.model.SurveyResultProcessionLabel">
+        <![CDATA[
+            SELECT CONCAT_WS('', 'p', SDP.PAGE_ORDER, 'q', SQ.QUESTION_ORDER, 'r', SQRL.ROW_LABEL_ORDER, 'c', SQCL.COLUMN_LABEL_ORDER) AS PROCESSION_KEY
+                 , CONCAT_WS('', SQRL.LABEL, ' - ', SQCL.LABEL) AS PROCESSION_LABEL
+            FROM   SURVEY_DEFINITION_PAGE SDP
+                   INNER JOIN SURVEY_QUESTION SQ ON SQ.SURVEY_DEFINITION_PAGE_ID = SDP.ID
+                   INNER JOIN SURVEY_QUESTION_ROW_LABEL SQRL ON SQRL.QUESTION_ID = SQ.ID
+                   INNER JOIN SURVEY_QUESTION_COLUMN_LABEL SQCL ON SQCL.QUESTION_ID = SQ.ID
+            WHERE  SDP.SURVEY_DEFINITION_ID = #{surveyDefinitionId}
+            ORDER BY SDP.PAGE_ORDER, SQ.QUESTION_ORDER, SQRL.ROW_LABEL_ORDER, SQCL.COLUMN_LABEL_ORDER
+        ]]>
+    </select>
+
+    <!-- 응답 데이터 목록 조회 -->
+    <select id="selectSurveyDataList" resultType="java.util.LinkedHashMap">
+        <![CDATA[
+            SELECT IFNULL(S.SUBMISSION_DATE, S.CREATION_DATE) AS SUBMIT_DATE
+                 , FN_CODE_NAME('CMMN_SEXDSTN', TSCR.SEXDSTN, #{$var.userLocale}, #{$var.defaultLocale}, NULL) AS SEXDSTN
+                 , FN_CODE_NAME('CMMN_AREA', TSCR.AREA, #{$var.userLocale}, #{$var.defaultLocale}, NULL) AS AREA
+                 , FN_CODE_NAME('CMMN_GRADE', TSCR.GRADE, #{$var.userLocale}, #{$var.defaultLocale}, NULL) AS GRADE
+                 , FN_CODE_NAME('CMMN_CGHMY', TSCR.CGHMY, #{$var.userLocale}, #{$var.defaultLocale}, NULL) AS CGHMY
+                 , TSCR.SUBJCT
+                 , FN_CODE_NAME('CMMN_STSFDG', TSCR.STSFDG_01, #{$var.userLocale}, #{$var.defaultLocale}, NULL) AS STSFDG_01
+                 , FN_CODE_NAME('CMMN_STSFDG', TSCR.STSFDG_02, #{$var.userLocale}, #{$var.defaultLocale}, NULL) AS STSFDG_02
+                 , FN_CODE_NAME('CMMN_STSFDG', TSCR.STSFDG_03, #{$var.userLocale}, #{$var.defaultLocale}, NULL) AS STSFDG_03
+                 , SD.*
+            FROM   SURVEY S
+                   INNER JOIN SURVEY_DATA_${surveyDefinitionId} SD ON SD.SURVEY_ID = S.ID
+                   INNER JOIN TB_SURVEY_CMMN_RSPNS TSCR ON TSCR.SURVEY_ID = S.ID
+            WHERE  S.SURVEY_DEFINITION_ID = #{surveyDefinitionId}
+            AND    EXISTS (
+                        SELECT 1
+                        FROM   TB_SURVEY_QESTNR_PERSON TSQP
+                        WHERE  TSQP.SURVEY_ID = S.ID
+                   )
+        ]]>
+    </select>
+
+</mapper>

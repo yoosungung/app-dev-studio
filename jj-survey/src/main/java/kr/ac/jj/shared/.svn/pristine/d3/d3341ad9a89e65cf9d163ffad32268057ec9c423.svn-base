@@ -1,0 +1,30 @@
+package kr.ac.jj.shared.domain.main.mapper.com.person;
+
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+
+/**
+ * 공통 - 사람 Mapper
+ */
+@SharedMainSqlMapper
+public interface TbComPersonMapper extends TbComPersonEntityMapper {
+
+    /**
+     * PERSON_ID 조회 - 사번으로
+     *
+     * @param emplNo
+     * @return
+     */
+    public String selectPersonIdByEmplNo(@Param("emplNo") String emplNo);
+
+    /**
+     * TB_COM_PERSON 부서 코드 부서 ID로 변환
+     *
+     * @param
+     * @return
+     */
+    public int updateDeptId(Map<String, Object> data);
+}

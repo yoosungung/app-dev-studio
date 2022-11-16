@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 시스템 - 권한별 관련 코드 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbSysAuthorRelateCode.authorId"><![CDATA[권한 ID]]></entry>
+    <entry key="domain.main.tbSysAuthorRelateCode.relateCodeSe"><![CDATA[관련 코드 구분]]></entry>
+    <entry key="domain.main.tbSysAuthorRelateCode.relateCodeValue"><![CDATA[관련 코드 값]]></entry>
+
+</properties>

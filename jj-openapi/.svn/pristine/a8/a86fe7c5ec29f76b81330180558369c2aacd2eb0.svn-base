@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 서비스현황 CodeData -->
+<codeData namespace = "servicemanage">
+
+    <!-- 공개여부 -->
+    <group id="othbTy">
+        <item code="Y" name="공개"/>
+        <item code="N" name="비공개"/>
+    </group>
+
+</codeData>

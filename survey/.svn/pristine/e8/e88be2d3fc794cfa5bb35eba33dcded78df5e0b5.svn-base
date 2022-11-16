@@ -1,0 +1,583 @@
+system_administrator=\uC2DC\uC2A4\uD15C \uAD00\uB9AC\uC790
+mySurveys_label=\uB0B4 \uC124\uBB38 \uC870\uC0AC
+survey_menu_instructions="{0}" \uC124\uBB38 \uC870\uC0AC\uC5D0 \uB300 \uD55C \uB2E4\uC74C\uACFC \uAC19\uC740 \uD56D\uBAA9\uC744 \uADC0\uD558\uC758 \uACC4\uC815\uC744 \uC77C\uCE58 \uD558\uB294 \uC2DC\uC2A4\uD15C. \uC81C\uBC1C note \uC2DC\uC2A4\uD15C \uC218\uC815 \uC81C\uCD9C \uB41C \uC124\uBB38 \uC870\uC0AC\uB97C \uD5C8\uC6A9 \uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4. \uC774\uBBF8 \uC870\uC0AC\uB97C \uC218\uC815 \uD574\uC57C \uD558\uB294 \uACBD\uC6B0 \uC81C\uCD9C \uBB38\uC758 \uD558\uC2ED\uC2DC\uC624 {1}. \uB2E4\uC2DC\uAC00 \uC11C \uC124\uBB38 \uC870\uC0AC \uBAA9\uB85D \uC0C1\uB2E8 \uBA54\uB274\uC5D0 "{2}" \uD0ED \uD074\uB9AD.
+survey_view=\uBDF0 {0}
+file_alreay_uploaded_message=\uCCA8\uBD80\uD30C\uC77C\uC774 \uC5C5\uB85C\uB4DC \uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uCCA8\uBD80\uD30C\uC77C\uC744 \uCD94\uAC00\uB85C \uC5C5\uB85C\uB4DC\uD560 \uACBD\uC6B0 \uCD94\uAC00\uB85C \uC5C5\uB85C\uB4DC\uB41C \uCCA8\uBD80\uD30C\uC77C\uB85C \uAD50\uCCB4\uB429\uB2C8\uB2E4.
+survey_submit_message=You are about to submit the {0} survey. make sure that you all the data entered is valid. Please note that you may not modify your survey once it is submitted.
+submit_button_label=Submit
+back_button_label=Back
+success_title= Finish
+survey_already_taken=\uD574\uB2F9 \uC124\uBB38\uC744 \uC774\uBBF8 \uC644\uB8CC\uD558\uC600\uC2B5\uB2C8\uB2E4.
+surveys_menu_instructions=To create a new survey or finish a previously created survey please click on the on the icon on the right for the survey of interest. If the survey of interest is not in the list below please contact the {0} and request access.
+
+#Themes
+standard_theme_label=\uD45C\uC900
+steel_blue_theme_label=\uC2A4\uD2F8 \uBE14\uB8E8
+deep_chestnut_theme_label=\uAE4A\uC740 \uBC24
+spring_green_theme_label=\uC2A4\uD504\uB9C1 \uADF8\uB9B0
+french_lilac_theme_label=\uD504\uB791\uC2A4 \uB77C\uC77C\uB77D
+celestial_blue_theme_label=\uD558\uB298 \uBE14\uB8E8
+peach_orange_theme_label=\uBCF5\uC22D\uC544 \uC8FC\uD669\uC0C9
+
+
+#Supported Question Types-----------------------------------------------
+yes_no_checkbox_label=\uB124, \uC544\uB2C8\uC624 \uC120\uD0DD (\uCCB4\uD06C\uBC15\uC2A4)
+yes_no_dropdown_label=\uB124, \uC544\uB2C8\uC624 \uC120\uD0DD (\uB4DC\uB86D\uB2E4\uC6B4)
+short_text_input_label=\uC9E7\uC740 \uD14D\uC2A4\uD2B8 \uC785\uB825
+long_text_input_label=\uAE34 \uD14D\uC2A4\uD2B8 \uC785\uB825
+huge_text_input_label=\uAC70\uB300\uD55C \uD14D\uC2A4\uD2B8 \uC785\uB825
+integer_input_label=\uC815\uC218 \uC785\uB825
+currency_input_label=\uD1B5\uD654 \uC785\uB825
+decimal_input_label=10\uC9C4\uC218 \uC785\uB825
+date_input_label=\uB0A0\uC9DC \uC785\uB825
+single_choice_drop_down_label=\uB2E8\uC77C \uC120\uD0DD (\uB4DC\uB86D\uB2E4\uC6B4)
+single_choice_radio_buttons_label=\uB2E8\uC77C \uC120\uD0DD (\uB77C\uB514\uC624\uBC84\uD2BC)
+multiple_choice_checkboxes_label=\uB2E4\uC911 \uC120\uD0DD (\uCCB4\uD06C\uBC15\uC2A4)
+dataset_drop_down_label=\uB370\uC774\uD130 \uC9D1\uD569 \uC120\uD0DD (\uB4DC\uB86D\uB2E4\uC6B4)
+yes_no_checkbox_matrix_label=\uB124, \uC544\uB2C8\uC624 \uC120\uD0DD (\uCCB4\uD06C\uBC15\uC2A4)
+yes_no_dropdown_matrix_label=\uB124, \uC544\uB2C8\uC624 \uC120\uD0DD (\uB4DC\uB86D\uB2E4\uC6B4)
+short_text_input_matrix_label=\uC9E7\uC740 \uD14D\uC2A4\uD2B8 \uC785\uB825
+integer_input_matrix_label=\uC815\uC218 \uC785\uB825
+currency_input_matrix_label=\uD1B5\uD654 \uC785\uB825
+decimal_input_matrix_label=10\uC9C4\uC218 \uC785\uB825
+date_input_matrix_label=\uB0A0\uC9DC \uC785\uB825
+complex_input_matrix_label=\uBCF5\uD569 \uC785\uB825
+file_upload_label= \uD30C\uC77C \uC5C5\uB85C\uB4DC
+image_display_label=\uC774\uBBF8\uC9C0
+video_display_label=\uBE44\uB514\uC624
+star_rating_label=\uC2A4\uD0C0 \uB4F1\uAE09
+smiley_faces_rating_label=\uC6C3\uB294 \uC5BC\uAD74
+
+#------------------------------------------------------------------------------
+chart_label=\uCC28\uD2B8
+standard_question_types_label=\uD45C\uC900 \uC9C8\uBB38:
+matrix_question_types_label=\uB9E4\uD2B8\uB9AD\uC2A4 \uC9C8\uBB38:
+other_question_types_label=\uB2E4\uB978 \uC9C8\uBB38:
+#------------------------------------------------------------------------------
+
+#Question Options codes--------------------------------------------------------
+question_options_ST=\uC9E7\uC740 \uD14D\uC2A4\uD2B8 \uC785\uB825
+question_options_SD=\uB2E8\uC77C \uC120\uD0DD \uB4DC\uB86D\uB2E4\uC6B4
+question_options_MC=\uB2E4\uC911 \uC120\uD0DD \uD655\uC778\uB780
+question_options_SR=\uB2E8\uC77C \uC120\uD0DD \uB77C\uB514\uC624 \uB2E8\uCD94
+question_options_STR=\uC2A4\uD0C0 \uB4F1\uAE09
+question_options_SFR=\uC6C3\uB294 \uC5BC\uAD74
+
+#Question Directions ----------------------------------------------------------
+horizontal_label=\uAC00\uB85C
+vertical_label=\uC218\uC9C1
+#------------------------------------------------------------------------------
+
+#default 5 point rating labels  -------------------------------------------------------
+extremely_unsatisfied_label=\uB9E4\uC6B0 \uB9CC\uC871
+unsatisfied_label=\uB9CC\uC871
+neutral_label=\uC911\uB9BD
+satisfied_label=\uB9CC\uC871
+extremely_satisfied_label=\uB9E4\uC6B0 \uB9CC\uC871
+#------------------------------------------------------------------------------
+
+
+#default 5 point rating labels  -------------------------------------------------------
+options_label=\uC635\uC158
+columns_label=\uC5F4
+rows_label=\uD589
+#------------------------------------------------------------------------------
+
+
+
+
+
+
+
+#Top Menu Messages
+#--------------------------------------------------------------------------------------------------
+topmenu_statistics=\uD1B5\uACC4
+topmenu_surveys=\uC124\uBB38 \uC870\uC0AC \uD56D\uBAA9
+topmenu_settings=\uC124\uC815
+topmenu_security=\uBCF4\uC548
+topmenu_security_newinternal=\uC0C8\uB85C\uC6B4 \uB0B4\uBD80
+topmenu_security_newexternal=\uC0C8\uB85C\uC6B4 \uC678\uBD80
+topmenu_templates=\uC11C\uC2DD \uD30C\uC77C
+topmenu_admin=\uAD00\uB9AC\uC790
+topmenu_help=\uB3C4\uC6C0\uB9D0
+topmenu_myAccount=\uB0B4 \uACC4\uC815
+
+topmenu_login=\uB85C\uADF8\uC778
+topmenu_error=\uC624\uB958
+topmenu_templates_help=\uB3C4\uC6C0\uB9D0 \uB0B4\uC6A9
+topmenu_templates_email=\uC774\uBA54\uC77C \uD15C\uD50C\uB9BF
+topmenu_help_main=\uC8FC\uC694 \uB3C4\uC6C0\uB9D0
+topmenu_help_howto=HOWTO
+topmenu_help_about=\uC5D0 \uB300 \uD55C
+topmenu_new=\uC0C8\uB85C\uC6B4 \uB0B4\uC6A9
+topmenu_search=\uAC80\uC0C9
+topmenu_export=\uC218\uCD9C
+topmenu_list=\uBAA9\uB85D
+#--------------------------------------------------------------------------------------------------
+
+#Left Menu Messages
+#--------------------------------------------------------------------------------------------------
+leftmenu_submissions=\uC124\uBB38 \uC870\uC0AC \uBA54\uB274
+leftmenu_reports=\uBCF4\uACE0\uC11C \uBA54\uB274
+leftmenu_settings=\uC124\uC815 \uBA54\uB274
+leftmenu_templates=\uD15C\uD50C\uB9BF \uBA54\uB274
+leftmenu_security=\uBCF4\uC548 \uBA54\uB274
+leftmenu_help=\uB3C4\uC6C0\uB9D0 \uBA54\uB274
+leftmenu_pdf=pdf\uB85C \uB0B4\uBCF4\uB0B4\uAE30
+leftmenu_xls=excel\uB85C \uB0B4\uBCF4\uB0B4\uAE30
+leftmenu_csv=csv\uB85C \uB0B4\uBCF4\uB0B4\uAE30
+leftmenu_spss=spss\uB85C \uB0B4\uBCF4\uB0B4\uAE30
+leftmenu_add=\uC0C8 {0} \uCD94\uAC00
+leftmenu_list={0} \uBAA9\uB85D
+leftmenu_search={0} \uAC80\uC0C9
+leftmenu_export=\uC218\uCD9C {0}
+leftmenu_import={0} \uAC00\uC838\uC624\uAE30
+leftmenu_publish={0} \uAC8C\uC2DC
+leftmenu_unpublish={0} \uBE44\uD65C\uC131\uD654
+leftmenu_invite=\uCC38\uAC00\uC790 \uCD08\uB300
+leftmenu_update_logo=\uC5C5\uB370\uC774\uD2B8 \uB85C\uACE0
+leftmenu_delete={0} \uC0AD\uC81C
+
+leftmenu_myAccount_update=\uC5C5\uB370\uC774\uD2B8 \uC815\uBCF4
+leftmenu_myAccount_update_password=\uBE44\uBC00 \uBC88\uD638 \uBCC0\uACBD
+#--------------------------------------------------------------------------------------------------
+
+#Global Messages
+#--------------------------------------------------------------------------------------------------
+global_main_menu=\uBA54\uC778 \uBA54\uB274
+global_actions_menu=\uC791\uC5C5
+global_menu_add=\uC0C8 {0} \uCD94\uAC00
+global_menu_new=\uC0C8 {0} \uB9CC\uB4E4\uAE30
+global_menu_list=\uBAA8\uB4E0 {0} \uBAA9\uB85D
+global_menu_find={0} \uCC3E\uAE30
+global_menu_current=\uD604\uC7AC {0}
+global_language_switch={0} \uC5B8\uC5B4 \uC804\uD658
+global_language=\uC5B8\uC5B4
+global_theme=\uD14C\uB9C8
+global_theme_alt=\uC624\uB798 \uB41C
+global_theme_standard=\uD45C\uC900
+global_generic={0}
+global_first_position= \uCCAB \uBC88\uC9F8 \uC704\uCE58
+global_order_position= \uC704\uCE58 {0}
+global_last_position= \uB9C8\uC9C0\uB9C9 \uC704\uCE58
+
+#Table Tag Messages
+#--------------------------------------------------------------------------------------------------
+table_add_label= \uC0C8 {0} {1} {2} \uCD94\uAC00
+#--------------------------------------------------------------------------------------------------
+
+#welcome page
+#--------------------------------------------------------------------------------------------------
+application_name=jd esurvey
+application_name_label=\uC751\uC6A9 \uD504\uB85C\uADF8\uB7A8 \uC774\uB984
+version_label=\uBC84\uC804
+welcome_titlepane={0} \uC624\uC2E0 \uAC83\uC744 \uD658\uC601 \uD569\uB2C8\uB2E4
+welcome_h3={0} \uC624\uC2E0 \uAC83\uC744 \uD658\uC601 \uD569\uB2C8\uB2E4
+footer_message=jd esurvey\uC5D0\uC11C \uC81C\uACF5 \uD558\uB294 jd \uC18C\uD504\uD2B8\uC6E8\uC5B4 \uC81C\uD488 inc.
+#--------------------------------------------------------------------------------------------------
+
+#entity labels
+#--------------------------------------------------------------------------------------------------
+entity_select=\uC120\uD0DD {0}:
+entity_create_short=\uB9CC\uB4E4\uAE30
+entity_delete_short=\uC0AD\uC81C
+entity_edit_short=\uD3B8\uC9D1
+entity_list_all=\uBAA8\uB4E0 {0} \uBAA9\uB85D
+entity_show={0} \uBCF4\uAE30
+entity_create=\uC0C8 {0} \uB9CC\uB4E4\uAE30
+entity_add={0} \uCD94\uAC00
+entity_fork=\uBD84\uAE30\uB97C \uD3B8\uC9D1 \uD558 \uACE0 \uB17C\uB9AC\uB97C \uC0DD\uB7B5
+entity_update={0} \uC218\uC815
+entity_upload={0} \uC5C5\uB85C\uB4DC
+entity_delete={0} \uC0AD\uC81C
+entity_delete_confirm=\uBB3C\uB860\uC774 \uD56D\uBAA9\uC744 \uC0AD\uC81C \uD558 \uC2DC\uACA0\uC2B5\uB2C8\uAE4C?
+entity_not_found=\uB4F1\uB85D\uB41C {0}\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4.
+entity_not_found_for_user=\uC544\uB2C8 {0}\uAC00\uC774 \uBD80\uC11C\uC5D0 \uB300 \uD55C \uD560\uB2F9\uC785\uB2C8\uB2E4.
+entity_not_found_single=\uC774 id\uB97C \uCC3E\uC744 \uC218 \uC5C6\uB294 {0}.
+#--------------------------------------------------------------------------------------------------
+
+#button labels
+#--------------------------------------------------------------------------------------------------
+button_showentries=\uD56D\uBAA9 \uD45C\uC2DC
+button_showstatistics=\uD1B5\uACC4 \uBCF4\uAE30
+button_save=\uC800\uC7A5
+button_upload=\uC5C5\uB85C\uB4DC
+button_import=\uAC00\uC838\uC624\uAE30
+button_continue=\uACC4\uC18D \uD574 \uC11C
+button_update=\uC5C5\uB370\uC774\uD2B8
+button_find=\uCC3E\uAE30
+button_cancel=\uCDE8\uC18C
+button_proceed=\uC9C4\uD589
+button_submit=\uC804\uC1A1
+button_reset=\uB9AC\uC14B
+button_end=\uB05D
+button_showmessage=\uBA54\uC2DC\uC9C0 \uD45C\uC2DC
+button_showstacktrace=\uC2A4\uD0DD \uCD94\uC801\uC744 \uD45C\uC2DC
+button_showcookie=\uCFE0\uD0A4 \uBCF4\uAE30
+#--------------------------------------------------------------------------------------------------
+
+#field labels
+#--------------------------------------------------------------------------------------------------
+open_document_label=\uBB38\uC11C\uB97C \uC5F4\uC73C\uC2ED\uC2DC\uC624
+field_simple_validation=\uC785\uB825 {0} {1}
+field_invalid_email=\uC720\uD6A8\uD55C \uC774\uBA54\uC77C\uC744 \uC785\uB825 \uD574 \uC8FC\uC2DC\uAE30 \uBC14\uB78D\uB2C8\uB2E4
+field_invalid_number=\u00EC\u0088\u00AB\u00EC\u009E\u0090\u00EC\u0099\u0080 \\'-\\' \u00EB\u0098\u0090\u00EB\u008A\u0094 \\'. \\' \u00ED\u0097\u0088\u00EC\u009A\u00A9
+field_invalid_integer=\uD615\uC2DD\uC774 \uC62C\uBC14\uB974\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4. \uC815\uC218 \uD615\uC2DD\uC758 \uC22B\uC790\uB9CC \uC785\uB825\uBC14\uB78D\uB2C8\uB2E4.
+field_invalid=\uC720\uD6A8\uD55C {0}\uB97C \uC785\uB825 \uD574 \uC8FC\uC2DC\uAE30 \uBC14\uB78D\uB2C8\uB2E4
+field_required=\uD544\uC218 \uD56D\uBAA9\uC785\uB2C8\uB2E4.
+field_unique=\uC785\uB825\uD55C \uAC12\uC774 \uC774\uBBF8 \uC0AC\uC6A9\uC911\uC785\uB2C8\uB2E4.
+field_validation_checkboxes=\uD558\uB098 \uC774\uC0C1\uC758 \uD655\uC778\uB780\uC744 \uC120\uD0DD \uD574\uC57C \uD569\uB2C8\uB2E4.
+field_invalid_mvel_return_boolean=\uC785\uB825 \uD55C \uC2DD\uC774 \uC720\uD6A8 \uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4. true \uB610\uB294 false \uBC18\uD658 \uC2DD \uAC19\uC544\uC57C \uD569\uB2C8\uB2E4.
+field_invalid_mvel=\uC785\uB825 \uD55C \uC2DD\uC774 \uC720\uD6A8 \uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4. \uC544\uB798\uC640 \uC815\uD655\uD55C \uC624\uB958\uB97C \uD655\uC778 \uD558\uC2ED\uC2DC\uC624. {0}
+field_min_invalid=\uCD5C\uC18C \uAC12 \uCD5C\uB300 \uAC12 \uBCF4\uB2E4 \uC791\uC744 \uC218 \uC788\uB2E4.
+#--------------------------------------------------------------------------------------------------
+
+#Pagination ---list labels---
+#--------------------------------------------------------------------------------------------------
+list_first=\uCCAB \uBC88\uC9F8 \uD398\uC774\uC9C0
+list_next=\uB2E4\uC74C \uD398\uC774\uC9C0
+list_previous=\uC774\uC804 \uD398\uC774\uC9C0
+list_last=\uB9C8\uC9C0\uB9C9 \uD398\uC774\uC9C0
+list_page={1}\uC758 {0} \uD398\uC774\uC9C0
+list_size=\uD398\uC774\uC9C0\uB2F9 \uACB0\uACFC \uD45C\uC2DC:
+#--------------------------------------------------------------------------------------------------
+
+#exception messages
+#--------------------------------------------------------------------------------------------------
+exception_message=\uC608\uC678 \uBA54\uC2DC\uC9C0
+exception_stacktrace=\uC608\uC678 \uC2A4\uD0DD \uCD94\uC801
+exception_cookie=\uCFE0\uD0A4
+exception_details=\uC138\uBD80 \uC815\uBCF4
+#--------------------------------------------------------------------------------------------------
+
+#dataAccessFailure_jspx
+#--------------------------------------------------------------------------------------------------
+error_dataaccessfailure_title=\uB370\uC774\uD130 \uC561\uC138\uC2A4 \uC624\uB958
+error_dataaccessfailure_problemdescription=\uC8C4\uC1A1 \uD569\uB2C8\uB2E4, \uB370\uC774\uD130\uBCA0\uC774\uC2A4\uC5D0 \uC561\uC138\uC2A4 \uD558\uB294 \uB3D9\uC548 \uBB38\uC81C\uAC00 \uBC1C\uC0DD \uD588\uC2B5\uB2C8\uB2E4.
+#--------------------------------------------------------------------------------------------------
+
+#resourceNotFound_jspx
+#--------------------------------------------------------------------------------------------------
+error_resourcenotfound_title=\uC694\uCCAD \uB41C \uB9AC\uC18C\uC2A4\uB97C \uCC3E\uC744 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4
+error_resourcenotfound_problemdescription=\uC8C4\uC1A1 \uD569\uB2C8\uB2E4, \uC6B0\uB9AC\uAC00 \uCC3E\uACE0 \uC788\uB294 \uB9AC\uC18C\uC2A4\uB97C \uCC3E\uC9C0 \uBABB\uD588\uC2B5\uB2C8\uB2E4.
+#--------------------------------------------------------------------------------------------------
+
+#uncaughtException_jspx
+#--------------------------------------------------------------------------------------------------
+error_uncaughtexception_title=\uB0B4\uBD80 \uC624\uB958
+error_uncaughtexception_problemdescription=\uC8C4\uC1A1 \uD569\uB2C8\uB2E4, \uC6B0\uB9AC\uB294 \uB0B4\uBD80 \uC624\uB958\uAC00 \uBC1C\uC0DD \uD588\uC2B5\uB2C8\uB2E4.
+#--------------------------------------------------------------------------------------------------
+
+#accessDenied_jspx
+#--------------------------------------------------------------------------------------------------
+error_accessdenied_title=\uBCF4\uC548 \uC624\uB958
+error_accessdenied_problemdescription=\uB2F9\uC2E0\uC758 \uACC4\uC815\uC774 \uC694\uCCAD \uB41C \uB9AC\uC18C\uC2A4\uC5D0 \uD5C8\uAC00 \uB418\uC9C0 \uC54A\uC740
+#--------------------------------------------------------------------------------------------------
+
+#security
+#--------------------------------------------------------------------------------------------------
+security_login_user=\uB85C \uB85C\uADF8\uC778
+security_type_internal=\uB0B4\uBD80
+security_type_external=\uC678\uBD80
+security_login_title=\uBD04 \uBCF4\uC548 \uB85C\uADF8\uC778
+security_login_message=\uC774 \uC751\uC6A9 \uD504\uB85C\uADF8\uB7A8\uC758 \uBCF4\uD638 \uB41C \uC601\uC5ED\uC5D0 \uC561\uC138\uC2A4 \uD558\uB824\uACE0 \uD588\uC2B5\uB2C8\uB2E4. \uC544\uB798\uC5D0 \uB85C\uADF8\uC778 \uC790\uACA9 \uC99D\uBA85\uC744 \uC785\uB825 \uD558\uC2ED\uC2DC\uC624.
+security_login_form_name=\uBA54\uC77C \uC8FC\uC18C
+security_login_form_name_message=\uB2F9\uC2E0\uC758 \uC774\uB984\uC744 \uC785\uB825\uD569\uB2C8\uB2E4
+security_login_form_password=\uBE44\uBC00 \uBC88\uD638
+security_login_form_password_message=\uBE44\uBC00 \uBC88\uD638\uB97C \uC785\uB825
+security_login_unsuccessful=\uADC0\uD558\uC758 \uB85C\uADF8\uC778 \uC2DC\uB3C4\uAC00 \uC131\uACF5 \uD588\uB294\uC9C0, \uB2E4\uC2DC \uC2DC\uB3C4 \uD558\uC2ED\uC2DC\uC624.
+security_logout=\uB85C\uADF8 \uC544\uC6C3
+security_login=\uB85C\uADF8\uC778
+security_forgot_login_link=\uB85C\uADF8\uC778\uC744 \uC78A \uC5C8
+security_forgot_login_email_field_name=\uBA54\uC77C \uC8FC\uC18C
+security_forgot_login_incorrect_email=\uC798\uBABB \uB41C \uC774\uBA54\uC77C \uC81C\uACF5
+security_forgot_login_submitted_in_email=\uB2F9\uC2E0\uC5D0 \uAC8C \uB2F9\uC2E0\uC758 \uB85C\uADF8\uC778 \uC774\uBA54\uC77C\uC744 \uBCF4\uB0C8\uC2B5\uB2C8\uB2E4.
+security_forgot_login_email_title=\uB85C\uADF8\uC778\uC744 \uC78A \uC5C8
+security_forgot_password_link=\uBE44\uBC00 \uBC88\uD638 \uBD84\uC2E4
+security_password_reset_login_field_name=\uB85C\uADF8\uC778
+security_password_reset_incorrect=\uC798\uBABB \uB41C \uB85C\uADF8\uC778 \uB610\uB294 \uCD9C\uC0DD\uC758 \uB0A0\uC9DC\uC785\uB2C8\uB2E4.
+security_password_reset_dob_field_name=\uC0DD\uB144\uC6D4\uC77C
+security_password_reset_submitted_in_email=\uB2F9\uC2E0\uC758 \uBE44\uBC00 \uBC88\uD638\uB97C \uC7AC\uC124\uC815 \uC774\uBA54\uC77C\uC774 \uB2F9\uC2E0\uC5D0 \uAC8C \uBCF4\uB0C8\uC2B5\uB2C8\uB2E4.
+security_password_reset_email_title=\uB85C\uADF8\uC778\uC744 \uC78A \uC5C8
+security_password_reset_password_field_name=\uC0C8 \uC554\uD638
+security_password_reset_confirm_password_field_name=\uC554\uD638 \uD655\uC778
+security_password_reset_confirm_passwords_unmatching=\uC785\uB825 \uD55C \uC554\uD638\uAC00 \uC77C\uCE58 \uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.
+security_password_reset_success=\uC554\uD638 \uB2E4\uC2DC \uC124\uC815
+security_password_reset_link=\uBE44\uBC00 \uBC88\uD638 \uBCC0\uACBD
+security_password_goback_link=\uB85C\uADF8\uC778\uC73C\uB85C \uB3CC\uC544\uAC00\uAE30
+segurity_logo_alt=jd esurvey \uB85C\uACE0
+#--------------------------------------------------------------------------------------------------
+
+#typeMismatch and Other invalid messages
+#--------------------------------------------------------------------------------------------------
+typeMismatch.java.util.Date=\uC801\uC808 \uD55C \uD615\uC2DD\uC73C\uB85C \uB0A0\uC9DC\uB97C \uC785\uB825 \uD574 \uC8FC\uC2DC\uAE30 \uBC14\uB78D\uB2C8\uB2E4.
+typeMismatch.java.lang.Integer=\uC815\uC218 \uAC12\uC744 \uC9C0\uC815 \uD574\uC57C \uD569\uB2C8\uB2E4.
+typeMismatch.java.lang.Long=\uC815\uC218 \uAC12\uC744 \uC9C0\uC815 \uD574\uC57C \uD569\uB2C8\uB2E4.
+typeMismatch.java.lang.Float=10 \uC9C4\uC218 \uAC12\uC744 \uC9C0\uC815 \uD574\uC57C \uD569\uB2C8\uB2E4.
+typeMismatch.java.lang.Double=10 \uC9C4\uC218 \uAC12\uC744 \uC9C0\uC815 \uD574\uC57C \uD569\uB2C8\uB2E4.
+typeMismatch.int=\uC798\uBABB \uB41C \uBC88\uD638 \uC785\uB825
+typeMismatch=\uC798\uBABB \uB41C \uB370\uC774\uD130 \uC785\uB825
+invalidEntry=\uC798\uBABB \uB41C \uB370\uC774\uD130 \uC785\uB825
+nullvalue=\uC720\uD6A8\uD55C \uAC12\uC744 \uC785\uB825 \uD574 \uC8FC\uC2DC\uAE30 \uBC14\uB78D\uB2C8\uB2E4
+nullValueEntered=\uD558\uB098 \uC774\uC0C1\uC758 \uC635\uC158\uC744 \uC785\uB825 \uD574 \uC8FC\uC2DC\uAE30 \uBC14\uB78D\uB2C8\uB2E4
+
+#added on 01/03/2013
+Pattern =\uC720\uD6A8 \uD558\uC9C0 \uC54A\uC740 \uD56D\uBAA9
+Pattern.user.password =\u00EC\u0095\u0094\u00ED\u0098\u00B8 \u00ED\u0095\u00B4\u00EC\u0095\u00BC \u00ED\u0095\u00A9\u00EB\u008B\u0088\u00EB\u008B\u00A4 \u00EC\u00A0\u0081\u00EC\u0096\u00B4\u00EB\u008F\u0084 8 \u00EC\u009E\u0090, \u00ED\u0095\u0098\u00EB\u0082\u0098 \u00EC\u009D\u00B4\u00EC\u0083\u0081\u00EC\u009D\u0098 \u00EC\u0088\u00AB\u00EC\u009E\u0090\u00EB\u00A5\u00BC \u00ED\u008F\u00AC\u00ED\u0095\u00A8, \u00EC\u00A0\u0081\u00EC\u0096\u00B4\u00EB\u008F\u0084 \u00ED\u0095\u0098\u00EB\u0082\u0098\u00EC\u009D\u0098 \u00EC\u0086\u008C\u00EB\u00AC\u00B8\u00EC\u009E\u0090 \u00ED\u008E\u00B8\u00EC\u00A7\u0080\u00EB\u00A5\u00BC \u00ED\u008F\u00AC\u00ED\u0095\u00A8, \u00EC\u00A0\u0081\u00EC\u0096\u00B4\u00EB\u008F\u0084 \u00EC\u009C\u0084 \u00EC\u0086\u008C\u00EB\u00AC\u00B8\u00EC\u009E\u0090 \u00ED\u008E\u00B8\u00EC\u00A7\u0080\u00EB\u00A5\u00BC \u00ED\u008F\u00AC\u00ED\u0095\u00A8,\u00EC\u009D\u00B4 \u00ED\u008A\u00B9\u00EC\u0088\u0098 \u00EB\u00AC\u00B8\u00EC\u009E\u0090 \u00EC\u00A4\u0091 \u00ED\u0095\u0098\u00EB\u0082\u0098 \u00EC\u009D\u00B4\u00EC\u0083\u0081\u00EC\u009D\u0084 \u00ED\u008F\u00AC\u00ED\u0095\u00A8 ([@ \# $ % ^ & + 
+#--------------------------------------------------------------------------------------------------
+
+#Upload File Messages (Datasets and SurveyDefinitions)
+#--------------------------------------------------------------------------------------------------
+ignoreTheFirstRow_message=\uD30C\uC77C\uC758 \uCCAB \uBC88\uC9F8 \uD589\uC744 \uBB34\uC2DC
+to_upload_file_message= {0} \uD30C\uC77C
+error_upload_file=\uC720\uD6A8\uD55C \uC27C\uD45C\uB85C \uAD6C\uBD84 \uB41C \uD30C\uC77C (csv)\uB97C \uC785\uB825 \uD574 \uC8FC\uC2DC\uAE30 \uBC14\uB78D\uB2C8\uB2E4.
+error_during_import=\uAC00\uC838\uC624\uB294 \uB3D9\uC548 \uC624\uB958\uB294 \uC62C\uBC14\uB978 \uD30C\uC77C\uC744 \uC5C5\uB85C\uB4DC \uD588\uB294\uC9C0 \uD655\uC778 \uD558\uC2ED\uC2DC\uC624.
+error_file_content=Errors were present in the upload file.  Some email messages may not have been sent.  Please reference the example file here:
+no_email_error=Email address not present at line {0}.
+#--------------------------------------------------------------------------------------------------
+
+#Survey Definition messages
+#--------------------------------------------------------------------------------------------------
+norecords_message=\uC544\uB2C8 \uB808\uCF54\uB4DC\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4.
+question.nooptions_message = \uC774 \uC9C8\uBB38\uC5D0 \uB300 \uD55C \uC635\uC158 \uC5C6\uC774 \uC815\uC758 \uB41C
+question.norowlabels_message = \uC5C6\uC74C \uD589 \uB808\uC774\uBE14\uC774 \uB9E4\uD2B8\uB9AD\uC2A4 \uC9C8\uBB38\uC5D0 \uB300 \uD55C \uC815\uC758
+question.nocolumnlabels_message = \uC774 \uB9E4\uD2B8\uB9AD\uC2A4 \uC9C8\uBB38\uC5D0 \uB300 \uD55C \uC5C6\uC74C \uC5F4 \uB808\uC774\uBE14\uC740 \uC815\uC758 \uB41C
+
+page.noquestion_message = \uC774 \uD398\uC774\uC9C0\uC5D0 \uB300 \uD55C \uBB38\uB2F5 \uC815\uC758 \uB418\uC5C8\uB2E4
+surveydefinition_enter_name_message=\uC124\uBB38 \uC870\uC0AC\uC5D0 \uB300 \uD55C \uC774\uB984\uC744 \uC785\uB825 \uD558\uC2ED\uC2DC\uC624.
+#--------------------------------------------------------------------------------------------------
+
+#True/false messages
+#--------------------------------------------------------------------------------------------------
+false_message=false
+true_message=true
+#--------------------------------------------------------------------------------------------------
+
+#Date Messages
+#--------------------------------------------------------------------------------------------------
+date_format=yyyy-MM-dd
+date_format_validation_range= \uC798\uBABB \uB41C \uB0A0\uC9DC \uBC94\uC704\uC785\uB2C8\uB2E4.
+date_format_tip=({0} \uD615\uC2DD\uC5D0 \uB0A0\uC9DC\uB97C \uC785\uB825 \uD574 \uC8FC\uC2DC\uAE30 \uBC14\uB78D\uB2C8\uB2E4)
+#--------------------------------------------------------------------------------------------------
+
+#Export Messages
+#--------------------------------------------------------------------------------------------------
+noinvitations_message=\uC544\uB2C8 \uCD08\uB300\uC7A5\uC744 \uBC1C\uACAC\uC785\uB2C8\uB2E4.
+nosurveys_message=\uC5C6\uC2B5\uB2C8\uB2E4 \uC124\uBB38 \uC870\uC0AC \uBC1C\uACAC\uC785\uB2C8\uB2E4.
+survey_create=\uC0C8 {0} \uB9CC\uB4E4\uAE30
+survey_fill={0} \uCC44\uC6B0\uAE30
+survey_export_excel={0} excel\uB85C \uB0B4\uBCF4\uB0B4\uAE30
+survey_export_csv=\uC27C\uD45C\uB85C \uAD6C\uBD84 \uB41C \uAC12 {0} \uC218\uCD9C
+survey_export_spss={0} spss \uD615\uC2DD\uC73C\uB85C \uB0B4\uBCF4\uB0B4\uAE30
+survey_complete=\uC644\uC804 \uD55C {0}
+survey_submit={0} \uC81C\uCD9C
+ok_button_label=\uAD1C\uCC2E\uC558\uB358 \uAC83
+#--------------------------------------------------------------------------------------------------
+
+#Survey Messages
+#--------------------------------------------------------------------------------------------------
+menu_category_survey_label=\uC124\uBB38 \uC870\uC0AC
+menu_item_survey_list_label=\uC124\uBB38 \uC870\uC0AC
+menu_item_survey_new_label=\uC124\uBB38 \uC870\uC0AC
+survey_status_incomplete_label=\uC791\uC131\uC911
+survey_status_submitted_label=\uC644\uB8CC
+survey_status_deleted_label=\uC0AD\uC81C
+survey_status_reopened_label=\uC7AC\uAC1C
+
+surveydefinition_status_incomplete_label=\uBD88\uC644\uC804 \uD55C
+surveydefinition_status_published_label=\uAC8C\uC2DC
+surveydefinition_status_inactive_label=\uBE44\uD65C\uC131
+#--------------------------------------------------------------------------------------------------
+
+
+#Added on 11_19_2012-------------------------------------------------------------------------------------------
+publish_surveydefinition_error_message=\uBBF8\uC548 \uD574\uC694, \uB2F9\uC2E0\uC774 \uC801\uC5B4\uB3C4 \uD558\uB098\uC758 \uD398\uC774\uC9C0\uC640 \uC9C8\uBB38 \uD558\uB098\uB97C \uD3EC\uD568 \uD558\uC9C0 \uC54A\uB294 \uC870\uC0AC\uB97C \uAC8C\uC2DC\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4.
+
+#Added 11-24-2012---------------------------------------------------------------------------------------------------
+nodatasets_message=\uB370\uC774\uD130 \uC9D1\uD569 \uD56D\uBAA9\uC744 \uCC3E\uC744 \uC5C6\uC74C\uC785\uB2C8\uB2E4. \uC27C\uD45C\uB85C \uAD6C\uBD84 \uB41C \uD30C\uC77C\uC5D0\uC11C \uB370\uC774\uD130 \uC9D1\uD569 \uD56D\uBAA9\uC744 \uAC00\uC838\uC624\uB824\uBA74 \uC67C\uCABD\uB41C \uBA54\uB274\uC5D0\uC11C \uAC00\uC838\uC624\uAE30 \uB370\uC774\uD130 \uC9D1\uD569 \uD56D\uBAA9 \uB9C1\uD06C\uB97C \uD074\uB9AD \uD558\uC2ED\uC2DC\uC624.
+survey_entries_message={0}\uC5D0 \uB300 \uD55C \uC870\uC0AC \uD56D\uBAA9
+survey_invitations_message ={0}\uC5D0 \uB300 \uD55C \uCD08\uB300\uC7A5
+
+#Added 11-30-2012---------------------------------------------------------------------------------------------------
+surveydefinition_publish_confirm=\uB2F9\uC2E0\uC740\uC774 \uC124\uBB38 \uC870\uC0AC\uB97C \uAC8C\uC2DC \uD558 \uC2DC\uACA0\uC2B5\uB2C8\uAE4C?
+surveydefinition_error_publishing=\uC6B0\uB9AC \uC124\uBB38 \uC870\uC0AC\uB97C \uAC8C\uC2DC \uD558\uC9C0 \uBABB\uD588\uC2B5\uB2C8\uB2E4. \uC870\uC0AC \uBE48 \uD398\uC774\uC9C0 \uB610\uB294 \uBE48 \uC9C8\uBB38 \uC635\uC158 \uD558\uC9C0 \uC54A\uC740 \uB2E4\uB294 \uAC83\uC744 \uD655\uC778 \uD558\uC2ED\uC2DC\uC624.
+
+#Added 12-08-2012-------------------------------------------------------------------------------------------------
+surveydefinition_empty=\uACC4\uC815\uACFC \uC5F0\uACB0 \uB41C \uC544\uBB34 \uC870\uC0AC\uAC00 \uB429\uB2C8\uB2E4. \uB9CC\uB4E4\uB824\uBA74 \uC0C8 \uC870\uC0AC \uC67C\uCABD\uB41C \uBA54\uB274\uC5D0\uC11C "\uC0C8 \uC124\uBB38 \uC870\uC0AC \uCD94\uAC00" \uB9C1\uD06C\uC5D0 \uD074\uB9AD \uD569\uB2C8\uB2E4.
+
+#Added 12-10-2012-------------------------------------------------------------------------------------------------
+error_user_delete=\uC0AC\uC6A9\uC790\uB97C \uC0AD\uC81C \uD558\uB294 \uB3D9\uC548 \uC624\uB958\uAC00 \uBC1C\uC0DD \uD588\uC2B5\uB2C8\uB2E4. \uC0AC\uC6A9\uC790 \uACC4\uC815\uC744 \uC0AD\uC81C\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4. \uC774 \uC0AC\uC6A9\uC790\uB97C \uC0AD\uC81C \uD558\uB824\uBA74 \uB2E4\uB978 \uAD00\uB9AC\uC790 \uACC4\uC815\uC744 \uC0AC\uC6A9 \uD574\uC57C \uD569\uB2C8\uB2E4.
+
+statistics_not_applicable_message=\uC774 \uC9C8\uBB38\uC5D0 \uB300 \uD55C \uC5C6\uC74C \uD574\uB2F9 \uD1B5\uACC4 \uC785\uB825
+statistics_disclaimer_message=\uC81C\uBC1C \uC544\uB798\uC758 \uD1B5\uACC4\uC5D0 \uB300\uD574\uC11C\uB9CC \uACC4\uC0B0 \uB418\uB294 \uC124\uBB38 \uC870\uC0AC \uC644\uB8CC, \uBD88\uC644\uC804 \uD558 \uACE0 \uC0AD\uC81C \uB41C \uC124\uBB38 \uC870\uC0AC\uC5D0 \uD3EC\uD568 \uB418\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.
+Survey_export_disclaimer_message=\uD558\uC2DC\uAE30 \uBC14\uB78D\uB2C8\uB2E4 \uC5D1\uC140 \uD30C\uC77C \uCC38\uACE0 65,636 \uD589 \uB610\uB294 \uB370\uC774\uD130 \uC2DC\uD2B8 \uB2F9 256 \uC5F4\uC73C\uB85C \uC81C\uD55C \uB429\uB2C8\uB2E4. \uC124\uBB38 \uC870\uC0AC\uC5D0 \uB300 \uD55C \uC751\uB2F5\uC744 \uCD08\uACFC \uD558\uB294 \uC22B\uC790\uC5D0 \uC27C\uD45C \uC0AC\uC6A9 \uD558\uC2ED\uC2DC\uC624 \uAC12 \uB610\uB294 spss \uD615\uC2DD \uB0B4\uBCF4\uB0B4\uAE30.
+
+
+import_dataset_items_message=\uB370\uC774\uD130 \uC9D1\uD569 \uD56D\uBAA9\uC744 \uD3EC\uD568 \uD558\uB294 \uC27C\uD45C\uB85C \uAD6C\uBD84 \uB41C \uD30C\uC77C\uC744 \uC120\uD0DD \uD558\uC2ED\uC2DC\uC624. \uD30C\uC77C \uD558\uB098 \uB610\uB294 \uB450 \uAC1C\uC758 \uC5F4\uC744 \uD3EC\uD568\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uB450 \uAC1C\uC758 \uC5F4 \uC5F4\uC758 \uCCAB \uBC88\uC9F8 \uD589\uC5D0 \uB354 \uC774\uC0C1 \uB370\uC774\uD130\uC640 \uD14D\uC2A4\uD2B8 \uBC0F \uC9E7\uC740 \uAC12\uC73C\uB85C \uC0AC\uC6A9 \uB429\uB2C8\uB2E4 \uAC10\uC9C0 \uB429\uB2C8\uB2E4. \uD558\uB098\uC758 \uC5F4\uC744 \uAC10\uC9C0 \uD558\uB294 \uACBD\uC6B0\uC5D0 \uB2E4\uC74C \uAC12\uC740 \uC790\uB3D9\uC73C\uB85C \uC2DC\uC2A4\uD15C\uC5D0 \uC758\uD574 \uD560\uB2F9 001, 002, 003\uB85C \uB4F1 \uC608\uC81C \uD30C\uC77C \uC544\uB798 \uB9C1\uD06C\uB97C \uD074\uB9AD \uD558\uC2ED\uC2DC\uC624.
+update_logo_message=\uC5C5\uB370\uC774\uD2B8 \uC870\uC0AC \uB85C\uACE0 \uC774\uBBF8\uC9C0, \uB85C\uACE0, \uD3EC\uD568 \uB41C \uC774\uBBF8\uC9C0 \uD30C\uC77C\uC744 \uC5C5\uB85C\uB4DC \uD558\uC2DC\uAE30 \uBC14\uB78D\uB2C8\uB2E4 \uD3EC\uB9F7 (png, gif, bmp \uBC0F jpeg)\uB294 \uD5C8\uC6A9 \uD569\uB2C8\uB2E4.
+invite_participants_message=\uCC38\uAC00\uC790 \uC5F0\uB77D\uCC98 \uC815\uBCF4 \uB2E4\uC74C \uD615\uC2DD (\uC774\uB984, \uC911\uAC04 \uC774\uB984, \uC131 \uBC0F \uC774\uBA54\uC77C)\uC744 \uD3EC\uD568 \uD558\uB294 \uC27C\uD45C\uB85C \uAD6C\uBD84 \uB41C \uD30C\uC77C\uC744 \uC120\uD0DD \uD558\uC2ED\uC2DC\uC624. \uC608\uB97C \uB4E4\uC5B4 \uD30C\uC77C\uC5D0 \uB300 \uD55C \uC544\uB798 \uB9C1\uD06C\uB97C \uD074\uB9AD \uD558\uC2ED\uC2DC\uC624.
+invite_participants_sample_file_link_message=\uC608\uB97C \uB4E4\uC5B4 \uC27C\uD45C \uAD6C\uBD84 \uB41C \uCD08\uB300\uC7A5 \uD30C\uC77C \uB2E4\uC6B4\uB85C\uB4DC
+upload_dataset_sample_file_link_message=\uC608\uB97C \uB4E4\uC5B4 \uC27C\uD45C\uB85C \uAD6C\uBD84 \uB41C \uB370\uC774\uD130 \uC9D1\uD569 \uD56D\uBAA9 \uD30C\uC77C \uB2E4\uC6B4\uB85C\uB4DC
+
+#Added 01-08-2013
+#-------------------------------------------------------------------------------------------------------------------
+field_format_tip=(\uB2E4\uC74C \uD615\uC2DD {0}\uC5D0 \uC785\uB825 \uD574 \uC8FC\uC2DC\uAE30 \uBC14\uB78D\uB2C8\uB2E4)
+
+
+#Added 01-11-2013
+#-------------------------------------------------------------------------------------------------------------------
+question_saved=\uC9C8\uBB38\uC744 \uC131\uACF5\uC801\uC73C\uB85C \uC800\uC7A5 \uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uC81C\uBC1C\uC774 \uCC3D\uC744 \uB2EB\uACE0 \uC8FC\uC694 \uC870\uC0AC \uCC3D\uC73C\uB85C \uB2E4\uC2DC \uC774\uB3D9 \uBC0F \uD398\uC774\uC9C0\uB97C \uC0C8\uB85C \uACE0\uCE69\uB2C8\uB2E4.
+questionOptions_saved=\uC635\uC158\uC740 \uC131\uACF5\uC801\uC73C\uB85C \uC800\uC7A5 \uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uC81C\uBC1C\uC774 \uCC3D\uC744 \uB2EB\uACE0 \uC8FC\uC694 \uC870\uC0AC \uCC3D\uC73C\uB85C \uB2E4\uC2DC \uC774\uB3D9 \uBC0F \uD398\uC774\uC9C0\uB97C \uC0C8\uB85C \uACE0\uCE69\uB2C8\uB2E4.
+questionCols_saved=\uC9C8\uBB38 \uC5F4 \uC131\uACF5\uC801\uC73C\uB85C \uC800\uC7A5 \uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uC81C\uBC1C\uC774 \uCC3D\uC744 \uB2EB\uACE0 \uC8FC\uC694 \uC870\uC0AC \uCC3D\uC73C\uB85C \uB2E4\uC2DC \uC774\uB3D9 \uBC0F \uD398\uC774\uC9C0\uB97C \uC0C8\uB85C \uACE0\uCE69\uB2C8\uB2E4.
+questionRows_saved=\uC9C8\uBB38 \uD589 \uC131\uACF5\uC801\uC73C\uB85C \uC800\uC7A5 \uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uC81C\uBC1C\uC774 \uCC3D\uC744 \uB2EB\uACE0 \uC8FC\uC694 \uC870\uC0AC \uCC3D\uC73C\uB85C \uB2E4\uC2DC \uC774\uB3D9 \uBC0F \uD398\uC774\uC9C0\uB97C \uC0C8\uB85C \uACE0\uCE69\uB2C8\uB2E4.
+surveyDefinition_saved=\uC124\uBB38 \uC870\uC0AC\uB294 \uC131\uACF5\uC801\uC73C\uB85C \uC800\uC7A5 \uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uC81C\uBC1C\uC774 \uCC3D\uC744 \uB2EB\uACE0 \uC8FC\uC694 \uC870\uC0AC \uCC3D\uC73C\uB85C \uB2E4\uC2DC \uC774\uB3D9 \uBC0F \uD398\uC774\uC9C0\uB97C \uC0C8\uB85C \uACE0\uCE69\uB2C8\uB2E4.
+surveyDefinitionPage_saved=\uC124\uBB38 \uC870\uC0AC \uD398\uC774\uC9C0\uB294 \uC131\uACF5\uC801\uC73C\uB85C \uC800\uC7A5 \uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uC81C\uBC1C\uC774 \uCC3D\uC744 \uB2EB\uACE0 \uC8FC\uC694 \uC870\uC0AC \uCC3D\uC73C\uB85C \uB2E4\uC2DC \uC774\uB3D9 \uBC0F \uD398\uC774\uC9C0\uB97C \uC0C8\uB85C \uACE0\uCE69\uB2C8\uB2E4.
+
+
+#select Option
+select_option_message=------\uC744 \uC120\uD0DD \uD558\uC2ED\uC2DC\uC624
+
+no_published_surveys_message=\uC8C4\uC1A1 \uD569\uB2C8\uB2E4 \uC2DC\uC2A4\uD15C \uD3EC\uD568 \uD558\uC9C0 \uC54A\uB294 \uAC8C\uC2DC \uB41C \uBAA8\uB4E0 \uC124\uBB38 \uC870\uC0AC\uAC00\uC774 \uC2DC\uAC04\uC5D0.
+
+#-----------Regular Expressions for Static page: They are not being used yet
+#regular_expression_label=Regular Expression Examples
+#american_date_regex_sample=^([0]?[1-9]|[1][0-2])[./-]([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0-9]{4}|[0-9]{2})$
+#american_date_regex_sample_details=Validates American date formats such as mm/dd/yyyy or m/d/yy or m.d.yyyy with separators\: . - /
+#time_regex_sample=^(([0-1]?[0-9])|([2][0-3])):([0-5]?[0-9])(:([0-5]?[0-9]))?$
+#time_regex_sample_details=Time in 24 hours format with optional seconds
+
+nosurveyStatistics_message=\uC8C4\uC1A1 \uD569\uB2C8\uB2E4 \uC2DC\uC2A4\uD15C \uD3EC\uD568 \uD558\uC9C0 \uC54A\uB294 \uC218\uCD9C\uC5D0 \uC5B4\uB5A4 \uAC8C\uC2DC \uB41C \uC124\uBB38 \uC870\uC0AC.
+department_empty=\uC544\uB2C8 \uBD80\uC11C \uBC1C\uACAC \uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uC0C8 \uB0B4\uBD80 \uC0AC\uC6A9\uC790\uB97C \uB9CC\uB4E4\uAE30 \uC804\uC5D0 \uBD80\uC11C\uB97C \uB9CC\uB4E4\uC5B4 \uC8FC\uC138\uC694.
+survey_empty=\uC5C6\uC2B5\uB2C8\uB2E4 \uC124\uBB38 \uC870\uC0AC \uBC1C\uACAC \uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uC0C8 \uC678\uBD80 \uC0AC\uC6A9\uC790\uB97C \uB9CC\uB4E4\uAE30 \uC804\uC5D0 \uC124\uBB38 \uC870\uC0AC\uB97C \uB9CC\uB4E4.
+
+#---------------------Search Messages------------------------------------
+no_result_search=\uC544\uB2C8 \uB808\uCF54\uB4DC\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4.
+search_by={0} \uAC80\uC0C9 \uC0AC\uC6A9\uC790
+search_by_login=\uB85C\uADF8\uC778 \uD558 \uC5EC \uAC80\uC0C9
+search_by_email=\uC774\uBA54\uC77C\uB85C \uAC80\uC0C9
+search_by_name=\uC774\uB984\uC73C\uB85C \uAC80\uC0C9
+
+#---------------------------------------------------------02/05/2012
+department_show_deletion_failure=\uC774 \uBD80;\uB97C \uC0AD\uC81C \uAD00\uB828\uB41C \uC124\uBB38 \uC870\uC0AC\uB97C \uBA3C\uC800 \uC0AD\uC81C \uD569\uB2C8\uB2E4.
+quicklook_question=\uC870\uD68C \uC9C8\uBB38 \uC720\uD615
+quicklook_theme=\uC870\uD68C \uD14C\uB9C8
+published_survey_show_deletion_failure=\uC124\uBB38 \uC870\uC0AC \uAC8C\uC2DC \uBE44\uD65C\uC131\uD654\uB97C \uC0AD\uC81C\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4.
+error_upload_file_survDef=\uC124\uBB38 \uC870\uC0AC\uB97C \uC5C5\uB85C\uB4DC \uD558\uC9C0 \uBABB\uD588\uC2B5\uB2C8\uB2E4.
+
+
+#-------------------------- Tip Messages ----------------------------------------
+allowMultipleSubmissions_tip= \uD655\uC778\uB780 \uC704\uC5D0 \uB4F1\uB85D \uB418\uC9C0 \uC54A\uC740 \uC0AC\uC6A9\uC790\uAC00 \uB3D9\uC77C\uD55C ip \uC8FC\uC18C\uC5D0\uC11C \uC5EC\uB7EC \uC124\uBB38 \uC870\uC0AC\uB97C \uC81C\uCD9C \uD558\uB3C4\uB85D \uD5C8\uC6A9\uD560 \uAC83 \uC774\uB2E4.
+isPublic_tip=\uC704\uC758 \uD655\uC778\uB780 \uB4F1\uB85D \uD558\uC9C0 \uC54A\uACE0\uB3C4 \uC124\uBB38 \uC870\uC0AC\uB97C \uC81C\uCD9C \uC0AC\uC6A9\uC790 \uC218 \uC788\uAC8C \uB429\uB2C8\uB2E4.
+randomizeOptions_tip=\uC774 \uD544\uB4DC\uB294\uC774 \uC9C8\uBB38\uC5D0 \uB300 \uD55C \uC635\uC158\uC758 \uC21C\uC11C\uB294 \uBB34\uC791\uC704 \uD574\uC57C \uD558\uB294\uC9C0 \uC5EC\uBD80\uB97C \uC81C\uC5B4 \uD569\uB2C8\uB2E4.
+randomizeQuestions_tip=\uC774 \uD544\uB4DC\uB294\uC774 \uD398\uC774\uC9C0 \uB0B4\uC5D0\uC11C \uC9C8\uBB38\uC758 \uC21C\uC11C\uB97C \uBB34\uC791\uC704\uB85C \uD574\uC57C \uD558\uB294\uC9C0 \uC5EC\uBD80\uB97C \uC81C\uC5B4 \uD569\uB2C8\uB2E4.
+#question_order_tip=Choose a position to place a question under in relation to other questions, e.g., Position 3 will place a question as the third one in the list.
+question_type_tip=\uC0AC\uC6A9\uD560 \uC218 \uC788\uB294 \uC9C8\uBB38 \uC720\uD615 \uBAA9\uB85D\uC5D0\uC11C \uC9C8\uBB38 \uC720\uD615\uC744 \uC120\uD0DD \uD569\uB2C8\uB2E4. \uC9C8\uBB38 \uC720\uD615\uC5D0 \uB300 \uD55C \uC790\uC138\uD55C \uB0B4\uC6A9\uC740 \uC624\uB978\uCABD\uC5D0 \uC870\uD68C \uC9C8\uBB38 \uD615\uC2DD \uB9C1\uD06C\uB97C \uD074\uB9AD \uD558 \uC5EC \uC5BB\uC744 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+theme_tip=\uC0AC\uC6A9 \uAC00\uB2A5\uD55C \uD14C\uB9C8 \uBAA9\uB85D\uC5D0\uC11C \uD14C\uB9C8\uB97C \uC120\uD0DD \uD569\uB2C8\uB2E4. \uC624\uB978\uCABD\uC5D0 \uC870\uD68C \uD14C\uB9C8 \uB9C1\uD06C\uB97C \uD074\uB9AD \uD558 \uC5EC \uD14C\uB9C8\uC5D0 \uB300 \uD55C \uB354 \uB9CE\uC740 \uC815\uBCF4\uB97C \uC5BB\uC744 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+
+direction_tip=\uC218\uC9C1 \uB610\uB294 \uC218\uD3C9\uC73C\uB85C \uC120\uD0DD\uC758 \uBAA9\uB85D\uC744 \uD45C\uC2DC\uD569\uB2C8\uB2E4.
+question_text_tip=\uC9C8\uBB38 \uD14D\uC2A4\uD2B8 \uB610\uB294 \uC124\uBB38 \uC870\uC0AC \uCC38\uAC00\uC790\uC5D0 \uB300 \uD55C\uC774 \uC9C8\uBB38\uC5D0 \uB300 \uD55C \uD45C\uC2DC \uB429\uB2C8\uB2E4 \uC774\uC57C\uAE30\uB97C \uC785\uB825 \uD574 \uC8FC\uC2DC\uAE30 \uBC14\uB78D\uB2C8\uB2E4. \uC774 \uC9C8\uBB38\uC758 \uC9C8\uBB38 \uD14D\uC2A4\uD2B8\uC5D0 \uC774\uC804 \uC9C8\uBB38\uC5D0\uC11C \uB2F5\uBCC0\uC744 \uBC30\uAD00 \uC218 \uC788\uB3C4\uB85D \uB9E4\uAC1C \uBCC0\uC218\uB97C \uD1B5\uD569 \uB420 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uB9E4\uAC1C \uBCC0\uC218\uB294 \uB2E4\uC74C\uACFC \uAC19\uC740 \uD615\uC2DD\uC5D0\uC11C \uC774\uC5B4\uC57C \uD569\uB2C8\uB2E4: ${p #q#}, \uC5B4\uB514 # \uAE30\uD638 \uAC01\uAC01 \uB300\uD45C \uC870\uC0AC \uD398\uC774\uC9C0 \uC21C\uC11C \uBC0F \uADF8 \uD398\uC774\uC9C0 \uB0B4\uC5D0\uC11C \uC9C8\uBB38 \uC21C\uC11C. \uC608\uB97C \uB4E4\uC5B4 1 \uD398\uC774\uC9C0\uC5D0 \uC124\uBB38 \uC870\uC0AC \uCC38\uAC00\uC790\uC758 \uB300\uB2F5 \uC9C8\uBB38 2 "\uCD08\uCF5C\uB9BF" \uC774\uBA70 \uD604\uC7AC \uC9C8\uBB38 \uD14D\uC2A4\uD2B8\uB294 "\uC5BC\uB9C8\uB098 \uC790\uC8FC \uB2F9\uC2E0\uC740 \uBA39\uB294 ${p1q2}" \uB2E4\uC74C \uC2DC\uC2A4\uD15C\uC774 \uBB3B\uC2B5\uB2C8\uB2E4 \uC0AC\uC6A9\uC790 "\uC5BC\uB9C8\uB098 \uC790\uC8FC \uB2F9\uC2E0\uC740 \uBA39\uB294 \uCD08\uCF5C\uB9BF". \uD30C\uC774\uD551\uB9CC \uC774\uC804 \uD398\uC774\uC9C0\uC5D0\uC11C \uC9C8\uBB38\uC744 \uCC38\uC870 \uD558 \uC5EC \uC791\uB3D9 note \uD558\uC2ED\uC2DC\uC624.
+question_tip=\uC774 \uD14D\uC2A4\uD2B8\uB294 \uB354 \uC791\uC740 \uAE00\uAF34\uB85C \uC9C8\uBB38 \uC544\uB798\uC5D0 \uD45C\uC2DC \uB429\uB2C8\uB2E4 \uBC0F \uC0AC\uC6A9\uC790 \uB300\uB2F5 \uC9C8\uBB38 \uC218 \uC788\uB3C4\uB85D \uCD94\uAC00 \uC815\uBCF4\uB97C \uC81C\uACF5 \uD558\uB294 \uB370 \uC0AC\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+mandatory_tip=\uC9C8\uBB38 \uB300\uB2F5 \uD55C \uB610\uB294 \uB2E4\uC74C \uD398\uC774\uC9C0\uB85C \uC774\uB3D9 \uD558\uC9C0 \uD544\uC694\uD55C \uC9C0 \uC5EC\uBD80\uB97C \uACB0\uC815 \uD569\uB2C8\uB2E4.
+allow_other_tip=\uB2F5\uBCC0\uC744 \uC120\uD0DD \uBAA9\uB85D\uC5D0 \uC785\uB825 \uD558\uB294 \uD14D\uC2A4\uD2B8 \uC785\uB825\uB41C \uD544\uB4DC\uB97C \uC81C\uACF5 \uD569\uB2C8\uB2E4.
+txt_min_tip=\uCD5C\uC18C \uAE38\uC774\uC758 \uBB38\uC790 \uB2F5\uBCC0 \uD3EC\uD568 \uB420 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+txt_max_tip=\uCD5C\uB300 \uAE38\uC774 \uBB38\uC790 \uB2F5\uBCC0 \uD3EC\uD568 \uB420 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+#int_min_tip=The minimum integer value that can be entered as an answer.
+#int_max_tip=The maximum integer value that can be entered as an answer.
+#currency_min_tip=The minimum currency value that can be entered as an answer.
+#currency_max_tip=The maximum currency value that can be entered as an answer.
+dec_min_tip=\uB2F5\uBCC0\uC73C\uB85C \uC785\uB825\uD560 \uC218 \uC788\uB294 \uCD5C\uC18C 10 \uC9C4\uC218 \uAC12\uC785\uB2C8\uB2E4.
+dec_max_tip=\uB2F5\uBCC0\uC73C\uB85C \uC785\uB825\uD560 \uC218 \uC788\uB294 \uCD5C\uB300 10 \uC9C4\uC218 \uAC12\uC785\uB2C8\uB2E4.
+mask_tip=\uBAA9\uB85D\uC5D0\uC11C \uB9C8\uC2A4\uD06C\uB97C \uC120\uD0DD \uD558\uC2ED\uC2DC\uC624. \uC774 \uB9C8\uC2A4\uD06C\uC758 \uBBF8\uB9AC \uC815\uC758 \uB41C \uD615\uC2DD\uC744 \uC77C\uCE58 \uD558\uB294 \uC0AC\uC6A9\uC790\uC758 \uC9C8\uBB38\uC5D0 \uB300\uB2F5\uC744 \uC801\uC6A9 \uD569\uB2C8\uB2E4.
+dataset_question_tip=\uC751\uB2F5 \uC120\uD0DD \uD56D\uBAA9\uC744 \uBAA9\uB85D\uC5D0\uC11C \uC0AC\uC6A9 \uD558\uB294 \uB370\uC774\uD130 \uC9D1\uD569\uC744 \uC120\uD0DD \uD569\uB2C8\uB2E4. \uC6D0\uD558\uB294 \uB370\uC774\uD130 \uC9D1\uD569 \uBAA9\uB85D\uC5D0 \uC5C6\uC73C\uBA74 \uBAA9\uB85D\uC5D0 \uCD94\uAC00 \uD558\uB824\uBA74 \uAD00\uB9AC\uC790\uC5D0 \uAC8C \uBB38\uC758 \uD558\uC2ED\uC2DC\uC624.
+
+
+#--------------------------------------------------------------------------------
+
+
+
+
+#--------------------Template parameters--------------------------------------------------
+template_edit_header_message= \uC774 \uC11C\uC2DD \uD30C\uC77C \uC815\uC758\uC5D0 \uB2E4\uC74C \uB9E4\uAC1C \uBCC0\uC218\uB97C \uCD94\uAC00\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+template_edit_footer_message= \uC704 \uB9E4\uAC1C \uBCC0\uC218 \uC911 \uD558\uB098\uC5D0 \uCD94\uAC00\uD560 \uD15C\uD50C\uB9BF \uB2E8\uC9C0 \uD615\uC2DD \uB9E4\uAC1C \uBCC0\uC218 \uC774\uB984 \uD15C\uD50C\uB9BF\uC5D0 \uB2EC\uB7EC \uAE30\uD638 \uBC0F-\uB9E4\uAC1C \uBCC0\uC218 \uC774\uB984\uC740 \uB300/\uC18C\uBB38\uC790\uB294 \uB178\uD2B8 \uC911\uAD04\uD638\uB97C \uD3EC\uD568 \uD558 \uC5EC \uC704\uC5D0 \uD45C\uC2DC \uB41C \uB300\uB85C \uD14D\uC2A4\uD2B8\uC640 \uADF8\uAC83\uC740 \uC790\uB3D9\uC73C\uB85C \uAD50\uCCB4 \uC2DC\uC2A4\uD15C. \uC608\uB97C \uB4E4\uC5B4: "$ {\uC774\uB984} \uC548\uB155\uD558\uC138\uC694" \uB300\uCCB4 \uB420 \uAC83 \uC774\uB77C\uACE0 \uD558 \uC5EC "\uC548\uB155\uD558\uC138\uC694 \uC870," \uC5EC\uAE30\uC11C \uC870\uB294 \uC0AC\uC6A9\uC790\uC758 \uC774\uB984\uC785\uB2C8\uB2E4.
+
+forgot_login_email_title=\uB85C\uADF8\uC778\uC744 \uC78A \uC5C8
+login_parameter_name=$ {user_login}
+forgot_password_email_title=\uBE44\uBC00 \uBC88\uD638 \uBD84\uC2E4
+reset_password_link_parameter_name=$ {reset_password_link}
+reset_password_link_label=\uC554\uD638 \uB2E4\uC2DC \uC124\uC815
+
+survey_name=$ {survey_name}
+invitee_fullname_parameter_name=$ {full_name}
+invitee_email_parameter_name=$ {\uC774\uBA54\uC77C}
+invitation_email_title=\uCD08\uB300
+
+invite_fill_survey_link_parameter_name=$ {survey_link}
+invite_fill_survey_link_label=\uB9C1\uD06C
+
+logged_user_fullname=$ {user_name}
+
+
+internal_site_base_url=http://www.jdesurvey.com/internal/
+external_site_base_url=http://www.jdesurvey.com/external/
+
+no_department_for_user=\uB2F9\uC2E0\uC758 \uACC4\uC815\uC774 \uC5B4\uB5A4 \uBD80\uC11C\uC5D0 \uC5F0\uACB0 \uB418\uC5B4, \uC2DC\uC2A4\uD15C \uAD00\uB9AC\uC790\uC5D0 \uAC8C \uBB38\uC758 \uD558\uC2DC\uACE0 \uB2F9\uC2E0\uC774 department(s)\uC5D0 \uB300 \uD55C \uC561\uC138\uC2A4\uB97C \uC694\uCCAD.
+
+#---------------------------------------------------------------------------------------
+security_current_password_donot_match=\uBE44\uBC00 \uBC88\uD638\uB97C \uC6B0\uB9AC\uC758 \uB808\uCF54\uB4DC\uB97C \uC77C\uCE58 \uD558\uC9C0 \uC54A\uB294
+security_password_reset_current_password_field_name= \uD604\uC7AC \uC554\uD638
+security_password_reset_new_password_field_name=\uC0C8 \uC554\uD638
+security_password_reset_new_password_strenght_check=\u00EC\u0083\u0088 \u00EC\u0095\u0094\u00ED\u0098\u00B8 \u00ED\u0095\u00B4\u00EC\u0095\u00BC \u00ED\u0095\u00A9\u00EB\u008B\u0088\u00EB\u008B\u00A4 \u00EC\u00A0\u0081\u00EC\u0096\u00B4\u00EB\u008F\u0084 8 \u00EC\u009E\u0090, \u00ED\u0095\u0098\u00EB\u0082\u0098 \u00EC\u009D\u00B4\u00EC\u0083\u0081\u00EC\u009D\u0098 \u00EC\u0088\u00AB\u00EC\u009E\u0090\u00EB\u00A5\u00BC \u00ED\u008F\u00AC\u00ED\u0095\u00A8, \u00EC\u00A0\u0081\u00EC\u0096\u00B4\u00EB\u008F\u0084 \u00ED\u0095\u0098\u00EB\u0082\u0098\u00EC\u009D\u0098 \u00EC\u0086\u008C\u00EB\u00AC\u00B8\u00EC\u009E\u0090 \u00ED\u008E\u00B8\u00EC\u00A7\u0080\u00EB\u00A5\u00BC \u00ED\u008F\u00AC\u00ED\u0095\u00A8, \u00EC\u00A0\u0081\u00EC\u0096\u00B4\u00EB\u008F\u0084 \u00EC\u009C\u0084 \u00EC\u0086\u008C\u00EB\u00AC\u00B8\u00EC\u009E\u0090 \u00ED\u008E\u00B8\u00EC\u00A7\u0080\u00EB\u00A5\u00BC \u00ED\u008F\u00AC\u00ED\u0095\u00A8,\u00EC\u009D\u00B4 \u00ED\u008A\u00B9\u00EC\u0088\u0098 \u00EB\u00AC\u00B8\u00EC\u009E\u0090 \u00EC\u00A4\u0091 \u00ED\u0095\u0098\u00EB\u0082\u0098 \u00EC\u009D\u00B4\u00EC\u0083\u0081\u00EC\u009D\u0084 \u00ED\u008F\u00AC\u00ED\u0095\u00A8 ([@ \# $ % ^ & + 
+
+#----------------------------------------------------------------------------------------------
+search_user_by_label= \uAC80\uC0C9 \uD558 \uC5EC \uC0AC\uC6A9\uC790
+search_user_or_label=\uB610\uB294
+
+
+copyright_message=jd \uC18C\uD504\uD2B8\uC6E8\uC5B4, inc 2013 \uC800\uC791\uAD8C.  \uBAA8\uB4E0 \uAD8C\uB9AC \uBCF4\uC720\uC785\uB2C8\uB2E4.
+website_message=www.jdsoft.com\uB97C \uBC29\uBB38
+accredidation_message=\uB2E4\uC74C\uC5D0 \uC758\uD574 \uAC1C\uBC1C \uB41C \uC18C\uD504\uD2B8\uC6E8\uC5B4\uB97C \uD3EC\uD568 \uD558\uB294\uC774 \uC81C\uD488: <ul><li>\uC2A4\uCE74\uC774\uC6E8\uC774 \uC18C\uD504\uD2B8\uC6E8\uC5B4 http://www.skywaysoftware.com</li> <li>\uC2A4\uD504\uB9C1 http://www.springsource.org/</li> <li>\uC544\uD30C\uCE58 \uC18C\uD504\uD2B8\uC6E8\uC5B4 \uC7AC\uB2E8 http://www.apache.org/</li></ul>
+
+
+#ADA Compliance labels-----------------------------------
+question_number_label=\uC9C8\uBB38 \uC218:
+question_option_text=\uC635\uC158
+question_ada_hiden_label=(\uC9C0\uC815 \uD558\uC2ED\uC2DC\uC624)
+input_for_label=\uC785\uB825:
+page_number_label=\uD398\uC774\uC9C0 \uBC88\uD638:
+file_uploaded_message={0}\uC5D0 \uD30C\uC77C \uC5C5\uB85C\uB4DC \uB418\uC5C8\uC2B5\uB2C8\uB2E4.
+
+url_to_survrey= \uC124\uBB38 \uC870\uC0AC url:
+
+
+
+
+
+#Branching logic data elements -----
+branching_logic_page_title=\uBD84\uAE30 \uB17C\uB9AC \uD398\uC774\uC9C0
+branching_logic_jump_to_label=\uB85C \uAC00\uB2E4:
+branching_logic_when_label=\uB54C:
+branching_logic_page_label=\uD398\uC774\uC9C0
+branching_logic_terminate_survey_label=\uC124\uBB38 \uC870\uC0AC \uC644\uB8CC
+branching_logic_all_conditions_met_label=\uC544\uB798\uC758 \uBAA8\uB4E0 \uC120\uD0DD\uD55C \uC870\uAC74 \uCDA9\uC871
+branching_logic_any_condition_met_label=\uC544\uB798 \uC120\uD0DD \uB41C \uC870\uAC74 \uC911 \uD558\uB098\uB77C\uB3C4 \uCDA9\uC871 \uD558\uB294
+branching_logic_conditions_label=\uC870\uAC74:
+branching_logic_question_table_header_label=\uC9C8\uBB38
+branching_logic_opeartor_table_header_label=\uC791\uC5C5
+branching_logic_values_table_header_label=\uAC12
+branching_logic_enable_table_header_label=\uD65C\uC131\uD654
+branching_logic_minimum_table_row_label=\uCD5C\uC18C:
+branching_logic_maximum_table_row_label=\uCD5C\uB300:
+
+branching_logic_between_operator_label=\uC0AC\uC774
+branching_logic_in_operator_label=\uB2E4\uC74C \uAC12 \uC911 \uD558\uB098 \uAC19\uC2B5\uB2C8\uB2E4.
+branching_logic_equals_operator_label=\uAC19\uC74C
+
+
+
+#-------------------------------------------------------
+surveydefinition_duplicate_name_message= \uC124\uBB38 \uC870\uC0AC \uC774\uB984\uC774 \uC774\uBBF8 \uC874\uC7AC \uD569\uB2C8\uB2E4.
+nosectors_message=\uC774 \uBD84\uC57C\uC5D0 \uB300 \uD55C \uC124\uBB38 \uC870\uC0AC \uC11C\uC2DD \uD30C\uC77C\uC774 \uC5C6\uC2B5\uB2C8\uB2E4 \uBC1C\uACAC \uB418\uC5C8\uC2B5\uB2C8\uB2E4.
+
+
+leftmenu_generate_qr_code=qr \uBC14\uCF54\uB4DC \uC0DD\uC131
+no_departments=There are no Departments associated with your account.  To create survey you must first create a department.  Click here:

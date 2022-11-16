@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 인터페이스 - 부서 - 사원 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.intrfc.dept.empl.TbIntrfcDeptEmplMapper">
+
+    <!-- 목록 생성 -->
+    <insert id="insertList">
+        <![CDATA[
+            INSERT INTO TB_INTRFC_DEPT_EMPL (
+                   SORT_ORDR
+                 , DEPT_CODE_1
+                 , DEPT_NM_1
+                 , DEPT_CODE_2
+                 , DEPT_NM_2
+                 , DEPT_CODE_3
+                 , DEPT_NM_3
+                 , DEPT_SORT_ORDR
+                 , OFCPS_ID
+                 , OFCPS_NM
+                 , EMPL_CODE
+                 , LOGIN_NM
+                 , PERSON_NM
+                 , MOBLPHON_NO
+                 , EMAIL_ADRES
+                 , UNIV_CODE
+                 , UNDEG_CODE
+                 , SUBJCT_CODE
+                 , UMS_DEPT_ID
+            ) VALUES
+        ]]>
+
+        <foreach collection="tbIntrfcDeptEmplList" item="tbIntrfcDeptEmpl" separator=", ">
+            <![CDATA[
+            (
+                   #{tbIntrfcDeptEmpl.sortOrdr}
+                 , #{tbIntrfcDeptEmpl.deptCode1}
+                 , #{tbIntrfcDeptEmpl.deptNm1}
+                 , #{tbIntrfcDeptEmpl.deptCode2}
+                 , #{tbIntrfcDeptEmpl.deptNm2}
+                 , #{tbIntrfcDeptEmpl.deptCode3}
+                 , #{tbIntrfcDeptEmpl.deptNm3}
+                 , #{tbIntrfcDeptEmpl.deptSortOrdr}
+                 , #{tbIntrfcDeptEmpl.ofcpsId}
+                 , #{tbIntrfcDeptEmpl.ofcpsNm}
+                 , #{tbIntrfcDeptEmpl.emplCode}
+                 , #{tbIntrfcDeptEmpl.loginNm}
+                 , #{tbIntrfcDeptEmpl.personNm}
+                 , #{tbIntrfcDeptEmpl.moblphonNo}
+                 , #{tbIntrfcDeptEmpl.emailAdres}
+                 , #{tbIntrfcDeptEmpl.univCode}
+                 , #{tbIntrfcDeptEmpl.undegCode}
+                 , #{tbIntrfcDeptEmpl.subjctCode}
+                 , #{tbIntrfcDeptEmpl.umsDeptId}
+            )
+            ]]>
+        </foreach>
+    </insert>
+
+    <!-- 전체 삭제 -->
+    <delete id="deleteAll">
+        <![CDATA[
+            DELETE
+            FROM   TB_INTRFC_DEPT_EMPL
+        ]]>
+    </delete>
+
+</mapper>

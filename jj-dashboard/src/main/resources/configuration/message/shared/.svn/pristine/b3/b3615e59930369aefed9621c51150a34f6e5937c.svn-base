@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 공통 - 직무 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbComDty.dtyId"><![CDATA[직무 ID]]></entry>
+    <entry key="domain.main.tbComDty.dtyCode"><![CDATA[직무 코드]]></entry>
+    <entry key="domain.main.tbComDty.dtyNm"><![CDATA[직무 이름]]></entry>
+
+</properties>

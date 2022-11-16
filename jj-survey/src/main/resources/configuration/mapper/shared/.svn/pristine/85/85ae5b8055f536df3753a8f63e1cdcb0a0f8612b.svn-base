@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 게시판(공지사항) Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.bbs.notice.mapper.BbsNoticeMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TBN.BBSCTT_ID
+                 , TBN.BBSCTT_NO
+                 , TBN.BBSCTT_SJ
+                 , FN_PERSON_NAME(TBN.WRITNG_PSN_ID, #{$var.userLocale}) AS WRITNG_PSN_NM
+                 , TBN.WRITNG_DT
+                 , TBN.RDCNT
+            FROM   TB_BBS_NOTICE TBN
+            WHERE  1 = 1
+        ]]>
+
+        <!-- 제목 -->
+        <if test='search != null and search.bbscttSj != null and search.bbscttSj != ""'>
+            <![CDATA[
+            AND    UPPER(TBN.BBSCTT_SJ) LIKE CONCAT_WS('', '%', UPPER(#{search.bbscttSj}), '%')
+            ]]>
+        </if>
+
+        <!-- 내용 -->
+        <if test='search != null and search.bbscttCn != null and search.bbscttCn != ""'>
+            <![CDATA[
+            AND    UPPER(TBN.BBSCTT_CN) LIKE CONCAT_WS('', '%', UPPER(#{search.bbscttCn}), '%')
+            ]]>
+        </if>
+    </select>
+
+    <update id = "updateRdcnt">
+    <![CDATA[
+        UPDATE TB_BBS_NOTICE SET
+              RDCNT                      =   RDCNT+1
+            WHERE BBSCTT_ID = #{bbscttId}
+    ]]>
+    </update>
+
+</mapper>

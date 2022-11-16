@@ -1,0 +1,38 @@
+package com.jd.survey.pub.mapper;
+
+import java.io.Serializable;
+import java.util.List;
+
+import com.jd.survey.pub.domain.SurveyComment;
+
+/**
+ * 설문조사 댓글
+ */
+public interface SurveyCommentMapper<T extends Serializable> {
+
+	/**
+	 * 설문조사 댓글 조회
+	 */
+	SurveyComment getSurveyComment(long id);
+	
+	/**
+	 * 설문조사 댓글 목록 조회
+	 */
+	List<SurveyComment> getSurveyCommentsBySurveyDefinitionId(long surveyDefinitionId);
+	
+	/**
+	 * 설문조사 댓글 등록
+	 */
+	long addSurveyComment(SurveyComment surveyComment);
+	
+	/**
+	 * 설문조사 댓글 수정
+	 */
+	int modSurveyComment(SurveyComment surveyComment);
+	
+	/**
+	 * 설문조사 댓글 삭제
+	 */
+	int delSurveyComment(long id);
+	
+}

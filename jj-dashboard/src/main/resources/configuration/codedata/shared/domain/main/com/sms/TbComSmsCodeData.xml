@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ 공통 - 문자메시지 CodeData
+ -->
+<codeData namespace="domain.main.tbComSms">
+
+    <!-- 메시지 상태 -->
+    <group id="tranStatus">
+        <item code="1" name="발송 요청" />
+        <item code="2" name="SMS G/W Server에 전송. 응답 대기 중" />
+        <item code="3" name="SMS G/W Server로부터 결과 수신" />
+    </group>
+
+    <!-- 전송 결과 -->
+    <group id="tranRslt">
+        <item code="0" name="성공" />
+        <item code="1" name="TIMEOUT" />
+        <item code="A" name="핸드폰 번호 처리중" />
+        <item code="B" name="음영지역" />
+        <item code="C" name="POWER OFF" />
+        <item code="D" name="메시지 저장 개수 초과" />
+        <item code="2" name="잘못된 전화 번호" />
+        <item code="a" name="일시 서비스 정지" />
+        <item code="b" name="기타 단말기 문제" />
+        <item code="c" name="착신 거절" />
+        <item code="d" name="기타" />
+        <item code="e" name="이통사 SMC 형식 오류" />
+        <item code="f" name="IB 자체 형식 오류" />
+        <item code="g" name="SMS 서비스 불가 단말기" />
+        <item code="h" name="핸드폰 호 불가 상태" />
+        <item code="I" name="SMC 운영자가 메시지 삭제" />
+        <item code="j" name="이통사 내부 메시지 Que Full" />
+    </group>
+
+    <!-- 전송 유형 -->
+    <group id="tranType">
+        <item code="0" name="SMS" />
+        <item code="6" name="LMS" />
+    </group>
+
+</codeData>

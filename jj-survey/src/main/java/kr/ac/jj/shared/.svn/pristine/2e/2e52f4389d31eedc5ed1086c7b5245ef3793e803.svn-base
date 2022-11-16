@@ -1,0 +1,24 @@
+package kr.ac.jj.shared.domain.main.mapper.com.dept.author;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+import kr.ac.jj.shared.domain.main.model.com.dept.author.TbComDeptAuthorToDept;
+
+/**
+ * 공통 - 부서별 권한 TO 공통 - 부서 Mapper
+ */
+@SharedMainSqlMapper
+public interface TbComDeptAuthorToDeptMapper {
+
+    /**
+     * 목록 조회 - AUTHOR_ID(으)로
+     *
+     * @param authorId
+     * @return
+     */
+    public List<TbComDeptAuthorToDept> selectListByAuthorId(@Param("authorId") String authorId);
+
+}

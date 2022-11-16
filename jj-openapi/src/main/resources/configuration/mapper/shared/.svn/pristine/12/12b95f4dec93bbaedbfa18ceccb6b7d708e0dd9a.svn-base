@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 사람별 부서 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.person.dept.TbComPersonDeptMapper">
+
+    <!-- 생성 - 존재하지 않는 경우 -->
+    <insert id="insertNotExists">
+        <![CDATA[
+            INSERT INTO TB_COM_PERSON_DEPT (
+                   PERSON_ID
+                 , DEPT_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+            )
+            SELECT #{tbComPersonDept.personId}
+                 , #{tbComPersonDept.deptId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_COM_PERSON_DEPT TCPD
+                        WHERE  TCPD.PERSON_ID = #{tbComPersonDept.personId}
+                        AND    TCPD.DEPT_ID = #{tbComPersonDept.deptId}
+                   )
+        ]]>
+    </insert>
+
+    <!-- 목록 삭제 - 미사용 건 -->
+    <delete id="deleteListNotUsed">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_PERSON_DEPT
+            WHERE  (PERSON_ID NOT IN (
+                        SELECT TCP.PERSON_ID
+                        FROM   TB_COM_PERSON TCP
+                        WHERE  TCP.PERSON_SE IS NOT NULL
+                    ) OR
+                    DEPT_ID NOT IN (
+                        SELECT DEPT_ID
+                        FROM   TB_COM_DEPT TCD
+                        WHERE  TCD.USE_YN = '1'
+                    )
+                   )
+        ]]>
+    </delete>
+
+</mapper>

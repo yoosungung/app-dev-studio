@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 입학 데이터 CodeData -->
+<mapper namespace="dashboard-codedata.analysis">
+
+    <!-- 5개 연도 조회 -->
+    <select id="readYear" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT year AS CODE
+             , year as NAME
+        FROM (
+            SELECT DATE_FORMAT(NOW(),'%Y') as year
+            UNION SELECT DATE_FORMAT(NOW(),'%Y')-1
+            UNION SELECT DATE_FORMAT(NOW(),'%Y')-2
+            UNION SELECT DATE_FORMAT(NOW(),'%Y')-3
+            UNION SELECT DATE_FORMAT(NOW(),'%Y')-4
+        ) T
+    </select>
+
+    <!-- 학기 조회 -->
+    <select id="readSemester" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT 1 AS CODE
+            , '1학기' AS NAME
+        UNION ALL
+        SELECT 2
+            , '2학기'
+    </select>
+
+    <!-- 단과대학 조회 -->
+    <select id="readDaehakList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT IPSY_DAEHAK AS CODE
+             , IPSY_DAEHAK AS NAME
+        FROM DW_IPSY_HIGHSCOOL_MAT
+        GROUP BY IPSY_DAEHAK
+        ORDER BY IPSY_DAEHAK
+    </select>
+
+    <!-- 학과 조회 -->
+    <select id="readHakkwa1nameList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT IPSY_HAKKWA1_NAME AS CODE
+             , IPSY_HAKKWA1_NAME AS NAME
+        FROM DW_IPSY_HIGHSCOOL_MAT
+        WHERE IPSY_DAEHAK = #{param1}
+        GROUP BY IPSY_HAKKWA1_NAME
+        ORDER BY IPSY_HAKKWA1_NAME
+    </select>
+
+    <!-- 학년 조회 -->
+    <select id="readGrade" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT 1 AS CODE, '1학년' AS NAME
+        UNION ALL
+        SELECT 2, '2학년'
+        UNION ALL
+        SELECT 3, '3학년'
+        UNION ALL
+        SELECT 4, '4학년'
+        UNION ALL
+        SELECT 5, '5학년'
+    </select>
+
+    <!-- 과목 조회 -->
+    <select id="readSubject" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT KANG_GWAMOK_NM AS CODE
+             , KANG_GWAMOK_NM AS NAME
+        FROM DW_ENROLMENT
+        WHERE KANG_GWAMOK_NM IS NOT NULL
+        AND KANG_YY = #{param1}
+        GROUP BY KANG_GWAMOK_NM
+        ORDER BY KANG_GWAMOK_NM
+    </select>
+
+</mapper>

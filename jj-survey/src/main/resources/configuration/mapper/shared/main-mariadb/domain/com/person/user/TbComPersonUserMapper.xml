@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 사람 사용자 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.person.user.TbComPersonUserMapper">
+
+    <!-- 목록 생성 -->
+    <insert id="insertList">
+        <![CDATA[
+            INSERT INTO TB_COM_PERSON_USER (
+                   PERSON_USER_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , PERSON_ID
+                 , USER_ID
+            )
+            SELECT FN_UID('S') AS PERSON_USER_ID
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , TCP.PERSON_ID
+                 , TSU.USER_ID
+            FROM   TB_COM_PERSON TCP
+                   INNER JOIN TB_SYS_USER TSU ON TSU.LOGIN_NM = TCP.EMPL_NO
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_COM_PERSON_USER TCPU
+                        WHERE  TCPU.PERSON_ID = TCP.PERSON_ID
+                        AND    TCPU.USER_ID = TSU.USER_ID
+                   )
+        ]]>
+    </insert>
+
+    <!-- PERSON_ID 조회 - USER_ID로 -->
+    <select id="selectPersonIdByUserId" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TCPU.PERSON_ID
+            FROM   TB_COM_PERSON_USER TCPU
+            WHERE  TCPU.USER_ID = #{userId}
+        ]]>
+    </select>
+
+    <!-- USER_ID 조회 - PERSON_ID로 -->
+    <select id="selectUserIdByPersonId" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TCPU.USER_ID
+            FROM   TB_COM_PERSON_USER TCPU
+            WHERE  TCPU.PERSON_ID = #{personId}
+        ]]>
+    </select>
+
+    <!-- 삭제 - PERSON_ID로 -->
+    <delete id="deleteByPersonId">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_PERSON_USER
+            WHERE  PERSON_ID = #{personId}
+        ]]>
+    </delete>
+
+    <!-- 삭제 - USER_ID로 -->
+    <delete id="deleteByUserId">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_PERSON_USER
+            WHERE  USER_ID = #{userId}
+        ]]>
+    </delete>
+
+</mapper>

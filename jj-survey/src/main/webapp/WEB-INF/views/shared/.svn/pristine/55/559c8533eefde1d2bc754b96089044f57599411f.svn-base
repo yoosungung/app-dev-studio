@@ -1,0 +1,116 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/layouts/shared/include/PageHeader.jspf" %>
+
+<div id="list" style="display: none;">
+    <div class="pageHeader">
+        권한 관리
+        <div class="btn_area">
+            <ui-button class="btn_write" onclick="vues.list.viewCreate();">권한 등록</ui-button>
+        </div>
+    </div>
+
+    <div class="pageContents">
+        <!-- 검색조건 영역 시작 -->
+        <div class="searchArea">
+            <table class="searchBox" v-on:keyup.enter="service.readList(true);">
+                <colgroup>
+                    <col width="10%">
+                    <col width="35%">
+                    <col width="10%">
+                    <col>
+                    <col width="7%">
+                </colgroup>
+                <tr>
+                    <th>권한 코드</th>
+                    <td>
+                        <ui-input type="text" v-model="gridRequest.search.authorCode"></ui-input>
+                    </td>
+                    <th>권한 이름</th>
+                    <td>
+                        <ui-input type="text" v-model="gridRequest.search.authorNm"></ui-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>권한 설명</th>
+                    <td>
+                        <ui-input type="text" v-model="gridRequest.search.authorDc"></ui-input>
+                    </td>
+                    <th>사용 여부</th>
+                    <td>
+                        <ui-select code-data="/common/useYn" first-name="(전체)" v-model="gridRequest.search.useYn"></ui-select>
+                    </td>
+                    <td>
+                        <div class="btnArea_center">
+                            <ui-button class="btn_total_search" v-on:click="service.readList(true);">조회</ui-button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- 검색조건 영역 끝 -->
+
+        <!-- 결과목록 영역 시작 -->
+        <ui-grid-paging v-bind:request="gridRequest" v-bind:result="gridResult" v-bind:read-list="service.readList">
+            <table class="bbs_list">
+                <thead>
+                    <tr>
+                        <th width="" column-name="authorCode">권한 코드</th>
+                        <th width="" column-name="authorNm">권한 이름</th>
+                        <th width="135px" column-name="authorMenuCnt">권한별 메뉴 갯수</th>
+                        <th width="135px" column-name="authorResrceCnt">권한별 프로그램 갯수</th>
+                        <th width="135px" column-name="authorUserCnt">권한별 사용자 수</th>
+                        <th width="100px" column-name="sortOrdr">정렬 순서</th>
+                        <th width="100px" column-name="userAuthorYnNm">사용자 권한 여부</th>
+                        <th width="100px" column-name="useYnNm">사용 여부</th>
+                    </tr>
+                </thead>
+                <tbody v-cloak>
+                    <tr v-for="row in gridResult.list" v-bind:key="row.authorId">
+                        <td class="tal">
+                            <a href="javascript:void(0);" v-on:click="viewDetail(row.authorId);">{{ row.authorCode }}</a>
+                        </td>
+                        <td class="tal">{{ row.authorNm }}</td>
+                        <td class="tac">{{ row.authorMenuCnt }}</td>
+                        <td class="tac">{{ row.authorResrceCnt }}</td>
+                        <td class="tac">{{ row.userAuthorYn == "1" ? row.authorUserCnt : "-" }}</td>
+                        <td class="tac">{{ row.sortOrdr }}</td>
+                        <td class="tac">{{ row.userAuthorYnNm }}</td>
+                        <td class="tac">{{ row.useYnNm }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </ui-grid-paging>
+        <!-- 결과목록 영역 시작 -->
+    </div>
+</div>
+
+<script>
+vues.list = new Vue({
+    el: '#list',
+    data: {
+        gridRequest: GridUtil.getRequestWithPaging({}, { sortOrdr: "ASC" }),
+        gridResult: {}
+    },
+    computed: {
+        service: function() {
+            return new AuthorityManageViewService(this);
+        },
+        formatter: function() {
+            return CommonUtil.formatter;
+        }
+    },
+    mounted: function() {
+        this.service.readList();
+    },
+    methods: {
+        // 생성 화면
+        viewCreate: function() {
+            CommonUtil.changeVue("edit");
+        },
+        // 상세 화면
+        viewDetail: function(authorId) {
+            CommonUtil.changeVue("read", authorId);
+        }
+    }
+});
+</script>

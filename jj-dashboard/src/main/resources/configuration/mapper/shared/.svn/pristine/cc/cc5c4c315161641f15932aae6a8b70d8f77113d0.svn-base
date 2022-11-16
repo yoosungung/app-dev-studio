@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 파일 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.file.TbComFileEntityMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.domain.main.model.com.file.TbComFile">
+        <![CDATA[
+            SELECT TCF.FILE_ID
+                 , TCF.FILE_GROUP_ID
+                 , TCF.FILE_SN
+                 , TCF.DWLD_ID
+                 , TCF.FILE_POLICY
+                 , TCF.FILE_RPSTR
+                 , TCF.STRE_PATH
+                 , TCF.STRE_FILE_NM
+                 , TCF.ORGINL_FILE_NM
+                 , TCF.FILE_EXTSN
+                 , TCF.FILE_SIZE
+                 , TCF.DELETE_YN
+                 , TCF.SORT_ORDR
+            FROM   TB_COM_FILE TCF
+            WHERE  TCF.FILE_GROUP_ID = #{fileGroupId}
+            AND    TCF.DELETE_YN = '0'
+            ORDER BY TCF.SORT_ORDR, TCF.FILE_SN
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.com.file.TbComFile">
+        <![CDATA[
+            SELECT TCF.FILE_ID
+                 , TCF.FILE_GROUP_ID
+                 , TCF.FILE_SN
+                 , TCF.DWLD_ID
+                 , TCF.FILE_POLICY
+                 , TCF.FILE_RPSTR
+                 , TCF.STRE_PATH
+                 , TCF.STRE_FILE_NM
+                 , TCF.ORGINL_FILE_NM
+                 , TCF.FILE_EXTSN
+                 , TCF.FILE_SIZE
+                 , TCF.DELETE_YN
+                 , TCF.SORT_ORDR
+            FROM   TB_COM_FILE TCF
+            WHERE  TCF.FILE_ID = #{fileId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_COM_FILE (
+                   FILE_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , FILE_GROUP_ID
+                 , FILE_SN
+                 , DWLD_ID
+                 , FILE_POLICY
+                 , FILE_RPSTR
+                 , STRE_PATH
+                 , STRE_FILE_NM
+                 , ORGINL_FILE_NM
+                 , FILE_EXTSN
+                 , FILE_SIZE
+                 , DELETE_YN
+                 , SORT_ORDR
+            ) VALUES (
+                   #{tbComFile.fileId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbComFile.fileGroupId}
+        ]]>
+
+        <choose>
+        <when test='tbComFile.fileSn == null'>
+            <![CDATA[
+                 , (SELECT NVL(MAX(A.FILE_SN), 0) + 1 FROM TB_COM_FILE A WHERE A.FILE_GROUP_ID = #{tbComFile.fileGroupId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , #{tbComFile.fileSn}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , #{tbComFile.dwldId}
+                 , #{tbComFile.filePolicy}
+                 , #{tbComFile.fileRpstr}
+                 , #{tbComFile.strePath}
+                 , #{tbComFile.streFileNm}
+                 , #{tbComFile.orginlFileNm}
+                 , #{tbComFile.fileExtsn}
+                 , #{tbComFile.fileSize}
+                 , #{tbComFile.deleteYn}
+        ]]>
+
+        <choose>
+        <when test='tbComFile.sortOrdr == null'>
+            <![CDATA[
+                 , (SELECT NVL(MAX(A.SORT_ORDR), 0) + 1 FROM TB_COM_FILE A WHERE A.FILE_GROUP_ID = #{tbComFile.fileGroupId} AND A.DELETE_YN = '0')
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , #{tbComFile.sortOrdr}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_COM_FILE SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+        ]]>
+
+        <choose>
+        <when test='tbComFile.sortOrdr == null'>
+            <![CDATA[
+                 , SORT_ORDR                        = (SELECT NVL(MAX(A.SORT_ORDR), 0) + 1 FROM TB_COM_FILE A WHERE A.FILE_GROUP_ID = #{tbComFile.fileGroupId} AND A.DELETE_YN = '0')
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , SORT_ORDR                        = #{tbComFile.sortOrdr}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+            WHERE  FILE_ID = #{tbComFile.fileId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <update id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_FILE
+            WHERE  FILE_ID = #{fileId}
+        ]]>
+    </update>
+
+    <!-- 목록 삭제 -->
+    <update id="deleteList">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_FILE
+            WHERE  FILE_GROUP_ID = #{fileGroupId}
+        ]]>
+    </update>
+
+</mapper>

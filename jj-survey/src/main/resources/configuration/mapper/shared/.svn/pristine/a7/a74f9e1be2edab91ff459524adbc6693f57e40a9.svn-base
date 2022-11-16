@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 리소스별 권한 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.resrce.author.TbSysResrceAuthorEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.sys.resrce.author.TbSysResrceAuthor">
+        <![CDATA[
+            SELECT TSRA.RESRCE_ID
+                 , TSRA.AUTHOR_ID
+            FROM   TB_SYS_RESRCE_AUTHOR TSRA
+            WHERE  TSRA.RESRCE_ID = #{resrceId}
+            AND    TSRA.AUTHOR_ID = #{authorId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SYS_RESRCE_AUTHOR (
+                   RESRCE_ID
+                 , AUTHOR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+            ) VALUES (
+                   #{tbSysResrceAuthor.resrceId}
+                 , #{tbSysResrceAuthor.authorId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SYS_RESRCE_AUTHOR SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+            WHERE  RESRCE_ID = #{tbSysResrceAuthor.resrceId}
+            AND    AUTHOR_ID = #{tbSysResrceAuthor.authorId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_RESRCE_AUTHOR
+            WHERE  RESRCE_ID = #{resrceId}
+            AND    AUTHOR_ID = #{authorId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - RESRCE_ID(으)로 -->
+    <delete id="deleteListByResrceId">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_RESRCE_AUTHOR
+            WHERE  RESRCE_ID = #{resrceId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - AUTHOR_ID(으)로 -->
+    <delete id="deleteListByAuthorId">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_RESRCE_AUTHOR
+            WHERE  AUTHOR_ID = #{authorId}
+        ]]>
+    </delete>
+
+</mapper>

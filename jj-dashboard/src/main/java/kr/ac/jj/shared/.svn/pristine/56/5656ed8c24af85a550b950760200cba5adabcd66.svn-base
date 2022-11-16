@@ -1,0 +1,80 @@
+package kr.ac.jj.shared.infrastructure.logging.scheduler;
+
+import java.util.Calendar;
+
+import org.dizitart.no2.filters.Filters;
+import org.quartz.DisallowConcurrentExecution;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanCreationNotAllowedException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import kr.ac.jj.shared.infrastructure.framework.core.support.context.ApplicationContextUtil;
+import kr.ac.jj.shared.infrastructure.logging.collection.LoggingCollections;
+import kr.ac.jj.shared.infrastructure.logging.service.LoggingServiceImpl;
+import kr.ac.jj.shared.infrastructure.logging.util.LoggingUtil;
+
+/**
+ * 로깅 생성 SchedulerJob
+ */
+@Component
+@DisallowConcurrentExecution
+public class LoggingCreatorSchedulerJob implements Job {
+
+    private static final Logger log = LoggerFactory.getLogger(LoggingCreatorSchedulerJob.class);
+
+    private @Autowired LoggingServiceImpl loggingService;
+
+    @Override
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+        LoggingUtil.setLoggingType("logging");
+
+        try {
+            this.executeJob(context);
+        } finally {
+            LoggingUtil.removeLoggingType();
+        }
+    }
+
+    private void executeJob(JobExecutionContext context) throws JobExecutionException {
+        LoggingCollections loggingCollections;
+
+        try {
+            loggingCollections = ApplicationContextUtil.getBean(LoggingCollections.class);
+        } catch (BeanCreationNotAllowedException e) {
+            return;
+        }
+
+        if (loggingCollections.tbSysLog.isClosed()) {
+            return;
+        }
+
+        long startTime = System.currentTimeMillis();
+
+        int removedCount = loggingService.create(loggingCollections);
+
+        long elapsedTime = System.currentTimeMillis() - startTime;
+
+        if (removedCount > 0) {
+            log.debug("Removed Document : {} => Elapsed Time : {}ms", removedCount, elapsedTime);
+        }
+
+        if (Calendar.getInstance().get(Calendar.SECOND) % 10 != 0) {
+            return;
+        }
+
+        int tbSysLogCount = loggingCollections.tbSysLog.find(Filters.eq("completed", true)).size();
+        int tbSysLogQueryCount = loggingCollections.tbSysLogQuery.find(Filters.eq("completed", true)).size();
+        int tbSysLogErrorCount = loggingCollections.tbSysLogError.find(Filters.eq("completed", true)).size();
+        int tbSysLogLoginCount = loggingCollections.tbSysLogLogin.find(Filters.eq("completed", true)).size();
+        int tbSysLogMenuCount = loggingCollections.tbSysLogMenu.find(Filters.eq("completed", true)).size();
+
+        log.debug("Remain Document : {} => Query {}, Error {}, Login {}, Menu {}", tbSysLogCount, tbSysLogQueryCount,
+                tbSysLogErrorCount, tbSysLogLoginCount, tbSysLogMenuCount);
+    }
+
+}

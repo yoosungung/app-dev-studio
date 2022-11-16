@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 오픈API_서비스_인자_매핑 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.openapi.domain.main.mapper.api.svc.mapng.TbApiSvcMapngEntityMapper">
+
+    <!-- 목록 조회 - SVC_ID(으)로 -->
+    <select id="selectListBySvcId" resultType="kr.ac.jj.openapi.domain.main.model.api.svc.mapng.TbApiSvcMapng">
+        <![CDATA[
+            SELECT TASM.SVC_MAPNG_ID
+                 , TASM.SVC_ID
+                 , TASM.MAPNG_SE
+                 , TASM.VRIABL_NM
+                 , TASM.VRIABL
+                 , TASM.DC
+            FROM   TB_API_SVC_MAPNG TASM
+            WHERE  TASM.SVC_ID = #{svcId}
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.openapi.domain.main.model.api.svc.mapng.TbApiSvcMapng">
+        <![CDATA[
+            SELECT TASM.SVC_MAPNG_ID
+                 , TASM.SVC_ID
+                 , TASM.MAPNG_SE
+                 , TASM.VRIABL_NM
+                 , TASM.VRIABL
+                 , TASM.DC
+            FROM   TB_API_SVC_MAPNG TASM
+            WHERE  TASM.SVC_MAPNG_ID = #{svcMapngId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_API_SVC_MAPNG (
+                   SVC_MAPNG_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SVC_ID
+                 , MAPNG_SE
+                 , VRIABL_NM
+                 , VRIABL
+                 , DC
+            ) VALUES (
+                   #{tbApiSvcMapng.svcMapngId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbApiSvcMapng.svcId}
+                 , #{tbApiSvcMapng.mapngSe}
+                 , #{tbApiSvcMapng.vriablNm}
+                 , #{tbApiSvcMapng.vriabl}
+                 , #{tbApiSvcMapng.dc}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_API_SVC_MAPNG SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , SVC_ID                           = #{tbApiSvcMapng.svcId}
+                 , MAPNG_SE                         = #{tbApiSvcMapng.mapngSe}
+                 , VRIABL_NM                        = #{tbApiSvcMapng.vriablNm}
+                 , VRIABL                           = #{tbApiSvcMapng.vriabl}
+                 , DC                               = #{tbApiSvcMapng.dc}
+            WHERE  SVC_MAPNG_ID = #{tbApiSvcMapng.svcMapngId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_API_SVC_MAPNG
+            WHERE  SVC_MAPNG_ID = #{svcMapngId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - SVC_ID(으)로 -->
+    <delete id="deleteListBySvcId">
+        <![CDATA[
+            DELETE
+            FROM   TB_API_SVC_MAPNG
+            WHERE  SVC_ID = #{svcId}
+        ]]>
+    </delete>
+
+</mapper>

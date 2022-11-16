@@ -1,0 +1,67 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+    <style>
+    #app {
+        position: absolute;
+        top: 25%;
+        text-align: center;
+        width: 100%;
+    }
+    </style>
+
+    <div id="app" v-on:keyup.enter="login();">
+        <div>
+            <input type="text" placeholder="로그인 이름" v-model="model.loginNm" ref="loginNm">
+            <valid-checker v-bind:value="model.loginNm" check="required"></valid-checker>
+        </div>
+
+        <div>
+            <input type="password" placeholder="비밀번호" v-model="model.loginPassword" ref="loginPassword">
+            <valid-checker v-bind:value="model.loginPassword" check="required"></valid-checker>
+        </div>
+
+        <ui-button v-on:click="login();">로그인</ui-button>
+    </div>
+
+    <script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            model: {
+                loginNm: "",
+                loginPassword: ""
+            }
+        },
+        methods: {
+            // 로그인
+            login: function() {
+                if (!CommonUtil.checkValid()) {
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append("loginNm", this.model.loginNm);
+                formData.append("loginPassword", this.model.loginPassword);
+
+                CommonUtil.axios()
+                .post("/common/user/login.do", formData)
+                .then(function(response) {
+                    var targetUrl = "<c:out value='${targetUrl}' />";
+
+                    if (targetUrl == "") {
+                        window.location.replace(CommonUtil.contextPath + "/");
+                    } else {
+                        window.location.replace(targetUrl);
+                    }
+                })
+                ["catch"](function(error) {
+                    CommonUtil.showAxiosError(error);
+                });
+            }
+        },
+        mounted: function() {
+            this.$refs.loginNm.focus();
+        }
+    });
+    </script>

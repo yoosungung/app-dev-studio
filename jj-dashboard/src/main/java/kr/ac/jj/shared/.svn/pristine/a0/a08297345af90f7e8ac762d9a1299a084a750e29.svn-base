@@ -1,0 +1,140 @@
+package kr.ac.jj.shared.infrastructure.logging.filter;
+
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.dizitart.no2.Document;
+import org.dizitart.no2.filters.Filters;
+import org.slf4j.MDC;
+
+import kr.ac.jj.shared.config.SharedLoggingConfig.LoggingCollections;
+import kr.ac.jj.shared.domain.main.model.sys.log.TbSysLog;
+import kr.ac.jj.shared.infrastructure.framework.core.support.context.ApplicationContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.core.support.uid.UidUtil;
+import kr.ac.jj.shared.infrastructure.framework.web.context.request.RequestContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.web.context.session.SessionContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.web.servlet.http.HttpServletRequestUtil;
+import kr.ac.jj.shared.infrastructure.logging.service.LoggingServiceImpl;
+import kr.ac.jj.shared.infrastructure.user.AnonymousUser;
+import kr.ac.jj.shared.infrastructure.user.BaseLoginUser;
+
+/**
+ * 로깅 Filter
+ */
+public class LoggingFilter implements Filter {
+
+    @SuppressWarnings("unused")
+    private FilterConfig filterConfig;
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        this.filterConfig = filterConfig;
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        Object loginUser = SessionContextUtil.getLoginUser();
+        String userId;
+
+        if (loginUser == null) {
+            userId = AnonymousUser.USER_ID;
+        } else if (loginUser instanceof BaseLoginUser) {
+            BaseLoginUser baseLoginUser = (BaseLoginUser) loginUser;
+            userId = baseLoginUser.getUserId();
+        } else {
+            userId = "UNKNOWN";
+        }
+
+        MDC.put("userInfo", userId + "-" + RequestContextUtil.getClientIpAddress());
+
+        if (!this.checkUrlPattern((HttpServletRequest) request)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        HttpServletRequest httpRequest = HttpServletRequestUtil.getHttpServletRequest(request);
+
+        MDC.put("logging.logId", UidUtil.generateUid());
+
+        LoggingServiceImpl loggingService = ApplicationContextUtil.getBean(LoggingServiceImpl.class);
+        LoggingCollections loggingCollections = ApplicationContextUtil.getBean("loggingCollections",
+                LoggingCollections.class);
+
+        loggingCollections.tbSysLog.insert(Document.createDocument("id", MDC.get("logging.logId")).put("data",
+                loggingService.create(HttpServletRequestUtil.getRequestBody(httpRequest))));
+
+        try {
+            chain.doFilter(httpRequest, response);
+        } catch (IOException e) {
+            throw e;
+        } catch (ServletException e) {
+            throw e;
+        } finally {
+            TbSysLog tbSysLog = this.createLog();
+
+            HttpServletResponse httpResponse = (HttpServletResponse) response;
+
+            if (tbSysLog != null && tbSysLog.getRspnsSttusCode() == null) {
+                loggingService.updateRspnsSttusCode(httpResponse.getStatus());
+            }
+        }
+    }
+
+    @Override
+    public void destroy() {
+    }
+
+    private boolean checkUrlPattern(HttpServletRequest request) {
+        String servletPath = request.getServletPath();
+
+        if (StringUtils.isEmpty(servletPath)) {
+            return false;
+        }
+
+        if (servletPath.equals("/error") //
+                || servletPath.equals("/infrastructure/progress/ServletProgress/read.do") //
+                || servletPath.equals("/infrastructure/message/Message/read.do") //
+                || servletPath.equals("/infrastructure/codedata/CodeData/read") //
+                || servletPath.equals("/common/ui/Ui/viewInitialize.do") //
+                || servletPath.equals("/common/menu/MenuLoad/readList") //
+        ) {
+            return false;
+        }
+
+        if (servletPath.endsWith(".do")) {
+            return true;
+        }
+
+        if (servletPath.contains(".")) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private TbSysLog createLog() {
+        LoggingCollections loggingCollections = ApplicationContextUtil.getBean("loggingCollections",
+                LoggingCollections.class);
+
+        Document document = loggingCollections.tbSysLog.find(Filters.eq("id", MDC.get("logging.logId")))
+                .firstOrDefault();
+        TbSysLog tbSysLog = (TbSysLog) document.get("data");
+
+        loggingCollections.tbSysLog.remove(document);
+
+        MDC.remove("logging.logId");
+
+        return tbSysLog;
+    }
+
+}

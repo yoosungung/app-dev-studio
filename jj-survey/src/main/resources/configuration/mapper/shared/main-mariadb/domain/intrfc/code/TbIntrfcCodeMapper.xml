@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 인터페이스 - 코드 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.intrfc.code.TbIntrfcCodeMapper">
+
+    <!-- 목록 생성 -->
+    <insert id="insertList">
+        <![CDATA[
+            INSERT INTO TB_INTRFC_CODE (
+                   CODE_TY
+                 , CODE_VALUE
+                 , CODE_NM
+                 , CODE_INDICT_YN
+            ) VALUES
+        ]]>
+
+        <foreach collection="tbIntrfcCodeList" item="tbIntrfcCode" separator=", ">
+            <![CDATA[
+            (
+                   #{tbIntrfcCode.codeTy}
+                 , #{tbIntrfcCode.codeValue}
+                 , #{tbIntrfcCode.codeNm}
+                 , #{tbIntrfcCode.codeIndictYn}
+            )
+            ]]>
+        </foreach>
+    </insert>
+
+</mapper>

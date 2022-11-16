@@ -1,0 +1,10 @@
+package kr.ac.jj.shared.domain.main.mapper.bbs.gnrl;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+
+/**
+ * 게시판 - 일반(답변형) Mapper
+ */
+@SharedMainSqlMapper
+public interface TbBbsGnrlMapper extends TbBbsGnrlEntityMapper {
+}

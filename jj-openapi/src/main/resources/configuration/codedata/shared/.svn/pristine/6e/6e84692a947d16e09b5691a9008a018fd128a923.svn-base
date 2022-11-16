@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ 시스템 - 메뉴 CodeData
+ -->
+<codeData namespace="domain.main.tbSysMenu">
+
+    <!-- 메뉴 종류 -->
+    <group id="menuKnd">
+        <item code="MAIN" message="domain.main.tbSysMenu.menuKnd.MAIN" name="메인" />
+    </group>
+
+</codeData>

@@ -1,0 +1,55 @@
+package kr.ac.jj.shared.infrastructure.framework.core.support.codedata;
+
+import kr.ac.jj.shared.infrastructure.framework.core.support.collection.BaseMap;
+import kr.ac.jj.shared.infrastructure.framework.core.support.collection.BaseMapList;
+
+public class CodeDataSourceUtil {
+
+    private static final CodeDataBooleanTypeList CODE_DATA_BOOLEAN_TYPE_LIST = new CodeDataBooleanTypeList();
+
+    public static boolean isBooleanType(BaseMapList codeDataList) {
+        if (codeDataList.size() != 2) {
+            return false;
+        }
+
+        String code1 = codeDataList.get(0, "code") + "";
+        String code2 = codeDataList.get(1, "code") + "";
+
+        return CODE_DATA_BOOLEAN_TYPE_LIST.isBooleanType(code1, code2);
+    }
+
+    public static void convertToBoolean(BaseMapList codeDataList) {
+        if (!isBooleanType(codeDataList)) {
+            return;
+        }
+
+        for (BaseMap map : codeDataList) {
+            if (map.get("code") != null) {
+                map.put("code", CODE_DATA_BOOLEAN_TYPE_LIST.isTrueCode(map.get("code") + ""));
+            }
+        }
+    }
+
+    public static String getBooleanCode(BaseMapList codeDataList, Boolean codeValue) {
+        if (codeValue == null) {
+            return null;
+        }
+
+        for (BaseMap codeData : codeDataList) {
+            String code = codeData.get("code") + "";
+
+            if (codeValue) {
+                if (CODE_DATA_BOOLEAN_TYPE_LIST.isTrueCode(code)) {
+                    return code;
+                }
+            } else {
+                if (CODE_DATA_BOOLEAN_TYPE_LIST.isFalseCode(code)) {
+                    return code;
+                }
+            }
+        }
+
+        return null;
+    }
+
+}

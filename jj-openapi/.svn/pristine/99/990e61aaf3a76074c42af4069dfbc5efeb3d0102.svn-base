@@ -1,0 +1,2398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- api 관리 Mapper -->
+<mapper namespace="kr.ac.jj.openapi.application.apilist.person">
+
+    <!-- test002 -->
+    <select id="test002"
+        resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT TCP.PERSON_ID
+                 , TCP.EMPL_NO
+                 , TCP.EMAIL_ADRES
+                 , TCP.WRITNG_PSN_ID
+                 , TCP.WRITNG_DT
+                 , TCP.CHANGE_PSN_ID
+                 , TCP.CHANGE_DT
+                 , TCP.KOREAN_NM
+                 , TCP.ENGL_NM
+                 , TCP.CHCRT_NM
+                 , TCP.DEPT_ID
+                 , TCP.HFFC_STTUS
+                 , TCP.ECNY_DE
+                 , TCP.RETIRE_DE
+                 , TCP.OFCPS_NM
+                 , TCP.CLSF_NM
+                 , TCP.RSPOFC_NM
+                 , TCP.TLPHON_NO
+                 , TCP.ATCH_FILE_ID
+                 , TCP.RM
+                 , TCD.DEPT_NM
+            FROM   TB_COM_PERSON TCP
+                   LEFT JOIN TB_COM_DEPT TCD ON TCD.DEPT_ID = TCP.DEPT_ID
+            WHERE  1 = 1
+        ]]>
+
+
+        <if test='search.koreanNm != null and search.koreanNm != ""'>
+            <![CDATA[
+            AND TCP.KOREAN_NM = #{search.koreanNm}
+            ]]>
+        </if>
+
+    </select>
+
+
+    <!-- dmcybertrackresult4 -->
+    <select id="dmcybertrackresult4" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DCTR4.TRACKYEAR
+                , DCTR4.TRACKMONTH
+                , DCTR4.DEPT_CODE_01_NAME
+                , DCTR4.DEPT_CODE_02_NAME
+                , DCTR4.COUSENAME
+                , DCTR4.VODNAME
+                , DCTR4.TOTAL_PROGRESS
+                , DCTR4.TOTAL_ATTEMPS
+            FROM DM_CYBER_TRACK_RESULT4 DCTR4
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.trackyear != null and search.trackyear != ""'>
+            <![CDATA[
+            AND DCTR4.TRACKYEAR = #{search.trackyear}
+            ]]>
+        </if>
+
+        <if test='search.trackmonth != null and search.trackmonth != ""'>
+            <![CDATA[
+            AND DCTR4.TRACKMONTH = #{search.trackmonth}
+            ]]>
+        </if>
+
+        <if test='search.deptCode01Name != null and search.deptCode01Name != ""'>
+            <![CDATA[
+            AND DCTR4.DEPT_CODE_01_NAME = #{search.deptCode01Name}
+            ]]>
+        </if>
+
+        <if test='search.deptCode02Name != null and search.deptCode02Name != ""'>
+            <![CDATA[
+            AND DCTR4.DEPT_CODE_02_NAME = #{search.deptCode02Name}
+            ]]>
+        </if>
+
+        <if test='search.cousename != null and search.cousename != ""'>
+            <![CDATA[
+            AND DCTR4.COUSENAME = #{search.cousename}
+            ]]>
+        </if>
+
+        <if test='search.vodname != null and search.vodname != ""'>
+            <![CDATA[
+            AND DCTR4.VODNAME = #{search.vodname}
+            ]]>
+        </if>
+
+        <if test='search.totalProgress != null and search.totalProgress != ""'>
+            <![CDATA[
+            AND DCTR4.TOTAL_PROGRESS = #{search.totalProgress}
+            ]]>
+        </if>
+
+        <if test='search.totalAttemps != null and search.totalAttemps != ""'>
+            <![CDATA[
+            AND DCTR4.TOTAL_ATTEMPS = #{search.totalAttemps}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+    <!-- dmcybertrackresult3 -->
+    <select id="dmcybertrackresult3" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DCTR3.TRACKYEAR
+                , DCTR3.TRACKMONTH
+                , DCTR3.COUSENAME
+                , DCTR3.VODNAME
+                , DCTR3.TOTAL_PROGRESS
+                , DCTR3.TOTAL_ATTEMPS
+            FROM DM_CYBER_TRACK_RESULT3 DCTR3
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.trackyear != null and search.trackyear != ""'>
+            <![CDATA[
+            AND DCTR3.TRACKYEAR = #{search.trackyear}
+            ]]>
+        </if>
+
+        <if test='search.trackmonth != null and search.trackmonth != ""'>
+            <![CDATA[
+            AND DCTR3.TRACKMONTH = #{search.trackmonth}
+            ]]>
+        </if>
+
+        <if test='search.cousename != null and search.cousename != ""'>
+            <![CDATA[
+            AND DCTR3.COUSENAME = #{search.cousename}
+            ]]>
+        </if>
+
+        <if test='search.vodname != null and search.vodname != ""'>
+            <![CDATA[
+            AND DCTR3.VODNAME = #{search.vodname}
+            ]]>
+        </if>
+
+        <if test='search.totalProgress != null and search.totalProgress != ""'>
+            <![CDATA[
+            AND DCTR3.TOTAL_PROGRESS = #{search.totalProgress}
+            ]]>
+        </if>
+
+        <if test='search.totalAttemps != null and search.totalAttemps != ""'>
+            <![CDATA[
+            AND DCTR3.TOTAL_ATTEMPS = #{search.totalAttemps}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+
+    <!-- dmcybertrackresult2 -->
+    <select id="dmcybertrackresult2" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DCTR2.TRACKYEAR
+                , DCTR2.TRACKMONTH
+                , DCTR2.CIRRICULUM
+                , DCTR2.TOTAL_PROGRESS
+                , DCTR2.TOTAL_ATTEMPS
+            FROM DM_CYBER_TRACK_RESULT2 DCTR2
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.trackyear != null and search.trackyear != ""'>
+            <![CDATA[
+            AND DCTR2.TRACKYEAR = #{search.trackyear}
+            ]]>
+        </if>
+
+        <if test='search.trackmonth != null and search.trackmonth != ""'>
+            <![CDATA[
+            AND DCTR2.TRACKMONTH = #{search.trackmonth}
+            ]]>
+        </if>
+
+        <if test='search.cirriculum != null and search.cirriculum != ""'>
+            <![CDATA[
+            AND DCTR2.CIRRICULUM = #{search.cirriculum}
+            ]]>
+        </if>
+
+        <if test='search.totalProgress != null and search.totalProgress != ""'>
+            <![CDATA[
+            AND DCTR2.TOTAL_PROGRESS = #{search.totalProgress}
+            ]]>
+        </if>
+
+        <if test='search.totalAttemps != null and search.totalAttemps != ""'>
+            <![CDATA[
+            AND DCTR2.TOTAL_ATTEMPS = #{search.totalAttemps}
+            ]]>
+        </if>
+
+    </select>
+
+
+    <!-- dwcybertrackresult -->
+    <select id="dwcybertrackresult" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DCTR.ID
+                , DCTR.USERID
+                , DCTR.HAKBUN
+                , DCTR.COUSENAME
+                , DCTR.VODNAME
+                , DCTR.TRACKYEAR
+                , DCTR.SEMESTER_CODE
+                , DCTR.DEPT_CODE_01
+                , DCTR.DEPT_CODE_01_NAME
+                , DCTR.DEPT_CODE_02
+                , DCTR.DEPT_CODE_02_NAME
+                , DCTR.CIRRICULUM
+                , DCTR.PROGRESS
+                , DCTR.PROGRESS_TIME
+                , DCTR.TIMEFIRST
+                , DCTR.TIMELAST
+                , DCTR.TIMEFIRST_D
+                , DCTR.TIMELAST_D
+                , DCTR.ATTEMPTS
+            FROM DW_CYBER_TRACK_RESULT DCTR
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.id != null and search.id != ""'>
+            <![CDATA[
+            AND DCTR.ID = #{search.id}
+            ]]>
+        </if>
+
+        <if test='search.userid != null and search.userid != ""'>
+            <![CDATA[
+            AND DCTR.USERID = #{search.userid}
+            ]]>
+        </if>
+
+        <if test='search.hakbun != null and search.hakbun != ""'>
+            <![CDATA[
+            AND DCTR.HAKBUN = #{search.hakbun}
+            ]]>
+        </if>
+
+        <if test='search.cousename != null and search.cousename != ""'>
+            <![CDATA[
+            AND DCTR.COUSENAME = #{search.cousename}
+            ]]>
+        </if>
+
+        <if test='search.vodname != null and search.vodname != ""'>
+            <![CDATA[
+            AND DCTR.VODNAME = #{search.vodname}
+            ]]>
+        </if>
+
+        <if test='search.trackyear != null and search.trackyear != ""'>
+            <![CDATA[
+            AND DCTR.TRACKYEAR = #{search.trackyear}
+            ]]>
+        </if>
+
+        <if test='search.semesterCode != null and search.semesterCode != ""'>
+            <![CDATA[
+            AND DCTR.SEMESTER_CODE = #{search.semesterCode}
+            ]]>
+        </if>
+
+        <if test='search.deptCode01 != null and search.deptCode01 != ""'>
+            <![CDATA[
+            AND DCTR.DEPT_CODE_01 = #{search.deptCode01}
+            ]]>
+        </if>
+
+        <if test='search.deptCode01Name != null and search.deptCode01Name != ""'>
+            <![CDATA[
+            AND DCTR.DEPT_CODE_01_NAME = #{search.deptCode01Name}
+            ]]>
+        </if>
+
+        <if test='search.deptCode02 != null and search.deptCode02 != ""'>
+            <![CDATA[
+            AND DCTR.DEPT_CODE_02 = #{search.deptCode02}
+            ]]>
+        </if>
+
+        <if test='search.deptCode02Name != null and search.deptCode02Name != ""'>
+            <![CDATA[
+            AND DCTR.DEPT_CODE_02_NAME = #{search.deptCode02Name}
+            ]]>
+        </if>
+
+        <if test='search.cirriculum != null and search.cirriculum != ""'>
+            <![CDATA[
+            AND DCTR.CIRRICULUM = #{search.cirriculum}
+            ]]>
+        </if>
+
+        <if test='search.progress != null and search.progress != ""'>
+            <![CDATA[
+            AND DCTR.PROGRESS = #{search.progress}
+            ]]>
+        </if>
+
+        <if test='search.progressTime != null and search.progressTime != ""'>
+            <![CDATA[
+            AND DCTR.PROGRESS_TIME = #{search.progressTime}
+            ]]>
+        </if>
+
+        <if test='search.timefirst != null and search.timefirst != ""'>
+            <![CDATA[
+            AND DCTR.TIMEFIRST = #{search.timefirst}
+            ]]>
+        </if>
+
+        <if test='search.timelast != null and search.timelast != ""'>
+            <![CDATA[
+            AND DCTR.TIMELAST = #{search.timelast}
+            ]]>
+        </if>
+
+        <if test='search.timefirstD != null and search.timefirstD != ""'>
+            <![CDATA[
+            AND DCTR.TIMEFIRST_D = #{search.timefirstD}
+            ]]>
+        </if>
+
+        <if test='search.timelastD != null and search.timelastD != ""'>
+            <![CDATA[
+            AND DCTR.TIMELAST_D = #{search.timelastD}
+            ]]>
+        </if>
+
+        <if test='search.attempts != null and search.attempts != ""'>
+            <![CDATA[
+            AND DCTR.ATTEMPTS = #{search.attempts}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+    <!-- dwcyberlogindi -->
+    <select id="dwcyberlogindi" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DCLI.DAEHAK_NAME
+                , DCLI.HAKBU_NAME
+                , DCLI.HAKGWA_NAME
+                , DCLI.HAK_YEAR
+                , DCLI.COURSENAME
+                , DCLI.L_YEAR
+                , DCLI.L_MONTH
+                , DCLI.L_DAY
+                , DCLI.ACCESS_CNT
+            FROM DW_CYBER_LOG_INDI DCLI
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.daehakName != null and search.daehakName != ""'>
+            <![CDATA[
+            AND DCLI.DAEHAK_NAME = #{search.daehakName}
+            ]]>
+        </if>
+
+        <if test='search.hakbuName != null and search.hakbuName != ""'>
+            <![CDATA[
+            AND DCLI.HAKBU_NAME = #{search.hakbuName}
+            ]]>
+        </if>
+
+        <if test='search.hakgwaName != null and search.hakgwaName != ""'>
+            <![CDATA[
+            AND DCLI.HAKGWA_NAME = #{search.hakgwaName}
+            ]]>
+        </if>
+
+        <if test='search.hakYear != null and search.hakYear != ""'>
+            <![CDATA[
+            AND DCLI.HAK_YEAR = #{search.hakYear}
+            ]]>
+        </if>
+
+        <if test='search.coursename != null and search.coursename != ""'>
+            <![CDATA[
+            AND DCLI.COURSENAME = #{search.coursename}
+            ]]>
+        </if>
+
+        <if test='search.lYear != null and search.lYear != ""'>
+            <![CDATA[
+            AND DCLI.L_YEAR = #{search.lYear}
+            ]]>
+        </if>
+
+        <if test='search.lMonth != null and search.lMonth != ""'>
+            <![CDATA[
+            AND DCLI.L_MONTH = #{search.lMonth}
+            ]]>
+        </if>
+
+        <if test='search.lDay != null and search.lDay != ""'>
+            <![CDATA[
+            AND DCLI.L_DAY = #{search.lDay}
+            ]]>
+        </if>
+
+        <if test='search.accessCnt != null and search.accessCnt != ""'>
+            <![CDATA[
+            AND DCLI.ACCESS_CNT = #{search.accessCnt}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+    <!-- dwcyberlogcont -->
+    <select id="dwcyberlogcont" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DCLC.DAEHAK_NAME
+                , DCLC.HAKBU_NAME
+                , DCLC.HAKGWA_NAME
+                , DCLC.COURSENAME
+                , DCLC.L_YEAR
+                , DCLC.L_MONTH
+                , DCLC.L_DAY
+                , DCLC.ACCESS_CNT
+            FROM DW_CYBER_LOG_CONT DCLC
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.daehakName != null and search.daehakName != ""'>
+            <![CDATA[
+            AND DCLC.DAEHAK_NAME = #{search.daehakName}
+            ]]>
+        </if>
+
+        <if test='search.hakbuName != null and search.hakbuName != ""'>
+            <![CDATA[
+            AND DCLC.HAKBU_NAME = #{search.hakbuName}
+            ]]>
+        </if>
+
+        <if test='search.hakgwaName != null and search.hakgwaName != ""'>
+            <![CDATA[
+            AND DCLC.HAKGWA_NAME = #{search.hakgwaName}
+            ]]>
+        </if>
+
+        <if test='search.coursename != null and search.coursename != ""'>
+            <![CDATA[
+            AND DCLC.COURSENAME = #{search.coursename}
+            ]]>
+        </if>
+
+        <if test='search.lYear != null and search.lYear != ""'>
+            <![CDATA[
+            AND DCLC.L_YEAR = #{search.lYear}
+            ]]>
+        </if>
+
+        <if test='search.lMonth != null and search.lMonth != ""'>
+            <![CDATA[
+            AND DCLC.L_MONTH = #{search.lMonth}
+            ]]>
+        </if>
+
+        <if test='search.lDay != null and search.lDay != ""'>
+            <![CDATA[
+            AND DCLC.L_DAY = #{search.lDay}
+            ]]>
+        </if>
+
+        <if test='search.accessCnt != null and search.accessCnt != ""'>
+            <![CDATA[
+            AND DCLC.ACCESS_CNT = #{search.accessCnt}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+    <!-- dwcyberlogpath -->
+    <select id="dwcyberlogpath" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DCLP.DAEHAK_NAME
+                , DCLP.HAKBU_NAME
+                , DCLP.HAKGWA_NAME
+                , DCLP.ORIGIN
+                , DCLP.L_YEAR
+                , DCLP.L_MONTH
+                , DCLP.L_DAY
+                , DCLP.ACCESS_CNT
+            FROM DW_CYBER_LOG_PATH DCLP
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.daehakName != null and search.daehakName != ""'>
+            <![CDATA[
+            AND DCLP.DAEHAK_NAME = #{search.daehakName}
+            ]]>
+        </if>
+
+        <if test='search.hakbuName != null and search.hakbuName != ""'>
+            <![CDATA[
+            AND DCLP.HAKBU_NAME = #{search.hakbuName}
+            ]]>
+        </if>
+
+        <if test='search.hakgwaName != null and search.hakgwaName != ""'>
+            <![CDATA[
+            AND DCLP.HAKGWA_NAME = #{search.hakgwaName}
+            ]]>
+        </if>
+
+        <if test='search.origin != null and search.origin != ""'>
+            <![CDATA[
+            AND DCLP.ORIGIN = #{search.origin}
+            ]]>
+        </if>
+
+        <if test='search.lYear != null and search.lYear != ""'>
+            <![CDATA[
+            AND DCLP.L_YEAR = #{search.lYear}
+            ]]>
+        </if>
+
+        <if test='search.lMonth != null and search.lMonth != ""'>
+            <![CDATA[
+            AND DCLP.L_MONTH = #{search.lMonth}
+            ]]>
+        </if>
+
+        <if test='search.lDay != null and search.lDay != ""'>
+            <![CDATA[
+            AND DCLP.L_DAY = #{search.lDay}
+            ]]>
+        </if>
+
+        <if test='search.accessCnt != null and search.accessCnt != ""'>
+            <![CDATA[
+            AND DCLP.ACCESS_CNT = #{search.accessCnt}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+    <!-- dwongoal -->
+    <select id="dwongoal" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DOG.DAEHAK_NAME
+                , DOG.HAKBU_NAME
+                , DOG.HAKGWA_NAME
+                , DOG.HAKBUN
+                , DOG.HAKJ_IRUM
+                , DOG.CONT_GUBN
+                , DOG.CONT_SEQNO
+                , DOG.CONT_CODE
+                , DOG.DATA_GUBN
+                , DOG.CONT_GUBN_NAME
+                , DOG.COMPANY_NAME
+                , DOG.BUSINESS_GROUP
+                , DOG.AREA
+                , DOG.HAKG_YEAR
+                , DOG.JOLUP_GBN
+                , DOG.JOLUP_GBN_NAME
+                , DOG.INPUT_DT
+            FROM DW_ON_GOAL DOG
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.daehakName != null and search.daehakName != ""'>
+            <![CDATA[
+            AND DOG.DAEHAK_NAME = #{search.daehakName}
+            ]]>
+        </if>
+
+        <if test='search.hakbuName != null and search.hakbuName != ""'>
+            <![CDATA[
+            AND DOG.HAKBU_NAME = #{search.hakbuName}
+            ]]>
+        </if>
+
+        <if test='search.hakgwaName != null and search.hakgwaName != ""'>
+            <![CDATA[
+            AND DOG.HAKGWA_NAME = #{search.hakgwaName}
+            ]]>
+        </if>
+
+        <if test='search.hakbun != null and search.hakbun != ""'>
+            <![CDATA[
+            AND DOG.HAKBUN = #{search.hakbun}
+            ]]>
+        </if>
+
+        <if test='search.hakjIrum != null and search.hakjIrum != ""'>
+            <![CDATA[
+            AND DOG.HAKJ_IRUM = #{search.hakjIrum}
+            ]]>
+        </if>
+
+        <if test='search.contGubn != null and search.contGubn != ""'>
+            <![CDATA[
+            AND DOG.CONT_GUBN = #{search.contGubn}
+            ]]>
+        </if>
+
+        <if test='search.contSeqno != null and search.contSeqno != ""'>
+            <![CDATA[
+            AND DOG.CONT_SEQNO = #{search.contSeqno}
+            ]]>
+        </if>
+
+        <if test='search.contCode != null and search.contCode != ""'>
+            <![CDATA[
+            AND DOG.CONT_CODE = #{search.contCode}
+            ]]>
+        </if>
+
+        <if test='search.dataGubn != null and search.dataGubn != ""'>
+            <![CDATA[
+            AND DOG.DATA_GUBN = #{search.dataGubn}
+            ]]>
+        </if>
+
+        <if test='search.contGubnName != null and search.contGubnName != ""'>
+            <![CDATA[
+            AND DOG.CONT_GUBN_NAME = #{search.contGubnName}
+            ]]>
+        </if>
+
+        <if test='search.companyName != null and search.companyName != ""'>
+            <![CDATA[
+            AND DOG.COMPANY_NAME = #{search.companyName}
+            ]]>
+        </if>
+
+        <if test='search.businessGroup != null and search.businessGroup != ""'>
+            <![CDATA[
+            AND DOG.BUSINESS_GROUP = #{search.businessGroup}
+            ]]>
+        </if>
+
+        <if test='search.area != null and search.area != ""'>
+            <![CDATA[
+            AND DOG.AREA = #{search.area}
+            ]]>
+        </if>
+
+        <if test='search.hakgYear != null and search.hakgYear != ""'>
+            <![CDATA[
+            AND DOG.HAKG_YEAR = #{search.hakgYear}
+            ]]>
+        </if>
+
+        <if test='search.jolupGbn != null and search.jolupGbn != ""'>
+            <![CDATA[
+            AND DOG.JOLUP_GBN = #{search.jolupGbn}
+            ]]>
+        </if>
+
+        <if test='search.jolupGbnName != null and search.jolupGbnName != ""'>
+            <![CDATA[
+            AND DOG.JOLUP_GBN_NAME = #{search.jolupGbnName}
+            ]]>
+        </if>
+
+        <if test='search.inputDt != null and search.inputDt != ""'>
+            <![CDATA[
+            AND DOG.INPUT_DT = #{search.inputDt}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+    <!-- dwoncomp -->
+    <select id="dwoncomp" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DOC.DAEHAK_NAME
+                , DOC.HAKBU_NAME
+                , DOC.HAKBUN
+                , DOC.HAKJ_IRUM
+                , DOC.CODE_LARGE
+                , DOC.CODE_MIDDLE
+                , DOC.CODE_CODE
+                , DOC.CODE_FNAME
+                , DOC.CODE_SNAME
+                , DOC.CODE_POINT_TYPE
+                , DOC.CODE_UNIT
+                , DOC.COMP_NAME
+                , DOC.COMP_ABBR
+                , DOC.COMP_HAKYY
+                , DOC.COMP_HAKGI
+                , DOC.COMP_CODE
+                , DOC.GWAMOK_CODE
+                , DOC.COMP_POINT
+                , DOC.INPUT_DT
+            FROM DW_ON_COMP DOC
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.daehakName != null and search.daehakName != ""'>
+            <![CDATA[
+            AND DOC.DAEHAK_NAME = #{search.daehakName}
+            ]]>
+        </if>
+
+        <if test='search.hakbuName != null and search.hakbuName != ""'>
+            <![CDATA[
+            AND DOC.HAKBU_NAME = #{search.hakbuName}
+            ]]>
+        </if>
+
+        <if test='search.hakbun != null and search.hakbun != ""'>
+            <![CDATA[
+            AND DOC.HAKBUN = #{search.hakbun}
+            ]]>
+        </if>
+
+        <if test='search.hakjIrum != null and search.hakjIrum != ""'>
+            <![CDATA[
+            AND DOC.HAKJ_IRUM = #{search.hakjIrum}
+            ]]>
+        </if>
+
+        <if test='search.codeLarge != null and search.codeLarge != ""'>
+            <![CDATA[
+            AND DOC.CODE_LARGE = #{search.codeLarge}
+            ]]>
+        </if>
+
+        <if test='search.codeMiddle != null and search.codeMiddle != ""'>
+            <![CDATA[
+            AND DOC.CODE_MIDDLE = #{search.codeMiddle}
+            ]]>
+        </if>
+
+        <if test='search.codeCode != null and search.codeCode != ""'>
+            <![CDATA[
+            AND DOC.CODE_CODE = #{search.codeCode}
+            ]]>
+        </if>
+
+        <if test='search.codeFname != null and search.codeFname != ""'>
+            <![CDATA[
+            AND DOC.CODE_FNAME = #{search.codeFname}
+            ]]>
+        </if>
+
+        <if test='search.codeSname != null and search.codeSname != ""'>
+            <![CDATA[
+            AND DOC.CODE_SNAME = #{search.codeSname}
+            ]]>
+        </if>
+
+        <if test='search.codePointType != null and search.codePointType != ""'>
+            <![CDATA[
+            AND DOC.CODE_POINT_TYPE = #{search.codePointType}
+            ]]>
+        </if>
+
+        <if test='search.codeUnit != null and search.codeUnit != ""'>
+            <![CDATA[
+            AND DOC.CODE_UNIT = #{search.codeUnit}
+            ]]>
+        </if>
+
+        <if test='search.compName != null and search.compName != ""'>
+            <![CDATA[
+            AND DOC.COMP_NAME = #{search.compName}
+            ]]>
+        </if>
+
+        <if test='search.compAbbr != null and search.compAbbr != ""'>
+            <![CDATA[
+            AND DOC.COMP_ABBR = #{search.compAbbr}
+            ]]>
+        </if>
+
+        <if test='search.compHakyy != null and search.compHakyy != ""'>
+            <![CDATA[
+            AND DOC.COMP_HAKYY = #{search.compHakyy}
+            ]]>
+        </if>
+
+        <if test='search.compHakgi != null and search.compHakgi != ""'>
+            <![CDATA[
+            AND DOC.COMP_HAKGI = #{search.compHakgi}
+            ]]>
+        </if>
+
+        <if test='search.compCode != null and search.compCode != ""'>
+            <![CDATA[
+            AND DOC.COMP_CODE = #{search.compCode}
+            ]]>
+        </if>
+
+        <if test='search.gwamokCode != null and search.gwamokCode != ""'>
+            <![CDATA[
+            AND DOC.GWAMOK_CODE = #{search.gwamokCode}
+            ]]>
+        </if>
+
+        <if test='search.compPoint != null and search.compPoint != ""'>
+            <![CDATA[
+            AND DOC.COMP_POINT = #{search.compPoint}
+            ]]>
+        </if>
+
+        <if test='search.inputDt != null and search.inputDt != ""'>
+            <![CDATA[
+            AND DOC.INPUT_DT = #{search.inputDt}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+    <!-- dwonlife -->
+    <select id="dwonlife" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DOL.DAEHAK_NAME
+                , DOL.HAKBU_NAME
+                , DOL.HAKBUN
+                , DOL.HAKJ_IRUM
+                , DOL.LARGE_NAME
+                , DOL.MIDDLE_NAME
+                , DOL.CODE_FNAME
+                , DOL.LIFE_POINT
+                , DOL.LIFE_UNITPOINT
+                , DOL.LIFE_CONTENT
+                , DOL.LISE_NAME
+                , DOL.LIFE_WORKDATE
+                , DOL.LIFE_SEQ
+                , DOL.LIFE_POINTTYPE
+                , DOL.LIFE_FROMDATE
+                ,  DOL.LIFE_SCHOLARSHIP
+                , DOL.LIFE_SCHOLAR_YEAR
+                , DOL.LIFE_SCHOLAR_HAKGI
+            FROM DW_ON_LIFE DOL
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.daehakName != null and search.daehakName != ""'>
+            <![CDATA[
+            AND DOL.DAEHAK_NAME = #{search.daehakName}
+            ]]>
+        </if>
+
+        <if test='search.hakbuName != null and search.hakbuName != ""'>
+            <![CDATA[
+            AND DOL.HAKBU_NAME = #{search.hakbuName}
+            ]]>
+        </if>
+
+        <if test='search.hakbun != null and search.hakbun != ""'>
+            <![CDATA[
+            AND DOL.HAKBUN = #{search.hakbun}
+            ]]>
+        </if>
+
+        <if test='search.hakjIrum != null and search.hakjIrum != ""'>
+            <![CDATA[
+            AND DOL.HAKJ_IRUM = #{search.hakjIrum}
+            ]]>
+        </if>
+
+        <if test='search.largeName != null and search.largeName != ""'>
+            <![CDATA[
+            AND DOL.LARGE_NAME = #{search.largeName}
+            ]]>
+        </if>
+
+        <if test='search.middleName != null and search.middleName != ""'>
+            <![CDATA[
+            AND DOL.MIDDLE_NAME = #{search.middleName}
+            ]]>
+        </if>
+
+        <if test='search.codeFname != null and search.codeFname != ""'>
+            <![CDATA[
+            AND DOL.CODE_FNAME = #{search.codeFname}
+            ]]>
+        </if>
+
+        <if test='search.lifePoint != null and search.lifePoint != ""'>
+            <![CDATA[
+            AND DOL.LIFE_POINT = #{search.lifePoint}
+            ]]>
+        </if>
+
+        <if test='search.lifeUnitpoint != null and search.lifeUnitpoint != ""'>
+            <![CDATA[
+            AND DOL.LIFE_UNITPOINT = #{search.lifeUnitpoint}
+            ]]>
+        </if>
+
+        <if test='search.lifeContent != null and search.lifeContent != ""'>
+            <![CDATA[
+            AND DOL.LIFE_CONTENT = #{search.lifeContent}
+            ]]>
+        </if>
+
+        <if test='search.liseName != null and search.liseName != ""'>
+            <![CDATA[
+            AND DOL.LISE_NAME = #{search.liseName}
+            ]]>
+        </if>
+
+        <if test='search.lifeWorkdate != null and search.lifeWorkdate != ""'>
+            <![CDATA[
+            AND DOL.LIFE_WORKDATE = #{search.lifeWorkdate}
+            ]]>
+        </if>
+
+        <if test='search.lifeSeq != null and search.lifeSeq != ""'>
+            <![CDATA[
+            AND DOL.LIFE_SEQ = #{search.lifeSeq}
+            ]]>
+        </if>
+
+        <if test='search.lifePointtype != null and search.lifePointtype != ""'>
+            <![CDATA[
+            AND DOL.LIFE_POINTTYPE = #{search.lifePointtype}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+    <!-- dwonsuper3 -->
+    <select id="dwonsuper3" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DOS3.HAKBUN
+                , DOS3.HAKJ_IRUM
+                , DOS3.DAEHAK_NAME
+                , DOS3.HAKBU_NAME
+                , DOS3.HAKG_YEAR
+                , DOS3.S_POINT
+                , DOS3.U_POINT
+                , DOS3.P_POINT
+                , DOS3.E_POINT
+                , DOS3.R_POINT
+                , DOS3.TOTAL_POINT
+                , DOS3.GWAKMOK_CNT
+            FROM DW_ON_SUPER3 DOS3
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.hakbun != null and search.hakbun != ""'>
+            <![CDATA[
+            AND DOS3.HAKBUN = #{search.hakbun}
+            ]]>
+        </if>
+
+        <if test='search.hakjIrum != null and search.hakjIrum != ""'>
+            <![CDATA[
+            AND DOS3.HAKJ_IRUM = #{search.hakjIrum}
+            ]]>
+        </if>
+
+        <if test='search.daehakName != null and search.daehakName != ""'>
+            <![CDATA[
+            AND DOS3.DAEHAK_NAME = #{search.daehakName}
+            ]]>
+        </if>
+
+        <if test='search.hakbuName != null and search.hakbuName != ""'>
+            <![CDATA[
+            AND DOS3.HAKBU_NAME = #{search.hakbuName}
+            ]]>
+        </if>
+
+        <if test='search.hakgYear != null and search.hakgYear != ""'>
+            <![CDATA[
+            AND DOS3.HAKG_YEAR = #{search.hakgYear}
+            ]]>
+        </if>
+
+        <if test='search.sPoint != null and search.sPoint != ""'>
+            <![CDATA[
+            AND DOS3.S_POINT = #{search.sPoint}
+            ]]>
+        </if>
+
+        <if test='search.uPoint != null and search.uPoint != ""'>
+            <![CDATA[
+            AND DOS3.U_POINT = #{search.uPoint}
+            ]]>
+        </if>
+
+        <if test='search.pPoint != null and search.pPoint != ""'>
+            <![CDATA[
+            AND DOS3.P_POINT = #{search.pPoint}
+            ]]>
+        </if>
+
+        <if test='search.ePoint != null and search.ePoint != ""'>
+            <![CDATA[
+            AND DOS3.E_POINT = #{search.ePoint}
+            ]]>
+        </if>
+
+        <if test='search.rPoint != null and search.rPoint != ""'>
+            <![CDATA[
+            AND DOS3.R_POINT = #{search.rPoint}
+            ]]>
+        </if>
+
+        <if test='search.totalPoint != null and search.totalPoint != ""'>
+            <![CDATA[
+            AND DOS3.TOTAL_POINT = #{search.totalPoint}
+            ]]>
+        </if>
+
+        <if test='search.gwakmokCnt != null and search.gwakmokCnt != ""'>
+            <![CDATA[
+            AND DOS3.GWAKMOK_CNT = #{search.gwakmokCnt}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+    <!-- dwonduty3 -->
+    <select id="dwonduty3" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DOD3.DAEHAK_NAME
+                , DOD3.HAKBU_NAME
+                , DOD3.HAKBUN
+                , DOD3.HAKJ_IRUM
+                , DOD3.HAKG_YEAR
+                , DOD3.JOLUP_GBN_NAME
+                , DOD3.L00000001
+                , DOD3.L00000002
+                , DOD3.L00000003
+                , DOD3.L00000004
+                , DOD3.L00000005
+                , DOD3.L00000006
+                , DOD3.L00000007
+                , DOD3.L00000008
+                , DOD3.L00000009
+                , DOD3.L00000010
+                , DOD3.L00000011
+                , DOD3.L00000012
+                , DOD3.L00000013
+                , DOD3.L00000014
+                , DOD3.L00000015
+                , DOD3.L00000016
+                , DOD3.L00000017
+                , DOD3.L00000018
+                , DOD3.L00000019
+                , DOD3.L00000020
+                , DOD3.COMP_TOTAL
+                , DOD3.GWAMOK_CNT
+            FROM DW_ON_DUTY3 DOD3
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.daehakName != null and search.daehakName != ""'>
+            <![CDATA[
+            AND DOD3.DAEHAK_NAME = #{search.daehakName}
+            ]]>
+        </if>
+
+        <if test='search.hakbuName != null and search.hakbuName != ""'>
+            <![CDATA[
+            AND DOD3.HAKBU_NAME = #{search.hakbuName}
+            ]]>
+        </if>
+
+        <if test='search.hakbun != null and search.hakbun != ""'>
+            <![CDATA[
+            AND DOD3.HAKBUN = #{search.hakbun}
+            ]]>
+        </if>
+
+        <if test='search.hakjIrum != null and search.hakjIrum != ""'>
+            <![CDATA[
+            AND DOD3.HAKJ_IRUM = #{search.hakjIrum}
+            ]]>
+        </if>
+
+        <if test='search.hakgYear != null and search.hakgYear != ""'>
+            <![CDATA[
+            AND DOD3.HAKG_YEAR = #{search.hakgYear}
+            ]]>
+        </if>
+
+        <if test='search.jolupGbnName != null and search.jolupGbnName != ""'>
+            <![CDATA[
+            AND DOD3.JOLUP_GBN_NAME = #{search.jolupGbnName}
+            ]]>
+        </if>
+
+        <if test='search.l00000001 != null and search.l00000001 != ""'>
+            <![CDATA[
+            AND DOD3.L00000001 = #{search.l00000001}
+            ]]>
+        </if>
+
+        <if test='search.l00000002 != null and search.l00000002 != ""'>
+            <![CDATA[
+            AND DOD3.L00000002 = #{search.l00000002}
+            ]]>
+        </if>
+
+        <if test='search.l00000003 != null and search.l00000003 != ""'>
+            <![CDATA[
+            AND DOD3.L00000003 = #{search.l00000003}
+            ]]>
+        </if>
+
+        <if test='search.l00000004 != null and search.l00000004 != ""'>
+            <![CDATA[
+            AND DOD3.L00000004 = #{search.l00000004}
+            ]]>
+        </if>
+
+        <if test='search.l00000005 != null and search.l00000005 != ""'>
+            <![CDATA[
+            AND DOD3.L00000005 = #{search.l00000005}
+            ]]>
+        </if>
+
+        <if test='search.l00000006 != null and search.l00000006 != ""'>
+            <![CDATA[
+            AND DOD3.L00000006 = #{search.l00000006}
+            ]]>
+        </if>
+
+        <if test='search.l00000007 != null and search.l00000007 != ""'>
+            <![CDATA[
+            AND DOD3.L00000007 = #{search.l00000007}
+            ]]>
+        </if>
+
+        <if test='search.l00000008 != null and search.l00000008 != ""'>
+            <![CDATA[
+            AND DOD3.L00000008 = #{search.l00000008}
+            ]]>
+        </if>
+
+        <if test='search.l00000009 != null and search.l00000009 != ""'>
+            <![CDATA[
+            AND DOD3.L00000009 = #{search.l00000009}
+            ]]>
+        </if>
+
+        <if test='search.l00000010 != null and search.l00000010 != ""'>
+            <![CDATA[
+            AND DOD3.L00000010 = #{search.l00000010}
+            ]]>
+        </if>
+
+        <if test='search.l00000011 != null and search.l00000011 != ""'>
+            <![CDATA[
+            AND DOD3.L00000011 = #{search.l00000011}
+            ]]>
+        </if>
+
+        <if test='search.l00000012 != null and search.l00000012 != ""'>
+            <![CDATA[
+            AND DOD3.L00000012 = #{search.l00000012}
+            ]]>
+        </if>
+
+        <if test='search.l00000013 != null and search.l00000013 != ""'>
+            <![CDATA[
+            AND DOD3.L00000013 = #{search.l00000013}
+            ]]>
+        </if>
+
+        <if test='search.l00000014 != null and search.l00000014 != ""'>
+            <![CDATA[
+            AND DOD3.L00000014 = #{search.l00000014}
+            ]]>
+        </if>
+
+        <if test='search.l00000015 != null and search.l00000015 != ""'>
+            <![CDATA[
+            AND DOD3.L00000015 = #{search.l00000015}
+            ]]>
+        </if>
+
+        <if test='search.l00000016 != null and search.l00000016 != ""'>
+            <![CDATA[
+            AND DOD3.L00000016 = #{search.l00000016}
+            ]]>
+        </if>
+
+        <if test='search.l00000017 != null and search.l00000017 != ""'>
+            <![CDATA[
+            AND DOD3.L00000017 = #{search.l00000017}
+            ]]>
+        </if>
+
+        <if test='search.l00000018 != null and search.l00000018 != ""'>
+            <![CDATA[
+            AND DOD3.L00000018 = #{search.l00000018}
+            ]]>
+        </if>
+
+        <if test='search.l00000019 != null and search.l00000019 != ""'>
+            <![CDATA[
+            AND DOD3.L00000019 = #{search.l00000019}
+            ]]>
+        </if>
+
+        <if test='search.l00000020 != null and search.l00000020 != ""'>
+            <![CDATA[
+            AND DOD3.L00000020 = #{search.l00000020}
+            ]]>
+        </if>
+
+        <if test='search.compTotal != null and search.compTotal != ""'>
+            <![CDATA[
+            AND DOD3.COMP_TOTAL = #{search.compTotal}
+            ]]>
+        </if>
+
+        <if test='search.gwamokCnt != null and search.gwamokCnt != ""'>
+            <![CDATA[
+            AND DOD3.GWAMOK_CNT = #{search.gwamokCnt}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+    <!-- dwonduty2 -->
+    <select id="dwonduty2" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DOD2.DAEHAK_NAME
+                , DOD2.HAKBU_NAME
+                , DOD2.HAKBUN
+                , DOD2.HAKJ_IRUM
+                , DOD2.HAKG_YEAR
+                , DOD2.JOLUP_GBN_NAME
+                , DOD2.L00000001
+                , DOD2.L00000002
+                , DOD2.L00000003
+                , DOD2.L00000004
+                , DOD2.L00000005
+                , DOD2.L00000006
+                , DOD2.L00000007
+                , DOD2.L00000008
+                , DOD2.L00000009
+                , DOD2.L00000010
+                , DOD2.L00000011
+                , DOD2.L00000012
+                , DOD2.L00000013
+                , DOD2.L00000014
+                , DOD2.L00000015
+                , DOD2.L00000016
+                , DOD2.L00000017
+                , DOD2.L00000018
+                , DOD2.L00000019
+                , DOD2.L00000020
+                , DOD2.COMP_TOTAL
+                , DOD2.GWAMOK_CNT
+            FROM DW_ON_DUTY2 DOD2
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.daehakName != null and search.daehakName != ""'>
+            <![CDATA[
+            AND DOD2.DAEHAK_NAME = #{search.daehakName}
+            ]]>
+        </if>
+
+        <if test='search.hakbuName != null and search.hakbuName != ""'>
+            <![CDATA[
+            AND DOD2.HAKBU_NAME = #{search.hakbuName}
+            ]]>
+        </if>
+
+        <if test='search.hakbun != null and search.hakbun != ""'>
+            <![CDATA[
+            AND DOD2.HAKBUN = #{search.hakbun}
+            ]]>
+        </if>
+
+        <if test='search.hakjIrum != null and search.hakjIrum != ""'>
+            <![CDATA[
+            AND DOD2.HAKJ_IRUM = #{search.hakjIrum}
+            ]]>
+        </if>
+
+        <if test='search.hakgYear != null and search.hakgYear != ""'>
+            <![CDATA[
+            AND DOD2.HAKG_YEAR = #{search.hakgYear}
+            ]]>
+        </if>
+
+        <if test='search.jolupGbnName != null and search.jolupGbnName != ""'>
+            <![CDATA[
+            AND DOD2.JOLUP_GBN_NAME = #{search.jolupGbnName}
+            ]]>
+        </if>
+
+        <if test='search.l00000001 != null and search.l00000001 != ""'>
+            <![CDATA[
+            AND DOD2.L00000001 = #{search.l00000001}
+            ]]>
+        </if>
+
+        <if test='search.l00000002 != null and search.l00000002 != ""'>
+            <![CDATA[
+            AND DOD2.L00000002 = #{search.l00000002}
+            ]]>
+        </if>
+
+        <if test='search.l00000003 != null and search.l00000003 != ""'>
+            <![CDATA[
+            AND DOD2.L00000003 = #{search.l00000003}
+            ]]>
+        </if>
+
+        <if test='search.l00000004 != null and search.l00000004 != ""'>
+            <![CDATA[
+            AND DOD2.L00000004 = #{search.l00000004}
+            ]]>
+        </if>
+
+        <if test='search.l00000005 != null and search.l00000005 != ""'>
+            <![CDATA[
+            AND DOD2.L00000005 = #{search.l00000005}
+            ]]>
+        </if>
+
+        <if test='search.l00000006 != null and search.l00000006 != ""'>
+            <![CDATA[
+            AND DOD2.L00000006 = #{search.l00000006}
+            ]]>
+        </if>
+
+        <if test='search.l00000007 != null and search.l00000007 != ""'>
+            <![CDATA[
+            AND DOD2.L00000007 = #{search.l00000007}
+            ]]>
+        </if>
+
+        <if test='search.l00000008 != null and search.l00000008 != ""'>
+            <![CDATA[
+            AND DOD2.L00000008 = #{search.l00000008}
+            ]]>
+        </if>
+
+        <if test='search.l00000009 != null and search.l00000009 != ""'>
+            <![CDATA[
+            AND DOD2.L00000009 = #{search.l00000009}
+            ]]>
+        </if>
+
+        <if test='search.l00000010 != null and search.l00000010 != ""'>
+            <![CDATA[
+            AND DOD2.L00000010 = #{search.l00000010}
+            ]]>
+        </if>
+
+        <if test='search.l00000011 != null and search.l00000011 != ""'>
+            <![CDATA[
+            AND DOD2.L00000011 = #{search.l00000011}
+            ]]>
+        </if>
+
+        <if test='search.l00000012 != null and search.l00000012 != ""'>
+            <![CDATA[
+            AND DOD2.L00000012 = #{search.l00000012}
+            ]]>
+        </if>
+
+        <if test='search.l00000013 != null and search.l00000013 != ""'>
+            <![CDATA[
+            AND DOD2.L00000013 = #{search.l00000013}
+            ]]>
+        </if>
+
+        <if test='search.l00000014 != null and search.l00000014 != ""'>
+            <![CDATA[
+            AND DOD2.L00000014 = #{search.l00000014}
+            ]]>
+        </if>
+
+        <if test='search.l00000015 != null and search.l00000015 != ""'>
+            <![CDATA[
+            AND DOD2.L00000015 = #{search.l00000015}
+            ]]>
+        </if>
+
+        <if test='search.l00000016 != null and search.l00000016 != ""'>
+            <![CDATA[
+            AND DOD2.L00000016 = #{search.l00000016}
+            ]]>
+        </if>
+
+        <if test='search.l00000017 != null and search.l00000017 != ""'>
+            <![CDATA[
+            AND DOD2.L00000017 = #{search.l00000017}
+            ]]>
+        </if>
+
+        <if test='search.l00000018 != null and search.l00000018 != ""'>
+            <![CDATA[
+            AND DOD2.L00000018 = #{search.l00000018}
+            ]]>
+        </if>
+
+        <if test='search.l00000019 != null and search.l00000019 != ""'>
+            <![CDATA[
+            AND DOD2.L00000019 = #{search.l00000019}
+            ]]>
+        </if>
+
+        <if test='search.l00000020 != null and search.l00000020 != ""'>
+            <![CDATA[
+            AND DOD2.L00000020 = #{search.l00000020}
+            ]]>
+        </if>
+
+        <if test='search.compTotal != null and search.compTotal != ""'>
+            <![CDATA[
+            AND DOD2.COMP_TOTAL = #{search.compTotal}
+            ]]>
+        </if>
+
+        <if test='search.gwamokCnt != null and search.gwamokCnt != ""'>
+            <![CDATA[
+            AND DOD2.GWAMOK_CNT = #{search.gwamokCnt}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+    <!-- dwonsupergwamok -->
+    <select id="dwonsupergwamok" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DOSG.COMP_HAKYY
+                , DOSG.COMP_HAKGI
+                , DOSG.HAKBUN
+                , DOSG.HAKJ_IRUM
+                , DOSG.DAEHAK_NAME
+                , DOSG.HAKBU_NAME
+                , DOSG.GWAMOK_CODE
+                , DOSG.GWAMOK_BUNBAN
+                , DOSG.SUNG_YEAR
+                , DOSG.SUNG_PUNGJUM
+                , DOSG.SUNG_WHAN_JUMSU
+                , DOSG.SUNG_HAKJUM
+                , DOSG.SUNG_JISU
+                , DOSG.COMP_YN
+                , DOSG.COMP_AUTH_DATE
+                , DOSG.S_POINT
+                , DOSG.U_POINT
+                , DOSG.P_POINT
+                , DOSG.E_POINT
+                , DOSG.R_POINT
+                , DOSG.TOTAL_POINT
+            FROM DW_ON_SUPER_GWAMOK DOSG
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.compHakyy != null and search.compHakyy != ""'>
+            <![CDATA[
+            AND DOSG.COMP_HAKYY = #{search.compHakyy}
+            ]]>
+        </if>
+
+        <if test='search.compHakgi != null and search.compHakgi != ""'>
+            <![CDATA[
+            AND DOSG.COMP_HAKGI = #{search.compHakgi}
+            ]]>
+        </if>
+
+        <if test='search.hakbun != null and search.hakbun != ""'>
+            <![CDATA[
+            AND DOSG.HAKBUN = #{search.hakbun}
+            ]]>
+        </if>
+
+        <if test='search.hakjIrum != null and search.hakjIrum != ""'>
+            <![CDATA[
+            AND DOSG.HAKJ_IRUM = #{search.hakjIrum}
+            ]]>
+        </if>
+
+        <if test='search.daehakName != null and search.daehakName != ""'>
+            <![CDATA[
+            AND DOSG.DAEHAK_NAME = #{search.daehakName}
+            ]]>
+        </if>
+
+        <if test='search.hakbuName != null and search.hakbuName != ""'>
+            <![CDATA[
+            AND DOSG.HAKBU_NAME = #{search.hakbuName}
+            ]]>
+        </if>
+
+        <if test='search.gwamokCode != null and search.gwamokCode != ""'>
+            <![CDATA[
+            AND DOSG.GWAMOK_CODE = #{search.gwamokCode}
+            ]]>
+        </if>
+
+        <if test='search.gwamokBunban != null and search.gwamokBunban != ""'>
+            <![CDATA[
+            AND DOSG.GWAMOK_BUNBAN = #{search.gwamokBunban}
+            ]]>
+        </if>
+
+        <if test='search.sungYear != null and search.sungYear != ""'>
+            <![CDATA[
+            AND DOSG.SUNG_YEAR = #{search.sungYear}
+            ]]>
+        </if>
+
+        <if test='search.sungPungjum != null and search.sungPungjum != ""'>
+            <![CDATA[
+            AND DOSG.SUNG_PUNGJUM = #{search.sungPungjum}
+            ]]>
+        </if>
+
+        <if test='search.sungWhanJumsu != null and search.sungWhanJumsu != ""'>
+            <![CDATA[
+            AND DOSG.SUNG_WHAN_JUMSU = #{search.sungWhanJumsu}
+            ]]>
+        </if>
+
+        <if test='search.sungHakjum != null and search.sungHakjum != ""'>
+            <![CDATA[
+            AND DOSG.SUNG_HAKJUM = #{search.sungHakjum}
+            ]]>
+        </if>
+
+        <if test='search.sungJisu != null and search.sungJisu != ""'>
+            <![CDATA[
+            AND DOSG.SUNG_JISU = #{search.sungJisu}
+            ]]>
+        </if>
+
+        <if test='search.compYn != null and search.compYn != ""'>
+            <![CDATA[
+            AND DOSG.COMP_YN = #{search.compYn}
+            ]]>
+        </if>
+
+        <if test='search.compAuthDate != null and search.compAuthDate != ""'>
+            <![CDATA[
+            AND DOSG.COMP_AUTH_DATE = #{search.compAuthDate}
+            ]]>
+        </if>
+
+        <if test='search.sPoint != null and search.sPoint != ""'>
+            <![CDATA[
+            AND DOSG.S_POINT = #{search.sPoint}
+            ]]>
+        </if>
+
+        <if test='search.uPoint != null and search.uPoint != ""'>
+            <![CDATA[
+            AND DOSG.U_POINT = #{search.uPoint}
+            ]]>
+        </if>
+
+        <if test='search.pPoint != null and search.pPoint != ""'>
+            <![CDATA[
+            AND DOSG.P_POINT = #{search.pPoint}
+            ]]>
+        </if>
+
+        <if test='search.ePoint != null and search.ePoint != ""'>
+            <![CDATA[
+            AND DOSG.E_POINT = #{search.ePoint}
+            ]]>
+        </if>
+
+        <if test='search.rPoint != null and search.rPoint != ""'>
+            <![CDATA[
+            AND DOSG.R_POINT = #{search.rPoint}
+            ]]>
+        </if>
+
+        <if test='search.totalPoint != null and search.totalPoint != ""'>
+            <![CDATA[
+            AND DOSG.TOTAL_POINT = #{search.totalPoint}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+    <!-- dwonsuper2 -->
+    <select id="dwonsuper2" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DOS2.HAKBUN
+                , DOS2.HAKJ_IRUM
+                , DOS2.DAEHAK_NAME
+                , DOS2.HAKBU_NAME
+                , DOS2.HAKG_YEAR
+                , DOS2.S_POINT
+                , DOS2.U_POINT
+                , DOS2.P_POINT
+                , DOS2.E_POINT
+                , DOS2.R_POINT
+                , DOS2.TOTAL_POINT
+                , DOS2.GWAKMOK_CNT
+            FROM DW_ON_SUPER2 DOS2
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.hakbun != null and search.hakbun != ""'>
+            <![CDATA[
+            AND DOS2.HAKBUN = #{search.hakbun}
+            ]]>
+        </if>
+
+        <if test='search.hakjIrum != null and search.hakjIrum != ""'>
+            <![CDATA[
+            AND DOS2.HAKJ_IRUM = #{search.hakjIrum}
+            ]]>
+        </if>
+
+        <if test='search.daehakName != null and search.daehakName != ""'>
+            <![CDATA[
+            AND DOS2.DAEHAK_NAME = #{search.daehakName}
+            ]]>
+        </if>
+
+        <if test='search.hakbuName != null and search.hakbuName != ""'>
+            <![CDATA[
+            AND DOS2.HAKBU_NAME = #{search.hakbuName}
+            ]]>
+        </if>
+
+        <if test='search.hakgYear != null and search.hakgYear != ""'>
+            <![CDATA[
+            AND DOS2.HAKG_YEAR = #{search.hakgYear}
+            ]]>
+        </if>
+
+        <if test='search.sPoint != null and search.sPoint != ""'>
+            <![CDATA[
+            AND DOS2.S_POINT = #{search.sPoint}
+            ]]>
+        </if>
+
+        <if test='search.uPoint != null and search.uPoint != ""'>
+            <![CDATA[
+            AND DOS2.U_POINT = #{search.uPoint}
+            ]]>
+        </if>
+
+        <if test='search.pPoint != null and search.pPoint != ""'>
+            <![CDATA[
+            AND DOS2.P_POINT = #{search.pPoint}
+            ]]>
+        </if>
+
+        <if test='search.ePoint != null and search.ePoint != ""'>
+            <![CDATA[
+            AND DOS2.E_POINT = #{search.ePoint}
+            ]]>
+        </if>
+
+        <if test='search.rPoint != null and search.rPoint != ""'>
+            <![CDATA[
+            AND DOS2.R_POINT = #{search.rPoint}
+            ]]>
+        </if>
+
+        <if test='search.totalPoint != null and search.totalPoint != ""'>
+            <![CDATA[
+            AND DOS2.TOTAL_POINT = #{search.totalPoint}
+            ]]>
+        </if>
+
+        <if test='search.gwakmokCnt != null and search.gwakmokCnt != ""'>
+            <![CDATA[
+            AND DOS2.GWAKMOK_CNT = #{search.gwakmokCnt}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+    <!-- dwonduty -->
+    <select id="dwonduty" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DOD.DAEHAK_NAME
+                , DOD.HAKBU_NAME
+                , DOD.HAKBUN
+                , DOD.HAKJ_IRUM
+                , DOD.HAKG_YEAR
+                , DOD.JOLUP_GBN_NAME
+                , DOD.L00000001
+                , DOD.L00000002
+                , DOD.L00000003
+                , DOD.L00000004
+                , DOD.L00000005
+                , DOD.L00000006
+                , DOD.L00000007
+                , DOD.L00000008
+                , DOD.L00000009
+                , DOD.L00000010
+                , DOD.L00000011
+                , DOD.L00000012
+                , DOD.L00000013
+                , DOD.L00000014
+                , DOD.L00000015
+                , DOD.L00000016
+                , DOD.L00000017
+                , DOD.L00000018
+                , DOD.L00000019
+                , DOD.L00000020
+                , DOD.COMP_TOTAL
+                , DOD.GWAMOK_CNT
+            FROM DW_ON_DUTY DOD
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.daehakName != null and search.daehakName != ""'>
+            <![CDATA[
+            AND DOD.DAEHAK_NAME = #{search.daehakName}
+            ]]>
+        </if>
+
+        <if test='search.hakbuName != null and search.hakbuName != ""'>
+            <![CDATA[
+            AND DOD.HAKBU_NAME = #{search.hakbuName}
+            ]]>
+        </if>
+
+        <if test='search.hakbun != null and search.hakbun != ""'>
+            <![CDATA[
+            AND DOD.HAKBUN = #{search.hakbun}
+            ]]>
+        </if>
+
+        <if test='search.hakjIrum != null and search.hakjIrum != ""'>
+            <![CDATA[
+            AND DOD.HAKJ_IRUM = #{search.hakjIrum}
+            ]]>
+        </if>
+
+        <if test='search.hakgYear != null and search.hakgYear != ""'>
+            <![CDATA[
+            AND DOD.HAKG_YEAR = #{search.hakgYear}
+            ]]>
+        </if>
+
+        <if test='search.jolupGbnName != null and search.jolupGbnName != ""'>
+            <![CDATA[
+            AND DOD.JOLUP_GBN_NAME = #{search.jolupGbnName}
+            ]]>
+        </if>
+
+        <if test='search.l00000001 != null and search.l00000001 != ""'>
+            <![CDATA[
+            AND DOD.L00000001 = #{search.l00000001}
+            ]]>
+        </if>
+
+        <if test='search.l00000002 != null and search.l00000002 != ""'>
+            <![CDATA[
+            AND DOD.L00000002 = #{search.l00000002}
+            ]]>
+        </if>
+
+        <if test='search.l00000003 != null and search.l00000003 != ""'>
+            <![CDATA[
+            AND DOD.L00000003 = #{search.l00000003}
+            ]]>
+        </if>
+
+        <if test='search.l00000004 != null and search.l00000004 != ""'>
+            <![CDATA[
+            AND DOD.L00000004 = #{search.l00000004}
+            ]]>
+        </if>
+
+        <if test='search.l00000005 != null and search.l00000005 != ""'>
+            <![CDATA[
+            AND DOD.L00000005 = #{search.l00000005}
+            ]]>
+        </if>
+
+        <if test='search.l00000006 != null and search.l00000006 != ""'>
+            <![CDATA[
+            AND DOD.L00000006 = #{search.l00000006}
+            ]]>
+        </if>
+
+        <if test='search.l00000007 != null and search.l00000007 != ""'>
+            <![CDATA[
+            AND DOD.L00000007 = #{search.l00000007}
+            ]]>
+        </if>
+
+        <if test='search.l00000008 != null and search.l00000008 != ""'>
+            <![CDATA[
+            AND DOD.L00000008 = #{search.l00000008}
+            ]]>
+        </if>
+
+        <if test='search.l00000009 != null and search.l00000009 != ""'>
+            <![CDATA[
+            AND DOD.L00000009 = #{search.l00000009}
+            ]]>
+        </if>
+
+        <if test='search.l00000010 != null and search.l00000010 != ""'>
+            <![CDATA[
+            AND DOD.L00000010 = #{search.l00000010}
+            ]]>
+        </if>
+
+        <if test='search.l00000011 != null and search.l00000011 != ""'>
+            <![CDATA[
+            AND DOD.L00000011 = #{search.l00000011}
+            ]]>
+        </if>
+
+        <if test='search.l00000012 != null and search.l00000012 != ""'>
+            <![CDATA[
+            AND DOD.L00000012 = #{search.l00000012}
+            ]]>
+        </if>
+
+        <if test='search.l00000013 != null and search.l00000013 != ""'>
+            <![CDATA[
+            AND DOD.L00000013 = #{search.l00000013}
+            ]]>
+        </if>
+
+        <if test='search.l00000014 != null and search.l00000014 != ""'>
+            <![CDATA[
+            AND DOD.L00000014 = #{search.l00000014}
+            ]]>
+        </if>
+
+        <if test='search.l00000015 != null and search.l00000015 != ""'>
+            <![CDATA[
+            AND DOD.L00000015 = #{search.l00000015}
+            ]]>
+        </if>
+
+        <if test='search.l00000016 != null and search.l00000016 != ""'>
+            <![CDATA[
+            AND DOD.L00000016 = #{search.l00000016}
+            ]]>
+        </if>
+
+        <if test='search.l00000017 != null and search.l00000017 != ""'>
+            <![CDATA[
+            AND DOD.L00000017 = #{search.l00000017}
+            ]]>
+        </if>
+
+        <if test='search.l00000018 != null and search.l00000018 != ""'>
+            <![CDATA[
+            AND DOD.L00000018 = #{search.l00000018}
+            ]]>
+        </if>
+
+        <if test='search.l00000019 != null and search.l00000019 != ""'>
+            <![CDATA[
+            AND DOD.L00000019 = #{search.l00000019}
+            ]]>
+        </if>
+
+        <if test='search.l00000020 != null and search.l00000020 != ""'>
+            <![CDATA[
+            AND DOD.L00000020 = #{search.l00000020}
+            ]]>
+        </if>
+
+        <if test='search.compTotal != null and search.compTotal != ""'>
+            <![CDATA[
+            AND DOD.COMP_TOTAL = #{search.compTotal}
+            ]]>
+        </if>
+
+        <if test='search.gwamokCnt != null and search.gwamokCnt != ""'>
+            <![CDATA[
+            AND DOD.GWAMOK_CNT = #{search.gwamokCnt}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+    <!-- dwonsuper -->
+    <select id="dwonsuper" resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DOS.HAKBUN
+                , DOS.HAKJ_IRUM
+                , DOS.DAEHAK_NAME
+                , DOS.HAKBU_NAME
+                , DOS.HAKGWA_NAME
+                , DOS.HAKG_YEAR
+                , DOS.S_POINT
+                , DOS.U_POINT
+                , DOS.P_POINT
+                , DOS.E_POINT
+                , DOS.R_POINT
+                , DOS.TOTAL_POINT
+                , DOS.GWAMOK_CNT
+            FROM DW_ON_SUPER DOS
+         WHERE 1 = 1
+        ]]>
+
+        <if test='search.hakbun != null and search.hakbun != ""'>
+            <![CDATA[
+            AND DOS.HAKBUN = #{search.hakbun}
+            ]]>
+        </if>
+
+        <if test='search.hakjIrum != null and search.hakjIrum != ""'>
+            <![CDATA[
+            AND DOS.HAKJ_IRUM = #{search.hakjIrum}
+            ]]>
+        </if>
+
+        <if test='search.daehakName != null and search.daehakName != ""'>
+            <![CDATA[
+            AND DOS.DAEHAK_NAME = #{search.daehakName}
+            ]]>
+        </if>
+
+        <if test='search.hakbuName != null and search.hakbuName != ""'>
+            <![CDATA[
+            AND DOS.HAKBU_NAME = #{search.hakbuName}
+            ]]>
+        </if>
+
+        <if test='search.hakgwaName != null and search.hakgwaName != ""'>
+            <![CDATA[
+            AND DOS.HAKGWA_NAME = #{search.hakgwaName}
+            ]]>
+        </if>
+
+        <if test='search.hakgYear != null and search.hakgYear != ""'>
+            <![CDATA[
+            AND DOS.HAKG_YEAR = #{search.hakgYear}
+            ]]>
+        </if>
+
+        <if test='search.sPoint != null and search.sPoint != ""'>
+            <![CDATA[
+            AND DOS.S_POINT = #{search.sPoint}
+            ]]>
+        </if>
+
+        <if test='search.uPoint != null and search.uPoint != ""'>
+            <![CDATA[
+            AND DOS.U_POINT = #{search.uPoint}
+            ]]>
+        </if>
+
+        <if test='search.pPoint != null and search.pPoint != ""'>
+            <![CDATA[
+            AND DOS.P_POINT = #{search.pPoint}
+            ]]>
+        </if>
+
+        <if test='search.ePoint != null and search.ePoint != ""'>
+            <![CDATA[
+            AND DOS.E_POINT = #{search.ePoint}
+            ]]>
+        </if>
+
+        <if test='search.rPoint != null and search.rPoint != ""'>
+            <![CDATA[
+            AND DOS.R_POINT = #{search.rPoint}
+            ]]>
+        </if>
+
+        <if test='search.totalPoint != null and search.totalPoint != ""'>
+            <![CDATA[
+            AND DOS.TOTAL_POINT = #{search.totalPoint}
+            ]]>
+        </if>
+
+        <if test='search.gwamokCnt != null and search.gwamokCnt != ""'>
+            <![CDATA[
+            AND DOS.GWAMOK_CNT = #{search.gwamokCnt}
+            ]]>
+        </if>
+
+    </select>
+
+
+
+
+    <!-- test001 -->
+    <select id="test001"
+        resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DAEHAK_NAME
+                 , HAKBU_NAME
+                 , HAKGWA_NAME
+                 , HAKG_YEAR
+                 , S_POINT
+                 , U_POINT
+                 , P_POINT
+                 , E_POINT
+                 , R_POINT
+                 , TOTAL_POINT
+            FROM DM_ON_SUPER DOS
+           WHERE 1 = 1
+        ]]>
+
+
+        <if test='search.daehakName != null and search.daehakName != ""'>
+            <![CDATA[
+            AND DOS.DAEHAK_NAME = #{search.daehakName}
+            ]]>
+        </if>
+
+
+        <if test='search.hakbuName != null and search.hakbuName != ""'>
+            <![CDATA[
+            AND DOS.HAKBU_NAME = #{search.hakbuName}
+            ]]>
+        </if>
+
+
+        <if test='search.hakgwaName != null and search.hakgwaName != ""'>
+            <![CDATA[
+            AND DOS.HAKGWA_NAME = #{search.hakgwaName}
+            ]]>
+        </if>
+    </select>
+
+
+
+
+
+    <!-- dwstudentscore -->
+    <select id="dwstudentscore"
+        resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DSS.STD_UNIT
+                , DSS.STD_YY
+                , DSS.STD_HAKGI
+                , DSS.SUTR_DAEHAK_NM
+                , DSS.SUTR_HAKBU_NM
+                , DSS.SUTR_YY
+                , DSS.SUTR_HAKGI
+                , DSS.SUTR_YEAR
+                , DSS.HAKJ_HAKBUN
+                , DSS.HAKJ_IRUM
+                , DSS.HAKJ_SEX
+                , DSS.SUTR_SIN_HAKJUM
+                , DSS.SUTR_CHE_HAKJUM
+                , DSS.SUTR_SIL_AVE
+                , DSS.SUTR_PYONG_TOT
+                , DSS.SUTR_PYONG_AVEF
+                , DSS.SUTR_PYONG_AVE
+            FROM DW_STUDENT_SCORE DSS
+         WHERE 1 = 1
+        ]]>
+
+
+        <if test='stdUnit != null and stdUnit != ""'>
+            <![CDATA[
+            AND DSS.STD_UNIT = #{stdUnit}
+            ]]>
+        </if>
+
+
+
+        <if test='stdYy != null and stdYy != ""'>
+            <![CDATA[
+            AND DSS.STD_YY = #{stdYy}
+            ]]>
+        </if>
+
+
+
+        <if test='stdHakgi != null and stdHakgi != ""'>
+            <![CDATA[
+            AND DSS.STD_HAKGI = #{stdHakgi}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrDaehakNm != null and sutrDaehakNm != ""'>
+            <![CDATA[
+            AND DSS.SUTR_DAEHAK_NM = #{sutrDaehakNm}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrHakbuNm != null and sutrHakbuNm != ""'>
+            <![CDATA[
+            AND DSS.SUTR_HAKBU_NM = #{sutrHakbuNm}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrYy != null and sutrYy != ""'>
+            <![CDATA[
+            AND DSS.SUTR_YY = #{sutrYy}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrHakgi != null and sutrHakgi != ""'>
+            <![CDATA[
+            AND DSS.SUTR_HAKGI = #{sutrHakgi}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrYear != null and sutrYear != ""'>
+            <![CDATA[
+            AND DSS.SUTR_YEAR = #{sutrYear}
+            ]]>
+        </if>
+
+
+
+        <if test='hakjHakbun != null and hakjHakbun != ""'>
+            <![CDATA[
+            AND DSS.HAKJ_HAKBUN = #{hakjHakbun}
+            ]]>
+        </if>
+
+
+
+        <if test='hakjIrum != null and hakjIrum != ""'>
+            <![CDATA[
+            AND DSS.HAKJ_IRUM = #{hakjIrum}
+            ]]>
+        </if>
+
+
+
+        <if test='hakjSex != null and hakjSex != ""'>
+            <![CDATA[
+            AND DSS.HAKJ_SEX = #{hakjSex}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrSinHakjum != null and sutrSinHakjum != ""'>
+            <![CDATA[
+            AND DSS.SUTR_SIN_HAKJUM = #{sutrSinHakjum}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrCheHakjum != null and sutrCheHakjum != ""'>
+            <![CDATA[
+            AND DSS.SUTR_CHE_HAKJUM = #{sutrCheHakjum}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrSilAve != null and sutrSilAve != ""'>
+            <![CDATA[
+            AND DSS.SUTR_SIL_AVE = #{sutrSilAve}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrPyongTot != null and sutrPyongTot != ""'>
+            <![CDATA[
+            AND DSS.SUTR_PYONG_TOT = #{sutrPyongTot}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrPyongAvef != null and sutrPyongAvef != ""'>
+            <![CDATA[
+            AND DSS.SUTR_PYONG_AVEF = #{sutrPyongAvef}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrPyongAve != null and sutrPyongAve != ""'>
+            <![CDATA[
+            AND DSS.SUTR_PYONG_AVE = #{sutrPyongAve}
+            ]]>
+        </if>
+
+
+    </select>
+
+
+
+    <!-- dwstudentscoreyear -->
+    <select id="dwstudentscoreyear"
+        resultType="kr.ac.jj.openapi.application.apilist.model.ApiDataRow">
+        <![CDATA[
+            SELECT DSSY.STD_UNIT
+                , DSSY.STD_YY
+                , DSSY.STD_HAKGI
+                , DSSY.SUTR_DAEHAK_NM
+                , DSSY.SUTR_HAKBU_NM
+                , DSSY.SUTR_YY
+                , DSSY.SUTR_HAKGI
+                , DSSY.SUTR_YEAR
+                , DSSY.HAKJ_HAKBUN
+                , DSSY.HAKJ_IRUM
+                , DSSY.HAKJ_SEX
+                , DSSY.SUTR_SIN_HAKJUM
+                , DSSY.SUTR_CHE_HAKJUM
+                , DSSY.SUTR_SIL_AVE
+                , DSSY.SUTR_PYONG_TOT
+                , DSSY.SUTR_PYONG_AVEF
+                , DSSY.SUTR_PYONG_AVE
+            FROM DW_STUDENT_SCORE_YEAR DSSY
+         WHERE 1 = 1
+        ]]>
+
+
+        <if test='stdUnit != null and stdUnit != ""'>
+            <![CDATA[
+            AND DSSY.STD_UNIT = #{stdUnit}
+            ]]>
+        </if>
+
+
+
+        <if test='stdYy != null and stdYy != ""'>
+            <![CDATA[
+            AND DSSY.STD_YY = #{stdYy}
+            ]]>
+        </if>
+
+
+
+        <if test='stdHakgi != null and stdHakgi != ""'>
+            <![CDATA[
+            AND DSSY.STD_HAKGI = #{stdHakgi}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrDaehakNm != null and sutrDaehakNm != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_DAEHAK_NM = #{sutrDaehakNm}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrHakbuNm != null and sutrHakbuNm != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_HAKBU_NM = #{sutrHakbuNm}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrYy != null and sutrYy != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_YY = #{sutrYy}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrHakgi != null and sutrHakgi != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_HAKGI = #{sutrHakgi}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrYear != null and sutrYear != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_YEAR = #{sutrYear}
+            ]]>
+        </if>
+
+
+
+        <if test='hakjHakbun != null and hakjHakbun != ""'>
+            <![CDATA[
+            AND DSSY.HAKJ_HAKBUN = #{hakjHakbun}
+            ]]>
+        </if>
+
+
+
+        <if test='hakjIrum != null and hakjIrum != ""'>
+            <![CDATA[
+            AND DSSY.HAKJ_IRUM = #{hakjIrum}
+            ]]>
+        </if>
+
+
+
+        <if test='hakjSex != null and hakjSex != ""'>
+            <![CDATA[
+            AND DSSY.HAKJ_SEX = #{hakjSex}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrSinHakjum != null and sutrSinHakjum != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_SIN_HAKJUM = #{sutrSinHakjum}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrCheHakjum != null and sutrCheHakjum != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_CHE_HAKJUM = #{sutrCheHakjum}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrSilAve != null and sutrSilAve != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_SIL_AVE = #{sutrSilAve}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrPyongTot != null and sutrPyongTot != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_PYONG_TOT = #{sutrPyongTot}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrPyongAvef != null and sutrPyongAvef != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_PYONG_AVEF = #{sutrPyongAvef}
+            ]]>
+        </if>
+
+
+
+        <if test='sutrPyongAve != null and sutrPyongAve != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_PYONG_AVE = #{sutrPyongAve}
+            ]]>
+        </if>
+
+
+    </select>
+
+
+
+</mapper>

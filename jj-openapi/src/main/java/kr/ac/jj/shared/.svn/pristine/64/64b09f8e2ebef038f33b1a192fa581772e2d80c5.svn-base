@@ -1,0 +1,22 @@
+package kr.ac.jj.shared.domain.main.model.sys.code.group;
+
+import kr.ac.jj.shared.infrastructure.idgen.util.IdGenerationUtil;
+
+/**
+ * 시스템 - 코드 그룹
+ */
+public class TbSysCodeGroup extends TbSysCodeGroupEntity {
+
+    private static final long serialVersionUID = 1141232886901515489L;
+
+    public TbSysCodeGroup newId() {
+        this.setCodeGroupId(IdGenerationUtil.createUid("TB_SYS_CODE_GROUP"));
+
+        return this;
+    }
+
+    public String getUseYnNm() {
+        return super.getBooleanCodeName("/common/useYn", this.getUseYn());
+    }
+
+}

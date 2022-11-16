@@ -1,0 +1,97 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/layouts/shared/include/PageHeader.jspf"%>
+
+<div id="read" style="display: none;">
+    <div class="pageHeader">
+        FAQ  상세
+    </div>
+
+    <div class="pageContents">
+        <h3>FAQ 정보</h3>
+        <table class="form">
+            <colgroup>
+                <col width="120px">
+                <col width="">
+                <col width="120px">
+                <col width="">
+                <col width="120px">
+                <col width="">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>제목</th>
+                    <td >
+                        <span>{{ model.tbBbsFaq.bbscttSj }}</span>
+                    </td>
+                    <th>작성자</th>
+                    <td>
+                        <span>{{ model.tbBbsFaq.writngPsnNm}}</span>
+                    </td>
+                    <th>작성일</th>
+                    <td>
+                        <span>{{ formatter.date(model.tbBbsFaq.writngDt) }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>질문</th>
+                    <td colspan="5">
+                        <ui-ckeditor2 v-model="model.tbBbsFaq.bbscttCn" read-only></ui-ckeditor2>
+                    </td>
+
+                </tr>
+                <tr>
+                    <th>답변</th>
+                    <td colspan="5">
+                        <ui-ckeditor2 v-model="model.tbBbsFaq.bbscttCn2" read-only></ui-ckeditor2>
+                    </td>
+                </tr>
+                <tr>
+                    <th>첨부파일</th>
+                    <td colspan="5">
+                        {{model.tbBbsFaq.atchFileId}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-space tar">
+            <ui-button class="page" v-on:click="viewEdit();" v-if="model.editable">수정</ui-button>
+            <ui-button class="page" v-on:click="service['delete']();" v-if="model.editable">삭제</ui-button>
+            <ui-button class="list" v-on:click="viewList();">목록</ui-button>
+        </div>
+    </div>
+</div>
+
+<script>
+vues.read = new Vue({
+    el: '#read',
+    data: {
+        bbscttId: null,
+        model: {
+            tbBbsFaq: {}
+        }
+    },
+    computed: {
+        service: function() {
+            return new BbsFaqViewService(this);
+        },
+        formatter: function() {
+            return CommonUtil.formatter;
+        }
+    },
+    methods: {
+        // 초기화
+        init: function(bbscttId) {
+            this.service.read(bbscttId);
+        },
+        // 수정 화면
+        viewEdit: function() {
+            CommonUtil.changeVue("edit", this.bbscttId);
+        },
+        // 목록 화면
+        viewList: function() {
+            CommonUtil.changeVue("list");
+        }
+    }
+});
+</script>

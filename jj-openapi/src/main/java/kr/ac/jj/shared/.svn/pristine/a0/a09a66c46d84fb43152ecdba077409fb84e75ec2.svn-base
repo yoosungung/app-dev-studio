@@ -1,0 +1,20 @@
+package kr.ac.jj.shared.application.admin.appmanage.personmanage.handler;
+
+import java.util.Map;
+
+import org.apache.ibatis.session.ResultContext;
+
+import kr.ac.jj.shared.application.admin.appmanage.personmanage.service.PersonManageServiceImpl;
+import kr.ac.jj.shared.infrastructure.framework.core.support.context.ApplicationContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.handler.DataResultHandler;
+
+public class PersonManageResultHandler extends DataResultHandler {
+
+    @Override
+    public void handleResult(ResultContext<? extends Map<String, Object>> resultContext) {
+        PersonManageServiceImpl personManageService = ApplicationContextUtil.getBean(PersonManageServiceImpl.class);
+
+        personManageService.updateFromDw(resultContext.getResultObject());
+    }
+
+}

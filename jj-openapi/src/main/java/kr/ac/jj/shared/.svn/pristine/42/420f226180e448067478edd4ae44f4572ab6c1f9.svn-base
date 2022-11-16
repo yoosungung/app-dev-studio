@@ -1,0 +1,153 @@
+package kr.ac.jj.shared.config;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.BooleanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.access.vote.AffirmativeBased;
+import org.springframework.security.access.vote.RoleHierarchyVoter;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+
+import kr.ac.jj.shared.application.common.user.filter.UserAutoLoginKeyFilter;
+import kr.ac.jj.shared.application.common.user.handler.UserAccessDeniedHandler;
+import kr.ac.jj.shared.application.common.user.handler.UserLoginFailureHandler;
+import kr.ac.jj.shared.application.common.user.handler.UserLoginSuccessHandler;
+import kr.ac.jj.shared.application.common.user.handler.UserLogoutSuccessHandler;
+import kr.ac.jj.shared.application.common.user.provider.UserLoginProvider;
+import kr.ac.jj.shared.config.props.SharedConfigProperties;
+import kr.ac.jj.shared.infrastructure.framework.core.foundation.exception.BaseException;
+import kr.ac.jj.shared.infrastructure.framework.web.security.attribute.ServletSecurityAttribute;
+import kr.ac.jj.shared.infrastructure.framework.web.servlet.util.ServletUtil;
+import kr.ac.jj.shared.infrastructure.security.intercept.ReloadableFilterInvocationSecurityMetadataSource;
+import kr.ac.jj.shared.infrastructure.security.password.JJSha256PasswordEncoder;
+import kr.ac.jj.shared.infrastructure.security.service.SecuredResourceServiceImpl;
+
+@Lazy
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
+public class SharedSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private @Autowired SharedConfigProperties sharedConfig;
+    private @Autowired UserLoginProvider userLoginProvider;
+    private @Autowired ReloadableFilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource;
+    private @Autowired SecuredResourceServiceImpl securedResourceService;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(userLoginProvider);
+
+        ServletUtil.setAttribute(new ServletSecurityAttribute());
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.headers().frameOptions().sameOrigin();
+
+        if (sharedConfig.getCsrf() != null && BooleanUtils.isTrue(sharedConfig.getCsrf().getDisable())) {
+            http.csrf().disable();
+        } else {
+            HttpSessionCsrfTokenRepository csrfTokenRepository = new HttpSessionCsrfTokenRepository();
+            http.csrf().csrfTokenRepository(csrfTokenRepository);
+
+            if (sharedConfig.getCsrf() != null && sharedConfig.getCsrf().getIgnoringAntMatchers() != null) {
+                http.csrf().ignoringAntMatchers(sharedConfig.getCsrf().getIgnoringAntMatchers());
+            }
+        }
+
+        Map<String, String> autoLoginKeys = sharedConfig.getLogin().getAutoLoginKeys();
+
+        if (MapUtils.isNotEmpty(autoLoginKeys)) {
+            http.addFilterAt(new UserAutoLoginKeyFilter(autoLoginKeys), SecurityContextPersistenceFilter.class);
+        }
+
+        RoleHierarchyVoter roleHierarchyVoter = new RoleHierarchyVoter(roleHierarchy());
+
+        List<AccessDecisionVoter<? extends Object>> accessDecisionVoterList = new ArrayList<AccessDecisionVoter<? extends Object>>();
+        accessDecisionVoterList.add(roleHierarchyVoter);
+
+        AffirmativeBased accessDecisionManager = new AffirmativeBased(accessDecisionVoterList);
+
+        FilterSecurityInterceptor filterSecurityInterceptor = new FilterSecurityInterceptor();
+        filterSecurityInterceptor.setSecurityMetadataSource(filterInvocationSecurityMetadataSource);
+        filterSecurityInterceptor.setAccessDecisionManager(accessDecisionManager);
+
+        try {
+            filterSecurityInterceptor.setAuthenticationManager(super.authenticationManagerBean());
+        } catch (Exception e) {
+            throw new BaseException(e);
+        }
+
+        http.addFilterAt(filterSecurityInterceptor, FilterSecurityInterceptor.class);
+
+        String loginPage = "/common/user/viewLogin.do";
+
+        LoginUrlAuthenticationEntryPoint authenticationEntryPoint = new LoginUrlAuthenticationEntryPoint(loginPage);
+        authenticationEntryPoint.setUseForward(true);
+
+        http.exceptionHandling() //
+                .accessDeniedHandler(new UserAccessDeniedHandler()) //
+                .authenticationEntryPoint(authenticationEntryPoint) //
+        ;
+
+        http.formLogin() //
+                .loginPage(loginPage) //
+                .loginProcessingUrl("/common/user/login.do") //
+                .successHandler(new UserLoginSuccessHandler()) //
+                .failureHandler(new UserLoginFailureHandler()) //
+                .usernameParameter("loginNm") //
+                .passwordParameter("loginPassword") //
+        ;
+
+        http.logout() //
+                .logoutUrl("/common/user/logout.do") //
+                .logoutSuccessHandler(new UserLogoutSuccessHandler()) //
+        ;
+    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/error", "/static/**") //
+                .antMatchers("/**/*.jsp", "/**/*.js", "/**/*.css", "/**/*.html", "/**/*.htm") //
+                .antMatchers("/**/*.gif", "/**/*.jpg", "/**/*.jpeg", "/**/*.png") //
+                .antMatchers("/**/*.woff", "/**/*.woff2", "/**/*.eot");
+
+        DefaultWebSecurityExpressionHandler defaultWebSecurityExpressionHandler = new DefaultWebSecurityExpressionHandler();
+        defaultWebSecurityExpressionHandler.setRoleHierarchy(roleHierarchy());
+
+        web.expressionHandler(defaultWebSecurityExpressionHandler);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new JJSha256PasswordEncoder("SHA-256");
+    }
+
+    @Bean
+    public RoleHierarchyImpl roleHierarchy() {
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+        roleHierarchy.setHierarchy(securedResourceService.getRoleHierarchyStringRepresentation());
+
+        return roleHierarchy;
+    }
+
+}

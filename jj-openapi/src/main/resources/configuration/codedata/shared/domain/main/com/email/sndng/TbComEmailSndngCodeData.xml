@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ 공통 - 메일 CodeData
+ -->
+<codeData namespace="domain.main.tbComEmailRecptn">
+
+    <!-- 발송 상태 -->
+    <group id="sndngSttus">
+        <item code="READY" message="domain.main.tbComEmailSndng.sndngSttus.READY" name="대기중" />
+        <item code="WORKING" message="domain.main.tbComEmailSndng.sndngSttus.WORKING" name="발송중" />
+        <item code="SUCCESS" message="domain.main.tbComEmailSndng.sndngSttus.SUCCESS" name="발송성공" />
+        <item code="FAILURE" message="domain.main.tbComEmailSndng.sndngSttus.FAILURE" name="발송실패" />
+    </group>
+
+</codeData>

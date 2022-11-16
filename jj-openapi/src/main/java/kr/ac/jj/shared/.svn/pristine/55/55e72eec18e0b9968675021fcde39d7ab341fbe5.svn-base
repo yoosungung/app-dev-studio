@@ -1,0 +1,79 @@
+package kr.ac.jj.shared.application.common.menu.interceptor;
+
+import java.util.Collection;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper;
+import kr.ac.jj.shared.domain.main.model.sys.log.menu.TbSysLogMenu;
+import kr.ac.jj.shared.infrastructure.framework.core.foundation.exception.SysException;
+import kr.ac.jj.shared.infrastructure.framework.web.context.request.RequestContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.web.context.request.RequestTypes;
+import kr.ac.jj.shared.infrastructure.framework.web.security.util.SecurityContextUtil;
+
+/**
+ * 메뉴 권한/로그 Interceptor
+ */
+@Component
+public class MenuAuthLogInterceptor implements HandlerInterceptor {
+
+    private @Autowired MenuLoadMapper menuLoadMapper;
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws Exception {
+
+        if (!StringUtils.equals(request.getMethod(), RequestMethod.GET.name())) {
+            return true;
+        }
+
+        if (request.getDispatcherType() == DispatcherType.FORWARD) {
+            return true;
+        }
+
+        if (RequestContextUtil.getRequestType() == RequestTypes.AJAX) {
+            return true;
+        }
+
+        String[] menuIds = menuLoadMapper.selectMenuIdsByMenuPath(request.getServletPath());
+
+        if (menuIds == null || menuIds.length == 0) {
+            return true;
+        }
+
+        Collection<? extends GrantedAuthority> authorities = SecurityContextUtil.getUserReachableAuthorities();
+
+        // 권한 체크
+        if (authorities != null && menuLoadMapper.selectAuthCount(menuIds[0], authorities) == 0) {
+            throw new SysException("접근 권한이 없는 메뉴입니다.");
+        }
+
+        // 로그 생성
+        TbSysLogMenu tbSysLogMenu = new TbSysLogMenu();
+        tbSysLogMenu.setMenuId(menuIds[0]);
+        tbSysLogMenu.insertQueue();
+
+        return true;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+            ModelAndView modelAndView) throws Exception {
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+            throws Exception {
+    }
+
+}

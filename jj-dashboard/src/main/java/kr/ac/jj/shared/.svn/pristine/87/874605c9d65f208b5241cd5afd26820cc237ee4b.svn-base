@@ -1,0 +1,50 @@
+package kr.ac.jj.shared.application.common.file.view;
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.view.AbstractView;
+
+import kr.ac.jj.shared.application.common.file.model.FileDownloadInfo;
+import kr.ac.jj.shared.infrastructure.framework.core.foundation.exception.SysException;
+import kr.ac.jj.shared.infrastructure.framework.core.support.io.file.FileUtil;
+import kr.ac.jj.shared.infrastructure.framework.web.context.support.MessageUtil;
+import kr.ac.jj.shared.infrastructure.framework.web.support.download.FileDownload;
+import kr.ac.jj.shared.infrastructure.framework.web.support.download.exception.FileDownloadNotExistsException;
+import kr.ac.jj.shared.infrastructure.framework.web.support.download.exception.FileDownloadUndefinedNameException;
+
+public class FileDownloadView extends AbstractView {
+
+    private static final Logger log = LoggerFactory.getLogger(FileDownloadView.class);
+
+    @Override
+    public void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
+
+        FileDownloadInfo fileDownloadInfo = (FileDownloadInfo) model.get("fileDownloadInfo");
+
+        log.info("파일 다운로드 => {} : {}", fileDownloadInfo.getOriginalFileName(),
+                FileUtil.getCanonicalPath(fileDownloadInfo.getDownloadFile()));
+
+        FileDownload fileDownload = new FileDownload(request, response);
+
+        try {
+            fileDownload.download(fileDownloadInfo.getDownloadFile(), fileDownloadInfo.getOriginalFileName());
+        } catch (FileDownloadUndefinedNameException e) {
+            throw new SysException(
+                    MessageUtil.getMessage("common.file.download.message.undefinedName", "파일이름이 정의되지 않았습니다."), e);
+        } catch (FileDownloadNotExistsException e) {
+            throw new SysException(MessageUtil.getMessage("common.file.download.message.notExists",
+                    "요청하신 파일 \"{0}\" 을 찾을 수가 없습니다.", new String[] { fileDownloadInfo.getOriginalFileName() }), e);
+        }
+
+        if (fileDownloadInfo.isDeleteDownloadFile()) {
+            FileUtil.deleteFile(fileDownloadInfo.getDownloadFile());
+        }
+    }
+
+}

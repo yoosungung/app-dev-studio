@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 설문_설문지_공통문항 Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.survey.qestnr.cmmn.TbSurveyQestnrCmmnMapper">
+
+</mapper>

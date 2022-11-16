@@ -1,0 +1,66 @@
+package kr.ac.jj.shared.application.admin.appmanage.deptmanage.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.application.admin.appmanage.deptmanage.mapper.DeptManageMapper;
+import kr.ac.jj.shared.domain.main.mapper.com.dept.TbComDeptMapper;
+import kr.ac.jj.shared.domain.main.model.com.dept.TbComDept;
+import kr.ac.jj.shared.infrastructure.grid.handler.GridDataResultHandler;
+import kr.ac.jj.shared.infrastructure.grid.model.GridRequest;
+
+/**
+ * 부서 관리 Service
+ */
+@Service
+public class DeptManageServiceImpl {
+
+    private @Autowired DeptManageMapper deptManageMapper;
+    private @Autowired TbComDeptMapper tbComDeptMapper;
+
+    /**
+     * 목록 조회
+     *
+     * @param gridRequest
+     * @return
+     */
+    public List<Map<String, Object>> readList(GridRequest gridRequest) {
+        GridDataResultHandler resultHandler = new GridDataResultHandler(gridRequest);
+
+        deptManageMapper.selectList(resultHandler, gridRequest.getPaging(), gridRequest.getSearch());
+
+        return resultHandler.getResultList();
+    }
+
+    /**
+     * DW 데이터 I/F 저장
+     *
+     * @param data
+     */
+    public void updateFromDw(Map<String, Object> data) {
+        String deptCode = (String) data.get("deptCode");
+
+        String deptId = tbComDeptMapper.selectDeptIdBydeptCode(deptCode);
+
+        TbComDept tbComDept = new TbComDept();
+        tbComDept.setUpperDeptId(null);
+        tbComDept.setDeptLevel((Integer) data.get("deptLevel"));
+        tbComDept.setDeptCode(deptCode);
+        tbComDept.setDeptNm((String) data.get("deptName"));
+        tbComDept.setUseYn(true);
+
+        if (StringUtils.isEmpty(deptId)) {
+            tbComDept.newId();
+            tbComDeptMapper.insert(tbComDept);
+        } else {
+            tbComDept.setDeptId(deptId);
+            tbComDeptMapper.update(tbComDept);
+        }
+
+    }
+
+}

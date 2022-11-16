@@ -1,0 +1,18 @@
+package kr.ac.jj.survey.domain.main.model.survey.cmmnrspns;
+
+import kr.ac.jj.shared.infrastructure.idgen.util.IdGenerationUtil;
+
+/**
+ * 설문_공통문항 응답
+ */
+public class TbSurveyCmmnRspns extends TbSurveyCmmnRspnsEntity {
+
+    private static final long serialVersionUID = 5681236440454580593L;
+
+    public TbSurveyCmmnRspns newId() {
+        this.setCmmnRspnsId(IdGenerationUtil.createUid("TB_SURVEY_CMMN_RSPNS"));
+
+        return this;
+    }
+
+}

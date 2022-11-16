@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 오픈API - 배너 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.openapi.domain.main.mapper.api.banner.TbApiBannerEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.openapi.domain.main.model.api.banner.TbApiBanner">
+        <![CDATA[
+            SELECT TAB.BANNER_ID
+                 , TAB.BANNER_SJ
+                 , TAB.BANNER_STTUS
+                 , TAB.ATCH_FILE_ID
+                 , TAB.WRITNG_PSN_ID
+                 , TAB.WRITNG_DT
+                 , TAB.CHANGE_PSN_ID
+                 , TAB.CHANGE_DT
+            FROM   TB_API_BANNER TAB
+            WHERE  TAB.BANNER_ID = #{bannerId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_API_BANNER (
+                   BANNER_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , BANNER_SJ
+                 , BANNER_STTUS
+                 , ATCH_FILE_ID
+                 , WRITNG_PSN_ID
+                 , WRITNG_DT
+            ) VALUES (
+                   #{tbApiBanner.bannerId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbApiBanner.bannerSj}
+                 , #{tbApiBanner.bannerSttus}
+                 , #{tbApiBanner.atchFileId}
+                 , #{$var.loginUser.personId}
+                 , #{$var.systemDate}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_API_BANNER SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , BANNER_SJ                        = #{tbApiBanner.bannerSj}
+                 , BANNER_STTUS                     = #{tbApiBanner.bannerSttus}
+                 , ATCH_FILE_ID                     = #{tbApiBanner.atchFileId}
+                 , CHANGE_PSN_ID                    = #{$var.loginUser.personId}
+                 , CHANGE_DT                        = #{$var.systemDate}
+            WHERE  BANNER_ID = #{tbApiBanner.bannerId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_API_BANNER
+            WHERE  BANNER_ID = #{bannerId}
+        ]]>
+    </delete>
+
+</mapper>

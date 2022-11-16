@@ -1,0 +1,48 @@
+package kr.ac.jj.shared.application.bbs.notice.model;
+
+import org.apache.commons.lang3.StringUtils;
+
+import kr.ac.jj.shared.application.common.user.model.LoginUser;
+import kr.ac.jj.shared.domain.main.model.bbs.notice.TbBbsNotice;
+import kr.ac.jj.shared.domain.main.model.com.person.TbComPerson;
+import kr.ac.jj.shared.infrastructure.framework.web.context.session.SessionContextUtil;
+
+/**
+ * 게시판(공지사항) Model
+ */
+public class BbsNoticeModel {
+
+    private TbBbsNotice tbBbsNotice;
+    private TbComPerson tbComPerson;
+
+    public boolean isEditable() {
+        if (this.tbBbsNotice == null) {
+            return false;
+        }
+
+        LoginUser loginUser = SessionContextUtil.getLoginUser();
+
+        if (StringUtils.equals(this.tbBbsNotice.getWritngPsnId(), loginUser.getPersonId())) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public TbBbsNotice getTbBbsNotice() {
+        return this.tbBbsNotice;
+    }
+
+    public void setTbBbsNotice(TbBbsNotice tbBbsNotice) {
+        this.tbBbsNotice = tbBbsNotice;
+    }
+
+    public TbComPerson getTbComPerson() {
+        return this.tbComPerson;
+    }
+
+    public void setTbComPerson(TbComPerson tbComPerson) {
+        this.tbComPerson = tbComPerson;
+    }
+
+}

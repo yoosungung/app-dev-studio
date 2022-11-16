@@ -1,0 +1,24 @@
+package kr.ac.jj.openapi.application.openapi.keystatus.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * 키 신청 현황 Controller
+ */
+@Controller
+@RequestMapping(path = "/openapi/keystatus/KeyStatus")
+public class KeyStatusController {
+
+    /**
+     * 화면
+     *
+     * @return
+     */
+    @GetMapping
+    public String view() {
+        return "tiles2-common:/openapi/keystatus/KeyStatusView";
+    }
+
+}

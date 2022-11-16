@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="page-body"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:field="urn:jsptagdir:/WEB-INF/tags/jd/form/fields"
+    xmlns:form="urn:jsptagdir:/WEB-INF/tags/jd/form"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:springform="http://www.springframework.org/tags/form"
+    version="2.0">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <script type="text/javaScript">
+        $(function() {
+            $('#surveyDefinition').on('submit', function() {
+                if(this.name.value == '') {
+                    alert('설문조사 명칭을 입력하세요.')
+                    this.name.focus();
+                }
+                else if($('#startDate').val() == '') {
+                    alert('설문조사 시작일을 입력하세요.')
+                    $('#startDate').focus();
+                }
+                else if($('#endDate').val() == '') {
+                    alert('설문조사 종료일을 입력하세요.')
+                    $('#endDate').focus();
+                }
+                else if(confirm('설문조사를 생성 하시겠습니까?')) {
+                    this.startDt.value = $('#startDate').val() + ' ' + $('#startTime').val().replace('AM', '오전').replace('PM', '오후');
+                    this.endDt.value = $('#endDate').val() + ' ' + $('#endTime').val().replace('AM', '오전').replace('PM', '오후');
+                    return true;
+                }
+                return false;
+            });
+
+
+            $('.date-picker').datepicker();
+            $('.time-picker').timepicker();
+
+        });
+    </script>
+
+    <div class="widget">
+        <div class="widget-header header-large bordered-bottom bordered-blueberry">
+            <span class="widget-caption" style="font-size: 16px; margin-top: 8px;">설문조사 생성</span>
+        </div>
+
+        <div class="widget-body" style="padding: 0px;">
+            <div class="widget-main ">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" id="myTab9">
+                        <li class="active">
+                            <a><i class="fa fa-edit"><!----></i> 설문조사 생성</a>
+                        </li>
+                        <li class="tab-red">
+                            <a href="${pageContext.request.contextPath}/settings/surveyDefinitions/upload"><i class="fa fa-upload"><!----></i> 설문조사 업로드</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane in active">
+                            <form id="surveyDefinition" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/settings/surveyDefinitions" method="POST" enctype="application/x-www-form-urlencoded">
+                                <input type="hidden" name="surveyTheme" value="STANDARD" />
+                                <input type="hidden" name="_isPublic" value="on" />
+                                <input type="hidden" name="_allowMultipleSubmissions" value="on" />
+                                <input type="hidden" name="allowMultipleSubmissions" value="false"/>
+
+                                <input type="hidden" name="startDt" value=""/>
+                                <input type="hidden" name="endDt" value=""/>
+
+                                <input type="hidden" name="emailInvitationTemplate" value="emailInvitationTemplate" />
+                                <input type="hidden" name="completedSurveyTemplate" value="completedSurveyTemplate" />
+
+                                <div class="form-group">
+                                    <label for="name" class="col-sm-1 control-label no-padding-right"><i class="fa fa-check orange"><!----></i> 분류</label>
+                                    <div class="col-sm-10">
+                                        <select name="department">
+                                            <c:forEach var="department" items="${departments}">
+                                                <option value="${department.id}">${department}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="col-sm-1 control-label no-padding-right"><i class="fa fa-check orange"><!----></i> 명칭</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="name" name="name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="startDt" class="col-sm-1 control-label no-padding-right"><i class="fa fa-check orange"><!----></i> 기간</label>
+                                    <div class="col-sm-10">
+                                        <div class="form-inline">
+                                            <div class="input-group" style="width: 140px;">
+                                                <input class="form-control date-picker" id="startDate" type="text" data-date-format="yyyy-mm-dd" />
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-calendar"><!----></i>
+                                                </span>
+                                            </div>
+                                            <div class="input-group" style="width: 120px;">
+                                                <input class="form-control time-picker" id="startTime" type="text" value="12:00 PM" style="border-left: 0;" />
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-clock-o"><!----></i>
+                                                </span>
+                                            </div>
+                                            ~
+                                            <div class="input-group" style="width: 140px;">
+                                                <input class="form-control date-picker" id="endDate" type="text" data-date-format="yyyy-mm-dd" />
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-calendar"><!----></i>
+                                                </span>
+                                            </div>
+                                            <div class="input-group" style="width: 120px;">
+                                                <input class="form-control time-picker" id="endTime" type="text" value="12:00 PM" style="border-left: 0;" />
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-clock-o"><!----></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-1 control-label no-padding-right">설정</label>
+                                    <div class="col-sm-10 checkbox">
+                                        <label>
+                                            <input type="checkbox" name="isPublic" value="true" class="colored-success" />
+                                            <span class="text">공개 (로그인 없이 모든 사용자에게 제공)</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="purpose" class="col-sm-1 control-label no-padding-right">목적</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="purpose" class="form-control" rows="4"><!----></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="target" class="col-sm-1 control-label no-padding-right">대상</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="target" class="form-control" rows="4"><!----></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description" class="col-sm-1 control-label no-padding-right">설명</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="description" class="form-control" rows="4"><!----></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12 text-center">
+                                        <button type="submit" value="저장" name="_proceed" class="btn btn-palegreen">설문조사 생성</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

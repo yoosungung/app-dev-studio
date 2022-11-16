@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 스케줄 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper">
+
+    <!-- ID 조회 - 스케줄 Key로 -->
+    <select id="selectIdBySchdulKey" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TSS.SCHDUL_ID
+            FROM   TB_SYS_SCHDUL TSS
+            WHERE  TSS.SCHDUL_KEY = #{schdulKey}
+        ]]>
+    </select>
+
+</mapper>

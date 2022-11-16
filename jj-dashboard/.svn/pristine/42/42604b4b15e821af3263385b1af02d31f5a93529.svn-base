@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 성적 Mapper -->
+<mapper namespace="kr.ac.jj.dashboard.application.score.mapper.ScoreMapper">
+
+    <!--연도별 취득학점 조회 -->
+    <select id="readScoreData" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT STD_YY, SUTR_HAKGI,
+        COUNT(*) AS CNT,
+        ROUND(AVG(SUTR_PYONG_AVE),2) AS SUTR_PYONG_AVE,
+        ROUND(AVG(SUTR_PYONG_AVEF),2) AS SUTR_PYONG_AVEF
+        FROM DW_STUDENT_SCORE_MAST
+        <![CDATA[
+            WHERE STD_YY >= '2015' AND SUTR_HAKGI < 3
+        ]]>
+        <if test="search.sutrDaehakNm != null and search.sutrDaehakNm != ''">
+            AND SUTR_DAEHAK_NM = #{search.sutrDaehakNm}
+        </if>
+        <if test="search.sutrHakbuNm != null and search.sutrHakbuNm != ''">
+            AND SUTR_HAKBU_NM = #{search.sutrHakbuNm}
+        </if>
+
+        <if test="(search.startStdYy != null and search.startStdYy != '')">
+            <![CDATA[
+                AND STD_YY >= #{search.startStdYy}
+            ]]>
+        </if>
+        <if test="(search.endStdYy != null and search.endStdYy != '')">
+            <![CDATA[
+                AND STD_YY <= #{search.endStdYy}
+            ]]>
+        </if>
+        <if test='search.hakjSex != null and search.hakjSex != ""'>
+            AND HAKJ_SEX = #{search.hakjSex}
+        </if>
+        <if test='search.sutrYear != null and search.sutrYear != ""'>
+            AND SUTR_YEAR = #{search.sutrYear}
+        </if>
+        GROUP BY STD_YY, SUTR_HAKGI;
+    </select>
+
+    <!--성적별 퍼센트 조회 -->
+    <select id="readPercentage" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT STD_YY, SUM(TOTAL_CNT) AS TOTAL, SUM(SCORE_A) AS SCORE_A,
+        SUM(SCORE_B) AS SCORE_B, SUM(SCORE_C) AS SCORE_C, SUM(SCORE_D) AS
+        SCORE_D, SUM(SCORE_F) AS SCORE_F
+        FROM DM_STUDENT_SCORE_MAST
+        <![CDATA[
+            WHERE STD_YY >= '2015' AND STD_HAKGI < 3
+        ]]>
+        <if test="search.sutrDaehakNm != null and search.sutrDaehakNm != ''">
+            AND SUTR_DAEHAK_NM = #{search.sutrDaehakNm}
+        </if>
+        <if test="search.sutrHakbuNm != null and search.sutrHakbuNm != ''">
+            AND SUTR_HAKBU_NM = #{search.sutrHakbuNm}
+        </if>
+
+        <if test="(search.startStdYy != null and search.startStdYy != '')">
+            <![CDATA[
+                AND STD_YY >= #{search.startStdYy}
+            ]]>
+        </if>
+        <if test="(search.endStdYy != null and search.endStdYy != '')">
+            <![CDATA[
+                AND STD_YY <= #{search.endStdYy}
+            ]]>
+        </if>
+        <if test='search.hakjSex != null and search.hakjSex != ""'>
+            AND HAKJ_SEX = #{search.hakjSex}
+        </if>
+        <if test='search.sutrYear != null and search.sutrYear != ""'>
+            AND SUTR_YEAR = #{search.sutrYear}
+        </if>
+        GROUP BY STD_YY
+    </select>
+
+    <!--학년별 취득학점 조회 -->
+    <select id="readYearScoreData" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT SUTR_YEAR,
+        COUNT(*) AS CNT,
+        ROUND(AVG(SUTR_PYONG_AVE),2) AS SUTR_PYONG_AVE,
+        ROUND(AVG(SUTR_PYONG_AVEF),2) AS SUTR_PYONG_AVEF
+        FROM DW_STUDENT_SCORE_MAST
+        <![CDATA[
+            WHERE STD_YY >= '2015' AND SUTR_HAKGI < 3 AND SUTR_YEAR IS NOT NULL
+        ]]>
+        <if
+            test="search.sutrDaehakNm != null and search.sutrDaehakNm != ''">
+            AND SUTR_DAEHAK_NM = #{search.sutrDaehakNm}
+        </if>
+        <if test="search.sutrHakbuNm != null and search.sutrHakbuNm != ''">
+            AND SUTR_HAKBU_NM = #{search.sutrHakbuNm}
+        </if>
+        <if test="search.startStdYy != null and search.startStdYy != ''">
+            AND STD_YY = #{search.startStdYy}
+        </if>
+        <if test='search.hakjSex != null and search.hakjSex != ""'>
+            AND HAKJ_SEX = #{search.hakjSex}
+        </if>
+        GROUP BY SUTR_YEAR
+    </select>
+
+    <!-- 전체 취득학점 조회 -->
+    <select id="readTotalYearScoreData" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT SUTR_YEAR,
+        COUNT(*) AS CNT,
+        ROUND(AVG(SUTR_PYONG_AVE),2) AS SUTR_PYONG_AVE,
+        ROUND(AVG(SUTR_PYONG_AVEF),2) AS SUTR_PYONG_AVEF
+        FROM DW_STUDENT_SCORE_MAST
+        <![CDATA[
+            WHERE STD_YY >= '2015' AND SUTR_HAKGI < 3 AND SUTR_YEAR IS NOT NULL
+        ]]>
+        GROUP BY SUTR_YEAR
+    </select>
+</mapper>

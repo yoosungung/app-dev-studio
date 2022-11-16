@@ -1,0 +1,273 @@
+package com.jd.survey.pub.domain;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.jd.survey.com.BaseBean;
+import com.jd.survey.domain.survey.QuestionAnswer;
+
+/**
+ * 설문조사 설정
+ */
+public class SurveyDefinition extends BaseBean {
+	
+	//~ Static fields/initializers =========================================================
+	
+	private static final long serialVersionUID = -4485907238979476542L;
+	
+	//~ Default Instance fields ============================================================
+	
+	/** 분야아이디 */
+	private long departmentId;
+	
+	/** 조사설정 아이디 */
+	private long surveyDefinitionId;
+	
+	/** 조사설정 제목 */
+	private String name;
+	
+	/** 조사설정 목적 */
+	private String purpose;
+	
+	/** 조사설정 대상 */
+	private String target;
+	
+	/** 조사설정 설명*/
+	private String description;
+	
+	/** 공개여부*/
+	private int isPublic;
+	
+	/**조사설정 시작일*/
+	@DateTimeFormat(pattern="yyyy.MM.dd")
+	private Date startDay;
+	
+	/**조사설정 종료일*/
+	@DateTimeFormat(pattern="yyyy.MM.dd")
+	private Date  endDay;
+	
+	/**조사설정 시작일시*/
+	private String startDt;
+	
+	/**조사설정 종료일시*/
+	private String endDt;
+	
+	/** 조사설정 상태(종료일에 따른) */
+	private String Status;
+	
+	/** 조사설정 수 */
+	private int surveyCnt;
+	
+	/** 참여자수 */
+	private int userCnt;
+	
+	/** 참여 대상자수 */
+	private int totalCnt;
+	
+	/**기간*/
+	private int term;
+	
+	/** 답변상태(투표상태)*/
+	private String answerStatus;
+	
+	/** 설문조사 페이지설정 목록*/
+	private List<SurveyDefinitionPage> pageList;
+	
+	private List<QuestionAnswer> questionAnswers = new ArrayList<QuestionAnswer>();
+	
+	/** 설문조사 아이디*/
+	private long surveyId;
+	
+	/** 개인별 실태조사 완료상태*/
+	private String realStatus;
+	
+	//~ Instance fields ====================================================================
+	
+	//~ Constructors =======================================================================
+	
+	//~ Methods ============================================================================
+
+	//~ Default Methods ====================================================================
+	
+	public long getSurveyDefinitionId() {
+		return surveyDefinitionId;
+	}
+
+	public void setSurveyDefinitionId(long surveyDefinitionId) {
+		this.surveyDefinitionId = surveyDefinitionId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getStatus() {
+		int compare = new Date().compareTo(this.endDay);
+		//종료
+		if(compare > 0) {
+			this.Status = "E";
+		}
+		//진행중
+		else if(compare <= 0) {
+			this.Status = "P";
+		}
+		return Status;
+	}
+
+	public void setStatus(String status) {
+		Status = status;
+	}
+
+	public int getSurveyCnt() {
+		return surveyCnt;
+	}
+
+	public int getUserCnt() {
+		return userCnt;
+	}
+
+	public void setSurveyCnt(int surveyCnt) {
+		this.surveyCnt = surveyCnt;
+	}
+
+	public void setUserCnt(int userCnt) {
+		this.userCnt = userCnt;
+	}
+
+	public long getDepartmentId() {
+		return departmentId;
+	}
+
+	public int getTotalCnt() {
+		return totalCnt;
+	}
+
+	public void setDepartmentId(long departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public void setTotalCnt(int totalCnt) {
+		this.totalCnt = totalCnt;
+	}
+
+	public String getPurpose() {
+		return purpose;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setPurpose(String purpose) {
+		this.purpose = purpose;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+	}
+
+	public int getTerm() {
+		return term;
+	}
+
+	public void setTerm(int term) {
+		this.term = term;
+	}
+
+	public Date getStartDay() {
+		return startDay;
+	}
+
+	public Date getEndDay() {
+		return endDay;
+	}
+
+	public void setStartDay(Date startDay) {
+		this.startDay = startDay;
+	}
+
+	public void setEndDay(Date endDay) {
+		this.endDay = endDay;
+	}
+
+	public String getStartDt() {
+		return startDt;
+	}
+
+	public String getEndDt() {
+		return endDt;
+	}
+
+	public void setStartDt(String startDt) {
+		this.startDt = startDt;
+	}
+
+	public void setEndDt(String endDt) {
+		this.endDt = endDt;
+	}
+
+	public List<SurveyDefinitionPage> getPageList() {
+		return pageList;
+	}
+
+	public void setPageList(List<SurveyDefinitionPage> pageList) {
+		this.pageList = pageList;
+	}
+
+	public List<QuestionAnswer> getQuestionAnswers() {
+		return questionAnswers;
+	}
+
+	public void setQuestionAnswers(List<QuestionAnswer> questionAnswers) {
+		this.questionAnswers = questionAnswers;
+	}
+
+	public String getAnswerStatus() {
+		return answerStatus;
+	}
+
+	public void setAnswerStatus(String answerStatus) {
+		this.answerStatus = answerStatus;
+	}
+
+	public long getSurveyId() {
+		return surveyId;
+	}
+
+	public void setSurveyId(long surveyId) {
+		this.surveyId = surveyId;
+	}
+
+	public String getRealStatus() {
+		return realStatus;
+	}
+
+	public void setRealStatus(String realStatus) {
+		this.realStatus = realStatus;
+	}
+
+	public int getIsPublic() {
+		return isPublic;
+	}
+
+	public void setIsPublic(int isPublic) {
+		this.isPublic = isPublic;
+	}
+	
+	
+}

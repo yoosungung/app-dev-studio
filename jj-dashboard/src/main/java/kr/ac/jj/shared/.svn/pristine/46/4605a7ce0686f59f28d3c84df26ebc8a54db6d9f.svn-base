@@ -1,0 +1,20 @@
+package kr.ac.jj.shared.domain.main.mapper.bbs.faq;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+
+/**
+ * 게시판 - FAQ Mapper
+ */
+@SharedMainSqlMapper
+public interface TbBbsFaqMapper extends TbBbsFaqEntityMapper {
+
+    /**
+     * 조회수 증가
+     *
+     * @param bbscttId
+     */
+    public void updateRdcnt(@Param("bbscttId") String bbscttId);
+
+}

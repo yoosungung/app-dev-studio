@@ -1,0 +1,22 @@
+package kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.util;
+
+import kr.ac.jj.shared.infrastructure.framework.config.FrameworkConfigProperties;
+import kr.ac.jj.shared.infrastructure.framework.core.support.context.ApplicationContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.interceptor.BaseJobInterceptor;
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.interceptor.DefaultJobInterceptor;
+
+public class BaseJobSchedulerUtil {
+
+    public static BaseJobInterceptor getAnyJobInterceptor() {
+        FrameworkConfigProperties config = ApplicationContextUtil.getConfigBean(FrameworkConfigProperties.class);
+
+        Class<? extends BaseJobInterceptor> jobInterceptorClass = config.getScheduler().getJobInterceptor();
+
+        if (jobInterceptorClass == null) {
+            return ApplicationContextUtil.getBean(DefaultJobInterceptor.class);
+        }
+
+        return ApplicationContextUtil.getBean(jobInterceptorClass);
+    }
+
+}

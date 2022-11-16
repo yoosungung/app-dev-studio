@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 권한 계층 관리 Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.application.admin.sysmanage.authormanage.mapper.AuthorityHierarchyManageMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.survey.domain.main.model.sys.rolehierarchy.TbSysRoleHierarchy">
+        <![CDATA[
+            SELECT TSRH.ROLE_HIERARCHY_ID
+                 , TSRH.PARNTS_ROLE_CODE
+                 , TSRH.CHLDRN_ROLE_CODE
+                 , TSRH.SORT_ORDR
+            FROM   TB_SYS_ROLE_HIERARCHY TSRH
+            ORDER BY TSRH.SORT_ORDR
+        ]]>
+    </select>
+
+    <!-- 목록 삭제 -->
+    <delete id="deleteList">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_ROLE_HIERARCHY
+        ]]>
+    </delete>
+
+</mapper>

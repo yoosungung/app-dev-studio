@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="page-body" xmlns:jsp="http://java.sun.com/JSP/Page" 
+	 xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" 
+	 xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	 xmlns:spring="http://www.springframework.org/tags"  
+	 version="2.0">
+	
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    
+    <script type="text/javascript">
+    	$(function() {
+	    	$('.datasetsCreate, .updateLink').on('click', function(e) {
+				var modalWidth = $(this).data('modal-width');
+				if(!modalWidth) modalWidth = 850; 
+			
+				var url = $(this).attr('href');
+				var title = $(this).attr('title');
+				if(typeof title == typeof undefined) {
+					title = $(this).data('original-title');			
+				}
+				
+				bootbox.dialog({
+					title: title,
+					message: $('<iframe src="" frameborder="0" width="" height="700"></iframe>').attr('src', url).attr('width', (modalWidth - 49)),
+					className: "modal-survey"
+				});
+				$('.modal-survey .modal-dialog').css({width: modalWidth + 'px'});
+				e.preventDefault();
+			});
+    	});
+    </script>
+    
+    <div class="widget">
+		<div class="widget-header header-large bordered-bottom bordered-blueberry">
+			<span class="widget-caption" style="font-size: 16px; margin-top: 8px;">마스크 목록</span>
+			<div class="widget-buttons widget-custom-buttons">
+				<spring:url var="form_url" value="/admin/masks/?create" />
+				<a href="${form_url}" class="datasetsCreate tooltip-info" data-original-title="마스크 생성" data-toggle="tooltip" data-placement="bottom">
+					<i class="fa fa-plus"><!----></i>
+				</a>
+			</div>
+		</div>
+		<div class="widget-body">
+    		<page:list id="pl_com.jd.survey.domain.settings.RegularExpression" items="${regularExpressions}">
+        		<table:table data="${regularExpressions}" id="l_com.jd.survey.domain.settings.RegularExpression" path="masks" create="false" show="false" tableFotter="false">
+        			<table:column id="c_com.jd.survey.domain.settings.RegularExpression.name" property="name" columnWidthPercentage="17"/>
+            		<table:column id="c_com.jd.survey.domain.settings.RegularExpression.regex" property="regex" columnWidthPercentage="45"/>
+            		<table:column id="c_com.jd.survey.domain.settings.RegularExpression.description" property="description" columnWidthPercentage="25" />
+        		</table:table>
+    		</page:list>
+    	</div>
+    </div>	
+</div>	

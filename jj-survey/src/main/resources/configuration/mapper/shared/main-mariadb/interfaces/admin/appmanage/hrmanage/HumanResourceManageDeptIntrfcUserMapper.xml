@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 인사정보 관리 - 부서 인터페이스(학생) Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.mapper.HumanResourceManageDeptIntrfcUserMapper">
+
+    <!-- 목록 생성 - 레벨 1 -->
+    <insert id="insertListLevel1">
+        <![CDATA[
+            INSERT INTO TB_COM_DEPT (
+                   DEPT_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , DEPT_SE
+                 , UPPER_DEPT_ID
+                 , DEPT_LEVEL
+                 , DEPT_CODE
+                 , DEPT_NM
+                 , USE_YN
+            )
+            SELECT FN_UID('S') AS DEPT_ID
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{deptSe} AS DEPT_SE
+                 , TIU.UPPER_DEPT_ID
+                 , TIU.DEPT_LEVEL
+                 , TIU.DEPT_CODE
+                 , TIU.DEPT_NM
+                 , '1' AS USE_YN
+            FROM   (SELECT NULL AS UPPER_DEPT_ID
+                         , 1 AS DEPT_LEVEL
+                         , TIU.UNIV_CODE AS DEPT_CODE
+                         , TIU.UNIV_NM AS DEPT_NM
+                         , '1' AS USE_YN
+                    FROM   TB_INTRFC_USER TIU
+                    WHERE  TIU.USER_SE IN ('G', 'S')
+                    AND    TIU.DELETE_YN = 'N'
+                    AND    TIU.UNIV_CODE IS NOT NULL
+                    AND    TIU.UNIV_NM IS NOT NULL
+                    GROUP BY TIU.UNIV_CODE, TIU.UNIV_NM
+                   ) TIU
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_COM_DEPT TCD
+                        WHERE  TCD.DEPT_SE = #{deptSe}
+                        AND    TCD.DEPT_LEVEL = TIU.DEPT_LEVEL
+                        AND    TCD.DEPT_CODE = TIU.DEPT_CODE
+                   )
+        ]]>
+    </insert>
+
+    <!-- 목록 생성 - 레벨 2 -->
+    <insert id="insertListLevel2">
+        <![CDATA[
+            INSERT INTO TB_COM_DEPT (
+                   DEPT_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , DEPT_SE
+                 , UPPER_DEPT_ID
+                 , DEPT_LEVEL
+                 , DEPT_CODE
+                 , DEPT_NM
+                 , USE_YN
+            )
+            SELECT FN_UID('S') AS DEPT_ID
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{deptSe} AS DEPT_SE
+                 , TIU.UPPER_DEPT_ID
+                 , TIU.DEPT_LEVEL
+                 , TIU.DEPT_CODE
+                 , TIU.DEPT_NM
+                 , '1' AS USE_YN
+            FROM   (SELECT (SELECT TCD2.DEPT_ID FROM TB_COM_DEPT TCD2 WHERE TCD2.DEPT_CODE = TIU.UNIV_CODE AND TCD2.DEPT_LEVEL = 1) AS UPPER_DEPT_ID
+                         , 2 AS DEPT_LEVEL
+                         , TIU.UNDEG_CODE AS DEPT_CODE
+                         , TIU.UNDEG_NM AS DEPT_NM
+                         , '1' AS USE_YN
+                    FROM   TB_INTRFC_USER TIU
+                    WHERE  TIU.USER_SE IN ('G', 'S')
+                    AND    TIU.DELETE_YN = 'N'
+                    AND    TIU.UNDEG_CODE IS NOT NULL
+                    AND    TIU.UNDEG_NM IS NOT NULL
+                    AND    TIU.UNDEG_CODE != TIU.UNIV_CODE
+                    GROUP BY TIU.UNDEG_CODE, TIU.UNDEG_NM
+                   ) TIU
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_COM_DEPT TCD
+                        WHERE  TCD.DEPT_SE = #{deptSe}
+                        AND    TCD.DEPT_LEVEL = TIU.DEPT_LEVEL
+                        AND    TCD.DEPT_CODE = TIU.DEPT_CODE
+                   )
+        ]]>
+    </insert>
+
+    <!-- 목록 생성 - 레벨 3 -->
+    <insert id="insertListLevel3">
+        <![CDATA[
+            INSERT INTO TB_COM_DEPT (
+                   DEPT_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , DEPT_SE
+                 , UPPER_DEPT_ID
+                 , DEPT_LEVEL
+                 , DEPT_CODE
+                 , DEPT_NM
+                 , USE_YN
+            )
+            SELECT FN_UID('S') AS DEPT_ID
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{deptSe} AS DEPT_SE
+                 , TIU.UPPER_DEPT_ID
+                 , TIU.DEPT_LEVEL
+                 , TIU.DEPT_CODE
+                 , TIU.DEPT_NM
+                 , '1' AS USE_YN
+            FROM   (SELECT (SELECT TCD2.DEPT_ID FROM TB_COM_DEPT TCD2 WHERE TCD2.DEPT_CODE = TIU.UNDEG_CODE AND TCD2.DEPT_LEVEL = 2) AS UPPER_DEPT_ID
+                         , 3 AS DEPT_LEVEL
+                         , TIU.SUBJCT_CODE AS DEPT_CODE
+                         , TIU.SUBJCT_NM AS DEPT_NM
+                         , '1' AS USE_YN
+                    FROM   TB_INTRFC_USER TIU
+                    WHERE  TIU.USER_SE IN ('G', 'S')
+                    AND    TIU.DELETE_YN = 'N'
+                    AND    TIU.SUBJCT_CODE IS NOT NULL
+                    AND    TIU.SUBJCT_NM IS NOT NULL
+                    AND    TIU.SUBJCT_CODE != TIU.UNDEG_CODE
+                    GROUP BY TIU.SUBJCT_CODE, TIU.SUBJCT_NM
+                   ) TIU
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_COM_DEPT TCD
+                        WHERE  TCD.DEPT_SE = #{deptSe}
+                        AND    TCD.DEPT_LEVEL = TIU.DEPT_LEVEL
+                        AND    TCD.DEPT_CODE = TIU.DEPT_CODE
+                   )
+        ]]>
+    </insert>
+
+    <!-- 목록 수정 - 레벨 1 -->
+    <update id="updateListLevel1">
+        <![CDATA[
+            UPDATE TB_COM_DEPT TCD, TB_INTRFC_USER TIU SET
+                   TCD.UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , TCD.UPDT_DT                          = #{$var.systemDate}
+                 , TCD.UPPER_DEPT_ID                    = NULL
+                 , TCD.DEPT_NM                          = TIU.UNIV_NM
+                 , TCD.USE_YN                           = '1'
+            WHERE  TCD.DEPT_CODE = TIU.UNIV_CODE
+            AND    TCD.DEPT_SE = #{deptSe}
+            AND    TCD.DEPT_LEVEL = 1
+            AND    TIU.USER_SE IN ('G', 'S')
+            AND    TIU.DELETE_YN = 'N'
+            AND    TIU.UNIV_CODE IS NOT NULL
+            AND    TIU.UNIV_NM IS NOT NULL
+        ]]>
+    </update>
+
+    <!-- 목록 수정 - 레벨 2 -->
+    <update id="updateListLevel2">
+        <![CDATA[
+            UPDATE TB_COM_DEPT TCD, TB_INTRFC_USER TIU SET
+                   TCD.UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , TCD.UPDT_DT                          = #{$var.systemDate}
+                 , TCD.UPPER_DEPT_ID                    = (SELECT TCD2.DEPT_ID FROM TB_COM_DEPT TCD2 WHERE TCD2.DEPT_CODE = TIU.UNIV_CODE AND TCD2.DEPT_LEVEL = 1)
+                 , TCD.DEPT_NM                          = TIU.UNDEG_NM
+                 , TCD.USE_YN                           = '1'
+            WHERE  TCD.DEPT_CODE = TIU.UNDEG_CODE
+            AND    TCD.DEPT_SE = #{deptSe}
+            AND    TCD.DEPT_LEVEL = 2
+            AND    TIU.USER_SE IN ('G', 'S')
+            AND    TIU.DELETE_YN = 'N'
+            AND    TIU.UNDEG_CODE IS NOT NULL
+            AND    TIU.UNDEG_NM IS NOT NULL
+            AND    TIU.UNDEG_CODE != TIU.UNIV_CODE
+        ]]>
+    </update>
+
+    <!-- 목록 수정 - 레벨 3 -->
+    <update id="updateListLevel3">
+        <![CDATA[
+            UPDATE TB_COM_DEPT TCD, TB_INTRFC_USER TIU SET
+                   TCD.UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , TCD.UPDT_DT                          = #{$var.systemDate}
+                 , TCD.UPPER_DEPT_ID                    = (SELECT TCD2.DEPT_ID FROM TB_COM_DEPT TCD2 WHERE TCD2.DEPT_CODE = TIU.UNDEG_CODE AND TCD2.DEPT_LEVEL = 2)
+                 , TCD.DEPT_NM                          = TIU.SUBJCT_NM
+                 , TCD.USE_YN                           = '1'
+            WHERE  TCD.DEPT_CODE = TIU.SUBJCT_CODE
+            AND    TCD.DEPT_SE = #{deptSe}
+            AND    TCD.DEPT_LEVEL = 3
+            AND    TIU.USER_SE IN ('G', 'S')
+            AND    TIU.DELETE_YN = 'N'
+            AND    TIU.SUBJCT_CODE IS NOT NULL
+            AND    TIU.SUBJCT_NM IS NOT NULL
+            AND    TIU.SUBJCT_CODE != TIU.UNDEG_CODE
+        ]]>
+    </update>
+
+    <!-- 목록 수정 - 사용 여부 미사용 처리 - 레벨 1 -->
+    <update id="updateListUseYnTo0Level1">
+        <![CDATA[
+            UPDATE TB_COM_DEPT TCD SET
+                   TCD.UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , TCD.UPDT_DT                          = #{$var.systemDate}
+                 , TCD.USE_YN                           = '0'
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_INTRFC_USER TIU
+                        WHERE  TIU.UNIV_CODE = TCD.DEPT_CODE
+                        AND    TIU.USER_SE IN ('G', 'S')
+                        AND    TIU.DELETE_YN = 'N'
+                        AND    TIU.UNIV_CODE IS NOT NULL
+                        AND    TIU.UNIV_NM IS NOT NULL
+                   )
+            AND    TCD.DEPT_SE = #{deptSe}
+            AND    TCD.DEPT_LEVEL = 1
+            AND    TCD.USE_YN = '1'
+        ]]>
+    </update>
+
+    <!-- 목록 수정 - 사용 여부 미사용 처리 - 레벨 2 -->
+    <update id="updateListUseYnTo0Level2">
+        <![CDATA[
+            UPDATE TB_COM_DEPT TCD SET
+                   TCD.UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , TCD.UPDT_DT                          = #{$var.systemDate}
+                 , TCD.USE_YN                           = '0'
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_INTRFC_USER TIU
+                        WHERE  TIU.UNDEG_CODE = TCD.DEPT_CODE
+                        AND    TIU.USER_SE IN ('G', 'S')
+                        AND    TIU.DELETE_YN = 'N'
+                        AND    TIU.UNDEG_CODE IS NOT NULL
+                        AND    TIU.UNDEG_NM IS NOT NULL
+                        AND    TIU.UNDEG_CODE != TIU.UNIV_CODE
+                   )
+            AND    TCD.DEPT_SE = #{deptSe}
+            AND    TCD.DEPT_LEVEL = 2
+            AND    TCD.USE_YN = '1'
+        ]]>
+    </update>
+
+    <!-- 목록 수정 - 사용 여부 미사용 처리 - 레벨 3 -->
+    <update id="updateListUseYnTo0Level3">
+        <![CDATA[
+            UPDATE TB_COM_DEPT TCD SET
+                   TCD.UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , TCD.UPDT_DT                          = #{$var.systemDate}
+                 , TCD.USE_YN                           = '0'
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_INTRFC_USER TIU
+                        WHERE  TIU.SUBJCT_CODE = TCD.DEPT_CODE
+                        AND    TIU.USER_SE IN ('G', 'S')
+                        AND    TIU.DELETE_YN = 'N'
+                        AND    TIU.SUBJCT_CODE IS NOT NULL
+                        AND    TIU.SUBJCT_NM IS NOT NULL
+                        AND    TIU.SUBJCT_CODE != TIU.UNDEG_CODE
+                   )
+            AND    TCD.DEPT_SE = #{deptSe}
+            AND    TCD.DEPT_LEVEL = 3
+            AND    TCD.USE_YN = '1'
+        ]]>
+    </update>
+
+</mapper>

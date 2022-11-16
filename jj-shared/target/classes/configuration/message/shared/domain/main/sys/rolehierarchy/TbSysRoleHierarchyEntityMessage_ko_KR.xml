@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 시스템 - 역할 계층 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbSysRoleHierarchy.roleHierarchyId"><![CDATA[역할 계층 ID]]></entry>
+    <entry key="domain.main.tbSysRoleHierarchy.parntsRoleCode"><![CDATA[부모 역할 코드]]></entry>
+    <entry key="domain.main.tbSysRoleHierarchy.chldrnRoleCode"><![CDATA[자식 역할 코드]]></entry>
+    <entry key="domain.main.tbSysRoleHierarchy.sortOrdr"><![CDATA[정렬 순서]]></entry>
+
+</properties>

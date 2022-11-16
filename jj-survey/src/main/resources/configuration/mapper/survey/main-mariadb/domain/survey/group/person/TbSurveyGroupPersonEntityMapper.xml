@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 설문_그룹_사람 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.survey.group.person.TbSurveyGroupPersonEntityMapper">
+
+    <!-- 목록 조회 - SURVEY_GROUP_ID(으)로 -->
+    <select id="selectListBySurveyGroupId" resultType="kr.ac.jj.survey.domain.main.model.survey.group.person.TbSurveyGroupPerson">
+        <![CDATA[
+            SELECT TSGP.SURVEY_GROUP_ID
+                 , TSGP.PERSON_ID
+            FROM   TB_SURVEY_GROUP_PERSON TSGP
+            WHERE  TSGP.SURVEY_GROUP_ID = #{surveyGroupId}
+        ]]>
+    </select>
+
+    <!-- 목록 조회 - PERSON_ID(으)로 -->
+    <select id="selectListByPersonId" resultType="kr.ac.jj.survey.domain.main.model.survey.group.person.TbSurveyGroupPerson">
+        <![CDATA[
+            SELECT TSGP.SURVEY_GROUP_ID
+                 , TSGP.PERSON_ID
+            FROM   TB_SURVEY_GROUP_PERSON TSGP
+            WHERE  TSGP.PERSON_ID = #{personId}
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.survey.group.person.TbSurveyGroupPerson">
+        <![CDATA[
+            SELECT TSGP.SURVEY_GROUP_ID
+                 , TSGP.PERSON_ID
+            FROM   TB_SURVEY_GROUP_PERSON TSGP
+            WHERE  TSGP.SURVEY_GROUP_ID = #{surveyGroupId}
+            AND    TSGP.PERSON_ID = #{personId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SURVEY_GROUP_PERSON (
+                   SURVEY_GROUP_ID
+                 , PERSON_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+            ) VALUES (
+                   #{tbSurveyGroupPerson.surveyGroupId}
+                 , #{tbSurveyGroupPerson.personId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SURVEY_GROUP_PERSON SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+            WHERE  SURVEY_GROUP_ID = #{tbSurveyGroupPerson.surveyGroupId}
+            AND    PERSON_ID = #{tbSurveyGroupPerson.personId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SURVEY_GROUP_PERSON
+            WHERE  SURVEY_GROUP_ID = #{surveyGroupId}
+            AND    PERSON_ID = #{personId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - SURVEY_GROUP_ID(으)로 -->
+    <delete id="deleteListBySurveyGroupId">
+        <![CDATA[
+            DELETE
+            FROM   TB_SURVEY_GROUP_PERSON
+            WHERE  SURVEY_GROUP_ID = #{surveyGroupId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - PERSON_ID(으)로 -->
+    <delete id="deleteListByPersonId">
+        <![CDATA[
+            DELETE
+            FROM   TB_SURVEY_GROUP_PERSON
+            WHERE  PERSON_ID = #{personId}
+        ]]>
+    </delete>
+
+</mapper>

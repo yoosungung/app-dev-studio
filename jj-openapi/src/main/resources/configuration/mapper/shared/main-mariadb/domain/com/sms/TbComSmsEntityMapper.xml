@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 문자메시지 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.sms.TbComSmsEntityMapper">
+
+    <!-- 기본 조회 SQL -->
+    <sql id="baseSelectSql">
+        <![CDATA[
+            SELECT TCS.SMS_ID
+                 , TCS.DEPT_CODE
+                 , TCS.TRAN_PR
+                 , TCS.TRAN_REFKEY
+                 , TCS.TRAN_ID
+                 , TCS.TRAN_PHONE
+                 , TCS.TRAN_CALLBACK
+                 , TCS.TRAN_STATUS
+                 , TCS.TRAN_DATE
+                 , TCS.TRAN_RSLTDATE
+                 , TCS.TRAN_REPORTDATE
+                 , TCS.TRAN_RSLT
+                 , TCS.TRAN_NET
+                 , TCS.TRAN_MSG
+                 , TCS.TRAN_ETC1
+                 , TCS.TRAN_ETC2
+                 , TCS.TRAN_ETC3
+                 , TCS.TRAN_ETC4
+                 , TCS.TRAN_TYPE
+            FROM   TB_COM_SMS TCS
+        ]]>
+    </sql>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.com.sms.TbComSms">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TCS.SMS_ID = #{smsId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_COM_SMS (
+                   SMS_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , DEPT_CODE
+                 , TRAN_PR
+                 , TRAN_REFKEY
+                 , TRAN_ID
+                 , TRAN_PHONE
+                 , TRAN_CALLBACK
+                 , TRAN_STATUS
+                 , TRAN_DATE
+                 , TRAN_RSLTDATE
+                 , TRAN_REPORTDATE
+                 , TRAN_RSLT
+                 , TRAN_NET
+                 , TRAN_MSG
+                 , TRAN_ETC1
+                 , TRAN_ETC2
+                 , TRAN_ETC3
+                 , TRAN_ETC4
+                 , TRAN_TYPE
+            ) VALUES (
+                   #{tbComSms.smsId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbComSms.deptCode}
+                 , #{tbComSms.tranPr}
+                 , #{tbComSms.tranRefkey}
+                 , #{tbComSms.tranId}
+                 , #{tbComSms.tranPhone}
+                 , #{tbComSms.tranCallback}
+                 , #{tbComSms.tranStatus}
+                 , #{tbComSms.tranDate}
+                 , #{tbComSms.tranRsltdate}
+                 , #{tbComSms.tranReportdate}
+                 , #{tbComSms.tranRslt}
+                 , #{tbComSms.tranNet}
+                 , #{tbComSms.tranMsg}
+                 , #{tbComSms.tranEtc1}
+                 , #{tbComSms.tranEtc2}
+                 , #{tbComSms.tranEtc3}
+                 , #{tbComSms.tranEtc4}
+                 , #{tbComSms.tranType}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_COM_SMS SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , DEPT_CODE                        = #{tbComSms.deptCode}
+                 , TRAN_PR                          = #{tbComSms.tranPr}
+                 , TRAN_REFKEY                      = #{tbComSms.tranRefkey}
+                 , TRAN_ID                          = #{tbComSms.tranId}
+                 , TRAN_PHONE                       = #{tbComSms.tranPhone}
+                 , TRAN_CALLBACK                    = #{tbComSms.tranCallback}
+                 , TRAN_STATUS                      = #{tbComSms.tranStatus}
+                 , TRAN_DATE                        = #{tbComSms.tranDate}
+                 , TRAN_RSLTDATE                    = #{tbComSms.tranRsltdate}
+                 , TRAN_REPORTDATE                  = #{tbComSms.tranReportdate}
+                 , TRAN_RSLT                        = #{tbComSms.tranRslt}
+                 , TRAN_NET                         = #{tbComSms.tranNet}
+                 , TRAN_MSG                         = #{tbComSms.tranMsg}
+                 , TRAN_ETC1                        = #{tbComSms.tranEtc1}
+                 , TRAN_ETC2                        = #{tbComSms.tranEtc2}
+                 , TRAN_ETC3                        = #{tbComSms.tranEtc3}
+                 , TRAN_ETC4                        = #{tbComSms.tranEtc4}
+                 , TRAN_TYPE                        = #{tbComSms.tranType}
+            WHERE  SMS_ID = #{tbComSms.smsId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_SMS
+            WHERE  SMS_ID = #{smsId}
+        ]]>
+    </delete>
+
+</mapper>

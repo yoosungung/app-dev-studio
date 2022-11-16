@@ -1,0 +1,223 @@
+@charset "utf-8";
+
+/*.semantic_wrap{	position: absolute;top: 70px;right: 20px;width: 980px;height: 488px;background: white;z-index: 9999;border:1px solid gray;}*/
+/*.semantic_wrap .btn_close{position: absolute; top: 4px; right: 4px; height: 24px; width: 24px; background: url(http://zeus.nfec.go.kr/wcom/img/zeus2014/common/sp_btn.png) 4px -147px no-repeat;}*/
+.semantic_wrap{width: 863px;height: 488px;}
+
+/* 네트워크영역 */
+.network_area {clear:both; margin-bottom:20px; background-color:#fff; border:1px solid #a5a5a5; }
+.network_area .network_wrap {overflow:hidden; float:left; position:relative; /* width:670px;*/width:550px; height:450px; padding:5px; text-align:center; vertical-align:middle;}
+.network_area .network_wrap h3 {display:none;}
+.network_area .detail_data {float:right; width:290px; min-height:450px; border-left:1px solid #d3d2d2; text-align:left;}
+.network_area .detail_data .title_wrap {padding:0 2px 0 7px; height:30px; color:#fff; background:#a4a4a4 url(/wcom/img/schEngine/semantic/bg_title1.jpg) repeat-x 0 0;}
+.network_area .detail_data .title_wrap h3 {float:left; width:150px; color:#fff; font-weight:bold; font-size:13px; height:30px; line-height:28px; text-align:left; overflow:hidden;
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+-o-text-overflow: ellipsis;
+-ms-text-overflow: ellipsis;}
+.network_area .detail_data .title_wrap .sbtn{margin-right:5px;}
+.network_area .detail_data .title_wrap .sclose{margin-right:-4px;}
+.network_area .detail_data .title_wrap .sbtn,
+.network_area .detail_data .title_wrap .sclose{float:right;margin-top:4px;}
+
+/* .network_area .detail_data .title_wrap a {float:right; width:100px;}
+.network_area .detail_data .title_wrap span {} */
+.network_area .result_msg {clear:both; z-index:100; margin-top:-10px; padding:5px; line-height:20px; background-color:#A0A0A0; font-weight:bold; font-size:11px; color:#fff;height:15px;}
+.network_area .info_msg {z-index:99; width:auto; height:10px; text-align:center; margin-top:-22px; line-height:20px; font-size:12px;color:#000;}
+.network_area .info_msg span{width:100%; padding:5px;background-color:#fff;}
+
+.network_area .detail_data .data_wrap {padding:10px; height:380px; position:relative; overflow-y:auto; overflow-x:hidden; line-height:16px;width:270px}
+.network_area .detail_data .data_wrap a {color:#e85a00; text-decoration:underline;}
+.network_area .detail_data .data_wrap p {margin-bottom:10px;}
+.network_area .detail_data .data_wrap h4 {font-size:12px; color:#b263a4; font-weight:lighter; margin-bottom:3px; letter-spacing:0.1em;}
+.network_area .detail_data .data_wrap h5 {font-size:14px; color:#b263a4; font-weight:bold; margin-bottom:3px;margin-top:4px;}
+
+.network_area .detail_data .data_wrap .info:after{clear:both; display:block; content:""}
+.network_area .detail_data .data_wrap .info{margin: 10px 0;}
+.network_area .detail_data .data_wrap .info .thumb {width: 94px;height: 121px;border: 1px solid #d3d2d2;text-align: center;background-color: #fff;float: left;line-height:121px;}
+.network_area .detail_data .data_wrap .info img {height:94px;}
+
+
+.network_area .detail_data .data_wrap .thumb {margin-bottom:10px; width:252px; height:94px; border:1px solid #d3d2d2; text-align:center; background-color:#fff;}
+.network_area .detail_data .data_wrap .thumb img {height:94px;width:100%;}
+.network_area .detail_data .data_wrap .map_wrap {clear:both; position:relative; z-index:3; margin-bottom:0px; width:268px; height:124px; border:1px solid #d3d2d2;}
+.network_area .detail_data .data_wrap .map_wrap span,
+.network_area .detail_data .data_wrap .map_wrap .address,
+.network_area .detail_data .data_wrap .map_wrap .more {display:inline-block; position:absolute; cursor:pointer;} 
+.network_area .detail_data .data_wrap .map_wrap a {text-decoration:none;}
+.network_area .detail_data .data_wrap .map_wrap a:hover {text-decoration:underline;}
+.network_area .detail_data .data_wrap .map_wrap span {margin-top:102px; width:269px; height:21px; z-index:5; background-color:#000; opacity:0.5; filter:alpha(opacity=80);}
+.network_area .detail_data .data_wrap .map_wrap .address  {/*margin-top: 107px; */padding-left: 5px;width: 263px;height: 21px;z-index: 10;font-style: normal;color: #fff;text-align: left;/* overflow: hidden; */line-height: 21px;
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+-o-text-overflow: ellipsis;
+-ms-text-overflow: ellipsis;
+}
+.network_area .detail_data .data_wrap .map_wrap .more {margin-top:105px; margin-left:235px; width:18px; height:18px; z-index:15; background:transparent url(/wcom/img/schEngine/semantic/btn_more_white.gif) no-repeat center center;}.network_area .detail_data .data_wrap .map_wrap .more em {display:block; font-size:0; overflow:hidden; height:0; width:0; position:relative; z-index:-1;} /* 글씨 안보이게 */
+
+/* 차트 */
+.network_area .detail_data .data_wrap .chart_wrap{margin-bottom: 0px;margin-top: 3px;}
+.network_area .detail_data .data_wrap .chart_wrap .chart_title_wrap{text-align: center;font-weight: bold;color: #9B2493;}
+
+.network_area .detail_data .result_list_default {min-height:260px; overflow:hidden;}
+.network_area .detail_data .result_list_default .thumb_people {float:left; width:95px; margin-bottom:15px;}
+.network_area .detail_data .result_list_default .thumb_people img {width:92px; height:116px; border:1px solid #a5a5a5; padding:1px;}
+.network_area .detail_data .result_list_default ul {float:left; width:100%; margin-bottom:15px;}
+.network_area .detail_data .result_list_default ul li {padding:4px 0; border-bottom:1px dotted #ccc; overflow:hidden;}
+.network_area .detail_data .result_list_default ul li em {float:left; width:84px; color:#b263a4; font-style:normal;}
+.network_area .detail_data .result_list_default ul li span {float:left; width:160px;padding-left: 5px;}
+.network_area .detail_data .detail_project {overflow:hidden;width:255px;}
+.network_area .detail_data .no_data{background: url(/wcom/img/schEngine/ready.png) no-repeat;height: 380px;width: 270px;}
+
+.network_area .detail_data .detail_project ul {margin-bottom:15px;}
+.network_area .detail_data .detail_project ul li {padding:4px 0; border-bottom:1px dotted #ccc; overflow:hidden; }
+.network_area .detail_data .detail_project ul li em {float:left; width:94px; color:#b263a4; padding:0 0 0 8px; font-style:normal; background:transparent url(/wcom/img/schEngine/semantic/bul_title4.gif) no-repeat 0 3px;}
+.network_area .detail_data .detail_project ul li span {float:left; width:150px;}
+
+.network_area .detail_data .info .detail_project {overflow: hidden;width: 146px;float: left;margin-left: 10px;}
+.network_area .detail_data .info .detail_project ul {margin-bottom:0px;}
+.network_area .detail_data .info .detail_project ul li {padding:4px 0; border-bottom:1px dotted #ccc; overflow:hidden; }
+.network_area .detail_data .info .detail_project ul li em {float:left; width:94px; color:#b263a4; padding:0 0 0 8px; font-style:normal; background:transparent url(/wcom/img/schEngine/semantic/bul_title4.gif) no-repeat 0 3px;}
+.network_area .detail_data .info .detail_project ul li span {float:left; width:150px;margin-left: 7px;}
+.network_area .detail_data .info .detail_project ul li span:hover {/*color:#b263a4; cursor:pointer;*/}
+.network_area .detail_data .info .detail_project ul li span.equip_name{overflow: hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow: ellipsis;-ms-text-overflow: ellipsis;}
+
+.ready_box{width:100%; padding:30px 0 110px; background:url(/wcom/img/schEngine/ready.png) no-repeat 50% bottom; text-align:center}
+.ready_box strong{display:block; font-size:18px; margin-bottom:10px;}
+.ready_box p{font-size:12px; }
+
+.network_area .detail_data .btn_wrap {padding:5px 7px 0; height:25px; text-align:right; background-color:#f5f4f4; border-top:1px solid #d3d2d2; }/*border-bottom:1px solid #d3d2d2;*/
+.network_area .detail_data .btn_wrap .sbtn {text-align:right;}
+.network_area .network_wrap .nodata0,
+.network_area .network_wrap .loading3 { margin-top:120px;}
+.network_area .detail_data .nodata0,
+.network_area .detail_data .loading3 { margin-top:60px;}
+.network_area .network_wrap .loading1,
+.network_area .network_wrap .loading2 { margin-top:170px;}
+.network_area .detail_data .loading1,
+.network_area .detail_data .loading2 { margin-top:110px;}
+
+/* 히스토리 */
+.navi_history {position:absolute; z-index:5; height:28px; }
+.navi_history ul {margin-left:15px;}
+.navi_history ul li {position:relative; float:left; margin-left:-15px;}
+.navi_history ul li a {display:block; margin-right:3px;}
+
+.navi_history ul li a span {cursor: pointer;padding: 0px 4px 0 10px;margin-right: 0px;height: 28px;line-height: 28px;font-size: 11px;background-color: #9B2493;display: inline-block;float: left;
+border-radius: 3px 0 0 3px;
+-moz-border-radius: 3px 0 0 3px;
+-webkit-border-radius: 3px 0 0 3px;}
+.navi_history ul li a div.arrow{	border: 14px solid;border-color: transparent transparent transparent #9B2493;width: 0;height: 0;display: inline-block;float:left}
+
+.navi_history ul li a:hover {text-decoration:none;}
+.navi_history ul li a:hover,
+.navi_history ul li a:hover span {color:#f37021;}
+.navi_history ul li.on a {background-position:100% -30px;}  
+.navi_history ul li.on a span {color:#fff; font-weight:bold; background-position:0% -30px;} 
+
+
+
+
+/* Icon_Big -------------------- */
+.icon_obj_big em {display:inline-block; width:56px; height:56px; line-height:56px; background:transparent url(/wcom/img/schEngine/semantic/icon_obj_big.png) no-repeat 0 0;}
+.icon_obj_big span {display:block; font-size:0; width:0; height:0; overflow:hidden; position:relative; z-index:-1;} /* 글씨 안보이게 */
+.icon_obj_big .icon_network {background-position: 0 0;}
+.icon_obj_big .icon_thesaurus {background-position: -56px 0;}
+.icon_obj_big .icon_gear {background-position: -112px 0;}
+.icon_obj_big .icon_people {background-position: -168px 0;}
+.icon_obj_big .icon_company {background-position: -224px 0;}
+.icon_obj_big .icon_project {background-position: -280px 0;}
+.icon_obj_big .icon_model {background-position: -336px 0;}
+
+/* Icon_포인트 -------------------- */
+.icon_obj {}
+.icon_obj li {display:inline-block; padding:0; margin:0;}
+.icon_obj em {display:inline-block; width:28px; height:28px; line-height:28px; background:transparent url(/wcom/img/schEngine/semantic/icon_obj.png) no-repeat 0 0;}
+.icon_obj span {display:block; font-size:0; width:0; height:0; line-height:0; overflow:hidden; position:relative; z-index:-1;} /* 글씨 안보이게 */
+.icon_obj .icon_thesaurus {background-position: 0 0;}
+.icon_obj .icon_gear {background-position: -28px 0;}
+.icon_obj .icon_people {background-position: -56px 0;}
+.icon_obj .icon_company {background-position: -84px 0;}
+.icon_obj .icon_project {background-position: -112px 0;}
+.icon_obj .icon_model {background-position: -140px 0;}
+
+/* Icon_small -------------------- */
+.icon_thesaurus,
+.icon_gear,
+.icon_people,
+.icon_project,
+.icon_company,
+.icon_model {display:inline-block; width:17px; height:17px; line-height:17px; background:transparent url(/wcom/img/schEngine/semantic/icon_obj_small.png) no-repeat 0 0; margin: 0 1px -5px 1px;}
+.icon_thesaurus {background-position: 0 0;}
+.icon_gear {background-position: -18px 0;}
+.icon_people {background-position: -36px 0;}
+.icon_company {background-position: -54px 0;}
+.icon_project {background-position: -72px 0;}
+.icon_model {background-position: -90px 0;}
+.icon_text {font-size:10px; font-style:normal;}
+
+/* Icon_white ------------------*/
+.icon_w_thesaurus,
+.icon_w_gear,
+.icon_w_people,
+.icon_w_project,
+.icon_w_company,
+.icon_w_model {display:inline-block; width:17px; height:17px; line-height:17px; background:transparent url(/wcom/img/schEngine/semantic/icon_obj_small.png) no-repeat 0 0; margin: 0 1px -5px 1px;}
+.icon_w_thesaurus {background-position: 0 -36px;}
+.icon_w_gear {background-position: -18px -36px;}
+.icon_w_people {background-position: -36px -36px;}
+.icon_w_company {background-position: -54px -36px;}
+.icon_w_project {background-position: -72px -36px;}
+.icon_w_model {background-position: -90px -36px;}
+
+/* Button -------------------- */
+.btn_mid {text-align:center;}
+.btn_mid ul {margin:0 auto; text-align:left;}
+.btn_mid li {float:left; margin-right:4px;}
+.btn_left {float:left; text-align:left;}
+.btn_left ul {float:left; width:auto;}
+.btn_left li {float:left; margin-right:4px;}
+.btn_right {float:right; text-align:right;}
+.btn_right ul {float:right; width:auto;}
+.btn_right li {float:left; margin-left:4px;}
+
+/* 작은버튼 */
+.sbtn,sclose{width:auto; text-align:left;}
+.sclose a {display: inline-block;height: 20px;margin-right: 3px;width: 24px;background: url(http://zeus.nfec.go.kr/wcom/img/zeus2014/common/sp_btn.png) 6px -105px no-repeat;background-size: 440px;}
+
+.sbtn a {display:inline-block; height:20px; margin-right:3px; background:transparent url(/wcom/img/schEngine/semantic/bg_btn1.png) no-repeat 100% -25px;}  
+.sbtn a span {display:inline-block; cursor:pointer; padding:2px 0 2px 5px; margin-right:5px; height:16px; font-size:11px; color:#555; font-weight:lighter; background:transparent url(/wcom/img/schEngine/semantic/bg_btn1.png) no-repeat 0 0;}
+.sbtn a span.bold {font-weight:bold;} 
+.sbtn a span em {display:inline-block; width:12px; height:12px; margin-right:2px; margin-bottom:-2px; background:transparent url(/wcom/img/schEngine/semantic/icon_btn.png) no-repeat 0 0;}
+.sbtn a:hover {text-decoration:none; background-position:100% -75px;}  
+.sbtn a:hover span {color:#000; background-position:0% -50px;}
+.sbtn .none {background-position:100% -125px;}
+.sbtn .none span {color:#bbb; background-position:0% -100px;}
+.sbtn .none:hover {background-position:100% -125px;}
+.sbtn .none:hover span {color:#bbb; background-position:0% -100px;}
+.sbtn .orange {background:transparent url(/wcom/img/schEngine/semantic/bg_btn2.png) no-repeat 100% -25px;}  
+.sbtn .orange span {color:#fff; background:transparent url(/wcom/img/schEngine/semantic/bg_btn2.png) no-repeat 0 0;}  
+.sbtn .orange:hover {text-decoration:none; background-position:100% -75px;}  
+.sbtn .orange:hover span {color:#fff; background-position:0% -50px;}
+.sbtn .black {background:transparent url(/wcom/img/schEngine/semantic/bg_btn2.png) no-repeat 100% -125px;}  
+.sbtn .black span {color:#fff; background:transparent url(/wcom/img/schEngine/semantic/bg_btn2.png) no-repeat 0 -100px;}  
+.sbtn .black:hover {text-decoration:none; background-position:100% -175px;}  
+.sbtn .black:hover span {color:#fff; background-position:0% -150px;}
+
+/* Button icon */
+.sbtn a span em.icon_next {background-position:0 0; margin-right:0px; margin-left:2px;}
+.sbtn a.orange span em.icon_next,
+.sbtn a.black span em.icon_next {background-position:0 -12px; margin-right:0px; margin-left:2px;}
+
+
+/* Popup -------------------- */	
+.laypop_alpha {position:absolute; left:0; top:0; width:100%; height:100%; z-index:90; background-color:#000; opacity:0.5; filter:alpha(opacity=50);}
+
+/* network -------------------- */
+.node {  cursor: pointer;}
+
+.node text {  font: 10px dotum;  pointer-events: none;  text-anchor: middle;}
+
+line.link {  fill: none;  stroke: #C0C0C0;  stroke-width: 2.5px;}

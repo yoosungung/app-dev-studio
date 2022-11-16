@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 파일 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.file.TbComFileMapper">
+
+    <!-- 다운로드 목록 조회 -->
+    <select id="selectDownloadList" resultType="kr.ac.jj.shared.domain.main.model.com.file.TbComFile">
+        <![CDATA[
+            SELECT TCF.FILE_POLICY
+                 , TCF.FILE_RPSTR
+                 , TCF.STRE_PATH
+                 , TCF.STRE_FILE_NM
+                 , TCF.ORGINL_FILE_NM
+                 , TCF.FILE_EXTSN
+                 , TCF.FILE_SIZE
+                 , TCF.DELETE_YN
+                 , TCF.SORT_ORDR
+            FROM   TB_COM_FILE TCF
+            WHERE  TCF.DWLD_ID IN (
+        ]]>
+
+        <foreach collection="dwldIds" item="dwldId" separator=",">
+            <![CDATA[
+                        #{dwldId}
+            ]]>
+        </foreach>
+
+        <![CDATA[
+                   )
+            AND    TCF.DELETE_YN = '0'
+            ORDER BY TCF.SORT_ORDR, TCF.FILE_SN
+        ]]>
+    </select>
+
+    <!-- 수정 - 삭제 여부 -->
+    <update id="updateDelYn">
+        <![CDATA[
+            UPDATE TB_COM_FILE SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , DELETE_YN                        = #{deleteYn}
+                 , SORT_ORDR                        = -1
+            WHERE  FILE_ID = #{fileId}
+        ]]>
+    </update>
+
+    <!-- 수정 - 전체 삭제 여부  -->
+    <update id="updateDelYnAll">
+        <![CDATA[
+            UPDATE TB_COM_FILE SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , DELETE_YN                        = #{deleteYn}
+                 , SORT_ORDR                        = -1
+            WHERE  FILE_GROUP_ID = #{fileGroupId}
+        ]]>
+    </update>
+
+</mapper>

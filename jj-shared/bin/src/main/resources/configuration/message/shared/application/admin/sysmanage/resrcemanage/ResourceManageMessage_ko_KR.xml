@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+    <entry key="admin.sysmanage.resrcemanage.title.list"><![CDATA[프로그램 리소스 관리]]></entry>
+    <entry key="admin.sysmanage.resrcemanage.title.search"><![CDATA[프로그램 리소스 검색]]></entry>
+    <entry key="admin.sysmanage.resrcemanage.title.create"><![CDATA[프로그램 리소스 생성]]></entry>
+    <entry key="admin.sysmanage.resrcemanage.title.update"><![CDATA[프로그램 리소스 수정]]></entry>
+
+    <entry key="admin.sysmanage.resrcemanage.label.tbSysResrceAuthorList"><![CDATA[리소스 권한]]></entry>
+    <entry key="admin.sysmanage.resrcemanage.label.authorUseYn"><![CDATA[권한사용 여부]]></entry>
+    <entry key="admin.sysmanage.resrcemanage.label.allowYn"><![CDATA[권한부여 여부]]></entry>
+
+</properties>

@@ -1,0 +1,63 @@
+[v-cloak] {
+    visibility: hidden;
+}
+
+.valid-message {
+    color: red;
+}
+
+div.table {
+    display: table;
+}
+
+div.table.fixed {
+    table-layout: fixed;
+}
+
+div.table > div {
+    display: table-cell;
+}
+
+div.full {
+    width: 100%;
+}
+
+.grid .title-bar {
+    display: table;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.grid .title-bar > div {
+    display: table-cell;
+}
+
+.grid .title-bar > div:last-child {
+    text-align: right;
+}
+
+.grid table.list thead th .sort {
+    padding-right: 2px;
+}
+
+.grid table.list thead th .sort::before {
+    content: '↕';
+    color: gray;
+}
+
+.grid table.list thead th .sort.asc::before {
+    content: '↑';
+    color: red;
+}
+
+.grid table.list thead th .sort.desc::before {
+    content: '↓';
+    color: red;
+}
+
+.grid .paging {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}

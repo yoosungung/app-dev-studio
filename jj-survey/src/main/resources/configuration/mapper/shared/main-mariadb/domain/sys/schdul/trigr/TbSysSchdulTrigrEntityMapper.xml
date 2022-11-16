@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 스케줄 트리거 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper">
+
+    <!-- 목록 조회 - SCHDUL_ID(으)로 -->
+    <select id="selectListBySchdulId" resultType="kr.ac.jj.shared.domain.main.model.sys.schdul.trigr.TbSysSchdulTrigr">
+        <![CDATA[
+            SELECT TSST.SCHDUL_TRIGR_ID
+                 , TSST.SCHDUL_ID
+                 , TSST.TRIGR_NO
+                 , TSST.TRIGR_EXPRSN
+                 , TSST.TRIGR_DC
+                 , TSST.BEGIN_DT
+            FROM   TB_SYS_SCHDUL_TRIGR TSST
+            WHERE  TSST.SCHDUL_ID = #{schdulId}
+            ORDER BY TSST.TRIGR_NO
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.sys.schdul.trigr.TbSysSchdulTrigr">
+        <![CDATA[
+            SELECT TSST.SCHDUL_TRIGR_ID
+                 , TSST.SCHDUL_ID
+                 , TSST.TRIGR_NO
+                 , TSST.TRIGR_EXPRSN
+                 , TSST.TRIGR_DC
+                 , TSST.BEGIN_DT
+            FROM   TB_SYS_SCHDUL_TRIGR TSST
+            WHERE  TSST.SCHDUL_TRIGR_ID = #{schdulTrigrId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SYS_SCHDUL_TRIGR (
+                   SCHDUL_TRIGR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SCHDUL_ID
+                 , TRIGR_NO
+                 , TRIGR_EXPRSN
+                 , TRIGR_DC
+                 , BEGIN_DT
+            ) VALUES (
+                   #{tbSysSchdulTrigr.schdulTrigrId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbSysSchdulTrigr.schdulId}
+        ]]>
+
+        <choose>
+        <when test='tbSysSchdulTrigr.trigrNo == null'>
+            <![CDATA[
+                 , (SELECT IFNULL(MAX(A.TRIGR_NO), 0) + 1 FROM TB_SYS_SCHDUL_TRIGR A WHERE A.SCHDUL_ID = #{tbSysSchdulTrigr.schdulId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , #{tbSysSchdulTrigr.trigrNo}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , #{tbSysSchdulTrigr.trigrExprsn}
+                 , #{tbSysSchdulTrigr.trigrDc}
+                 , #{tbSysSchdulTrigr.beginDt}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SYS_SCHDUL_TRIGR SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , SCHDUL_ID                        = #{tbSysSchdulTrigr.schdulId}
+        ]]>
+
+        <choose>
+        <when test='tbSysSchdulTrigr.trigrNo == null'>
+            <![CDATA[
+                 , TRIGR_NO                         = (SELECT IFNULL(MAX(A.TRIGR_NO), 0) + 1 FROM TB_SYS_SCHDUL_TRIGR A WHERE A.SCHDUL_ID = #{tbSysSchdulTrigr.schdulId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , TRIGR_NO                         = #{tbSysSchdulTrigr.trigrNo}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , TRIGR_EXPRSN                     = #{tbSysSchdulTrigr.trigrExprsn}
+                 , TRIGR_DC                         = #{tbSysSchdulTrigr.trigrDc}
+                 , BEGIN_DT                         = #{tbSysSchdulTrigr.beginDt}
+            WHERE  SCHDUL_TRIGR_ID = #{tbSysSchdulTrigr.schdulTrigrId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_SCHDUL_TRIGR
+            WHERE  SCHDUL_TRIGR_ID = #{schdulTrigrId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - SCHDUL_ID(으)로 -->
+    <delete id="deleteListBySchdulId">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_SCHDUL_TRIGR
+            WHERE  SCHDUL_ID = #{schdulId}
+        ]]>
+    </delete>
+
+</mapper>

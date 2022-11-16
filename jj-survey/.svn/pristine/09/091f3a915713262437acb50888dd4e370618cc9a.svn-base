@@ -1,0 +1,29 @@
+package kr.ac.jj.survey.application.main.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.infrastructure.grid.handler.GridDataResultHandler;
+import kr.ac.jj.shared.infrastructure.grid.model.GridRequest;
+import kr.ac.jj.survey.application.main.mapper.MainMapper;
+
+/**
+ * 메인 Service
+ */
+@Service
+public class MainServiceImpl {
+
+    private @Autowired MainMapper mainMapper;
+
+    public List<Map<String, Object>> readList(GridRequest gridRequest) {
+        GridDataResultHandler resultHandler = new GridDataResultHandler(gridRequest);
+
+        mainMapper.selectList(resultHandler, gridRequest.getPaging(), gridRequest.getSearch());
+
+        return resultHandler.getResultList();
+    }
+
+}

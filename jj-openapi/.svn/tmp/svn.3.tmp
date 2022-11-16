@@ -1,0 +1,37 @@
+function MainViewService(vue) {
+
+    /**
+     * 게시판 목록 조회
+     */
+    this.readNoticeList = function() {
+        CommonUtil.axios(vue)
+        .post("readNoticeList", {})
+        .then(function(response) {
+            vue.noticeList = response.data;
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+    this.readQnaList = function() {
+        CommonUtil.axios(vue)
+        .post("readQnaList", {})
+        .then(function(response) {
+            vue.qnaList = response.data;
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+    this.readFaqList = function() {
+        CommonUtil.axios(vue)
+        .post("readFaqList", {})
+        .then(function(response) {
+            vue.faqList = response.data;
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+}
+

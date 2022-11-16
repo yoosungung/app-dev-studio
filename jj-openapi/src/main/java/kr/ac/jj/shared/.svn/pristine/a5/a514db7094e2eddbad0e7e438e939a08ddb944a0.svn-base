@@ -1,0 +1,73 @@
+package kr.ac.jj.shared.domain.main.mapper.bbs.gnrl;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.shared.config.datasources.SharedDataSourceMainConfig.SharedMainSqlMapper;
+
+/**
+ * 게시판 - 일반(답변형) Mapper
+ */
+@SharedMainSqlMapper
+public interface TbBbsGnrlMapper extends TbBbsGnrlEntityMapper {
+
+    /**
+     * 수정 - 조회수 증가
+     *
+     * @param bbscttId
+     * @return
+     */
+    public int updateRdcnt(@Param("bbscttId") String bbscttId);
+
+    /**
+     * 삭제 - 답글이 존재하지 않는 경우
+     *
+     * @param bbscttId
+     * @return
+     */
+    public int deleteNotExistsReply(@Param("bbscttId") String bbscttId);
+
+    /**
+     * 목록 삭제 - 삭제 표시된 건들
+     *
+     * @param frstBbscttId
+     * @return
+     */
+    public int deleteListDeleteYn(@Param("frstBbscttId") String frstBbscttId);
+
+    /**
+     * 수정 - 삭제 여부
+     *
+     * @param bbscttId
+     * @param deleteYn
+     * @return
+     */
+    public int updateDeleteYn(@Param("bbscttId") String bbscttId, @Param("deleteYn") boolean deleteYn);
+
+    /**
+     * 수정 - 답글 순서 증가
+     *
+     * @param bbscttId
+     * @return
+     */
+    public int updateAnswerOrdrAdd(@Param("bbscttId") String bbscttId);
+
+    /**
+     * 게시글 ID 목록 조회 - 답글 순서 변경대상
+     *
+     * @param frstBbscttId
+     * @return
+     */
+    public List<String> selectBbscttIdListForAnswerOrdrUpdate(@Param("frstBbscttId") String frstBbscttId);
+
+    /**
+     * 수정 - 답글 순서
+     *
+     * @param bbscttId
+     * @param answerOrdr
+     * @return
+     */
+    public int updateAnswerOrdr(@Param("bbscttId") String bbscttId, @Param("answerOrdr") int answerOrdr);
+
+}

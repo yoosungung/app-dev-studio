@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+  Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.surveyDefinitionPage.id"><![CDATA[]]></entry>
+    <entry key="domain.main.surveyDefinitionPage.title"><![CDATA[]]></entry>
+    <entry key="domain.main.surveyDefinitionPage.instructions"><![CDATA[]]></entry>
+    <entry key="domain.main.surveyDefinitionPage.pageOrder"><![CDATA[]]></entry>
+    <entry key="domain.main.surveyDefinitionPage.pageLogicjson"><![CDATA[]]></entry>
+    <entry key="domain.main.surveyDefinitionPage.randomizeQuestions"><![CDATA[]]></entry>
+    <entry key="domain.main.surveyDefinitionPage.surveyDefinitionId"><![CDATA[]]></entry>
+    <entry key="domain.main.surveyDefinitionPage.version"><![CDATA[]]></entry>
+
+</properties>

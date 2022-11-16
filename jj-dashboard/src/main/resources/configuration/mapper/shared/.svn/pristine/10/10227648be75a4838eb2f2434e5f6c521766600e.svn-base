@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 사람별 부서 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.person.dept.TbComPersonDeptEntityMapper">
+
+    <!-- 기본 조회 SQL -->
+    <sql id="baseSelectSql">
+        <![CDATA[
+            SELECT TCPD.PERSON_ID
+                 , TCPD.DEPT_ID
+            FROM   TB_COM_PERSON_DEPT TCPD
+        ]]>
+    </sql>
+
+    <!-- 목록 조회 - PERSON_ID(으)로 -->
+    <select id="selectListByPersonId" resultType="kr.ac.jj.shared.domain.main.model.com.person.dept.TbComPersonDept">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TCPD.PERSON_ID = #{personId}
+        ]]>
+    </select>
+
+    <!-- 목록 조회 - DEPT_ID(으)로 -->
+    <select id="selectListByDeptId" resultType="kr.ac.jj.shared.domain.main.model.com.person.dept.TbComPersonDept">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TCPD.DEPT_ID = #{deptId}
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.com.person.dept.TbComPersonDept">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TCPD.PERSON_ID = #{personId}
+            AND    TCPD.DEPT_ID = #{deptId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_COM_PERSON_DEPT (
+                   PERSON_ID
+                 , DEPT_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+            ) VALUES (
+                   #{tbComPersonDept.personId}
+                 , #{tbComPersonDept.deptId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_COM_PERSON_DEPT SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+            WHERE  PERSON_ID = #{tbComPersonDept.personId}
+            AND    DEPT_ID = #{tbComPersonDept.deptId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_PERSON_DEPT
+            WHERE  PERSON_ID = #{personId}
+            AND    DEPT_ID = #{deptId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - PERSON_ID(으)로 -->
+    <delete id="deleteListByPersonId">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_PERSON_DEPT
+            WHERE  PERSON_ID = #{personId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - DEPT_ID(으)로 -->
+    <delete id="deleteListByDeptId">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_PERSON_DEPT
+            WHERE  DEPT_ID = #{deptId}
+        ]]>
+    </delete>
+
+</mapper>

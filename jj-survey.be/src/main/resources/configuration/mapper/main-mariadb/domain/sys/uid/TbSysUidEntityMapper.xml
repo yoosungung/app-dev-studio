@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - UID Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.sys.uid.TbSysUidEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.sys.uid.TbSysUid">
+        <![CDATA[
+            SELECT TSU.UID_VALUE
+                 , TSU.UID_SE
+            FROM   TB_SYS_UID TSU
+            WHERE  TSU.UID_VALUE = #{uidValue}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SYS_UID (
+                   UID_VALUE
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , UID_SE
+            ) VALUES (
+                   #{tbSysUid.uidValue}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbSysUid.uidSe}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SYS_UID SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , UID_SE                           = #{tbSysUid.uidSe}
+            WHERE  UID_VALUE = #{tbSysUid.uidValue}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_UID
+            WHERE  UID_VALUE = #{uidValue}
+        ]]>
+    </delete>
+
+</mapper>

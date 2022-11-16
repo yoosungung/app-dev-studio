@@ -1,0 +1,145 @@
+package kr.ac.jj.shared.infrastructure.scheduler.service;
+
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.quartz.JobExecutionContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper;
+import kr.ac.jj.shared.domain.main.mapper.sys.schdul.execut.TbSysSchdulExecutMapper;
+import kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrMapper;
+import kr.ac.jj.shared.domain.main.model.sys.schdul.TbSysSchdul;
+import kr.ac.jj.shared.domain.main.model.sys.schdul.execut.TbSysSchdulExecut;
+import kr.ac.jj.shared.domain.main.model.sys.schdul.trigr.TbSysSchdulTrigr;
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.model.JobDetailTrigger;
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.model.SchedulerJobConfig;
+import kr.ac.jj.shared.infrastructure.scheduler.mapper.SchedulerJobMapper;
+
+/**
+ * 스케줄러 Job Service
+ */
+@Service
+public class SchedulerJobServiceImpl {
+
+    private @Autowired SchedulerJobMapper schedulerJobMapper;
+    private @Autowired TbSysSchdulMapper tbSysSchdulMapper;
+    private @Autowired TbSysSchdulTrigrMapper tbSysSchdulTrigrMapper;
+    private @Autowired TbSysSchdulExecutMapper tbSysSchdulExecutMapper;
+
+    /**
+     * 초기화
+     */
+    public void initialize() {
+        schedulerJobMapper.updateToNoUseAllList();
+        schedulerJobMapper.updateAbnormalEndList();
+    }
+
+    /**
+     * 생성
+     *
+     * @param jobConfig
+     * @param jobDetailTriggerList
+     */
+    public void create(SchedulerJobConfig jobConfig, List<JobDetailTrigger> jobDetailTriggerList) {
+        TbSysSchdul tbSysSchdul = new TbSysSchdul();
+        tbSysSchdul.setSchdulKey(jobConfig.getScheduleKey());
+        tbSysSchdul.setSchdulNm(jobConfig.getName());
+        tbSysSchdul.setOpertClass(jobConfig.getJobClass().getName());
+        tbSysSchdul.setValidYn(jobConfig.isEnable(true));
+        tbSysSchdul.setUseYn(true);
+
+        String schdulId = tbSysSchdulMapper.selectIdBySchdulKey(jobConfig.getScheduleKey());
+
+        if (StringUtils.isEmpty(schdulId)) {
+            schdulId = tbSysSchdul.newId().getSchdulId();
+            tbSysSchdulMapper.insert(tbSysSchdul);
+        } else {
+            tbSysSchdul.setSchdulId(schdulId);
+            tbSysSchdulMapper.update(tbSysSchdul);
+        }
+
+        tbSysSchdulTrigrMapper.deleteListBySchdulId(schdulId);
+
+        for (JobDetailTrigger jobDetailTrigger : jobDetailTriggerList) {
+            TbSysSchdulTrigr tbSysSchdulTrigr = new TbSysSchdulTrigr();
+            tbSysSchdulTrigr.newId();
+            tbSysSchdulTrigr.setSchdulId(schdulId);
+            tbSysSchdulTrigr.setTrigrNo(jobDetailTrigger.getTriggerNo());
+            tbSysSchdulTrigr.setTrigrExprsn(jobDetailTrigger.getCronExpression());
+            tbSysSchdulTrigr.setTrigrDc(jobDetailTrigger.getTrigger().getDescription());
+            tbSysSchdulTrigr.setBeginDt(jobDetailTrigger.getTrigger().getNextFireTime());
+            tbSysSchdulTrigrMapper.insert(tbSysSchdulTrigr);
+        }
+    }
+
+    /**
+     * 로그 생성
+     *
+     * @param jobConfig
+     * @param jobDetailTrigger
+     * @param context
+     * @return
+     */
+    public String createLog(SchedulerJobConfig jobConfig, JobDetailTrigger jobDetailTrigger,
+            JobExecutionContext context) {
+        String schdulId = tbSysSchdulMapper.selectIdBySchdulKey(jobConfig.getScheduleKey());
+
+        if (StringUtils.isEmpty(schdulId)) {
+            return null;
+        }
+
+        TbSysSchdulExecut tbSysSchdulExecut = new TbSysSchdulExecut();
+        tbSysSchdulExecut.newId();
+        tbSysSchdulExecut.setSchdulId(schdulId);
+        tbSysSchdulExecut.setExecutSn(null);
+        tbSysSchdulExecut.setTrigrNo(jobDetailTrigger.getTriggerNo());
+        tbSysSchdulExecut.setTrigrExprsn(jobDetailTrigger.getCronExpression());
+        tbSysSchdulExecut.setPlanBeginDt(context.getScheduledFireTime());
+        tbSysSchdulExecut.setNextBeginDt(context.getNextFireTime());
+        tbSysSchdulExecut.setExecutBeginDt(context.getFireTime());
+        tbSysSchdulExecut.setExecutEndDt(null);
+        tbSysSchdulExecut.setSuccesYn(null);
+        tbSysSchdulExecut.setErrorMssage(null);
+        tbSysSchdulExecut.setErrorStack(null);
+        tbSysSchdulExecutMapper.insert(tbSysSchdulExecut);
+
+        return tbSysSchdulExecut.getSchdulExecutId();
+    }
+
+    /**
+     * 로그 수정
+     *
+     * @param executeId
+     * @param jobConfig
+     * @param jobDetailTrigger
+     * @param context
+     * @param exception
+     */
+    public void updateLog(String executeId, SchedulerJobConfig jobConfig, JobDetailTrigger jobDetailTrigger,
+            JobExecutionContext context, Exception exception) {
+        if (StringUtils.isEmpty(executeId)) {
+            return;
+        }
+
+        TbSysSchdulExecut tbSysSchdulExecut = tbSysSchdulExecutMapper.select(executeId);
+
+        if (tbSysSchdulExecut == null) {
+            return;
+        }
+
+        tbSysSchdulExecut.setExecutEndDt(new Date());
+        tbSysSchdulExecut.setSuccesYn(exception == null);
+
+        if (exception != null) {
+            tbSysSchdulExecut.setErrorMssage(exception.getMessage());
+            tbSysSchdulExecut.setErrorStack(ExceptionUtils.getStackTrace(exception));
+        }
+
+        tbSysSchdulExecutMapper.update(tbSysSchdulExecut);
+    }
+
+}

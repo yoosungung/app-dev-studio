@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 문자메시지 로그 관리 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.admin.logmanage.smslog.mapper.SmsLogManageMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TCS.SMS_ID
+                 , TCS.TRAN_ETC2
+                 , TCS.TRAN_ETC1
+                 , TCS.TRAN_CALLBACK
+                 , TCS.TRAN_PHONE
+                 , TCS.TRAN_ETC3
+                 , ${$var.getCodeData("/domain.main.tbComSms/tranType", "TCS.TRAN_TYPE", "TCS.TRAN_TYPE")} AS TRAN_TYPE_NM
+                 , ${$var.getCodeData("/domain.main.tbComSms/tranStatus", "TCS.TRAN_STATUS", "TCS.TRAN_STATUS")} AS TRAN_STATUS_NM
+                 , ${$var.getCodeData("/domain.main.tbComSms/tranRslt", "BINARY(TCS.TRAN_RSLT)", "TCS.TRAN_RSLT")} AS TRAN_RSLT_NM
+                 , TCS.TRAN_DATE
+            FROM   TB_COM_SMS TCS
+            WHERE  1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='search != null and search.searchText != null and search.searchText != ""'>
+            <![CDATA[
+            AND    (UPPER(TCS.TRAN_ETC1) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%') OR
+                    UPPER(TCS.TRAN_CALLBACK) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%') OR
+                    UPPER(TCS.TRAN_PHONE) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%') OR
+                    UPPER(TCS.TRAN_ETC3) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%')
+                   )
+            ]]>
+        </if>
+
+        <!-- 메시지 상태 -->
+        <if test='search != null and search.tranStatus != null and search.tranStatus != ""'>
+            <![CDATA[
+            AND    TCS.TRAN_STATUS = #{search.tranStatus}
+            ]]>
+        </if>
+
+        <!-- 전송 결과 -->
+        <if test='search != null and search.tranRslt != null and search.tranRslt != ""'>
+            <![CDATA[
+            AND    TCS.TRAN_RSLT = #{search.tranRslt}
+            ]]>
+        </if>
+
+        <!-- 작성 일자 -->
+        <if test='search != null and search.tranDateStart != null'>
+            <![CDATA[
+            AND    TCS.TRAN_DATE >= #{search.tranDateStart, jdbcType=DATE}
+            ]]>
+        </if>
+        <if test='search != null and search.tranDateEnd != null'>
+            <![CDATA[
+            AND    TCS.TRAN_DATE < #{search.tranDateEnd, typeHandler=LongDateAddTypeHandler}
+            ]]>
+        </if>
+    </select>
+
+</mapper>

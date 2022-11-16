@@ -1,0 +1,66 @@
+package kr.ac.jj.shared.config;
+
+import java.io.File;
+
+import org.dizitart.no2.Nitrite;
+import org.dizitart.no2.NitriteCollection;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import kr.ac.jj.shared.infrastructure.framework.core.support.io.file.FileUtil;
+import kr.ac.jj.shared.infrastructure.logging.filter.LoggingFilter;
+import kr.ac.jj.shared.infrastructure.util.BaseUtil;
+
+/**
+ * 로깅 Config
+ */
+@Configuration
+public class SharedLoggingConfig {
+
+    @Bean
+    public FilterRegistrationBean<LoggingFilter> loggingFilter() {
+        FilterRegistrationBean<LoggingFilter> registrationBean = new FilterRegistrationBean<LoggingFilter>();
+        registrationBean.setFilter(new LoggingFilter());
+        registrationBean.setOrder(SecurityProperties.DEFAULT_FILTER_ORDER - 1);
+        registrationBean.addUrlPatterns("/*");
+
+        return registrationBean;
+    }
+
+    @Bean
+    public Nitrite loggingDatabase() {
+        File dbFile = BaseUtil.getTempFile("logging.db");
+        FileUtil.deleteFile(dbFile);
+
+        return Nitrite.builder() //
+                .filePath(dbFile) //
+                .compressed() //
+                .openOrCreate();
+    }
+
+    @Bean
+    public LoggingCollections loggingCollections() {
+        return new LoggingCollections(loggingDatabase());
+    }
+
+    public class LoggingCollections {
+
+        public final NitriteCollection tbSysLog;
+        public final NitriteCollection tbSysLogQuery;
+        public final NitriteCollection tbSysLogError;
+        public final NitriteCollection tbSysLogLogin;
+        public final NitriteCollection tbSysLogMenu;
+
+        public LoggingCollections(Nitrite loggingDatabase) {
+            this.tbSysLog = loggingDatabase.getCollection("tbSysLog");
+            this.tbSysLogQuery = loggingDatabase.getCollection("tbSysLogQuery");
+            this.tbSysLogError = loggingDatabase.getCollection("tbSysLogError");
+            this.tbSysLogLogin = loggingDatabase.getCollection("tbSysLogLogin");
+            this.tbSysLogMenu = loggingDatabase.getCollection("tbSysLogMenu");
+        }
+
+    }
+
+}

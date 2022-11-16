@@ -1,0 +1,18 @@
+package kr.ac.jj.openapi.application.main.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import kr.ac.jj.openapi.config.DataSourceMapperConfig.MainSqlMapper;
+
+/**
+ * 메인 Mapper
+ */
+@MainSqlMapper
+public interface MainMapper {
+
+    public List<Map<String, Object>> readNoticeList();
+    public List<Map<String, Object>> readQnaList();
+    public List<Map<String, Object>> readFaqList();
+
+}

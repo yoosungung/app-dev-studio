@@ -1,0 +1,34 @@
+package kr.ac.jj.shared.domain.main.model.com.bbs;
+
+import kr.ac.jj.shared.infrastructure.idgen.util.IdGenerationUtil;
+
+/**
+ * 공통 - 게시판
+ */
+public class TbComBbs extends TbComBbsEntity {
+
+    private static final long serialVersionUID = -1764834081708960157L;
+
+    public TbComBbs newId() {
+        this.setBbsId(IdGenerationUtil.createUid("TB_COM_BBS"));
+
+        return this;
+    }
+
+    public String getAnswerPosblYnNm() {
+        return super.getBooleanCodeName("/common/yesNo", this.getAnswerPosblYn());
+    }
+
+    public String getRdcntIndictYnNm() {
+        return super.getBooleanCodeName("/common/yesNo", this.getRdcntIndictYn());
+    }
+
+    public String getNoticeBbsYnNm() {
+        return super.getBooleanCodeName("/common/yesNo", this.getNoticeBbsYn());
+    }
+
+    public String getEditrApplcYnNm() {
+        return super.getBooleanCodeName("/common/yesNo", this.getEditrApplcYn());
+    }
+
+}

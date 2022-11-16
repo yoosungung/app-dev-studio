@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 메일 수신 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.email.recptn.TbComEmailRecptnEntityMapper">
+
+    <!-- 목록 조회 - EMAIL_ID(으)로 -->
+    <select id="selectListByEmailId" resultType="kr.ac.jj.shared.domain.main.model.com.email.recptn.TbComEmailRecptn">
+        <![CDATA[
+            SELECT TCER.EMAIL_RECPTN_ID
+                 , TCER.EMAIL_ID
+                 , TCER.RECPTN_SN
+                 , TCER.RECPTN_TY
+                 , TCER.RCVER_EMAIL_ADRES
+                 , TCER.RCVER_NM
+                 , TCER.RCVER_PERSON_ID
+            FROM   TB_COM_EMAIL_RECPTN TCER
+            WHERE  TCER.EMAIL_ID = #{emailId}
+            ORDER BY TCER.RECPTN_SN
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.com.email.recptn.TbComEmailRecptn">
+        <![CDATA[
+            SELECT TCER.EMAIL_RECPTN_ID
+                 , TCER.EMAIL_ID
+                 , TCER.RECPTN_SN
+                 , TCER.RECPTN_TY
+                 , TCER.RCVER_EMAIL_ADRES
+                 , TCER.RCVER_NM
+                 , TCER.RCVER_PERSON_ID
+            FROM   TB_COM_EMAIL_RECPTN TCER
+            WHERE  TCER.EMAIL_RECPTN_ID = #{emailRecptnId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_COM_EMAIL_RECPTN (
+                   EMAIL_RECPTN_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , EMAIL_ID
+                 , RECPTN_SN
+                 , RECPTN_TY
+                 , RCVER_EMAIL_ADRES
+                 , RCVER_NM
+                 , RCVER_PERSON_ID
+            ) VALUES (
+                   #{tbComEmailRecptn.emailRecptnId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbComEmailRecptn.emailId}
+        ]]>
+
+        <choose>
+        <when test='tbComEmailRecptn.recptnSn == null'>
+            <![CDATA[
+                 , (SELECT IFNULL(MAX(A.RECPTN_SN), 0) + 1 FROM TB_COM_EMAIL_RECPTN A WHERE A.EMAIL_ID = #{tbComEmailRecptn.emailId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , #{tbComEmailRecptn.recptnSn}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , #{tbComEmailRecptn.recptnTy}
+                 , #{tbComEmailRecptn.rcverEmailAdres}
+                 , #{tbComEmailRecptn.rcverNm}
+                 , #{tbComEmailRecptn.rcverPersonId}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_COM_EMAIL_RECPTN SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , EMAIL_ID                         = #{tbComEmailRecptn.emailId}
+        ]]>
+
+        <choose>
+        <when test='tbComEmailRecptn.recptnSn == null'>
+            <![CDATA[
+                 , RECPTN_SN                        = (SELECT IFNULL(MAX(A.RECPTN_SN), 0) + 1 FROM TB_COM_EMAIL_RECPTN A WHERE A.EMAIL_ID = #{tbComEmailRecptn.emailId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , RECPTN_SN                        = #{tbComEmailRecptn.recptnSn}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , RECPTN_TY                        = #{tbComEmailRecptn.recptnTy}
+                 , RCVER_EMAIL_ADRES                = #{tbComEmailRecptn.rcverEmailAdres}
+                 , RCVER_NM                         = #{tbComEmailRecptn.rcverNm}
+                 , RCVER_PERSON_ID                  = #{tbComEmailRecptn.rcverPersonId}
+            WHERE  EMAIL_RECPTN_ID = #{tbComEmailRecptn.emailRecptnId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_EMAIL_RECPTN
+            WHERE  EMAIL_RECPTN_ID = #{emailRecptnId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - EMAIL_ID(으)로 -->
+    <delete id="deleteListByEmailId">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_EMAIL_RECPTN
+            WHERE  EMAIL_ID = #{emailId}
+        ]]>
+    </delete>
+
+</mapper>

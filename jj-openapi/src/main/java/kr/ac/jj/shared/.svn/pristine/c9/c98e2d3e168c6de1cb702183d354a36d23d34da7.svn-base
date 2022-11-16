@@ -1,0 +1,209 @@
+package kr.ac.jj.shared.application.admin.sysmanage.authormanage.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.application.admin.sysmanage.authormanage.mapper.AuthorityManageMapper;
+import kr.ac.jj.shared.application.admin.sysmanage.authormanage.model.AuthorityManageModel;
+import kr.ac.jj.shared.domain.main.mapper.com.dept.author.TbComDeptAuthorMapper;
+import kr.ac.jj.shared.domain.main.mapper.sys.author.TbSysAuthorMapper;
+import kr.ac.jj.shared.domain.main.mapper.sys.menu.author.TbSysMenuAuthorMapper;
+import kr.ac.jj.shared.domain.main.mapper.sys.resrce.author.TbSysResrceAuthorMapper;
+import kr.ac.jj.shared.domain.main.mapper.sys.rolehierarchy.TbSysRoleHierarchyMapper;
+import kr.ac.jj.shared.domain.main.mapper.sys.user.author.TbSysUserAuthorMapper;
+import kr.ac.jj.shared.domain.main.model.com.dept.author.TbComDeptAuthor;
+import kr.ac.jj.shared.domain.main.model.com.dept.author.TbComDeptAuthorToDept;
+import kr.ac.jj.shared.domain.main.model.sys.author.TbSysAuthor;
+import kr.ac.jj.shared.domain.main.model.sys.menu.author.TbSysMenuAuthor;
+import kr.ac.jj.shared.domain.main.model.sys.menu.author.TbSysMenuAuthorToMenu;
+import kr.ac.jj.shared.domain.main.model.sys.resrce.author.TbSysResrceAuthor;
+import kr.ac.jj.shared.domain.main.model.sys.resrce.author.TbSysResrceAuthorToResrce;
+import kr.ac.jj.shared.domain.main.model.sys.user.author.TbSysUserAuthor;
+import kr.ac.jj.shared.domain.main.model.sys.user.author.TbSysUserAuthorToUser;
+import kr.ac.jj.shared.infrastructure.framework.core.support.collection.BaseMap;
+import kr.ac.jj.shared.infrastructure.framework.core.support.collection.BaseMapList;
+import kr.ac.jj.shared.infrastructure.framework.core.support.collection.DataJobTypes;
+import kr.ac.jj.shared.infrastructure.framework.web.support.codedata.CodeDataUtil;
+import kr.ac.jj.shared.infrastructure.grid.handler.GridDataResultHandler;
+import kr.ac.jj.shared.infrastructure.grid.model.GridRequest;
+
+/**
+ * 권한 관리 Service
+ */
+@Service
+public class AuthorityManageServiceImpl {
+
+    private @Autowired AuthorityManageMapper authorityManageMapper;
+    private @Autowired TbSysAuthorMapper tbSysAuthorMapper;
+    private @Autowired TbSysRoleHierarchyMapper tbSysRoleHierarchyMapper;
+    private @Autowired TbSysMenuAuthorMapper tbSysMenuAuthorMapper;
+    private @Autowired TbSysResrceAuthorMapper tbSysResrceAuthorMapper;
+    private @Autowired TbComDeptAuthorMapper tbComDeptAuthorMapper;
+    private @Autowired TbSysUserAuthorMapper tbSysUserAuthorMapper;
+
+    /**
+     * 목록 조회
+     *
+     * @param gridRequest
+     * @return
+     */
+    public List<Map<String, Object>> readList(GridRequest gridRequest) {
+        GridDataResultHandler resultHandler = new GridDataResultHandler(gridRequest);
+
+        authorityManageMapper.selectList(resultHandler, gridRequest.getPaging(), gridRequest.getSearch());
+
+        return resultHandler.getResultList();
+    }
+
+    /**
+     * 목록 순서 저장
+     *
+     * @param ordrList
+     */
+    public void updateOrdrList(BaseMapList ordrList) {
+        for (int i = 0; i < ordrList.size(); i++) {
+            BaseMap tbSysAuthor = ordrList.get(i);
+            tbSysAuthorMapper.updateSortOrdr((String) tbSysAuthor.get("authorId"),
+                    (Integer) tbSysAuthor.get("sortOrdr"));
+        }
+    }
+
+    /**
+     * 조회
+     *
+     * @param authorId
+     * @return
+     */
+    public AuthorityManageModel read(String authorId) {
+        AuthorityManageModel model = new AuthorityManageModel();
+
+        TbSysAuthor tbSysAuthor = tbSysAuthorMapper.select(authorId);
+
+        model.setTbSysAuthor(tbSysAuthor);
+
+        Map<String, List<TbSysMenuAuthorToMenu>> tbSysAuthorMenuListMap = new HashMap<String, List<TbSysMenuAuthorToMenu>>();
+        String[] menuKnds = CodeDataUtil.getCodes("/domain.main.tbSysMenu/menuKnd");
+
+        for (String menuKnd : menuKnds) {
+            tbSysAuthorMenuListMap.put(menuKnd, tbSysMenuAuthorMapper.selectListByAuthorId2(authorId, menuKnd));
+        }
+
+        model.setTbSysMenuAuthorToMenuListMap(tbSysAuthorMenuListMap);
+        model.setTbSysResrceAuthorToResrceList(tbSysResrceAuthorMapper.selectListByAuthorId(authorId));
+        model.setTbComDeptAuthorToDeptList(tbComDeptAuthorMapper.selectListByAuthorId(authorId));
+        model.setTbSysUserAuthorToUserList(tbSysUserAuthorMapper.selectListByAuthorId(authorId));
+
+        return model;
+    }
+
+    /**
+     * 생성
+     *
+     * @param model
+     * @return
+     */
+    public String create(AuthorityManageModel model) {
+        TbSysAuthor tbSysAuthor = model.getTbSysAuthor().newId();
+        tbSysAuthor.setBassAuthorYn(false);
+
+        tbSysAuthorMapper.insert(tbSysAuthor);
+
+        return tbSysAuthor.getAuthorId();
+    }
+
+    /**
+     * 수정
+     *
+     * @param model
+     */
+    public void update(AuthorityManageModel model) {
+        TbSysAuthor tbSysAuthor = model.getTbSysAuthor();
+
+        tbSysAuthorMapper.update(tbSysAuthor);
+
+        // 권한별 메뉴 목록 저장
+        tbSysMenuAuthorMapper.deleteListByAuthorId(tbSysAuthor.getAuthorId());
+        String[] menuKnds = CodeDataUtil.getCodes("/domain.main.tbSysMenu/menuKnd");
+        for (String menuKnd : menuKnds) {
+            List<TbSysMenuAuthorToMenu> tbSysMenuAuthorToMenuList = model.getTbSysMenuAuthorToMenuListMap()
+                    .get(menuKnd);
+            for (TbSysMenuAuthorToMenu tbSysMenuAuthorToMenu : tbSysMenuAuthorToMenuList) {
+                if (tbSysMenuAuthorToMenu.getMenuAuthorCo() != 0) {
+                    TbSysMenuAuthor tbSysMenuAuthor = new TbSysMenuAuthor();
+                    tbSysMenuAuthor.setMenuId(tbSysMenuAuthorToMenu.getMenuId());
+                    tbSysMenuAuthor.setAuthorId(tbSysAuthor.getAuthorId());
+                    tbSysMenuAuthorMapper.insert(tbSysMenuAuthor);
+                }
+            }
+        }
+
+        // 권한별 리소스 목록 저장
+        List<TbSysResrceAuthorToResrce> tbSysResrceAuthorToResrceList = model.getTbSysResrceAuthorToResrceList();
+        for (TbSysResrceAuthorToResrce tbSysResrceAuthorToResrce : tbSysResrceAuthorToResrceList) {
+            if (tbSysResrceAuthorToResrce.get_JOB_TYPES() == DataJobTypes.DELETE) {
+                tbSysResrceAuthorMapper.delete(tbSysResrceAuthorToResrce.getResrceId(), tbSysAuthor.getAuthorId());
+            } else if (tbSysResrceAuthorToResrce.get_JOB_TYPES() == DataJobTypes.CREATE) {
+                TbSysResrceAuthor tbSysResrceAuthor = new TbSysResrceAuthor();
+                tbSysResrceAuthor.setResrceId(tbSysResrceAuthorToResrce.getResrceId());
+                tbSysResrceAuthor.setAuthorId(tbSysAuthor.getAuthorId());
+                tbSysResrceAuthorMapper.insert(tbSysResrceAuthor);
+            }
+        }
+
+        if (tbSysAuthor.getUserAuthorYn()) {
+            // 권한별 부서 목록 저장
+            List<TbComDeptAuthorToDept> tbComDeptAuthorToDeptList = model.getTbComDeptAuthorToDeptList();
+            for (TbComDeptAuthorToDept tbComDeptAuthorToDept : tbComDeptAuthorToDeptList) {
+                if (tbComDeptAuthorToDept.get_JOB_TYPES() == DataJobTypes.DELETE) {
+                    tbComDeptAuthorMapper.delete(tbComDeptAuthorToDept.getDeptId(), tbSysAuthor.getAuthorId());
+                } else if (tbComDeptAuthorToDept.get_JOB_TYPES() == DataJobTypes.CREATE) {
+                    TbComDeptAuthor tbComDeptAuthor = new TbComDeptAuthor();
+                    tbComDeptAuthor.setDeptId(tbComDeptAuthorToDept.getDeptId());
+                    tbComDeptAuthor.setAuthorId(tbSysAuthor.getAuthorId());
+                    tbComDeptAuthorMapper.insert(tbComDeptAuthor);
+                }
+            }
+
+            // 권한별 사용자 목록 저장
+            List<TbSysUserAuthorToUser> tbSysUserAuthorToUserList = model.getTbSysUserAuthorToUserList();
+            for (TbSysUserAuthorToUser tbSysUserAuthorToUser : tbSysUserAuthorToUserList) {
+                if (tbSysUserAuthorToUser.get_JOB_TYPES() == DataJobTypes.DELETE) {
+                    tbSysUserAuthorMapper.delete(tbSysUserAuthorToUser.getUserId(), tbSysAuthor.getAuthorId());
+                } else if (tbSysUserAuthorToUser.get_JOB_TYPES() == DataJobTypes.CREATE) {
+                    TbSysUserAuthor tbSysUserAuthor = new TbSysUserAuthor();
+                    tbSysUserAuthor.setUserId(tbSysUserAuthorToUser.getUserId());
+                    tbSysUserAuthor.setAuthorId(tbSysAuthor.getAuthorId());
+                    tbSysUserAuthorMapper.insert(tbSysUserAuthor);
+                }
+            }
+        } else {
+            // 권한별 부서 목록 삭제
+            tbComDeptAuthorMapper.deleteListByAuthorId(tbSysAuthor.getAuthorId());
+
+            // 권한별 사용자 목록 삭제
+            tbSysUserAuthorMapper.deleteListByAuthorId(tbSysAuthor.getAuthorId());
+        }
+    }
+
+    /**
+     * 삭제
+     *
+     * @param authorId
+     */
+    public void delete(String authorId) {
+        TbSysAuthor tbSysAuthorDb = tbSysAuthorMapper.select(authorId);
+
+        tbSysRoleHierarchyMapper.deleteListByRoleCode(tbSysAuthorDb.getAuthorCode());
+        tbSysMenuAuthorMapper.deleteListByAuthorId(authorId);
+        tbSysResrceAuthorMapper.deleteListByAuthorId(authorId);
+        tbComDeptAuthorMapper.deleteListByAuthorId(authorId);
+        tbSysUserAuthorMapper.deleteListByAuthorId(authorId);
+
+        tbSysAuthorMapper.delete(authorId);
+    }
+
+}

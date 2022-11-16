@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 게시글 팝업 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.com.bbsctt.popup.TbComBbscttPopupEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.com.bbsctt.popup.TbComBbscttPopup">
+        <![CDATA[
+            SELECT TCBP.BBSCTT_POPUP_ID
+                 , TCBP.BBSCTT_ID
+                 , TCBP.PRHIBT_PSN_ID
+                 , TCBP.PRHIBT_END_DE
+            FROM   TB_COM_BBSCTT_POPUP TCBP
+            WHERE  TCBP.BBSCTT_POPUP_ID = #{bbscttPopupId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_COM_BBSCTT_POPUP (
+                   BBSCTT_POPUP_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , BBSCTT_ID
+                 , PRHIBT_PSN_ID
+                 , PRHIBT_END_DE
+            ) VALUES (
+                   #{tbComBbscttPopup.bbscttPopupId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbComBbscttPopup.bbscttId}
+                 , #{tbComBbscttPopup.prhibtPsnId}
+                 , #{tbComBbscttPopup.prhibtEndDe}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_COM_BBSCTT_POPUP SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , BBSCTT_ID                        = #{tbComBbscttPopup.bbscttId}
+                 , PRHIBT_PSN_ID                    = #{tbComBbscttPopup.prhibtPsnId}
+                 , PRHIBT_END_DE                    = #{tbComBbscttPopup.prhibtEndDe}
+            WHERE  BBSCTT_POPUP_ID = #{tbComBbscttPopup.bbscttPopupId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_BBSCTT_POPUP
+            WHERE  BBSCTT_POPUP_ID = #{bbscttPopupId}
+        ]]>
+    </delete>
+
+</mapper>

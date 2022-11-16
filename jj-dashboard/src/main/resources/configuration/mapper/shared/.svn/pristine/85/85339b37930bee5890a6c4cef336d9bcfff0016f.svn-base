@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 코드 값 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.code.value.TbSysCodeValueEntityMapper">
+
+    <!-- 목록 조회 - CODE_GROUP_ID(으)로 -->
+    <select id="selectListByCodeGroupId" resultType="kr.ac.jj.shared.domain.main.model.sys.code.value.TbSysCodeValue">
+        <![CDATA[
+            SELECT TSCV.CODE_VALUE_ID
+                 , TSCV.CODE_GROUP_ID
+                 , TSCV.CODE_VALUE
+                 , TSCV.CODE_VALUE_NM
+                 , TSCV.CODE_VALUE_DC
+                 , TSCV.SORT_ORDR
+                 , TSCV.USE_YN
+            FROM   TB_SYS_CODE_VALUE TSCV
+            WHERE  TSCV.CODE_GROUP_ID = #{codeGroupId}
+            ORDER BY TSCV.SORT_ORDR
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.sys.code.value.TbSysCodeValue">
+        <![CDATA[
+            SELECT TSCV.CODE_VALUE_ID
+                 , TSCV.CODE_GROUP_ID
+                 , TSCV.CODE_VALUE
+                 , TSCV.CODE_VALUE_NM
+                 , TSCV.CODE_VALUE_DC
+                 , TSCV.SORT_ORDR
+                 , TSCV.USE_YN
+            FROM   TB_SYS_CODE_VALUE TSCV
+            WHERE  TSCV.CODE_VALUE_ID = #{codeValueId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SYS_CODE_VALUE (
+                   CODE_VALUE_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , CODE_GROUP_ID
+                 , CODE_VALUE
+                 , CODE_VALUE_NM
+                 , CODE_VALUE_DC
+                 , SORT_ORDR
+                 , USE_YN
+            ) VALUES (
+                   #{tbSysCodeValue.codeValueId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbSysCodeValue.codeGroupId}
+                 , #{tbSysCodeValue.codeValue}
+                 , #{tbSysCodeValue.codeValueNm}
+                 , #{tbSysCodeValue.codeValueDc}
+        ]]>
+
+        <choose>
+        <when test='tbSysCodeValue.sortOrdr == null'>
+            <![CDATA[
+                 , (SELECT ISNULL(MAX(A.SORT_ORDR), 0) + 1 FROM TB_SYS_CODE_VALUE A WHERE A.CODE_GROUP_ID = #{tbSysCodeValue.codeGroupId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , #{tbSysCodeValue.sortOrdr}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , #{tbSysCodeValue.useYn}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SYS_CODE_VALUE SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , CODE_GROUP_ID                    = #{tbSysCodeValue.codeGroupId}
+                 , CODE_VALUE                       = #{tbSysCodeValue.codeValue}
+                 , CODE_VALUE_NM                    = #{tbSysCodeValue.codeValueNm}
+                 , CODE_VALUE_DC                    = #{tbSysCodeValue.codeValueDc}
+        ]]>
+
+        <choose>
+        <when test='tbSysCodeValue.sortOrdr == null'>
+            <![CDATA[
+                 , SORT_ORDR                        = (SELECT ISNULL(MAX(A.SORT_ORDR), 0) + 1 FROM TB_SYS_CODE_VALUE A WHERE A.CODE_GROUP_ID = #{tbSysCodeValue.codeGroupId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , SORT_ORDR                        = #{tbSysCodeValue.sortOrdr}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , USE_YN                           = #{tbSysCodeValue.useYn}
+            WHERE  CODE_VALUE_ID = #{tbSysCodeValue.codeValueId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_CODE_VALUE
+            WHERE  CODE_VALUE_ID = #{codeValueId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - CODE_GROUP_ID(으)로 -->
+    <delete id="deleteListByCodeGroupId">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_CODE_VALUE
+            WHERE  CODE_GROUP_ID = #{codeGroupId}
+        ]]>
+    </delete>
+
+</mapper>

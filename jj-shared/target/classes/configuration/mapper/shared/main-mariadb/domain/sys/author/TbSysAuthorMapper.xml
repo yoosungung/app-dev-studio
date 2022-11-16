@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 권한 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.author.TbSysAuthorMapper">
+
+    <!-- 수정 - 정렬 순서 -->
+    <update id="updateSortOrdr">
+        <![CDATA[
+            UPDATE TB_SYS_AUTHOR SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , SORT_ORDR                        = #{sortOrdr}
+            WHERE  AUTHOR_ID = #{authorId}
+        ]]>
+    </update>
+
+</mapper>

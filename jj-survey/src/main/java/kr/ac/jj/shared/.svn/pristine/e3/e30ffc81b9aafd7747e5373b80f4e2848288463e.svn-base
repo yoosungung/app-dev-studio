@@ -1,0 +1,237 @@
+package kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.util;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
+import org.quartz.CronExpression;
+import org.quartz.CronScheduleBuilder;
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.JobKey;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.SchedulerFactory;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+import org.quartz.impl.StdSchedulerFactory;
+import org.quartz.impl.matchers.GroupMatcher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.context.ApplicationContext;
+
+import kr.ac.jj.shared.infrastructure.framework.config.FrameworkConfigProperties;
+import kr.ac.jj.shared.infrastructure.framework.config.FrameworkConfigProperties.Scheduler.JobDetailConfig;
+import kr.ac.jj.shared.infrastructure.framework.core.foundation.exception.BaseException;
+import kr.ac.jj.shared.infrastructure.framework.core.support.context.ApplicationContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.AutowiringSpringQuartzBeanJobFactory;
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.interceptor.BaseJobInterceptor;
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.model.JobDetailTrigger;
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.model.SchedulerJobConfig;
+
+public class SpringQuartzSchedulerUtil {
+
+    private static final Logger log = LoggerFactory.getLogger(SpringQuartzSchedulerUtil.class);
+
+    public static Scheduler start() {
+        ApplicationContext applicationContext = ApplicationContextUtil.getApplicationContext();
+        AutowiringSpringQuartzBeanJobFactory jobFactory = new AutowiringSpringQuartzBeanJobFactory();
+        SchedulerFactory schedulerFactory = new StdSchedulerFactory();
+
+        jobFactory.setApplicationContext(applicationContext);
+
+        Scheduler scheduler;
+
+        try {
+            scheduler = schedulerFactory.getScheduler();
+            scheduler.setJobFactory(jobFactory);
+            scheduler.start();
+        } catch (SchedulerException e) {
+            throw new BaseException(e);
+        }
+
+        resetScheduler(scheduler);
+
+        return scheduler;
+    }
+
+    public static void reset() {
+        Scheduler scheduler = getScheduler();
+
+        if (scheduler != null) {
+            resetScheduler(scheduler);
+        }
+    }
+
+    public static boolean isStarted() {
+        Scheduler scheduler = getScheduler();
+
+        if (scheduler == null) {
+            return false;
+        }
+
+        try {
+            return scheduler.isStarted();
+        } catch (SchedulerException e) {
+            throw new BaseException(e);
+        }
+    }
+
+    public static Scheduler getScheduler() {
+        try {
+            return ApplicationContextUtil.getBean(Scheduler.class);
+        } catch (NoSuchBeanDefinitionException e) {
+            return null;
+        }
+    }
+
+    public static Date addJobTrigger(String scheduleKey, int startDelay) {
+        Scheduler scheduler = getScheduler();
+
+        if (scheduler == null) {
+            return null;
+        }
+
+        JobDetail jobDetail;
+
+        try {
+            jobDetail = scheduler.getJobDetail(new JobKey(scheduleKey, "quartz-scheduler"));
+        } catch (SchedulerException e) {
+            throw new BaseException(e);
+        }
+
+        if (jobDetail == null) {
+            return null;
+        }
+
+        Date startAt = DateUtils.addMilliseconds(new Date(), startDelay);
+        String cronExpression = DateFormatUtils.format(startAt, "s m H * M ? yyyy");
+
+        Trigger trigger = TriggerBuilder.newTrigger() //
+                .forJob(jobDetail) //
+                .withIdentity(scheduleKey + "#" + UUID.randomUUID().toString(), scheduleKey) //
+                .withDescription(jobDetail.getDescription() + "(" + cronExpression + ") =>\n"
+                        + DateFormatUtils.format(startAt, "yyyy-MM-dd HH:mm:ss")) //
+                .usingJobData("cronExpression", cronExpression) //
+                .usingJobData("triggerNo", 0) //
+                .startAt(startAt) //
+                .build();
+
+        try {
+            scheduler.scheduleJob(trigger);
+        } catch (SchedulerException e) {
+            throw new BaseException(e);
+        }
+
+        return startAt;
+    }
+
+    private static void resetScheduler(Scheduler scheduler) {
+        try {
+            GroupMatcher<JobKey> matcher = GroupMatcher.anyJobGroup();
+            Set<JobKey> jobKeys = scheduler.getJobKeys(matcher);
+            List<JobKey> jobKeyList = new ArrayList<JobKey>(jobKeys);
+            scheduler.deleteJobs(jobKeyList);
+        } catch (SchedulerException e) {
+            throw new BaseException(e);
+        }
+
+        BaseJobInterceptor jobInterceptor = BaseJobSchedulerUtil.getAnyJobInterceptor();
+
+        try {
+            jobInterceptor.beforeAddJobList();
+        } catch (BaseException e) {
+            log.error(e.getMessage(), e);
+        }
+
+        FrameworkConfigProperties config = ApplicationContextUtil.getConfigBean(FrameworkConfigProperties.class);
+        Map<String, JobDetailConfig> jobDetails = config.getScheduler().getJobDetails();
+
+        if (jobDetails != null) {
+            for (String scheduleKey : jobDetails.keySet()) {
+                SchedulerJobConfig jobConfig = new SchedulerJobConfig(scheduleKey);
+
+                List<JobDetailTrigger> jobDetailTriggerList = addScheduleJob(scheduler, jobConfig);
+
+                if (jobDetailTriggerList != null) {
+                    try {
+                        jobInterceptor.afterAddJob(jobConfig, jobDetailTriggerList);
+                    } catch (BaseException e) {
+                        log.error(e.getMessage(), e);
+                    }
+                }
+            }
+        }
+
+        try {
+            jobInterceptor.afterAddJobList();
+        } catch (BaseException e) {
+            log.error(e.getMessage(), e);
+        }
+    }
+
+    private static List<JobDetailTrigger> addScheduleJob(Scheduler scheduler, SchedulerJobConfig jobConfig) {
+        if (jobConfig.getJobClass() == null) {
+            return null;
+        }
+
+        if (jobConfig.getCronExpressionList() == null || jobConfig.getCronExpressionList().size() == 0) {
+            return null;
+        }
+
+        JobDetail jobDetail = JobBuilder.newJob(jobConfig.getJobClass()) //
+                .withIdentity(jobConfig.getScheduleKey(), "quartz-scheduler") //
+                .withDescription(jobConfig.getName()) //
+                .storeDurably() //
+                .build();
+
+        try {
+            scheduler.addJob(jobDetail, true);
+        } catch (SchedulerException e) {
+            throw new BaseException(e);
+        }
+
+        List<JobDetailTrigger> jobDetailTriggerList = new ArrayList<JobDetailTrigger>();
+
+        for (int i = 0, ii = jobConfig.getCronExpressionList().size(); i < ii; i++) {
+            int triggerNo = i + 1;
+
+            CronExpression cronExpression;
+
+            try {
+                cronExpression = new CronExpression(jobConfig.getCronExpressionList().get(i));
+            } catch (ParseException e) {
+                throw new BaseException(e);
+            }
+
+            Trigger trigger = TriggerBuilder.newTrigger() //
+                    .forJob(jobDetail) //
+                    .withIdentity(jobConfig.getScheduleKey() + "#" + triggerNo, jobConfig.getScheduleKey()) //
+                    .withDescription(jobDetail.getDescription() + "(" + cronExpression.getCronExpression() + ") =>\n"
+                            + cronExpression.getExpressionSummary()) //
+                    .usingJobData("cronExpression", cronExpression.getCronExpression()) //
+                    .usingJobData("triggerNo", triggerNo) //
+                    .startAt(DateUtils.addMilliseconds(new Date(), jobConfig.getStartDelay())) //
+                    .withSchedule(CronScheduleBuilder.cronSchedule(cronExpression)) //
+                    .build();
+
+            jobDetailTriggerList.add(new JobDetailTrigger(jobDetail, trigger));
+
+            try {
+                scheduler.scheduleJob(trigger);
+            } catch (SchedulerException e) {
+                throw new BaseException(e);
+            }
+        }
+
+        return jobDetailTriggerList;
+    }
+
+}

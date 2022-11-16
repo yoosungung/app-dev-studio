@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+    <entry key="bbsctt.title.list"><![CDATA[목록]]></entry>
+    <entry key="bbsctt.title.create"><![CDATA[작성]]></entry>
+    <entry key="bbsctt.title.update"><![CDATA[수정]]></entry>
+    <entry key="bbsctt.title.detail"><![CDATA[상세]]></entry>
+    <entry key="bbsctt.title.answer"><![CDATA[답변]]></entry>
+
+    <entry key="bbsctt.label.answer"><![CDATA[답변]]></entry>
+    <entry key="bbsctt.label.popupPrhibtPdDesc"><![CDATA[미입력: 열지않음 불가, 0: 무기한 열지않음]]></entry>
+    <entry key="bbsctt.label.popupPrhibtPdNm.x"><![CDATA[열지않음 불가]]></entry>
+    <entry key="bbsctt.label.popupPrhibtPdNm.0"><![CDATA[다시 열지않음]]></entry>
+    <entry key="bbsctt.label.popupPrhibtPdNm.1"><![CDATA[오늘 하루 열지않음]]></entry>
+    <entry key="bbsctt.label.popupPrhibtPdNm.n"><![CDATA[{0}일동안 열지않음]]></entry>
+
+    <entry key="bbsctt.message.deletedContents"><![CDATA[(삭제되었습니다.)]]></entry>
+    <entry key="bbsctt.message.inqirePosblYnNotAvail"><![CDATA[게시판 조회권한이 없습니다.]]></entry>
+    <entry key="bbsctt.message.newCreateNotAvail"><![CDATA[새로운 글을 등록할 수 없는 게시판입니다.]]></entry>
+    <entry key="bbsctt.message.answerCreateNotAvail"><![CDATA[답변글을 작성할 수 없는 게시판입니다.]]></entry>
+    <entry key="bbsctt.message.answerCreateFail"><![CDATA[답변글을 작성할 수 없습니다.
+
+원본글이 삭제되었는지 확인하시기 바랍니다.]]></entry>
+
+</properties>

@@ -1,0 +1,10 @@
+package kr.ac.jj.shared.domain.main.mapper.sys.author.relatecode;
+
+import kr.ac.jj.shared.config.datasources.SharedDataSourceMainConfig.SharedMainSqlMapper;
+
+/**
+ * 시스템 - 권한별 관련 코드 Mapper
+ */
+@SharedMainSqlMapper
+public interface TbSysAuthorRelateCodeMapper extends TbSysAuthorRelateCodeEntityMapper {
+}

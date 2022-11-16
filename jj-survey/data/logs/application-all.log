@@ -1,0 +1,1486 @@
+2020-07-16 13:13:46.045 INFO  [19756:Thread-1] kr.ac.jj.shared.infrastructure.util.BaseUtil       [] 임시파일 경로 => D:\App-DevStudio\workspace\JavaEE\jj-survey\data\temp\logging.db
+2020-07-16 13:13:46.054 INFO  [19756:Thread-1] o.s.scheduling.quartz.SchedulerFactoryBean         [] Shutting down Quartz Scheduler
+2020-07-16 13:13:46.056 INFO  [19756:Thread-1] o.s.scheduling.concurrent.ThreadPoolTaskExecutor   [] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-07-16 13:13:46.057 INFO  [19756:Thread-1] org.apache.tiles.access.TilesAccess                [] Removing TilesContext for context: org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext
+2020-07-16 13:13:46.311 ERROR [19756:DefaultQuartzScheduler_Worker-8] org.quartz.core.JobRunShell                        [] Job DEFAULT.6da64b5bd2ee-8b60d70b-876a-4077-a655-4e33cef79d82 threw an unhandled Exception: 
+org.springframework.beans.factory.BeanCreationNotAllowedException: Error creating bean with name 'loggingCollections': Singleton bean creation not allowed while singletons of this factory are in destruction (Do not request a bean from a BeanFactory in a destroy method implementation!)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:212)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:227)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveNamedBean(DefaultListableBeanFactory.java:1174)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:422)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:352)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:345)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1126)
+	at kr.ac.jj.shared.infrastructure.framework.core.support.context.ApplicationContextUtil.getBean(ApplicationContextUtil.java:37)
+	at kr.ac.jj.shared.infrastructure.logging.scheduler.LoggingCreatorSchedulerJob.executeJob(LoggingCreatorSchedulerJob.java:43)
+	at kr.ac.jj.shared.infrastructure.logging.scheduler.LoggingCreatorSchedulerJob.execute(LoggingCreatorSchedulerJob.java:36)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+2020-07-16 13:13:46.312 ERROR [19756:DefaultQuartzScheduler_Worker-8] org.quartz.core.ErrorLogger                        [] Job (DEFAULT.6da64b5bd2ee-8b60d70b-876a-4077-a655-4e33cef79d82 threw an exception.
+org.quartz.SchedulerException: Job threw an unhandled exception.
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:213)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Caused by: org.springframework.beans.factory.BeanCreationNotAllowedException: Error creating bean with name 'loggingCollections': Singleton bean creation not allowed while singletons of this factory are in destruction (Do not request a bean from a BeanFactory in a destroy method implementation!)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:212)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:227)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveNamedBean(DefaultListableBeanFactory.java:1174)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:422)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:352)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:345)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1126)
+	at kr.ac.jj.shared.infrastructure.framework.core.support.context.ApplicationContextUtil.getBean(ApplicationContextUtil.java:37)
+	at kr.ac.jj.shared.infrastructure.logging.scheduler.LoggingCreatorSchedulerJob.executeJob(LoggingCreatorSchedulerJob.java:43)
+	at kr.ac.jj.shared.infrastructure.logging.scheduler.LoggingCreatorSchedulerJob.execute(LoggingCreatorSchedulerJob.java:36)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	... 1 common frames omitted
+2020-07-16 13:13:46.585 INFO  [19756:Thread-1] o.s.orm.jpa.LocalContainerEntityManagerFactoryBean [] Closing JPA EntityManagerFactory for persistence unit 'persistenceUnit'
+2020-07-16 13:13:46.993 INFO  [19756:restartedMain] kr.ac.jj.Application                               [] Starting Application on WIN-4TICPH7NBRM with PID 19756 (D:\App-DevStudio\workspace\JavaEE\jj-survey\target\classes started by anyfive in D:\App-DevStudio\workspace\JavaEE\jj-survey)
+2020-07-16 13:13:46.996 DEBUG [19756:restartedMain] kr.ac.jj.Application                               [] Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2020-07-16 13:13:46.996 INFO  [19756:restartedMain] kr.ac.jj.Application                               [] The following profiles are active: default,logging-console,logging-file
+2020-07-16 13:14:00.817 INFO  [19756:restartedMain] o.s.d.r.config.RepositoryConfigurationDelegate     [] Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-07-16 13:14:00.817 INFO  [19756:restartedMain] o.s.d.r.config.RepositoryConfigurationDelegate     [] Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2020-07-16 13:14:00.994 INFO  [19756:restartedMain] o.s.d.r.config.RepositoryConfigurationDelegate     [] Finished Spring Data repository scanning in 177ms. Found 0 JDBC repository interfaces.
+2020-07-16 13:14:01.001 INFO  [19756:restartedMain] o.s.d.r.config.RepositoryConfigurationDelegate     [] Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-07-16 13:14:01.001 INFO  [19756:restartedMain] o.s.d.r.config.RepositoryConfigurationDelegate     [] Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-07-16 13:14:01.066 INFO  [19756:restartedMain] o.s.d.r.config.RepositoryConfigurationDelegate     [] Finished Spring Data repository scanning in 64ms. Found 0 JPA repository interfaces.
+2020-07-16 13:14:01.216 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@3aab7a88' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:14:01.217 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:14:01.287 WARN  [19756:restartedMain] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext [] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'tomcatServletWebServerFactory' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/ServletWebServerFactoryConfiguration$EmbeddedTomcat.class]: Initialization of bean failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'errorPageCustomizer' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/error/ErrorMvcAutoConfiguration.class]: Unsatisfied dependency expressed through method 'errorPageCustomizer' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dispatcherServletRegistration' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/DispatcherServletAutoConfiguration$DispatcherServletRegistrationConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.boot.autoconfigure.web.servlet.DispatcherServletRegistrationBean]: Factory method 'dispatcherServletRegistration' threw exception; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sharedApplicationConfig': Unsatisfied dependency expressed through field 'menuAuthLogInterceptor'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'menuAuthLogInterceptor': Unsatisfied dependency expressed through field 'menuLoadMapper'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2020-07-16 13:14:01.291 INFO  [19756:restartedMain] o.s.b.a.l.ConditionEvaluationReportLoggingListener [] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-07-16 13:14:01.395 ERROR [19756:restartedMain] o.s.b.diagnostics.LoggingFailureAnalysisReporter   [] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field menuLoadMapper in kr.ac.jj.shared.application.common.menu.interceptor.MenuAuthLogInterceptor required a bean of type 'kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper' in your configuration.
+
+2020-07-16 13:14:22.104 INFO  [19756:restartedMain] kr.ac.jj.Application                               [] Starting Application on WIN-4TICPH7NBRM with PID 19756 (D:\App-DevStudio\workspace\JavaEE\jj-survey\target\classes started by anyfive in D:\App-DevStudio\workspace\JavaEE\jj-survey)
+2020-07-16 13:14:22.106 DEBUG [19756:restartedMain] kr.ac.jj.Application                               [] Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2020-07-16 13:14:22.106 INFO  [19756:restartedMain] kr.ac.jj.Application                               [] The following profiles are active: default,logging-console,logging-file
+2020-07-16 13:14:23.600 INFO  [19756:restartedMain] o.s.d.r.config.RepositoryConfigurationDelegate     [] Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-07-16 13:14:23.600 INFO  [19756:restartedMain] o.s.d.r.config.RepositoryConfigurationDelegate     [] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-07-16 13:14:23.634 INFO  [19756:restartedMain] o.s.d.r.config.RepositoryConfigurationDelegate     [] Finished Spring Data repository scanning in 33ms. Found 0 JPA repository interfaces.
+2020-07-16 13:14:24.001 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'sharedDataSourceMainConfig' of type [kr.ac.jj.shared.config.datasources.SharedDataSourceMainConfig$$EnhancerBySpringCGLIB$$8b1ac93e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:14:24.306 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'transactionConfig.main' of type [kr.ac.jj.shared.infrastructure.framework.core.persistence.transaction.props.TransactionConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:14:24.383 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'jndiConfig.main' of type [kr.ac.jj.shared.infrastructure.framework.core.support.jndi.JndiConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:14:24.391 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'hikariConfig.main' of type [com.zaxxer.hikari.HikariConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:14:24.394 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'realDataSource.main' of type [com.zaxxer.hikari.HikariDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:14:24.395 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'dataSource.main' of type [net.sf.log4jdbc.sql.jdbcapi.DataSourceSpy] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:14:24.396 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'transactionManager.main' of type [org.springframework.jdbc.datasource.DataSourceTransactionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:14:24.397 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'transactionAdvice.main' of type [org.springframework.transaction.interceptor.TransactionInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:14:24.397 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'transactionAdviceAdvisor.main' of type [org.springframework.aop.support.DefaultPointcutAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:14:24.404 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@681cbc95' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:14:24.406 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:14:28.655 INFO  [19756:restartedMain] o.s.boot.web.embedded.tomcat.TomcatWebServer       [] Tomcat initialized with port(s): 8081 (http)
+2020-07-16 13:14:28.656 INFO  [19756:restartedMain] org.apache.coyote.http11.Http11NioProtocol         [] Initializing ProtocolHandler ["http-nio-8081"]
+2020-07-16 13:14:28.656 INFO  [19756:restartedMain] org.apache.catalina.core.StandardService           [] Starting service [Tomcat]
+2020-07-16 13:14:28.656 INFO  [19756:restartedMain] org.apache.catalina.core.StandardEngine            [] Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-07-16 13:14:29.012 INFO  [19756:restartedMain] org.apache.jasper.servlet.TldScanner               [] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2020-07-16 13:14:29.015 INFO  [19756:restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/jj-survey]        [] Initializing Spring embedded WebApplicationContext
+2020-07-16 13:14:29.015 INFO  [19756:restartedMain] org.springframework.web.context.ContextLoader      [] Root WebApplicationContext: initialization completed in 6906 ms
+2020-07-16 13:14:29.050 DEBUG [19756:restartedMain] k.a.j.s.i.f.w.f.HeaderHttpMethodOverrideFilter     [] Filter 'headerHttpMethodOverrideFilter' configured for use
+2020-07-16 13:14:29.595 INFO  [19756:restartedMain] o.s.orm.jpa.LocalContainerEntityManagerFactoryBean [] Initialized JPA EntityManagerFactory for persistence unit 'persistenceUnit'
+2020-07-16 13:14:30.315 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:14:30.316 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.security.mapper.SecuredResourceMapper.selectRoleHierarchyList
+2020-07-16 13:14:30.317 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.selectRoleHierarchyList            [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.security.mapper.SecuredResourceMapper.selectRoleHierarchyList */ SELECT TSRH.PARNTS_ROLE_CODE , TSRH.CHLDRN_ROLE_CODE FROM TB_SYS_ROLE_HIERARCHY TSRH INNER JOIN TB_SYS_AUTHOR TSA1 ON TSA1.AUTHOR_CODE = TSRH.PARNTS_ROLE_CODE AND TSA1.USE_YN = '1' INNER JOIN TB_SYS_AUTHOR TSA2 ON TSA2.AUTHOR_CODE = TSRH.CHLDRN_ROLE_CODE AND TSA2.USE_YN = '1' ORDER BY TSRH.SORT_ORDR 
+2020-07-16 13:14:30.317 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.selectRoleHierarchyList            [] ==> Parameters: 
+2020-07-16 13:14:30.318 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.security.mapper.SecuredResourceMapper.selectRoleHierarchyList */  
+
+            SELECT TSRH.PARNTS_ROLE_CODE
+                 , TSRH.CHLDRN_ROLE_CODE
+            FROM   TB_SYS_ROLE_HIERARCHY TSRH
+                   INNER JOIN TB_SYS_AUTHOR TSA1 ON TSA1.AUTHOR_CODE = TSRH.PARNTS_ROLE_CODE AND TSA1.USE_YN = '1'
+                   INNER JOIN TB_SYS_AUTHOR TSA2 ON TSA2.AUTHOR_CODE = TSRH.CHLDRN_ROLE_CODE AND TSA2.USE_YN = '1'
+            ORDER BY TSRH.SORT_ORDR
+ {executed in 1 msec}
+2020-07-16 13:14:30.318 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.selectRoleHierarchyList            [] <==      Total: 6
+2020-07-16 13:14:30.324 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:14:30.324 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.security.mapper.SecuredResourceMapper.selectAuthorsAndUrlList
+2020-07-16 13:14:30.324 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.selectAuthorsAndUrlList            [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.security.mapper.SecuredResourceMapper.selectAuthorsAndUrlList */ SELECT TSR.RESRCE_PTTRN , TSA.AUTHOR_CODE FROM TB_SYS_RESRCE TSR INNER JOIN TB_SYS_RESRCE_AUTHOR TSRA ON TSRA.RESRCE_ID = TSR.RESRCE_ID INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TSRA.AUTHOR_ID WHERE TSR.RESRCE_TY = ? AND TSR.USE_YN = '1' AND TSA.USE_YN = '1' ORDER BY TSR.SORT_ORDR 
+2020-07-16 13:14:30.324 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.selectAuthorsAndUrlList            [] ==> Parameters: URL(String)
+2020-07-16 13:14:30.325 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.security.mapper.SecuredResourceMapper.selectAuthorsAndUrlList */  
+
+            SELECT TSR.RESRCE_PTTRN
+                 , TSA.AUTHOR_CODE
+            FROM   TB_SYS_RESRCE TSR
+                   INNER JOIN TB_SYS_RESRCE_AUTHOR TSRA ON TSRA.RESRCE_ID = TSR.RESRCE_ID
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TSRA.AUTHOR_ID
+            WHERE  TSR.RESRCE_TY = 'URL'
+            AND    TSR.USE_YN = '1'
+            AND    TSA.USE_YN = '1'
+            ORDER BY TSR.SORT_ORDR
+ {executed in 0 msec}
+2020-07-16 13:14:30.326 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.selectAuthorsAndUrlList            [] <==      Total: 22
+2020-07-16 13:14:30.365 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:14:30.365 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> common.codedata.CodeDataMapper.selectList
+2020-07-16 13:14:30.366 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* common.codedata.CodeDataMapper.selectList */  
+
+            SELECT TSCG.CODE_GROUP                  AS CODE_GROUP
+                 , 'ko_KR'                          AS CODE_LOCALE
+                 , TSCV.CODE_VALUE                  AS CODE_VALUE
+                 , TSCV.CODE_VALUE_NM               AS CODE_NAME
+                 , TSCV.SORT_ORDR
+            FROM   TB_SYS_CODE_GROUP TSCG
+                   INNER JOIN TB_SYS_CODE_VALUE TSCV ON TSCV.CODE_GROUP_ID = TSCG.CODE_GROUP_ID
+            WHERE  TSCG.USE_YN = '1'
+            AND    TSCV.USE_YN = '1'
+            ORDER BY CODE_GROUP, CODE_LOCALE, SORT_ORDR
+ {executed in 1 msec}
+2020-07-16 13:14:30.673 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:14:30.733 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.title.mapper.TitleMapper.selectList
+2020-07-16 13:14:30.733 DEBUG [19756:restartedMain] k.a.j.s.i.title.mapper.TitleMapper.selectList      [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.title.mapper.TitleMapper.selectList */ SELECT TST.TITLE_CODE , TST.TITLE_LOCALE , TST.TITLE_CN FROM TB_SYS_TITLE TST ORDER BY TST.TITLE_CODE, TST.TITLE_LOCALE 
+2020-07-16 13:14:30.733 DEBUG [19756:restartedMain] k.a.j.s.i.title.mapper.TitleMapper.selectList      [] ==> Parameters: 
+2020-07-16 13:14:30.734 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.title.mapper.TitleMapper.selectList */  
+
+            SELECT TST.TITLE_CODE
+                 , TST.TITLE_LOCALE
+                 , TST.TITLE_CN
+            FROM   TB_SYS_TITLE TST
+            ORDER BY TST.TITLE_CODE, TST.TITLE_LOCALE
+ {executed in 0 msec}
+2020-07-16 13:14:30.734 DEBUG [19756:restartedMain] k.a.j.s.i.title.mapper.TitleMapper.selectList      [] <==      Total: 0
+2020-07-16 13:14:31.019 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.scheduler.mapper.SchedulerJobMapper.updateToNoUseAllList
+2020-07-16 13:14:31.019 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.updateToNoUseAllList               [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.scheduler.mapper.SchedulerJobMapper.updateToNoUseAllList */ UPDATE TB_SYS_SCHDUL SET VALID_YN = '0' , USE_YN = '0' 
+2020-07-16 13:14:31.019 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.updateToNoUseAllList               [] ==> Parameters: 
+2020-07-16 13:14:31.019 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.scheduler.mapper.SchedulerJobMapper.updateToNoUseAllList */ 
+
+            UPDATE TB_SYS_SCHDUL SET
+                   VALID_YN = '0'
+                 , USE_YN = '0'
+ {executed in 0 msec}
+2020-07-16 13:14:31.020 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.updateToNoUseAllList               [] <==    Updates: 5
+2020-07-16 13:14:31.022 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.scheduler.mapper.SchedulerJobMapper.updateAbnormalEndList
+2020-07-16 13:14:31.022 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.updateAbnormalEndList              [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.scheduler.mapper.SchedulerJobMapper.updateAbnormalEndList */ UPDATE TB_SYS_SCHDUL_EXECUT SET SUCCES_YN = '0' , ERROR_MSSAGE = 'Abnormally terminated.' WHERE SUCCES_YN IS NULL 
+2020-07-16 13:14:31.022 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.updateAbnormalEndList              [] ==> Parameters: 
+2020-07-16 13:14:31.023 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.scheduler.mapper.SchedulerJobMapper.updateAbnormalEndList */ 
+
+            UPDATE TB_SYS_SCHDUL_EXECUT SET
+                   SUCCES_YN = '0'
+                 , ERROR_MSSAGE = 'Abnormally terminated.'
+            WHERE  SUCCES_YN IS NULL
+ {executed in 1 msec}
+2020-07-16 13:14:31.023 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.updateAbnormalEndList              [] <==    Updates: 0
+2020-07-16 13:14:31.155 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:14:31.155 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey
+2020-07-16 13:14:31.156 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */ SELECT TSS.SCHDUL_ID FROM TB_SYS_SCHDUL TSS WHERE TSS.SCHDUL_KEY = ? 
+2020-07-16 13:14:31.156 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==> Parameters: common-EmailSendSchedulerJob(String)
+2020-07-16 13:14:31.156 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */  
+
+            SELECT TSS.SCHDUL_ID
+            FROM   TB_SYS_SCHDUL TSS
+            WHERE  TSS.SCHDUL_KEY = 'common-EmailSendSchedulerJob'
+ {executed in 0 msec}
+2020-07-16 13:14:31.157 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] <==      Total: 1
+2020-07-16 13:14:31.157 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update
+2020-07-16 13:14:31.158 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ UPDATE TB_SYS_SCHDUL SET UPDT_USER_ID = ? , UPDT_DT = ? , SCHDUL_KEY = ? , SCHDUL_NM = ? , OPERT_CLASS = ? , EXECUT_LOG_CSTDY_DAYCNT = ? , EXECUT_LOG_CSTDY_CO = ? , VALID_YN = ? , USE_YN = ? WHERE SCHDUL_ID = ? 
+2020-07-16 13:14:31.161 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==> Parameters: SYSTEM-USER-000000(String), 2020-07-16 13:14:31.16(Timestamp), common-EmailSendSchedulerJob(String), 이메일 발송(String), kr.ac.jj.shared.application.common.email.scheduler.EmailSendSchedulerJob(String), null, null, false(Boolean), true(Boolean), 75RZGDE8N84A75E120(String)
+2020-07-16 13:14:31.162 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ 
+
+            UPDATE TB_SYS_SCHDUL SET
+                   UPDT_USER_ID                     = 'SYSTEM-USER-000000'
+                 , UPDT_DT                          = '07/16/2020 13:14:31.160'
+                 , SCHDUL_KEY                       = 'common-EmailSendSchedulerJob'
+                 , SCHDUL_NM                        = '이메일 발송'
+                 , OPERT_CLASS                      = 'kr.ac.jj.shared.application.common.email.scheduler.EmailSendSchedulerJob'
+                 , EXECUT_LOG_CSTDY_DAYCNT          = NULL
+                 , EXECUT_LOG_CSTDY_CO              = NULL
+                 , VALID_YN                         = 0
+                 , USE_YN                           = 1
+            WHERE  SCHDUL_ID = '75RZGDE8N84A75E120'
+ {executed in 1 msec}
+2020-07-16 13:14:31.162 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] <==    Updates: 1
+2020-07-16 13:14:31.162 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId
+2020-07-16 13:14:31.162 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ DELETE FROM TB_SYS_SCHDUL_TRIGR WHERE SCHDUL_ID = ? 
+2020-07-16 13:14:31.162 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==> Parameters: 75RZGDE8N84A75E120(String)
+2020-07-16 13:14:31.162 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ 
+
+            DELETE
+            FROM   TB_SYS_SCHDUL_TRIGR
+            WHERE  SCHDUL_ID = '75RZGDE8N84A75E120'
+ {executed in 0 msec}
+2020-07-16 13:14:31.163 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] <==    Updates: 1
+2020-07-16 13:14:31.165 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:14:31.165 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid
+2020-07-16 13:14:31.165 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */ SELECT FN_UID(?) AS UNIQUE_ID 
+2020-07-16 13:14:31.165 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==> Parameters: 0(String)
+2020-07-16 13:14:31.166 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */  
+
+            SELECT FN_UID('0') AS UNIQUE_ID
+ {executed in 0 msec}
+2020-07-16 13:14:31.166 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] <==      Total: 1
+2020-07-16 13:14:31.167 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert
+2020-07-16 13:14:31.167 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ INSERT INTO TB_SYS_SCHDUL_TRIGR ( SCHDUL_TRIGR_ID , CREAT_USER_ID , CREAT_DT , SCHDUL_ID , TRIGR_NO , TRIGR_EXPRSN , TRIGR_DC , BEGIN_DT ) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? ) 
+2020-07-16 13:14:31.167 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==> Parameters: 75S2WTFMVCFDB43E70(String), SYSTEM-USER-000000(String), 2020-07-16 13:14:31.167(Timestamp), 75RZGDE8N84A75E120(String), 1(Integer), 0/10 * * * * ?(String), 이메일 발송(0/10 * * * * ?) =>
+seconds: 0,10,20,30,40,50
+minutes: *
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+(String), 2020-07-16 13:15:10.0(Timestamp)
+2020-07-16 13:14:31.168 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ 
+
+            INSERT INTO TB_SYS_SCHDUL_TRIGR (
+                   SCHDUL_TRIGR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SCHDUL_ID
+                 , TRIGR_NO
+                 , TRIGR_EXPRSN
+                 , TRIGR_DC
+                 , BEGIN_DT
+            ) VALUES (
+                   '75S2WTFMVCFDB43E70'
+                 , 'SYSTEM-USER-000000'
+                 , '07/16/2020 13:14:31.167'
+                 , '75RZGDE8N84A75E120'
+
+                 , 1
+
+                 , '0/10 * * * * ?'
+                 , '이메일 발송(0/10 * * * * ?) =>
+seconds: 0,10,20,30,40,50
+minutes: *
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+'
+                 , '07/16/2020 13:15:10.000'
+            )
+ {executed in 0 msec}
+2020-07-16 13:14:31.168 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] <==    Updates: 1
+2020-07-16 13:14:31.294 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:14:31.294 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey
+2020-07-16 13:14:31.294 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */ SELECT TSS.SCHDUL_ID FROM TB_SYS_SCHDUL TSS WHERE TSS.SCHDUL_KEY = ? 
+2020-07-16 13:14:31.294 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==> Parameters: appmanage-HumanResourceManageSchedulerJob(String)
+2020-07-16 13:14:31.295 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */  
+
+            SELECT TSS.SCHDUL_ID
+            FROM   TB_SYS_SCHDUL TSS
+            WHERE  TSS.SCHDUL_KEY = 'appmanage-HumanResourceManageSchedulerJob'
+ {executed in 1 msec}
+2020-07-16 13:14:31.295 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] <==      Total: 1
+2020-07-16 13:14:31.295 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update
+2020-07-16 13:14:31.295 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ UPDATE TB_SYS_SCHDUL SET UPDT_USER_ID = ? , UPDT_DT = ? , SCHDUL_KEY = ? , SCHDUL_NM = ? , OPERT_CLASS = ? , EXECUT_LOG_CSTDY_DAYCNT = ? , EXECUT_LOG_CSTDY_CO = ? , VALID_YN = ? , USE_YN = ? WHERE SCHDUL_ID = ? 
+2020-07-16 13:14:31.295 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==> Parameters: SYSTEM-USER-000000(String), 2020-07-16 13:14:31.295(Timestamp), appmanage-HumanResourceManageSchedulerJob(String), 인사정보 동기화(String), kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.scheduler.HumanResourceManageSchedulerJob(String), null, null, false(Boolean), true(Boolean), 75S17IV2YA02445250(String)
+2020-07-16 13:14:31.335 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ 
+
+            UPDATE TB_SYS_SCHDUL SET
+                   UPDT_USER_ID                     = 'SYSTEM-USER-000000'
+                 , UPDT_DT                          = '07/16/2020 13:14:31.295'
+                 , SCHDUL_KEY                       = 'appmanage-HumanResourceManageSchedulerJob'
+                 , SCHDUL_NM                        = '인사정보 동기화'
+                 , OPERT_CLASS                      = 'kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.scheduler.HumanResourceManageSchedulerJob'
+                 , EXECUT_LOG_CSTDY_DAYCNT          = NULL
+                 , EXECUT_LOG_CSTDY_CO              = NULL
+                 , VALID_YN                         = 0
+                 , USE_YN                           = 1
+            WHERE  SCHDUL_ID = '75S17IV2YA02445250'
+ {executed in 40 msec}
+2020-07-16 13:14:31.335 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] <==    Updates: 1
+2020-07-16 13:14:31.335 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId
+2020-07-16 13:14:31.336 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ DELETE FROM TB_SYS_SCHDUL_TRIGR WHERE SCHDUL_ID = ? 
+2020-07-16 13:14:31.336 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==> Parameters: 75S17IV2YA02445250(String)
+2020-07-16 13:14:31.336 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ 
+
+            DELETE
+            FROM   TB_SYS_SCHDUL_TRIGR
+            WHERE  SCHDUL_ID = '75S17IV2YA02445250'
+ {executed in 0 msec}
+2020-07-16 13:14:31.336 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] <==    Updates: 1
+2020-07-16 13:14:31.336 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:14:31.336 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid
+2020-07-16 13:14:31.337 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */ SELECT FN_UID(?) AS UNIQUE_ID 
+2020-07-16 13:14:31.337 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==> Parameters: 0(String)
+2020-07-16 13:14:31.337 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */  
+
+            SELECT FN_UID('0') AS UNIQUE_ID
+ {executed in 0 msec}
+2020-07-16 13:14:31.337 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] <==      Total: 1
+2020-07-16 13:14:31.337 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert
+2020-07-16 13:14:31.338 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ INSERT INTO TB_SYS_SCHDUL_TRIGR ( SCHDUL_TRIGR_ID , CREAT_USER_ID , CREAT_DT , SCHDUL_ID , TRIGR_NO , TRIGR_EXPRSN , TRIGR_DC , BEGIN_DT ) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? ) 
+2020-07-16 13:14:31.338 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==> Parameters: 75S2WTFMVCFF56FFE0(String), SYSTEM-USER-000000(String), 2020-07-16 13:14:31.338(Timestamp), 75S17IV2YA02445250(String), 1(Integer), 0 0 * * * ?(String), 인사정보 동기화(0 0 * * * ?) =>
+seconds: 0
+minutes: 0
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+(String), 2020-07-16 14:00:00.0(Timestamp)
+2020-07-16 13:14:31.338 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ 
+
+            INSERT INTO TB_SYS_SCHDUL_TRIGR (
+                   SCHDUL_TRIGR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SCHDUL_ID
+                 , TRIGR_NO
+                 , TRIGR_EXPRSN
+                 , TRIGR_DC
+                 , BEGIN_DT
+            ) VALUES (
+                   '75S2WTFMVCFF56FFE0'
+                 , 'SYSTEM-USER-000000'
+                 , '07/16/2020 13:14:31.338'
+                 , '75S17IV2YA02445250'
+
+                 , 1
+
+                 , '0 0 * * * ?'
+                 , '인사정보 동기화(0 0 * * * ?) =>
+seconds: 0
+minutes: 0
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+'
+                 , '07/16/2020 14:00:00.000'
+            )
+ {executed in 0 msec}
+2020-07-16 13:14:31.338 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] <==    Updates: 1
+2020-07-16 13:14:31.411 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:14:31.411 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey
+2020-07-16 13:14:31.412 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */ SELECT TSS.SCHDUL_ID FROM TB_SYS_SCHDUL TSS WHERE TSS.SCHDUL_KEY = ? 
+2020-07-16 13:14:31.412 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==> Parameters: qestnrmanage-QuestionnaireManageSurveySendSchedulerJob(String)
+2020-07-16 13:14:31.412 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */  
+
+            SELECT TSS.SCHDUL_ID
+            FROM   TB_SYS_SCHDUL TSS
+            WHERE  TSS.SCHDUL_KEY = 'qestnrmanage-QuestionnaireManageSurveySendSchedulerJob'
+ {executed in 0 msec}
+2020-07-16 13:14:31.412 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] <==      Total: 1
+2020-07-16 13:14:31.412 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update
+2020-07-16 13:14:31.412 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ UPDATE TB_SYS_SCHDUL SET UPDT_USER_ID = ? , UPDT_DT = ? , SCHDUL_KEY = ? , SCHDUL_NM = ? , OPERT_CLASS = ? , EXECUT_LOG_CSTDY_DAYCNT = ? , EXECUT_LOG_CSTDY_CO = ? , VALID_YN = ? , USE_YN = ? WHERE SCHDUL_ID = ? 
+2020-07-16 13:14:31.413 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==> Parameters: SYSTEM-USER-000000(String), 2020-07-16 13:14:31.412(Timestamp), qestnrmanage-QuestionnaireManageSurveySendSchedulerJob(String), 설문지 발송 처리(String), kr.ac.jj.survey.application.qestnrmanage.scheduler.QuestionnaireManageSurveySendSchedulerJob(String), null, null, false(Boolean), true(Boolean), 75RZLSAAG60E682FC0(String)
+2020-07-16 13:14:31.413 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ 
+
+            UPDATE TB_SYS_SCHDUL SET
+                   UPDT_USER_ID                     = 'SYSTEM-USER-000000'
+                 , UPDT_DT                          = '07/16/2020 13:14:31.412'
+                 , SCHDUL_KEY                       = 'qestnrmanage-QuestionnaireManageSurveySendSchedulerJob'
+                 , SCHDUL_NM                        = '설문지 발송 처리'
+                 , OPERT_CLASS                      = 'kr.ac.jj.survey.application.qestnrmanage.scheduler.QuestionnaireManageSurveySendSchedulerJob'
+                 , EXECUT_LOG_CSTDY_DAYCNT          = NULL
+                 , EXECUT_LOG_CSTDY_CO              = NULL
+                 , VALID_YN                         = 0
+                 , USE_YN                           = 1
+            WHERE  SCHDUL_ID = '75RZLSAAG60E682FC0'
+ {executed in 0 msec}
+2020-07-16 13:14:31.413 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] <==    Updates: 1
+2020-07-16 13:14:31.413 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId
+2020-07-16 13:14:31.413 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ DELETE FROM TB_SYS_SCHDUL_TRIGR WHERE SCHDUL_ID = ? 
+2020-07-16 13:14:31.413 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==> Parameters: 75RZLSAAG60E682FC0(String)
+2020-07-16 13:14:31.414 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ 
+
+            DELETE
+            FROM   TB_SYS_SCHDUL_TRIGR
+            WHERE  SCHDUL_ID = '75RZLSAAG60E682FC0'
+ {executed in 1 msec}
+2020-07-16 13:14:31.414 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] <==    Updates: 1
+2020-07-16 13:14:31.414 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:14:31.414 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid
+2020-07-16 13:14:31.414 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */ SELECT FN_UID(?) AS UNIQUE_ID 
+2020-07-16 13:14:31.414 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==> Parameters: 0(String)
+2020-07-16 13:14:31.414 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */  
+
+            SELECT FN_UID('0') AS UNIQUE_ID
+ {executed in 0 msec}
+2020-07-16 13:14:31.414 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] <==      Total: 1
+2020-07-16 13:14:31.414 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert
+2020-07-16 13:14:31.415 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ INSERT INTO TB_SYS_SCHDUL_TRIGR ( SCHDUL_TRIGR_ID , CREAT_USER_ID , CREAT_DT , SCHDUL_ID , TRIGR_NO , TRIGR_EXPRSN , TRIGR_DC , BEGIN_DT ) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? ) 
+2020-07-16 13:14:31.415 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==> Parameters: 75S2WTFMVD00115470(String), SYSTEM-USER-000000(String), 2020-07-16 13:14:31.415(Timestamp), 75RZLSAAG60E682FC0(String), 1(Integer), 0/10 * * * * ?(String), 설문지 발송 처리(0/10 * * * * ?) =>
+seconds: 0,10,20,30,40,50
+minutes: *
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+(String), 2020-07-16 13:15:10.0(Timestamp)
+2020-07-16 13:14:31.415 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ 
+
+            INSERT INTO TB_SYS_SCHDUL_TRIGR (
+                   SCHDUL_TRIGR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SCHDUL_ID
+                 , TRIGR_NO
+                 , TRIGR_EXPRSN
+                 , TRIGR_DC
+                 , BEGIN_DT
+            ) VALUES (
+                   '75S2WTFMVD00115470'
+                 , 'SYSTEM-USER-000000'
+                 , '07/16/2020 13:14:31.415'
+                 , '75RZLSAAG60E682FC0'
+
+                 , 1
+
+                 , '0/10 * * * * ?'
+                 , '설문지 발송 처리(0/10 * * * * ?) =>
+seconds: 0,10,20,30,40,50
+minutes: *
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+'
+                 , '07/16/2020 13:15:10.000'
+            )
+ {executed in 0 msec}
+2020-07-16 13:14:31.415 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] <==    Updates: 1
+2020-07-16 13:14:31.544 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:14:31.545 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey
+2020-07-16 13:14:31.545 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */ SELECT TSS.SCHDUL_ID FROM TB_SYS_SCHDUL TSS WHERE TSS.SCHDUL_KEY = ? 
+2020-07-16 13:14:31.545 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==> Parameters: common-SmsSendSchedulerJob(String)
+2020-07-16 13:14:31.545 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */  
+
+            SELECT TSS.SCHDUL_ID
+            FROM   TB_SYS_SCHDUL TSS
+            WHERE  TSS.SCHDUL_KEY = 'common-SmsSendSchedulerJob'
+ {executed in 0 msec}
+2020-07-16 13:14:31.545 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] <==      Total: 1
+2020-07-16 13:14:31.545 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update
+2020-07-16 13:14:31.546 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ UPDATE TB_SYS_SCHDUL SET UPDT_USER_ID = ? , UPDT_DT = ? , SCHDUL_KEY = ? , SCHDUL_NM = ? , OPERT_CLASS = ? , EXECUT_LOG_CSTDY_DAYCNT = ? , EXECUT_LOG_CSTDY_CO = ? , VALID_YN = ? , USE_YN = ? WHERE SCHDUL_ID = ? 
+2020-07-16 13:14:31.546 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==> Parameters: SYSTEM-USER-000000(String), 2020-07-16 13:14:31.546(Timestamp), common-SmsSendSchedulerJob(String), 문자메시지 발송 및 결과 업데이트(String), kr.ac.jj.shared.application.common.sms.scheduler.SmsSendAndResultUpdateSchedulerJob(String), null, null, false(Boolean), true(Boolean), 75S12QJ807EE6219A0(String)
+2020-07-16 13:14:31.546 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ 
+
+            UPDATE TB_SYS_SCHDUL SET
+                   UPDT_USER_ID                     = 'SYSTEM-USER-000000'
+                 , UPDT_DT                          = '07/16/2020 13:14:31.546'
+                 , SCHDUL_KEY                       = 'common-SmsSendSchedulerJob'
+                 , SCHDUL_NM                        = '문자메시지 발송 및 결과 업데이트'
+                 , OPERT_CLASS                      = 'kr.ac.jj.shared.application.common.sms.scheduler.SmsSendAndResultUpdateSchedulerJob'
+                 , EXECUT_LOG_CSTDY_DAYCNT          = NULL
+                 , EXECUT_LOG_CSTDY_CO              = NULL
+                 , VALID_YN                         = 0
+                 , USE_YN                           = 1
+            WHERE  SCHDUL_ID = '75S12QJ807EE6219A0'
+ {executed in 0 msec}
+2020-07-16 13:14:31.546 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] <==    Updates: 1
+2020-07-16 13:14:31.546 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId
+2020-07-16 13:14:31.546 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ DELETE FROM TB_SYS_SCHDUL_TRIGR WHERE SCHDUL_ID = ? 
+2020-07-16 13:14:31.546 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==> Parameters: 75S12QJ807EE6219A0(String)
+2020-07-16 13:14:31.547 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ 
+
+            DELETE
+            FROM   TB_SYS_SCHDUL_TRIGR
+            WHERE  SCHDUL_ID = '75S12QJ807EE6219A0'
+ {executed in 0 msec}
+2020-07-16 13:14:31.547 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] <==    Updates: 1
+2020-07-16 13:14:31.547 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:14:31.547 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid
+2020-07-16 13:14:31.547 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */ SELECT FN_UID(?) AS UNIQUE_ID 
+2020-07-16 13:14:31.547 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==> Parameters: 0(String)
+2020-07-16 13:14:31.547 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */  
+
+            SELECT FN_UID('0') AS UNIQUE_ID
+ {executed in 0 msec}
+2020-07-16 13:14:31.547 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] <==      Total: 1
+2020-07-16 13:14:31.548 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert
+2020-07-16 13:14:31.548 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ INSERT INTO TB_SYS_SCHDUL_TRIGR ( SCHDUL_TRIGR_ID , CREAT_USER_ID , CREAT_DT , SCHDUL_ID , TRIGR_NO , TRIGR_EXPRSN , TRIGR_DC , BEGIN_DT ) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? ) 
+2020-07-16 13:14:31.548 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==> Parameters: 75S2WTFMVD015729E0(String), SYSTEM-USER-000000(String), 2020-07-16 13:14:31.548(Timestamp), 75S12QJ807EE6219A0(String), 1(Integer), * * * * * ?(String), 문자메시지 발송 및 결과 업데이트(* * * * * ?) =>
+seconds: *
+minutes: *
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+(String), 2020-07-16 13:15:01.0(Timestamp)
+2020-07-16 13:14:31.548 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ 
+
+            INSERT INTO TB_SYS_SCHDUL_TRIGR (
+                   SCHDUL_TRIGR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SCHDUL_ID
+                 , TRIGR_NO
+                 , TRIGR_EXPRSN
+                 , TRIGR_DC
+                 , BEGIN_DT
+            ) VALUES (
+                   '75S2WTFMVD015729E0'
+                 , 'SYSTEM-USER-000000'
+                 , '07/16/2020 13:14:31.548'
+                 , '75S12QJ807EE6219A0'
+
+                 , 1
+
+                 , '* * * * * ?'
+                 , '문자메시지 발송 및 결과 업데이트(* * * * * ?) =>
+seconds: *
+minutes: *
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+'
+                 , '07/16/2020 13:15:01.000'
+            )
+ {executed in 0 msec}
+2020-07-16 13:14:31.548 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] <==    Updates: 1
+2020-07-16 13:14:31.618 INFO  [19756:restartedMain] kr.ac.jj.shared.infrastructure.util.BaseUtil       [] 임시파일 경로 => D:\App-DevStudio\workspace\JavaEE\jj-survey\data\temp\logging-default.db
+2020-07-16 13:14:31.643 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/error'], []
+2020-07-16 13:14:31.643 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/static/**'], []
+2020-07-16 13:14:31.643 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.jsp'], []
+2020-07-16 13:14:31.643 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.js'], []
+2020-07-16 13:14:31.643 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.css'], []
+2020-07-16 13:14:31.643 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.html'], []
+2020-07-16 13:14:31.643 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.htm'], []
+2020-07-16 13:14:31.643 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.gif'], []
+2020-07-16 13:14:31.643 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.jpg'], []
+2020-07-16 13:14:31.643 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.jpeg'], []
+2020-07-16 13:14:31.643 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.png'], []
+2020-07-16 13:14:31.643 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.woff'], []
+2020-07-16 13:14:31.643 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.woff2'], []
+2020-07-16 13:14:31.643 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.eot'], []
+2020-07-16 13:14:31.663 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@259b530a, kr.ac.jj.shared.application.common.user.filter.UserAutoLoginKeyFilter@501849c0, org.springframework.security.web.context.SecurityContextPersistenceFilter@62dc877b, org.springframework.security.web.header.HeaderWriterFilter@71ec721f, org.springframework.security.web.authentication.logout.LogoutFilter@4097c0fb, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@178ad474, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@33bc9edb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@21d27e39, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2ef6cb20, org.springframework.security.web.session.SessionManagementFilter@fcd01db, org.springframework.security.web.access.ExceptionTranslationFilter@4b535c5f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6f1e93fe]
+2020-07-16 13:14:31.682 WARN  [19756:restartedMain] k.a.j.s.i.f.m.p.d.config.MapperLocationResources   [] MyBatis Mapper Location Not Found: class path resource [configuration/mapper/shared/dw/] cannot be resolved to URL because it does not exist
+2020-07-16 13:14:31.708 INFO  [19756:restartedMain] org.apache.tiles.access.TilesAccess                [] Publishing TilesContext for context: org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext
+2020-07-16 13:14:31.798 INFO  [19756:restartedMain] o.s.scheduling.concurrent.ThreadPoolTaskExecutor   [] Initializing ExecutorService 'applicationTaskExecutor'
+2020-07-16 13:14:31.831 WARN  [19756:restartedMain] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext [] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping]: Factory method 'requestMappingHandlerMapping' threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	DeviceResolverHandlerInterceptor cannot be resolved to a type
+
+2020-07-16 13:14:31.831 INFO  [19756:restartedMain] o.s.scheduling.concurrent.ThreadPoolTaskExecutor   [] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-07-16 13:14:31.831 INFO  [19756:restartedMain] org.apache.tiles.access.TilesAccess                [] Removing TilesContext for context: org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext
+2020-07-16 13:14:31.918 INFO  [19756:restartedMain] o.s.orm.jpa.LocalContainerEntityManagerFactoryBean [] Closing JPA EntityManagerFactory for persistence unit 'persistenceUnit'
+2020-07-16 13:14:31.925 INFO  [19756:restartedMain] org.apache.catalina.core.StandardService           [] Stopping service [Tomcat]
+2020-07-16 13:14:31.926 ERROR [19756:restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/jj-survey]        [] Failed to destroy the filter named [loggingFilter] of type [kr.ac.jj.shared.infrastructure.logging.filter.LoggingFilter]
+java.lang.IllegalStateException: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@75b7c5ae has not been refreshed yet
+	at org.springframework.context.support.AbstractApplicationContext.assertBeanFactoryActive(AbstractApplicationContext.java:1095)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1125)
+	at kr.ac.jj.shared.infrastructure.framework.core.support.context.ApplicationContextUtil.getBean(ApplicationContextUtil.java:37)
+	at kr.ac.jj.shared.infrastructure.util.BaseUtil.getTempDirectory(BaseUtil.java:47)
+	at kr.ac.jj.shared.infrastructure.util.BaseUtil.getTempFile(BaseUtil.java:66)
+	at kr.ac.jj.shared.infrastructure.logging.util.LoggingUtil.getDatabaseFile(LoggingUtil.java:31)
+	at kr.ac.jj.shared.infrastructure.logging.filter.LoggingFilter.destroy(LoggingFilter.java:86)
+	at org.apache.catalina.core.ApplicationFilterConfig.release(ApplicationFilterConfig.java:301)
+	at org.apache.catalina.core.StandardContext.filterStop(StandardContext.java:4568)
+	at org.apache.catalina.core.StandardContext.stopInternal(StandardContext.java:5389)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:257)
+	at org.apache.catalina.core.ContainerBase$StopChild.call(ContainerBase.java:1400)
+	at org.apache.catalina.core.ContainerBase$StopChild.call(ContainerBase.java:1389)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140)
+	at org.apache.catalina.core.ContainerBase.stopInternal(ContainerBase.java:976)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:257)
+	at org.apache.catalina.core.ContainerBase$StopChild.call(ContainerBase.java:1400)
+	at org.apache.catalina.core.ContainerBase$StopChild.call(ContainerBase.java:1389)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140)
+	at org.apache.catalina.core.ContainerBase.stopInternal(ContainerBase.java:976)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:257)
+	at org.apache.catalina.core.StandardService.stopInternal(StandardService.java:473)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:257)
+	at org.apache.catalina.core.StandardServer.stopInternal(StandardServer.java:992)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:257)
+	at org.apache.catalina.startup.Tomcat.stop(Tomcat.java:478)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.stopTomcat(TomcatWebServer.java:273)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.stop(TomcatWebServer.java:331)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:148)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
+	at kr.ac.jj.Application.main(Application.java:12)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+2020-07-16 13:14:31.930 INFO  [19756:restartedMain] o.s.b.a.l.ConditionEvaluationReportLoggingListener [] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-07-16 13:14:31.933 ERROR [19756:restartedMain] org.springframework.boot.SpringApplication         [] Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping]: Factory method 'requestMappingHandlerMapping' threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	DeviceResolverHandlerInterceptor cannot be resolved to a type
+
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:656)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:636)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:895)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:878)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
+	at kr.ac.jj.Application.main(Application.java:12)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping]: Factory method 'requestMappingHandlerMapping' threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	DeviceResolverHandlerInterceptor cannot be resolved to a type
+
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651)
+	... 25 common frames omitted
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	DeviceResolverHandlerInterceptor cannot be resolved to a type
+
+	at kr.ac.jj.shared.config.SharedApplicationConfig.addInterceptors(SharedApplicationConfig.java:70)
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurerComposite.addInterceptors(WebMvcConfigurerComposite.java:88)
+	at org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration.addInterceptors(DelegatingWebMvcConfiguration.java:83)
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.getInterceptors(WebMvcConfigurationSupport.java:340)
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.requestMappingHandlerMapping(WebMvcConfigurationSupport.java:286)
+	at org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration.requestMappingHandlerMapping(WebMvcAutoConfiguration.java:396)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154)
+	... 26 common frames omitted
+2020-07-16 13:14:31.944 WARN  [19756:restartedMain] org.springframework.boot.SpringApplication         [] Unable to close ApplicationContext
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'springApplicationAdminRegistrar' defined in class path resource [org/springframework/boot/autoconfigure/admin/SpringApplicationAdminJmxAutoConfiguration.class]: BeanPostProcessor before instantiation of bean failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'metaDataSourceAdvisor': Cannot resolve reference to bean 'methodSecurityMetadataSource' while setting constructor argument; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration': Initialization of bean failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:512)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.event.AbstractApplicationEventMulticaster.retrieveApplicationListeners(AbstractApplicationEventMulticaster.java:245)
+	at org.springframework.context.event.AbstractApplicationEventMulticaster.getApplicationListeners(AbstractApplicationEventMulticaster.java:197)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:134)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:403)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:360)
+	at org.springframework.boot.availability.AvailabilityChangeEvent.publish(AvailabilityChangeEvent.java:81)
+	at org.springframework.boot.availability.AvailabilityChangeEvent.publish(AvailabilityChangeEvent.java:67)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:167)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:978)
+	at org.springframework.boot.SpringApplication.handleRunFailure(SpringApplication.java:814)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:325)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
+	at kr.ac.jj.Application.main(Application.java:12)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'metaDataSourceAdvisor': Cannot resolve reference to bean 'methodSecurityMetadataSource' while setting constructor argument; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration': Initialization of bean failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:342)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:113)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolvePreparedArguments(ConstructorResolver.java:835)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:151)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1358)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1193)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.aop.framework.autoproxy.BeanFactoryAdvisorRetrievalHelper.findAdvisorBeans(BeanFactoryAdvisorRetrievalHelper.java:91)
+	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.findCandidateAdvisors(AbstractAdvisorAutoProxyCreator.java:109)
+	at org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator.findCandidateAdvisors(AnnotationAwareAspectJAutoProxyCreator.java:92)
+	at org.springframework.aop.aspectj.autoproxy.AspectJAwareAdvisorAutoProxyCreator.shouldSkip(AspectJAwareAdvisorAutoProxyCreator.java:101)
+	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.postProcessBeforeInstantiation(AbstractAutoProxyCreator.java:251)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInstantiation(AbstractAutowireCapableBeanFactory.java:1141)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.resolveBeforeInstantiation(AbstractAutowireCapableBeanFactory.java:1114)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:506)
+	... 23 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration': Initialization of bean failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:409)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:330)
+	... 42 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanDefinition(DefaultListableBeanFactory.java:814)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getMergedLocalBeanDefinition(AbstractBeanFactory.java:1282)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:297)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor.postProcessBeforeInitialization(ConfigurationClassPostProcessor.java:456)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1788)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:595)
+	... 57 common frames omitted
+2020-07-16 13:15:29.819 INFO  [19756:restartedMain] kr.ac.jj.Application                               [] Starting Application on WIN-4TICPH7NBRM with PID 19756 (D:\App-DevStudio\workspace\JavaEE\jj-survey\target\classes started by anyfive in D:\App-DevStudio\workspace\JavaEE\jj-survey)
+2020-07-16 13:15:29.821 DEBUG [19756:restartedMain] kr.ac.jj.Application                               [] Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2020-07-16 13:15:29.821 INFO  [19756:restartedMain] kr.ac.jj.Application                               [] The following profiles are active: default,logging-console,logging-file
+2020-07-16 13:15:30.334 INFO  [19756:restartedMain] o.s.d.r.config.RepositoryConfigurationDelegate     [] Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-07-16 13:15:30.334 INFO  [19756:restartedMain] o.s.d.r.config.RepositoryConfigurationDelegate     [] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-07-16 13:15:30.356 INFO  [19756:restartedMain] o.s.d.r.config.RepositoryConfigurationDelegate     [] Finished Spring Data repository scanning in 22ms. Found 0 JPA repository interfaces.
+2020-07-16 13:15:30.670 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'sharedDataSourceMainConfig' of type [kr.ac.jj.shared.config.datasources.SharedDataSourceMainConfig$$EnhancerBySpringCGLIB$$8b1ac93e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:15:30.680 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'transactionConfig.main' of type [kr.ac.jj.shared.infrastructure.framework.core.persistence.transaction.props.TransactionConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:15:30.682 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'jndiConfig.main' of type [kr.ac.jj.shared.infrastructure.framework.core.support.jndi.JndiConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:15:30.687 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'hikariConfig.main' of type [com.zaxxer.hikari.HikariConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:15:30.689 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'realDataSource.main' of type [com.zaxxer.hikari.HikariDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:15:30.691 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'dataSource.main' of type [net.sf.log4jdbc.sql.jdbcapi.DataSourceSpy] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:15:30.691 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'transactionManager.main' of type [org.springframework.jdbc.datasource.DataSourceTransactionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:15:30.692 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'transactionAdvice.main' of type [org.springframework.transaction.interceptor.TransactionInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:15:30.692 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'transactionAdviceAdvisor.main' of type [org.springframework.aop.support.DefaultPointcutAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:15:30.699 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@7e0772d7' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:15:30.701 INFO  [19756:restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-07-16 13:15:31.575 INFO  [19756:restartedMain] o.s.boot.web.embedded.tomcat.TomcatWebServer       [] Tomcat initialized with port(s): 8081 (http)
+2020-07-16 13:15:31.576 INFO  [19756:restartedMain] org.apache.catalina.core.StandardService           [] Starting service [Tomcat]
+2020-07-16 13:15:31.576 INFO  [19756:restartedMain] org.apache.catalina.core.StandardEngine            [] Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-07-16 13:15:31.750 INFO  [19756:restartedMain] org.apache.jasper.servlet.TldScanner               [] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2020-07-16 13:15:31.753 INFO  [19756:restartedMain] o.a.c.c.C.[Tomcat-2].[localhost].[/jj-survey]      [] Initializing Spring embedded WebApplicationContext
+2020-07-16 13:15:31.753 INFO  [19756:restartedMain] org.springframework.web.context.ContextLoader      [] Root WebApplicationContext: initialization completed in 1930 ms
+2020-07-16 13:15:31.796 DEBUG [19756:restartedMain] k.a.j.s.i.f.w.f.HeaderHttpMethodOverrideFilter     [] Filter 'headerHttpMethodOverrideFilter' configured for use
+2020-07-16 13:15:32.318 INFO  [19756:restartedMain] o.s.orm.jpa.LocalContainerEntityManagerFactoryBean [] Initialized JPA EntityManagerFactory for persistence unit 'persistenceUnit'
+2020-07-16 13:15:32.982 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:15:32.983 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.security.mapper.SecuredResourceMapper.selectRoleHierarchyList
+2020-07-16 13:15:32.985 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.selectRoleHierarchyList            [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.security.mapper.SecuredResourceMapper.selectRoleHierarchyList */ SELECT TSRH.PARNTS_ROLE_CODE , TSRH.CHLDRN_ROLE_CODE FROM TB_SYS_ROLE_HIERARCHY TSRH INNER JOIN TB_SYS_AUTHOR TSA1 ON TSA1.AUTHOR_CODE = TSRH.PARNTS_ROLE_CODE AND TSA1.USE_YN = '1' INNER JOIN TB_SYS_AUTHOR TSA2 ON TSA2.AUTHOR_CODE = TSRH.CHLDRN_ROLE_CODE AND TSA2.USE_YN = '1' ORDER BY TSRH.SORT_ORDR 
+2020-07-16 13:15:32.985 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.selectRoleHierarchyList            [] ==> Parameters: 
+2020-07-16 13:15:32.986 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.security.mapper.SecuredResourceMapper.selectRoleHierarchyList */  
+
+            SELECT TSRH.PARNTS_ROLE_CODE
+                 , TSRH.CHLDRN_ROLE_CODE
+            FROM   TB_SYS_ROLE_HIERARCHY TSRH
+                   INNER JOIN TB_SYS_AUTHOR TSA1 ON TSA1.AUTHOR_CODE = TSRH.PARNTS_ROLE_CODE AND TSA1.USE_YN = '1'
+                   INNER JOIN TB_SYS_AUTHOR TSA2 ON TSA2.AUTHOR_CODE = TSRH.CHLDRN_ROLE_CODE AND TSA2.USE_YN = '1'
+            ORDER BY TSRH.SORT_ORDR
+ {executed in 1 msec}
+2020-07-16 13:15:32.986 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.selectRoleHierarchyList            [] <==      Total: 6
+2020-07-16 13:15:32.997 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:15:32.997 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.security.mapper.SecuredResourceMapper.selectAuthorsAndUrlList
+2020-07-16 13:15:32.997 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.selectAuthorsAndUrlList            [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.security.mapper.SecuredResourceMapper.selectAuthorsAndUrlList */ SELECT TSR.RESRCE_PTTRN , TSA.AUTHOR_CODE FROM TB_SYS_RESRCE TSR INNER JOIN TB_SYS_RESRCE_AUTHOR TSRA ON TSRA.RESRCE_ID = TSR.RESRCE_ID INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TSRA.AUTHOR_ID WHERE TSR.RESRCE_TY = ? AND TSR.USE_YN = '1' AND TSA.USE_YN = '1' ORDER BY TSR.SORT_ORDR 
+2020-07-16 13:15:32.998 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.selectAuthorsAndUrlList            [] ==> Parameters: URL(String)
+2020-07-16 13:15:32.998 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.security.mapper.SecuredResourceMapper.selectAuthorsAndUrlList */  
+
+            SELECT TSR.RESRCE_PTTRN
+                 , TSA.AUTHOR_CODE
+            FROM   TB_SYS_RESRCE TSR
+                   INNER JOIN TB_SYS_RESRCE_AUTHOR TSRA ON TSRA.RESRCE_ID = TSR.RESRCE_ID
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TSRA.AUTHOR_ID
+            WHERE  TSR.RESRCE_TY = 'URL'
+            AND    TSR.USE_YN = '1'
+            AND    TSA.USE_YN = '1'
+            ORDER BY TSR.SORT_ORDR
+ {executed in 0 msec}
+2020-07-16 13:15:33.000 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.selectAuthorsAndUrlList            [] <==      Total: 22
+2020-07-16 13:15:33.070 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:15:33.071 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> common.codedata.CodeDataMapper.selectList
+2020-07-16 13:15:33.072 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* common.codedata.CodeDataMapper.selectList */  
+
+            SELECT TSCG.CODE_GROUP                  AS CODE_GROUP
+                 , 'ko_KR'                          AS CODE_LOCALE
+                 , TSCV.CODE_VALUE                  AS CODE_VALUE
+                 , TSCV.CODE_VALUE_NM               AS CODE_NAME
+                 , TSCV.SORT_ORDR
+            FROM   TB_SYS_CODE_GROUP TSCG
+                   INNER JOIN TB_SYS_CODE_VALUE TSCV ON TSCV.CODE_GROUP_ID = TSCG.CODE_GROUP_ID
+            WHERE  TSCG.USE_YN = '1'
+            AND    TSCV.USE_YN = '1'
+            ORDER BY CODE_GROUP, CODE_LOCALE, SORT_ORDR
+ {executed in 0 msec}
+2020-07-16 13:15:33.262 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:15:33.262 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.title.mapper.TitleMapper.selectList
+2020-07-16 13:15:33.263 DEBUG [19756:restartedMain] k.a.j.s.i.title.mapper.TitleMapper.selectList      [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.title.mapper.TitleMapper.selectList */ SELECT TST.TITLE_CODE , TST.TITLE_LOCALE , TST.TITLE_CN FROM TB_SYS_TITLE TST ORDER BY TST.TITLE_CODE, TST.TITLE_LOCALE 
+2020-07-16 13:15:33.263 DEBUG [19756:restartedMain] k.a.j.s.i.title.mapper.TitleMapper.selectList      [] ==> Parameters: 
+2020-07-16 13:15:33.264 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.title.mapper.TitleMapper.selectList */  
+
+            SELECT TST.TITLE_CODE
+                 , TST.TITLE_LOCALE
+                 , TST.TITLE_CN
+            FROM   TB_SYS_TITLE TST
+            ORDER BY TST.TITLE_CODE, TST.TITLE_LOCALE
+ {executed in 1 msec}
+2020-07-16 13:15:33.264 DEBUG [19756:restartedMain] k.a.j.s.i.title.mapper.TitleMapper.selectList      [] <==      Total: 0
+2020-07-16 13:15:33.572 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.scheduler.mapper.SchedulerJobMapper.updateToNoUseAllList
+2020-07-16 13:15:33.573 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.updateToNoUseAllList               [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.scheduler.mapper.SchedulerJobMapper.updateToNoUseAllList */ UPDATE TB_SYS_SCHDUL SET VALID_YN = '0' , USE_YN = '0' 
+2020-07-16 13:15:33.573 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.updateToNoUseAllList               [] ==> Parameters: 
+2020-07-16 13:15:33.573 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.scheduler.mapper.SchedulerJobMapper.updateToNoUseAllList */ 
+
+            UPDATE TB_SYS_SCHDUL SET
+                   VALID_YN = '0'
+                 , USE_YN = '0'
+ {executed in 0 msec}
+2020-07-16 13:15:33.573 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.updateToNoUseAllList               [] <==    Updates: 5
+2020-07-16 13:15:33.575 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.scheduler.mapper.SchedulerJobMapper.updateAbnormalEndList
+2020-07-16 13:15:33.575 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.updateAbnormalEndList              [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.scheduler.mapper.SchedulerJobMapper.updateAbnormalEndList */ UPDATE TB_SYS_SCHDUL_EXECUT SET SUCCES_YN = '0' , ERROR_MSSAGE = 'Abnormally terminated.' WHERE SUCCES_YN IS NULL 
+2020-07-16 13:15:33.575 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.updateAbnormalEndList              [] ==> Parameters: 
+2020-07-16 13:15:33.576 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.scheduler.mapper.SchedulerJobMapper.updateAbnormalEndList */ 
+
+            UPDATE TB_SYS_SCHDUL_EXECUT SET
+                   SUCCES_YN = '0'
+                 , ERROR_MSSAGE = 'Abnormally terminated.'
+            WHERE  SUCCES_YN IS NULL
+ {executed in 1 msec}
+2020-07-16 13:15:33.576 DEBUG [19756:restartedMain] k.a.j.s.i.s.m.S.updateAbnormalEndList              [] <==    Updates: 0
+2020-07-16 13:15:33.609 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:15:33.609 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey
+2020-07-16 13:15:33.609 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */ SELECT TSS.SCHDUL_ID FROM TB_SYS_SCHDUL TSS WHERE TSS.SCHDUL_KEY = ? 
+2020-07-16 13:15:33.609 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==> Parameters: common-EmailSendSchedulerJob(String)
+2020-07-16 13:15:33.609 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */  
+
+            SELECT TSS.SCHDUL_ID
+            FROM   TB_SYS_SCHDUL TSS
+            WHERE  TSS.SCHDUL_KEY = 'common-EmailSendSchedulerJob'
+ {executed in 0 msec}
+2020-07-16 13:15:33.610 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] <==      Total: 1
+2020-07-16 13:15:33.610 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update
+2020-07-16 13:15:33.610 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ UPDATE TB_SYS_SCHDUL SET UPDT_USER_ID = ? , UPDT_DT = ? , SCHDUL_KEY = ? , SCHDUL_NM = ? , OPERT_CLASS = ? , EXECUT_LOG_CSTDY_DAYCNT = ? , EXECUT_LOG_CSTDY_CO = ? , VALID_YN = ? , USE_YN = ? WHERE SCHDUL_ID = ? 
+2020-07-16 13:15:33.613 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==> Parameters: SYSTEM-USER-000000(String), 2020-07-16 13:15:33.612(Timestamp), common-EmailSendSchedulerJob(String), 이메일 발송(String), kr.ac.jj.shared.application.common.email.scheduler.EmailSendSchedulerJob(String), null, null, false(Boolean), true(Boolean), 75RZGDE8N84A75E120(String)
+2020-07-16 13:15:33.614 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ 
+
+            UPDATE TB_SYS_SCHDUL SET
+                   UPDT_USER_ID                     = 'SYSTEM-USER-000000'
+                 , UPDT_DT                          = '07/16/2020 13:15:33.612'
+                 , SCHDUL_KEY                       = 'common-EmailSendSchedulerJob'
+                 , SCHDUL_NM                        = '이메일 발송'
+                 , OPERT_CLASS                      = 'kr.ac.jj.shared.application.common.email.scheduler.EmailSendSchedulerJob'
+                 , EXECUT_LOG_CSTDY_DAYCNT          = NULL
+                 , EXECUT_LOG_CSTDY_CO              = NULL
+                 , VALID_YN                         = 0
+                 , USE_YN                           = 1
+            WHERE  SCHDUL_ID = '75RZGDE8N84A75E120'
+ {executed in 1 msec}
+2020-07-16 13:15:33.614 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] <==    Updates: 1
+2020-07-16 13:15:33.614 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId
+2020-07-16 13:15:33.614 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ DELETE FROM TB_SYS_SCHDUL_TRIGR WHERE SCHDUL_ID = ? 
+2020-07-16 13:15:33.614 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==> Parameters: 75RZGDE8N84A75E120(String)
+2020-07-16 13:15:33.615 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ 
+
+            DELETE
+            FROM   TB_SYS_SCHDUL_TRIGR
+            WHERE  SCHDUL_ID = '75RZGDE8N84A75E120'
+ {executed in 1 msec}
+2020-07-16 13:15:33.615 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] <==    Updates: 1
+2020-07-16 13:15:33.617 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:15:33.617 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid
+2020-07-16 13:15:33.617 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */ SELECT FN_UID(?) AS UNIQUE_ID 
+2020-07-16 13:15:33.617 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==> Parameters: 0(String)
+2020-07-16 13:15:33.618 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */  
+
+            SELECT FN_UID('0') AS UNIQUE_ID
+ {executed in 1 msec}
+2020-07-16 13:15:33.618 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] <==      Total: 1
+2020-07-16 13:15:33.618 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert
+2020-07-16 13:15:33.619 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ INSERT INTO TB_SYS_SCHDUL_TRIGR ( SCHDUL_TRIGR_ID , CREAT_USER_ID , CREAT_DT , SCHDUL_ID , TRIGR_NO , TRIGR_EXPRSN , TRIGR_DC , BEGIN_DT ) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? ) 
+2020-07-16 13:15:33.619 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==> Parameters: 75S2WTFPPF514BA620(String), SYSTEM-USER-000000(String), 2020-07-16 13:15:33.619(Timestamp), 75RZGDE8N84A75E120(String), 1(Integer), 0/10 * * * * ?(String), 이메일 발송(0/10 * * * * ?) =>
+seconds: 0,10,20,30,40,50
+minutes: *
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+(String), 2020-07-16 13:16:10.0(Timestamp)
+2020-07-16 13:15:33.620 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ 
+
+            INSERT INTO TB_SYS_SCHDUL_TRIGR (
+                   SCHDUL_TRIGR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SCHDUL_ID
+                 , TRIGR_NO
+                 , TRIGR_EXPRSN
+                 , TRIGR_DC
+                 , BEGIN_DT
+            ) VALUES (
+                   '75S2WTFPPF514BA620'
+                 , 'SYSTEM-USER-000000'
+                 , '07/16/2020 13:15:33.619'
+                 , '75RZGDE8N84A75E120'
+
+                 , 1
+
+                 , '0/10 * * * * ?'
+                 , '이메일 발송(0/10 * * * * ?) =>
+seconds: 0,10,20,30,40,50
+minutes: *
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+'
+                 , '07/16/2020 13:16:10.000'
+            )
+ {executed in 1 msec}
+2020-07-16 13:15:33.620 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] <==    Updates: 1
+2020-07-16 13:15:33.682 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:15:33.682 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey
+2020-07-16 13:15:33.682 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */ SELECT TSS.SCHDUL_ID FROM TB_SYS_SCHDUL TSS WHERE TSS.SCHDUL_KEY = ? 
+2020-07-16 13:15:33.682 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==> Parameters: appmanage-HumanResourceManageSchedulerJob(String)
+2020-07-16 13:15:33.682 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */  
+
+            SELECT TSS.SCHDUL_ID
+            FROM   TB_SYS_SCHDUL TSS
+            WHERE  TSS.SCHDUL_KEY = 'appmanage-HumanResourceManageSchedulerJob'
+ {executed in 0 msec}
+2020-07-16 13:15:33.683 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] <==      Total: 1
+2020-07-16 13:15:33.683 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update
+2020-07-16 13:15:33.683 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ UPDATE TB_SYS_SCHDUL SET UPDT_USER_ID = ? , UPDT_DT = ? , SCHDUL_KEY = ? , SCHDUL_NM = ? , OPERT_CLASS = ? , EXECUT_LOG_CSTDY_DAYCNT = ? , EXECUT_LOG_CSTDY_CO = ? , VALID_YN = ? , USE_YN = ? WHERE SCHDUL_ID = ? 
+2020-07-16 13:15:33.683 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==> Parameters: SYSTEM-USER-000000(String), 2020-07-16 13:15:33.683(Timestamp), appmanage-HumanResourceManageSchedulerJob(String), 인사정보 동기화(String), kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.scheduler.HumanResourceManageSchedulerJob(String), null, null, false(Boolean), true(Boolean), 75S17IV2YA02445250(String)
+2020-07-16 13:15:33.731 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ 
+
+            UPDATE TB_SYS_SCHDUL SET
+                   UPDT_USER_ID                     = 'SYSTEM-USER-000000'
+                 , UPDT_DT                          = '07/16/2020 13:15:33.683'
+                 , SCHDUL_KEY                       = 'appmanage-HumanResourceManageSchedulerJob'
+                 , SCHDUL_NM                        = '인사정보 동기화'
+                 , OPERT_CLASS                      = 'kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.scheduler.HumanResourceManageSchedulerJob'
+                 , EXECUT_LOG_CSTDY_DAYCNT          = NULL
+                 , EXECUT_LOG_CSTDY_CO              = NULL
+                 , VALID_YN                         = 0
+                 , USE_YN                           = 1
+            WHERE  SCHDUL_ID = '75S17IV2YA02445250'
+ {executed in 48 msec}
+2020-07-16 13:15:33.731 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] <==    Updates: 1
+2020-07-16 13:15:33.731 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId
+2020-07-16 13:15:33.731 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ DELETE FROM TB_SYS_SCHDUL_TRIGR WHERE SCHDUL_ID = ? 
+2020-07-16 13:15:33.732 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==> Parameters: 75S17IV2YA02445250(String)
+2020-07-16 13:15:33.732 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ 
+
+            DELETE
+            FROM   TB_SYS_SCHDUL_TRIGR
+            WHERE  SCHDUL_ID = '75S17IV2YA02445250'
+ {executed in 0 msec}
+2020-07-16 13:15:33.732 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] <==    Updates: 1
+2020-07-16 13:15:33.732 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:15:33.732 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid
+2020-07-16 13:15:33.733 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */ SELECT FN_UID(?) AS UNIQUE_ID 
+2020-07-16 13:15:33.733 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==> Parameters: 0(String)
+2020-07-16 13:15:33.733 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */  
+
+            SELECT FN_UID('0') AS UNIQUE_ID
+ {executed in 0 msec}
+2020-07-16 13:15:33.733 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] <==      Total: 1
+2020-07-16 13:15:33.733 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert
+2020-07-16 13:15:33.733 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ INSERT INTO TB_SYS_SCHDUL_TRIGR ( SCHDUL_TRIGR_ID , CREAT_USER_ID , CREAT_DT , SCHDUL_ID , TRIGR_NO , TRIGR_EXPRSN , TRIGR_DC , BEGIN_DT ) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? ) 
+2020-07-16 13:15:33.734 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==> Parameters: 75S2WTFPPF52635A90(String), SYSTEM-USER-000000(String), 2020-07-16 13:15:33.734(Timestamp), 75S17IV2YA02445250(String), 1(Integer), 0 0 * * * ?(String), 인사정보 동기화(0 0 * * * ?) =>
+seconds: 0
+minutes: 0
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+(String), 2020-07-16 14:00:00.0(Timestamp)
+2020-07-16 13:15:33.734 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ 
+
+            INSERT INTO TB_SYS_SCHDUL_TRIGR (
+                   SCHDUL_TRIGR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SCHDUL_ID
+                 , TRIGR_NO
+                 , TRIGR_EXPRSN
+                 , TRIGR_DC
+                 , BEGIN_DT
+            ) VALUES (
+                   '75S2WTFPPF52635A90'
+                 , 'SYSTEM-USER-000000'
+                 , '07/16/2020 13:15:33.734'
+                 , '75S17IV2YA02445250'
+
+                 , 1
+
+                 , '0 0 * * * ?'
+                 , '인사정보 동기화(0 0 * * * ?) =>
+seconds: 0
+minutes: 0
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+'
+                 , '07/16/2020 14:00:00.000'
+            )
+ {executed in 0 msec}
+2020-07-16 13:15:33.734 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] <==    Updates: 1
+2020-07-16 13:15:33.782 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:15:33.782 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey
+2020-07-16 13:15:33.782 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */ SELECT TSS.SCHDUL_ID FROM TB_SYS_SCHDUL TSS WHERE TSS.SCHDUL_KEY = ? 
+2020-07-16 13:15:33.782 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==> Parameters: qestnrmanage-QuestionnaireManageSurveySendSchedulerJob(String)
+2020-07-16 13:15:33.782 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */  
+
+            SELECT TSS.SCHDUL_ID
+            FROM   TB_SYS_SCHDUL TSS
+            WHERE  TSS.SCHDUL_KEY = 'qestnrmanage-QuestionnaireManageSurveySendSchedulerJob'
+ {executed in 0 msec}
+2020-07-16 13:15:33.782 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] <==      Total: 1
+2020-07-16 13:15:33.783 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update
+2020-07-16 13:15:33.783 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ UPDATE TB_SYS_SCHDUL SET UPDT_USER_ID = ? , UPDT_DT = ? , SCHDUL_KEY = ? , SCHDUL_NM = ? , OPERT_CLASS = ? , EXECUT_LOG_CSTDY_DAYCNT = ? , EXECUT_LOG_CSTDY_CO = ? , VALID_YN = ? , USE_YN = ? WHERE SCHDUL_ID = ? 
+2020-07-16 13:15:33.783 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==> Parameters: SYSTEM-USER-000000(String), 2020-07-16 13:15:33.783(Timestamp), qestnrmanage-QuestionnaireManageSurveySendSchedulerJob(String), 설문지 발송 처리(String), kr.ac.jj.survey.application.qestnrmanage.scheduler.QuestionnaireManageSurveySendSchedulerJob(String), null, null, false(Boolean), true(Boolean), 75RZLSAAG60E682FC0(String)
+2020-07-16 13:15:33.783 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ 
+
+            UPDATE TB_SYS_SCHDUL SET
+                   UPDT_USER_ID                     = 'SYSTEM-USER-000000'
+                 , UPDT_DT                          = '07/16/2020 13:15:33.783'
+                 , SCHDUL_KEY                       = 'qestnrmanage-QuestionnaireManageSurveySendSchedulerJob'
+                 , SCHDUL_NM                        = '설문지 발송 처리'
+                 , OPERT_CLASS                      = 'kr.ac.jj.survey.application.qestnrmanage.scheduler.QuestionnaireManageSurveySendSchedulerJob'
+                 , EXECUT_LOG_CSTDY_DAYCNT          = NULL
+                 , EXECUT_LOG_CSTDY_CO              = NULL
+                 , VALID_YN                         = 0
+                 , USE_YN                           = 1
+            WHERE  SCHDUL_ID = '75RZLSAAG60E682FC0'
+ {executed in 0 msec}
+2020-07-16 13:15:33.784 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] <==    Updates: 1
+2020-07-16 13:15:33.784 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId
+2020-07-16 13:15:33.784 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ DELETE FROM TB_SYS_SCHDUL_TRIGR WHERE SCHDUL_ID = ? 
+2020-07-16 13:15:33.784 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==> Parameters: 75RZLSAAG60E682FC0(String)
+2020-07-16 13:15:33.784 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ 
+
+            DELETE
+            FROM   TB_SYS_SCHDUL_TRIGR
+            WHERE  SCHDUL_ID = '75RZLSAAG60E682FC0'
+ {executed in 0 msec}
+2020-07-16 13:15:33.784 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] <==    Updates: 1
+2020-07-16 13:15:33.784 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:15:33.784 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid
+2020-07-16 13:15:33.784 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */ SELECT FN_UID(?) AS UNIQUE_ID 
+2020-07-16 13:15:33.785 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==> Parameters: 0(String)
+2020-07-16 13:15:33.785 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */  
+
+            SELECT FN_UID('0') AS UNIQUE_ID
+ {executed in 0 msec}
+2020-07-16 13:15:33.785 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] <==      Total: 1
+2020-07-16 13:15:33.785 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert
+2020-07-16 13:15:33.785 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ INSERT INTO TB_SYS_SCHDUL_TRIGR ( SCHDUL_TRIGR_ID , CREAT_USER_ID , CREAT_DT , SCHDUL_ID , TRIGR_NO , TRIGR_EXPRSN , TRIGR_DC , BEGIN_DT ) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? ) 
+2020-07-16 13:15:33.786 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==> Parameters: 75S2WTFPPF52E23470(String), SYSTEM-USER-000000(String), 2020-07-16 13:15:33.785(Timestamp), 75RZLSAAG60E682FC0(String), 1(Integer), 0/10 * * * * ?(String), 설문지 발송 처리(0/10 * * * * ?) =>
+seconds: 0,10,20,30,40,50
+minutes: *
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+(String), 2020-07-16 13:16:10.0(Timestamp)
+2020-07-16 13:15:33.786 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ 
+
+            INSERT INTO TB_SYS_SCHDUL_TRIGR (
+                   SCHDUL_TRIGR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SCHDUL_ID
+                 , TRIGR_NO
+                 , TRIGR_EXPRSN
+                 , TRIGR_DC
+                 , BEGIN_DT
+            ) VALUES (
+                   '75S2WTFPPF52E23470'
+                 , 'SYSTEM-USER-000000'
+                 , '07/16/2020 13:15:33.785'
+                 , '75RZLSAAG60E682FC0'
+
+                 , 1
+
+                 , '0/10 * * * * ?'
+                 , '설문지 발송 처리(0/10 * * * * ?) =>
+seconds: 0,10,20,30,40,50
+minutes: *
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+'
+                 , '07/16/2020 13:16:10.000'
+            )
+ {executed in 0 msec}
+2020-07-16 13:15:33.787 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] <==    Updates: 1
+2020-07-16 13:15:33.823 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:15:33.823 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey
+2020-07-16 13:15:33.823 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */ SELECT TSS.SCHDUL_ID FROM TB_SYS_SCHDUL TSS WHERE TSS.SCHDUL_KEY = ? 
+2020-07-16 13:15:33.824 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] ==> Parameters: common-SmsSendSchedulerJob(String)
+2020-07-16 13:15:33.824 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulMapper.selectIdBySchdulKey */  
+
+            SELECT TSS.SCHDUL_ID
+            FROM   TB_SYS_SCHDUL TSS
+            WHERE  TSS.SCHDUL_KEY = 'common-SmsSendSchedulerJob'
+ {executed in 0 msec}
+2020-07-16 13:15:33.824 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.T.selectIdBySchdulKey            [] <==      Total: 1
+2020-07-16 13:15:33.825 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update
+2020-07-16 13:15:33.825 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ UPDATE TB_SYS_SCHDUL SET UPDT_USER_ID = ? , UPDT_DT = ? , SCHDUL_KEY = ? , SCHDUL_NM = ? , OPERT_CLASS = ? , EXECUT_LOG_CSTDY_DAYCNT = ? , EXECUT_LOG_CSTDY_CO = ? , VALID_YN = ? , USE_YN = ? WHERE SCHDUL_ID = ? 
+2020-07-16 13:15:33.825 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] ==> Parameters: SYSTEM-USER-000000(String), 2020-07-16 13:15:33.825(Timestamp), common-SmsSendSchedulerJob(String), 문자메시지 발송 및 결과 업데이트(String), kr.ac.jj.shared.application.common.sms.scheduler.SmsSendAndResultUpdateSchedulerJob(String), null, null, false(Boolean), true(Boolean), 75S12QJ807EE6219A0(String)
+2020-07-16 13:15:33.825 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper.update */ 
+
+            UPDATE TB_SYS_SCHDUL SET
+                   UPDT_USER_ID                     = 'SYSTEM-USER-000000'
+                 , UPDT_DT                          = '07/16/2020 13:15:33.825'
+                 , SCHDUL_KEY                       = 'common-SmsSendSchedulerJob'
+                 , SCHDUL_NM                        = '문자메시지 발송 및 결과 업데이트'
+                 , OPERT_CLASS                      = 'kr.ac.jj.shared.application.common.sms.scheduler.SmsSendAndResultUpdateSchedulerJob'
+                 , EXECUT_LOG_CSTDY_DAYCNT          = NULL
+                 , EXECUT_LOG_CSTDY_CO              = NULL
+                 , VALID_YN                         = 0
+                 , USE_YN                           = 1
+            WHERE  SCHDUL_ID = '75S12QJ807EE6219A0'
+ {executed in 0 msec}
+2020-07-16 13:15:33.826 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.TbSysSchdulEntityMapper.update   [] <==    Updates: 1
+2020-07-16 13:15:33.826 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId
+2020-07-16 13:15:33.826 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ DELETE FROM TB_SYS_SCHDUL_TRIGR WHERE SCHDUL_ID = ? 
+2020-07-16 13:15:33.826 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] ==> Parameters: 75S12QJ807EE6219A0(String)
+2020-07-16 13:15:33.826 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.deleteListBySchdulId */ 
+
+            DELETE
+            FROM   TB_SYS_SCHDUL_TRIGR
+            WHERE  SCHDUL_ID = '75S12QJ807EE6219A0'
+ {executed in 0 msec}
+2020-07-16 13:15:33.826 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.deleteListBySchdulId         [] <==    Updates: 1
+2020-07-16 13:15:33.826 DEBUG [19756:restartedMain] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-16 13:15:33.826 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid
+2020-07-16 13:15:33.826 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==>  Preparing: /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */ SELECT FN_UID(?) AS UNIQUE_ID 
+2020-07-16 13:15:33.826 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] ==> Parameters: 0(String)
+2020-07-16 13:15:33.827 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.infrastructure.idgen.mapper.IdGenerationMapper.selectUid */  
+
+            SELECT FN_UID('0') AS UNIQUE_ID
+ {executed in 0 msec}
+2020-07-16 13:15:33.827 DEBUG [19756:restartedMain] k.a.j.s.i.i.mapper.IdGenerationMapper.selectUid    [] <==      Total: 1
+2020-07-16 13:15:33.827 INFO  [19756:restartedMain] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert
+2020-07-16 13:15:33.827 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ INSERT INTO TB_SYS_SCHDUL_TRIGR ( SCHDUL_TRIGR_ID , CREAT_USER_ID , CREAT_DT , SCHDUL_ID , TRIGR_NO , TRIGR_EXPRSN , TRIGR_DC , BEGIN_DT ) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? ) 
+2020-07-16 13:15:33.827 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] ==> Parameters: 75S2WTFPPF5348CBF0(String), SYSTEM-USER-000000(String), 2020-07-16 13:15:33.827(Timestamp), 75S12QJ807EE6219A0(String), 1(Integer), * * * * * ?(String), 문자메시지 발송 및 결과 업데이트(* * * * * ?) =>
+seconds: *
+minutes: *
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+(String), 2020-07-16 13:16:03.0(Timestamp)
+2020-07-16 13:15:33.828 INFO  [19756:restartedMain] jdbc.sqltiming                                     [] /* kr.ac.jj.shared.domain.main.mapper.sys.schdul.trigr.TbSysSchdulTrigrEntityMapper.insert */ 
+
+            INSERT INTO TB_SYS_SCHDUL_TRIGR (
+                   SCHDUL_TRIGR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SCHDUL_ID
+                 , TRIGR_NO
+                 , TRIGR_EXPRSN
+                 , TRIGR_DC
+                 , BEGIN_DT
+            ) VALUES (
+                   '75S2WTFPPF5348CBF0'
+                 , 'SYSTEM-USER-000000'
+                 , '07/16/2020 13:15:33.827'
+                 , '75S12QJ807EE6219A0'
+
+                 , 1
+
+                 , '* * * * * ?'
+                 , '문자메시지 발송 및 결과 업데이트(* * * * * ?) =>
+seconds: *
+minutes: *
+hours: *
+daysOfMonth: *
+months: *
+daysOfWeek: ?
+lastdayOfWeek: false
+nearestWeekday: false
+NthDayOfWeek: 0
+lastdayOfMonth: false
+years: *
+'
+                 , '07/16/2020 13:16:03.000'
+            )
+ {executed in 1 msec}
+2020-07-16 13:15:33.828 DEBUG [19756:restartedMain] k.a.j.s.d.m.m.s.s.t.T.insert                       [] <==    Updates: 1
+2020-07-16 13:15:33.879 INFO  [19756:restartedMain] kr.ac.jj.shared.infrastructure.util.BaseUtil       [] 임시파일 경로 => D:\App-DevStudio\workspace\JavaEE\jj-survey\data\temp\logging-default.db
+2020-07-16 13:15:33.910 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/error'], []
+2020-07-16 13:15:33.910 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/static/**'], []
+2020-07-16 13:15:33.910 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.jsp'], []
+2020-07-16 13:15:33.910 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.js'], []
+2020-07-16 13:15:33.910 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.css'], []
+2020-07-16 13:15:33.910 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.html'], []
+2020-07-16 13:15:33.910 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.htm'], []
+2020-07-16 13:15:33.910 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.gif'], []
+2020-07-16 13:15:33.910 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.jpg'], []
+2020-07-16 13:15:33.910 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.jpeg'], []
+2020-07-16 13:15:33.910 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.png'], []
+2020-07-16 13:15:33.910 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.woff'], []
+2020-07-16 13:15:33.910 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.woff2'], []
+2020-07-16 13:15:33.910 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: Ant [pattern='/**/*.eot'], []
+2020-07-16 13:15:33.936 INFO  [19756:restartedMain] o.s.security.web.DefaultSecurityFilterChain        [] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5ba51e04, kr.ac.jj.shared.application.common.user.filter.UserAutoLoginKeyFilter@399dcd7a, org.springframework.security.web.context.SecurityContextPersistenceFilter@48280d05, org.springframework.security.web.header.HeaderWriterFilter@57fae4d9, org.springframework.security.web.authentication.logout.LogoutFilter@3c82a1b1, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1efa23d2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1b273fac, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1bfbdc3d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@103b6cd1, org.springframework.security.web.session.SessionManagementFilter@2dc04bd9, org.springframework.security.web.access.ExceptionTranslationFilter@4622afdb, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5f9039b7]
+2020-07-16 13:15:33.952 WARN  [19756:restartedMain] k.a.j.s.i.f.m.p.d.config.MapperLocationResources   [] MyBatis Mapper Location Not Found: class path resource [configuration/mapper/shared/dw/] cannot be resolved to URL because it does not exist
+2020-07-16 13:15:33.982 INFO  [19756:restartedMain] org.apache.tiles.access.TilesAccess                [] Publishing TilesContext for context: org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext
+2020-07-16 13:15:34.055 INFO  [19756:restartedMain] o.s.scheduling.concurrent.ThreadPoolTaskExecutor   [] Initializing ExecutorService 'applicationTaskExecutor'
+2020-07-16 13:15:34.082 WARN  [19756:restartedMain] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext [] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping]: Factory method 'requestMappingHandlerMapping' threw exception; nested exception is java.lang.NoClassDefFoundError: org/springframework/mobile/device/DeviceResolverHandlerInterceptor
+2020-07-16 13:15:34.082 INFO  [19756:restartedMain] o.s.scheduling.concurrent.ThreadPoolTaskExecutor   [] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-07-16 13:15:34.084 INFO  [19756:restartedMain] org.apache.tiles.access.TilesAccess                [] Removing TilesContext for context: org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext
+2020-07-16 13:15:34.136 INFO  [19756:restartedMain] o.s.orm.jpa.LocalContainerEntityManagerFactoryBean [] Closing JPA EntityManagerFactory for persistence unit 'persistenceUnit'
+2020-07-16 13:15:34.158 INFO  [19756:restartedMain] org.apache.catalina.core.StandardService           [] Stopping service [Tomcat]
+2020-07-16 13:15:34.159 ERROR [19756:restartedMain] o.a.c.c.C.[Tomcat-2].[localhost].[/jj-survey]      [] Failed to destroy the filter named [loggingFilter] of type [kr.ac.jj.shared.infrastructure.logging.filter.LoggingFilter]
+java.lang.IllegalStateException: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1e75d00 has not been refreshed yet
+	at org.springframework.context.support.AbstractApplicationContext.assertBeanFactoryActive(AbstractApplicationContext.java:1095)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1125)
+	at kr.ac.jj.shared.infrastructure.framework.core.support.context.ApplicationContextUtil.getBean(ApplicationContextUtil.java:37)
+	at kr.ac.jj.shared.infrastructure.util.BaseUtil.getTempDirectory(BaseUtil.java:47)
+	at kr.ac.jj.shared.infrastructure.util.BaseUtil.getTempFile(BaseUtil.java:66)
+	at kr.ac.jj.shared.infrastructure.logging.util.LoggingUtil.getDatabaseFile(LoggingUtil.java:31)
+	at kr.ac.jj.shared.infrastructure.logging.filter.LoggingFilter.destroy(LoggingFilter.java:86)
+	at org.apache.catalina.core.ApplicationFilterConfig.release(ApplicationFilterConfig.java:301)
+	at org.apache.catalina.core.StandardContext.filterStop(StandardContext.java:4568)
+	at org.apache.catalina.core.StandardContext.stopInternal(StandardContext.java:5389)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:257)
+	at org.apache.catalina.core.ContainerBase$StopChild.call(ContainerBase.java:1400)
+	at org.apache.catalina.core.ContainerBase$StopChild.call(ContainerBase.java:1389)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140)
+	at org.apache.catalina.core.ContainerBase.stopInternal(ContainerBase.java:976)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:257)
+	at org.apache.catalina.core.ContainerBase$StopChild.call(ContainerBase.java:1400)
+	at org.apache.catalina.core.ContainerBase$StopChild.call(ContainerBase.java:1389)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140)
+	at org.apache.catalina.core.ContainerBase.stopInternal(ContainerBase.java:976)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:257)
+	at org.apache.catalina.core.StandardService.stopInternal(StandardService.java:473)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:257)
+	at org.apache.catalina.core.StandardServer.stopInternal(StandardServer.java:992)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:257)
+	at org.apache.catalina.startup.Tomcat.stop(Tomcat.java:478)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.stopTomcat(TomcatWebServer.java:273)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.stop(TomcatWebServer.java:331)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:148)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
+	at kr.ac.jj.Application.main(Application.java:12)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+2020-07-16 13:15:34.208 INFO  [19756:restartedMain] o.s.b.a.l.ConditionEvaluationReportLoggingListener [] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-07-16 13:15:34.209 ERROR [19756:restartedMain] org.springframework.boot.SpringApplication         [] Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping]: Factory method 'requestMappingHandlerMapping' threw exception; nested exception is java.lang.NoClassDefFoundError: org/springframework/mobile/device/DeviceResolverHandlerInterceptor
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:656)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:636)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:895)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:878)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
+	at kr.ac.jj.Application.main(Application.java:12)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping]: Factory method 'requestMappingHandlerMapping' threw exception; nested exception is java.lang.NoClassDefFoundError: org/springframework/mobile/device/DeviceResolverHandlerInterceptor
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651)
+	... 25 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: org/springframework/mobile/device/DeviceResolverHandlerInterceptor
+	at kr.ac.jj.shared.config.SharedApplicationConfig.addInterceptors(SharedApplicationConfig.java:70)
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurerComposite.addInterceptors(WebMvcConfigurerComposite.java:88)
+	at org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration.addInterceptors(DelegatingWebMvcConfiguration.java:83)
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.getInterceptors(WebMvcConfigurationSupport.java:340)
+	at org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.requestMappingHandlerMapping(WebMvcConfigurationSupport.java:286)
+	at org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration.requestMappingHandlerMapping(WebMvcAutoConfiguration.java:396)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154)
+	... 26 common frames omitted
+Caused by: java.lang.ClassNotFoundException: org.springframework.mobile.device.DeviceResolverHandlerInterceptor
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:583)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:415)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:144)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	... 37 common frames omitted
+2020-07-16 13:15:34.222 WARN  [19756:restartedMain] org.springframework.boot.SpringApplication         [] Unable to close ApplicationContext
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'springApplicationAdminRegistrar' defined in class path resource [org/springframework/boot/autoconfigure/admin/SpringApplicationAdminJmxAutoConfiguration.class]: BeanPostProcessor before instantiation of bean failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'metaDataSourceAdvisor': Cannot resolve reference to bean 'methodSecurityMetadataSource' while setting constructor argument; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration': Initialization of bean failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:512)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.event.AbstractApplicationEventMulticaster.retrieveApplicationListeners(AbstractApplicationEventMulticaster.java:245)
+	at org.springframework.context.event.AbstractApplicationEventMulticaster.getApplicationListeners(AbstractApplicationEventMulticaster.java:197)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:134)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:403)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:360)
+	at org.springframework.boot.availability.AvailabilityChangeEvent.publish(AvailabilityChangeEvent.java:81)
+	at org.springframework.boot.availability.AvailabilityChangeEvent.publish(AvailabilityChangeEvent.java:67)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:167)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:978)
+	at org.springframework.boot.SpringApplication.handleRunFailure(SpringApplication.java:814)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:325)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
+	at kr.ac.jj.Application.main(Application.java:12)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'metaDataSourceAdvisor': Cannot resolve reference to bean 'methodSecurityMetadataSource' while setting constructor argument; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration': Initialization of bean failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:342)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:113)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolvePreparedArguments(ConstructorResolver.java:835)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:151)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1358)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1193)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.aop.framework.autoproxy.BeanFactoryAdvisorRetrievalHelper.findAdvisorBeans(BeanFactoryAdvisorRetrievalHelper.java:91)
+	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.findCandidateAdvisors(AbstractAdvisorAutoProxyCreator.java:109)
+	at org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator.findCandidateAdvisors(AnnotationAwareAspectJAutoProxyCreator.java:92)
+	at org.springframework.aop.aspectj.autoproxy.AspectJAwareAdvisorAutoProxyCreator.shouldSkip(AspectJAwareAdvisorAutoProxyCreator.java:101)
+	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.postProcessBeforeInstantiation(AbstractAutoProxyCreator.java:251)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInstantiation(AbstractAutowireCapableBeanFactory.java:1141)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.resolveBeforeInstantiation(AbstractAutowireCapableBeanFactory.java:1114)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:506)
+	... 23 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration': Initialization of bean failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:409)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:330)
+	... 42 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanDefinition(DefaultListableBeanFactory.java:814)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getMergedLocalBeanDefinition(AbstractBeanFactory.java:1282)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:297)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor.postProcessBeforeInitialization(ConfigurationClassPostProcessor.java:456)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:416)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1788)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:595)
+	... 57 common frames omitted

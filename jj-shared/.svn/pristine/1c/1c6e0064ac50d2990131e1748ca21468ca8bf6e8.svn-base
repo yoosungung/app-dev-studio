@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 권한 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.author.TbSysAuthorEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.sys.author.TbSysAuthor">
+        <![CDATA[
+            SELECT TSA.AUTHOR_ID
+                 , TSA.AUTHOR_CODE
+                 , TSA.AUTHOR_NM_TITLE
+                 , TSA.AUTHOR_DC
+                 , TSA.SORT_ORDR
+                 , TSA.USE_YN
+                 , TSA.BASS_AUTHOR_YN
+                 , TSA.USER_AUTHOR_YN
+            FROM   TB_SYS_AUTHOR TSA
+            WHERE  TSA.AUTHOR_ID = #{authorId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SYS_AUTHOR (
+                   AUTHOR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , AUTHOR_CODE
+                 , AUTHOR_NM_TITLE
+                 , AUTHOR_DC
+                 , SORT_ORDR
+                 , USE_YN
+                 , BASS_AUTHOR_YN
+                 , USER_AUTHOR_YN
+            ) VALUES (
+                   #{tbSysAuthor.authorId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbSysAuthor.authorCode}
+                 , #{tbSysAuthor.authorNmTitle}
+                 , #{tbSysAuthor.authorDc}
+        ]]>
+
+        <choose>
+        <when test='tbSysAuthor.sortOrdr == null'>
+            <![CDATA[
+                 , (SELECT ISNULL(MAX(A.SORT_ORDR), 0) + 1 FROM TB_SYS_AUTHOR A)
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , #{tbSysAuthor.sortOrdr}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , #{tbSysAuthor.useYn}
+                 , #{tbSysAuthor.bassAuthorYn}
+                 , #{tbSysAuthor.userAuthorYn}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SYS_AUTHOR SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , AUTHOR_CODE                      = #{tbSysAuthor.authorCode}
+                 , AUTHOR_NM_TITLE                  = #{tbSysAuthor.authorNmTitle}
+                 , AUTHOR_DC                        = #{tbSysAuthor.authorDc}
+        ]]>
+
+        <choose>
+        <when test='tbSysAuthor.sortOrdr == null'>
+            <![CDATA[
+                 , SORT_ORDR                        = (SELECT ISNULL(MAX(A.SORT_ORDR), 0) + 1 FROM TB_SYS_AUTHOR A)
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , SORT_ORDR                        = #{tbSysAuthor.sortOrdr}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , USE_YN                           = #{tbSysAuthor.useYn}
+                 , BASS_AUTHOR_YN                   = #{tbSysAuthor.bassAuthorYn}
+                 , USER_AUTHOR_YN                   = #{tbSysAuthor.userAuthorYn}
+            WHERE  AUTHOR_ID = #{tbSysAuthor.authorId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_AUTHOR
+            WHERE  AUTHOR_ID = #{authorId}
+        ]]>
+    </delete>
+
+</mapper>

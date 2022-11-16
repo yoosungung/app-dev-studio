@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 성적 CodeData
+ -->
+<mapper namespace="dashboard-codedata.score">
+    <!-- 대학 -->
+    <select id="readDaehakCode" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT SUTR_DAEHAK_NM AS CODE
+                  ,SUTR_DAEHAK_NM AS NAME
+            FROM   DW_STUDENT_SCORE_MAST
+            WHERE SUTR_DAEHAK_NM IS NOT NULL
+            AND STD_YY >= '2015'
+            GROUP BY SUTR_DAEHAK_NM
+        ]]>
+    </select>
+
+    <!-- 학부 -->
+    <select id="readHakbuCode" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT SUTR_HAKBU_NM AS CODE
+                  ,SUTR_HAKBU_NM AS NAME
+            FROM   DW_STUDENT_SCORE_MAST
+            WHERE SUTR_DAEHAK_NM = #{param1}
+            AND STD_YY >= '2015'
+            GROUP BY SUTR_HAKBU_NM
+        ]]>
+    </select>
+
+    <!-- 조회년도 -->
+    <select id="readYearCode" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT DISTINCT STD_YY AS CODE
+                  ,STD_YY AS NAME
+            FROM   DW_STUDENT_SCORE_MAST
+            WHERE  SUTR_DAEHAK_NM = #{param1}
+            AND STD_YY >= '2015'
+        ]]>
+        <if test="param2 != null and param2 != ''">
+            <![CDATA[
+                AND SUTR_HAKBU_NM = #{param2}
+            ]]>
+        </if>
+        <![CDATA[
+            GROUP BY STD_YY
+        ]]>
+    </select>
+
+    <!-- 학년 -->
+    <select id="readSutrYearCode" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT SUTR_YEAR AS CODE
+                  ,SUTR_YEAR AS NAME
+            FROM   DW_STUDENT_SCORE_MAST
+            WHERE  SUTR_DAEHAK_NM = #{param1}
+        ]]>
+        <if test="param2 != null and param2 != ''">
+            AND SUTR_HAKBU_NM = #{param2}
+        </if>
+        AND SUTR_YEAR IS NOT NULL
+        GROUP BY SUTR_YEAR
+    </select>
+
+</mapper>

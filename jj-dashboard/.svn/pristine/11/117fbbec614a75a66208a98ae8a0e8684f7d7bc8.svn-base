@@ -1,0 +1,359 @@
+function SpreadViewService(vue) {
+    this.readList= function(search) {
+
+        var geoCoordMap = {
+            '서울': { lng: 126.98, lat: 37.57 },
+            '충북': { lng: 127.92, lat: 36.99 },
+            '충남': { lng: 127.11, lat: 36.81 },
+            '제주': { lng: 126.51, lat: 33.50 },
+            '전북': { lng: 127.15, lat: 35.82 },
+            '전남': { lng: 127.66, lat: 34.76 },
+            '인천': { lng: 126.70, lat: 37.45 },
+            '울산': { lng: 129.31, lat: 35.53 },
+            '세종': { lng: 127.28, lat: 36.48 },
+            '대전': { lng: 127.38, lat: 36.35 },
+            '대구': { lng: 128.60, lat: 35.87 },
+            '광주': { lng: 126.85, lat: 35.15 },
+            '경북': { lng: 128.15, lat: 36.41 },
+            '경남': { lng: 128.67, lat: 35.22 },
+            '경기': { lng: 127.02, lat: 37.26 },
+            '강원': { lng: 127.7300, lat: 37.8813 },
+            '부산': { lng: 0, lat: 0 },
+        };
+
+        var map_all = new kakao.maps.Map(document.getElementById('map_all'), { // 지도를 표시할 div
+            center : new kakao.maps.LatLng(36.2683, 127.6358), // 지도의 중심좌표
+            level : 14 // 지도의 확대 레벨
+        });
+
+        // 마커 클러스터러를 생성합니다
+        var clusterer_all = new kakao.maps.MarkerClusterer({
+            map: map_all, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+            averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+            minLevel: 10 // 클러스터 할 최소 지도 레벨
+        });
+
+        var map_jong = new kakao.maps.Map(document.getElementById('map_jong'), {
+            center : new kakao.maps.LatLng(36.2683, 127.6358),
+            level : 14
+        });
+
+        var clusterer_jong = new kakao.maps.MarkerClusterer({
+            map: map_jong,
+            averageCenter: true,
+            minLevel: 10
+        });
+
+        var map_jung = new kakao.maps.Map(document.getElementById('map_jung'), {
+            center : new kakao.maps.LatLng(36.2683, 127.6358),
+            level : 14
+        });
+
+        var clusterer_jung = new kakao.maps.MarkerClusterer({
+            map: map_jung,
+            averageCenter: true,
+            minLevel: 10
+        });
+
+        var map_gyo = new kakao.maps.Map(document.getElementById('map_gyo'), {
+            center : new kakao.maps.LatLng(36.2683, 127.6358),
+            level : 14
+        });
+
+        var clusterer_gyo = new kakao.maps.MarkerClusterer({
+            map: map_gyo,
+            averageCenter: true,
+            minLevel: 10
+        });
+
+        CommonUtil.axios()
+        .post("readList", search || {})
+        .then(function(response) {
+            if (!response.data) return;
+
+            var html = '';
+
+            $(response.data).each(function(i,v) {
+                var markers_all = $(new Array(v.cntAllRate).fill(geoCoordMap[v.location])).map(function(i, position) {
+                    return new kakao.maps.Marker({
+                        position : new kakao.maps.LatLng(position.lat, position.lng)
+                    });
+                });
+                // 클러스터러에 마커들을 추가합니다
+                clusterer_all.addMarkers(markers_all);
+
+                var markers_jong = $(new Array(v.cntJongRate).fill(geoCoordMap[v.location])).map(function(i, position) {
+                    return new kakao.maps.Marker({
+                        position : new kakao.maps.LatLng(position.lat, position.lng)
+                    });
+                });
+                clusterer_jong.addMarkers(markers_jong);
+
+                var markers_jung = $(new Array(v.cntJungRate).fill(geoCoordMap[v.location])).map(function(i, position) {
+                    return new kakao.maps.Marker({
+                        position : new kakao.maps.LatLng(position.lat, position.lng)
+                    });
+                });
+                clusterer_jung.addMarkers(markers_jung);
+
+                var markers_gyo = $(new Array(v.cntGyoRate).fill(geoCoordMap[v.location])).map(function(i, position) {
+                    return new kakao.maps.Marker({
+                        position : new kakao.maps.LatLng(position.lat, position.lng)
+                    });
+                });
+                clusterer_gyo.addMarkers(markers_gyo);
+
+                // 표
+                html += '<tr>';
+                html += '    <td class="tac">'+v.location+'</td><td class="tar">'+comma(v.cntAll)+'</td><td class="tar">'+comma(v.cntJong)
+                        +'</td><td class="tar">'+comma(v.cntGyo)+'</td><td class="tar">'+comma(v.cntJung)+'</td>';
+                html += '</tr>';
+            });
+            $('#tbody').html(html);
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    }
+};
+
+
+function SpreadViewServiceBefore(vue) {
+    this.drawGraph = {};
+    this.drawGraph["spreadGraph"] = function() {
+        var data = [
+            {name: '충북', value: 608/10},
+            {name: '충남', value: 2875/10},
+            {name: '제주', value: 348/10},
+//        {name: '전북', value: 47217/50},
+            {name: '전남', value: 7310/10},
+            {name: '인천', value: 1151/10},
+            {name: '울산', value: 241/10},
+            {name: '세종', value: 78/10},
+            {name: '부산', value: 249/10},
+            {name: '대전', value: 1078/10},
+            {name: '대구', value: 182/10},
+            {name: '광주', value: 2778/10},
+            {name: '경북', value: 431/10},
+            {name: '경남', value: 907/10},
+            {name: '경기', value: 4115/10},
+            {name: '강원', value: 468/10},
+            {name: '서울', value: 2686/10}
+        ];
+
+        var geoCoordMap = {
+            '서울':[126.98, 37.57],
+            '충북':[127.92, 36.99],
+            '충남':[127.11, 36.81],
+            '제주':[126.51, 33.50],
+            '전북':[127.15, 35.82],
+            '전남':[127.66, 34.76],
+            '인천':[126.70, 37.45],
+            '울산':[129.31, 35.53],
+            '세종':[127.28, 36.48],
+            '대전':[127.38, 36.35],
+            '대구':[128.60, 35.87],
+            '광주':[126.85, 35.15],
+            '경북':[128.15, 36.41],
+            '경남':[128.67, 35.22],
+            '경기':[127.02, 37.26],
+            '강원':[127.7300, 37.8813]
+        };
+
+        var convertData = function (data) {
+            var res = [];
+            for (var i = 0; i < data.length; i++) {
+                var geoCoord = geoCoordMap[data[i].name];
+                if (geoCoord) {
+                    res.push({
+                        name: data[i].name,
+                        value: geoCoord.concat(data[i].value)
+                    });
+                }
+            }
+            return res;
+        };
+
+        var option = {
+            backgroundColor: 'transparent',
+            title: {
+                text: '전국출신지역분포',
+                // subtext: 'data from PM25.in',
+                sublink: 'http://www.pm25.in',
+                left: 'center',
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            tooltip : {
+                trigger: 'item'
+            },
+            bmap: {
+                center: [127.28167, 36.48750],
+                zoom: 8,
+                roam: true,
+                mapStyle: {
+                    styleJson: [
+                        {
+                            "featureType": "water",
+                            "elementType": "all",
+                            "stylers": {
+                                "color": "#044161"
+                            }
+                        },
+                        {
+                            "featureType": "land",
+                            "elementType": "all",
+                            "stylers": {
+                                "color": "#004981"
+                            }
+                        },
+                        {
+                            "featureType": "boundary",
+                            "elementType": "geometry",
+                            "stylers": {
+                                "color": "#064f85"
+                            }
+                        },
+                        {
+                            "featureType": "railway",
+                            "elementType": "all",
+                            "stylers": {
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "highway",
+                            "elementType": "geometry",
+                            "stylers": {
+                                "color": "#004981"
+                            }
+                        },
+                        {
+                            "featureType": "highway",
+                            "elementType": "geometry.fill",
+                            "stylers": {
+                                "color": "#005b96",
+                                "lightness": 1
+                            }
+                        },
+                        {
+                            "featureType": "highway",
+                            "elementType": "labels",
+                            "stylers": {
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "arterial",
+                            "elementType": "geometry",
+                            "stylers": {
+                                "color": "#004981"
+                            }
+                        },
+                        {
+                            "featureType": "arterial",
+                            "elementType": "geometry.fill",
+                            "stylers": {
+                                "color": "#00508b"
+                            }
+                        },
+                        {
+                            "featureType": "poi",
+                            "elementType": "all",
+                            "stylers": {
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "green",
+                            "elementType": "all",
+                            "stylers": {
+                                "color": "#056197",
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "subway",
+                            "elementType": "all",
+                            "stylers": {
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "manmade",
+                            "elementType": "all",
+                            "stylers": {
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "local",
+                            "elementType": "all",
+                            "stylers": {
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "arterial",
+                            "elementType": "labels",
+                            "stylers": {
+                                "visibility": "off"
+                            }
+                        },
+                        {
+                            "featureType": "boundary",
+                            "elementType": "geometry.fill",
+                            "stylers": {
+                                "color": "#029fd4"
+                            }
+                        },
+                        {
+                            "featureType": "building",
+                            "elementType": "all",
+                            "stylers": {
+                                "color": "#1a5787"
+                            }
+                        },
+                        {
+                            "featureType": "label",
+                            "elementType": "all",
+                            "stylers": {
+                                "visibility": "off"
+                            }
+                        }
+                    ]
+                }
+            },
+            series : [
+                {
+                    name: '지역',
+                    type: 'scatter',
+                    coordinateSystem: 'bmap',
+                    data: convertData(data),
+                    symbolSize: function (val) {
+                        return val[2] / 10;
+                    },
+                    label: {
+                        formatter: '{b}',
+                        position: 'right'
+                    },
+                    itemStyle: {
+                        // color: '#ddb926'
+                        color: '#fff'
+                    },
+                    emphasis: {
+                        label: {
+                            show: true
+                        }
+                    }
+                }
+            ]
+        };
+        var myChart = echarts.init(document.getElementById('spreadGraph'));
+        myChart.setOption(option);
+        $(window).on("resize", function() {
+            myChart.resize();
+        });
+    }
+}

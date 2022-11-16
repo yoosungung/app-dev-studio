@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 직무별 권한 TO 공통 - 직무 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.dty.author.TbComDtyAuthorToDtyMapper">
+
+    <!-- 목록 조회 - AUTHOR_ID(으)로 -->
+    <select id="selectListByAuthorId" resultType="kr.ac.jj.shared.domain.main.model.com.dty.author.TbComDtyAuthorToDty">
+        <![CDATA[
+            SELECT TCDA.AUTHOR_ID
+                 , TCD.*
+            FROM   TB_COM_DTY_AUTHOR TCDA
+                   INNER JOIN (
+        ]]>
+        <include refid="kr.ac.jj.shared.domain.main.mapper.com.dty.TbComDtyEntityMapper.baseSelectSql"></include>
+        <![CDATA[
+                   ) TCD ON TCD.DTY_ID = TCDA.DTY_ID
+            WHERE  TCDA.AUTHOR_ID = #{authorId}
+            ORDER BY TCD.DTY_CODE
+        ]]>
+    </select>
+
+</mapper>

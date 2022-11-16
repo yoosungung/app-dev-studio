@@ -1,0 +1,14 @@
+################################################################################
+# 기본
+################################################################################
+spring:
+  profiles:
+    include:
+      - logging-console
+
+config:
+  shared:
+    logs-directory: data/logs
+    temp-directory: data/temp
+    ssl:
+      cacerts-path: D:/App-DevStudio/bin/java/openjdk-12.0.1-x64/lib/security/cacerts

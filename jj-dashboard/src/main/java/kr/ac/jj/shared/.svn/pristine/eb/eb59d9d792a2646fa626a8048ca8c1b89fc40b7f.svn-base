@@ -1,0 +1,37 @@
+package kr.ac.jj.shared.domain.main.mapper.com.dept;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+
+/**
+ * 공통 - 부서 Mapper
+ */
+@SharedMainSqlMapper
+public interface TbComDeptMapper extends TbComDeptEntityMapper {
+
+    /**
+     * DPET_ID 조회 - DEPT_CODE + DEPT_LEVEL
+     *
+     * @param deptCode
+     * @return
+     */
+    public String selectDeptIdBydeptCode(@Param("deptCode") String deptCode, @Param("deptLevel") int deptLevel);
+
+    /**
+     * 학과명 수정
+     *
+     * @param
+     * @return
+     */
+    public int updateDeptNm(Map<String, Object> data);
+
+    /**
+     * 부서 코드 레벨 조회
+     * @return
+     */
+    public List<Map<String, Object>> selectDeptCodeLevelList();
+}

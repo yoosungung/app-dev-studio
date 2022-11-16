@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 시스템 - 스케줄 트리거 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbSysSchdulTrigr.schdulTrigrId"><![CDATA[스케줄 트리거 ID]]></entry>
+    <entry key="domain.main.tbSysSchdulTrigr.schdulId"><![CDATA[스케줄 ID]]></entry>
+    <entry key="domain.main.tbSysSchdulTrigr.trigrNo"><![CDATA[트리거 번호]]></entry>
+    <entry key="domain.main.tbSysSchdulTrigr.trigrExprsn"><![CDATA[트리거 표현식]]></entry>
+    <entry key="domain.main.tbSysSchdulTrigr.trigrDc"><![CDATA[트리거 설명]]></entry>
+    <entry key="domain.main.tbSysSchdulTrigr.beginDt"><![CDATA[시작 일시]]></entry>
+
+</properties>

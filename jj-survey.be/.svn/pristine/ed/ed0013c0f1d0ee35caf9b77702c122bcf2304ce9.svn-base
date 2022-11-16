@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ 게시판 관리 CodeData
+ -->
+<codeData namespace="admin.appmgt.bbsmgt">
+
+    <!-- 첨부파일 정책 -->
+    <group id="atchFilePolicy">
+        <item code="bbs.common" message="admin.appmanage.bbsmanage.codeData.atchFilePolicy.common" name="공통" />
+        <item code="bbs.notice" message="admin.appmanage.bbsmanage.codeData.atchFilePolicy.notice" name="공지사항" />
+    </group>
+
+</codeData>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 이메일 로그 관리 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.admin.logmanage.emaillog.mapper.EmailLogManageMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TCE.EMAIL_ID
+                 , TCE.EMAIL_SJ
+                 , TCE.SENDER_EMAIL_ADRES
+                 , TCE.SENDER_NM
+                 , (SELECT COUNT(1) FROM TB_COM_EMAIL_RECPTN T WHERE T.EMAIL_ID = TCE.EMAIL_ID) AS RECPTN_CNT
+                 , ${$var.getCodeData("/domain.main.tbComEmailRecptn/sndngSttus", "TCES.SNDNG_STTUS", "TCES.SNDNG_STTUS")} AS SNDNG_STTUS_NM
+                 , TCE.WRITNG_DT
+            FROM   TB_COM_EMAIL TCE
+                   INNER JOIN (SELECT EMAIL_ID, MAX(SNDNG_SN) SNDNG_SN FROM TB_COM_EMAIL_SNDNG GROUP BY EMAIL_ID) TCES2 ON TCES2.EMAIL_ID = TCE.EMAIL_ID
+                   INNER JOIN TB_COM_EMAIL_SNDNG TCES ON TCES.EMAIL_ID = TCES2.EMAIL_ID AND TCES.SNDNG_SN = TCES2.SNDNG_SN
+            WHERE  1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='search != null and search.searchText != null and search.searchText != ""'>
+            <![CDATA[
+            AND    (UPPER(TCE.EMAIL_SJ) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%') OR
+                    TCE.EMAIL_ID IN (
+                            SELECT EMAIL_ID
+                            FROM   TB_COM_EMAIL_RECPTN
+                            WHERE  UPPER(RCVER_EMAIL_ADRES) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%') OR
+                                   UPPER(RCVER_NM) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%')
+                    ) OR
+                    UPPER(TCE.EMAIL_CN) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%')
+                   )
+            ]]>
+        </if>
+
+        <!-- 발송 상태 -->
+        <if test='search != null and search.sndngSttus != null and search.sndngSttus != ""'>
+            <![CDATA[
+            AND    TCES.SNDNG_STTUS = #{search.sndngSttus}
+            ]]>
+        </if>
+
+        <!-- 작성 일자 -->
+        <if test='search != null and search.writngDeStart != null'>
+            <![CDATA[
+            AND    TCE.WRITNG_DT >= #{search.writngDeStart, jdbcType=DATE}
+            ]]>
+        </if>
+        <if test='search != null and search.writngDeEnd != null'>
+            <![CDATA[
+            AND    TCE.WRITNG_DT < #{search.writngDeEnd, typeHandler=LongDateAddTypeHandler}
+            ]]>
+        </if>
+    </select>
+
+</mapper>

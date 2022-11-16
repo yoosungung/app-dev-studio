@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 입학 분석 데이터 Header Mapper -->
+<mapper namespace="kr.ac.jj.dashboard.application.ipsy.mapper.IpsyHeaderMapper">
+
+    <!-- 입학 분석 데이터 Header 데이터 조회 -->
+    <select id="readData" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT T1.ipsy_yy, FORMAT(T1.apply_cnt,0) apply_cnt
+             , FORMAT(T1.entrance_cnt,0) entrance_cnt
+             , FORMAT(T2.required_cnt,0) required_cnt
+             , FORMAT(ROUND(T1.ENTRANCE_CNT / T2.REQUIRED_CNT * 100,2),0) recruit_cnt
+        FROM (
+            SELECT IPSY_YY, COUNT(*) apply_cnt
+                  , SUM(CASE WHEN LENGTH(IPSY_SUHUMNO) > 8 AND IPSY_HAPGYUK_YN = 'Y' AND IPSY_JUNG_GBN = 1 THEN 1 ELSE 0 END) entrance_cnt
+            FROM DW_IPSY_HIGHSCOOL_MAT
+            WHERE IPSY_YY = DATE_FORMAT(NOW(),'%Y')
+            AND (IPSY_GUBUN_NAME IN ('수시(학생부교과)','수시(학생부종합)') OR IPSY_GUBUN_NAME LIKE '정시%')
+            GROUP BY IPSY_YY
+        ) T1
+        LEFT JOIN (
+            SELECT IPGD_YY AS ipsy_yy, SUM(IPGD_MOJIB_MAX) required_cnt
+            FROM DW_IPSY_MOJIB_GUIDE
+            WHERE IPGD_JEONGWON = '정원내'
+            AND IPGD_YY = DATE_FORMAT(NOW(),'%Y')
+            GROUP BY IPGD_YY
+        ) T2 ON T2.ipsy_yy = T1.ipsy_yy
+    </select>
+</mapper>

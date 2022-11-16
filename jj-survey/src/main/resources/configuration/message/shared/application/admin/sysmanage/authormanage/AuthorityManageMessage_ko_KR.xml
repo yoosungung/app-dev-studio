@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+    <entry key="admin.sysmanage.authormanage.title.list"><![CDATA[권한 관리]]></entry>
+    <entry key="admin.sysmanage.authormanage.title.create"><![CDATA[권한 생성]]></entry>
+    <entry key="admin.sysmanage.authormanage.title.update"><![CDATA[권한 수정]]></entry>
+    <entry key="admin.sysmanage.authormanage.title.hierarchyEdit"><![CDATA[권한 계층 편집]]></entry>
+
+    <entry key="admin.sysmanage.authormanage.title.authorMenuList"><![CDATA[권한별 메뉴]]></entry>
+    <entry key="admin.sysmanage.authormanage.title.authorResrceList"><![CDATA[권한별 프로그램]]></entry>
+    <entry key="admin.sysmanage.authormanage.title.authorDeptList"><![CDATA[권한별 부서]]></entry>
+    <entry key="admin.sysmanage.authormanage.title.authorUserList"><![CDATA[권한별 사용자]]></entry>
+
+    <entry key="admin.sysmanage.authormanage.label.hierarchyEdit"><![CDATA[권한 계층 편집]]></entry>
+    <entry key="admin.sysmanage.authormanage.label.authorMenuCnt"><![CDATA[메뉴 갯수]]></entry>
+    <entry key="admin.sysmanage.authormanage.label.authorResrceCnt"><![CDATA[프로그램 갯수]]></entry>
+    <entry key="admin.sysmanage.authormanage.label.authorUserCnt"><![CDATA[사용자수]]></entry>
+
+</properties>

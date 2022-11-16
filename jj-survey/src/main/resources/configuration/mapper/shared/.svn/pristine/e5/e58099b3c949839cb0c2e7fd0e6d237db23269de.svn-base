@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 로그 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.log.TbSysLogEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.sys.log.TbSysLog">
+        <![CDATA[
+            SELECT TSL.LOG_ID
+                 , TSL.USER_ID
+                 , TSL.LOG_DT
+                 , TSL.SERVER_IP
+                 , TSL.REQUST_IP
+                 , TSL.REQUST_TY
+                 , TSL.REQUST_HOST
+                 , TSL.REQUST_PATH
+                 , TSL.REQUST_HDER
+                 , TSL.REQUST_PARAMTR
+                 , TSL.REQUST_BODY
+                 , TSL.RSPNS_STTUS_CODE
+                 , TSL.SUCCES_YN
+            FROM   TB_SYS_LOG TSL
+            WHERE  TSL.LOG_ID = #{logId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SYS_LOG (
+                   LOG_ID
+                 , USER_ID
+                 , LOG_DT
+                 , SERVER_IP
+                 , REQUST_IP
+                 , REQUST_TY
+                 , REQUST_HOST
+                 , REQUST_PATH
+                 , REQUST_HDER
+                 , REQUST_PARAMTR
+                 , REQUST_BODY
+                 , RSPNS_STTUS_CODE
+                 , SUCCES_YN
+            ) VALUES (
+                   #{tbSysLog.logId}
+                 , #{tbSysLog.userId}
+                 , #{tbSysLog.logDt}
+                 , #{tbSysLog.serverIp}
+                 , #{tbSysLog.requstIp}
+                 , #{tbSysLog.requstTy}
+                 , #{tbSysLog.requstHost}
+                 , #{tbSysLog.requstPath}
+                 , #{tbSysLog.requstHder}
+                 , #{tbSysLog.requstParamtr}
+                 , #{tbSysLog.requstBody}
+                 , #{tbSysLog.rspnsSttusCode}
+                 , #{tbSysLog.succesYn}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SYS_LOG SET
+                   USER_ID                          = #{tbSysLog.userId}
+                 , LOG_DT                           = #{tbSysLog.logDt}
+                 , SERVER_IP                        = #{tbSysLog.serverIp}
+                 , REQUST_IP                        = #{tbSysLog.requstIp}
+                 , REQUST_TY                        = #{tbSysLog.requstTy}
+                 , REQUST_HOST                      = #{tbSysLog.requstHost}
+                 , REQUST_PATH                      = #{tbSysLog.requstPath}
+                 , REQUST_HDER                      = #{tbSysLog.requstHder}
+                 , REQUST_PARAMTR                   = #{tbSysLog.requstParamtr}
+                 , REQUST_BODY                      = #{tbSysLog.requstBody}
+                 , RSPNS_STTUS_CODE                 = #{tbSysLog.rspnsSttusCode}
+                 , SUCCES_YN                        = #{tbSysLog.succesYn}
+            WHERE  LOG_ID = #{tbSysLog.logId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_LOG
+            WHERE  LOG_ID = #{logId}
+        ]]>
+    </delete>
+
+</mapper>

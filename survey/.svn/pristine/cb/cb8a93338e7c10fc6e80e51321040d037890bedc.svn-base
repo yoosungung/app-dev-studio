@@ -1,0 +1,36 @@
+#Mysql
+database.driverClassName=com.mysql.jdbc.Driver
+database.url=jdbc:mysql://localhost:9877/survey
+#database.url=jdbc:mysql://survey-db:3306/mysql
+database.username=
+database.password=
+database.validationQuery=select 1
+database.show_sql=false
+database.generateDdl=false
+database.dialect=org.hibernate.dialect.MySQL5Dialect
+
+#Mysql
+database.zeus.driverClassName=com.mysql.jdbc.Driver
+database.zeus.url=jdbc:mysql://localhost:9877/survey
+database.zeus.username=
+database.zeus.password=
+database.zeus.show_sql=false
+database.zeus.generateDdl=false
+database.zeus.dialect=org.hibernate.dialect.MySQL5Dialect
+
+#Base URL
+external.base.url=49.247.205.177:9090/survey/surveys
+internal.base.url=49.247.205.177:9090/survey/admin
+
+#Email Configuration
+email.host=smtp.gmail.com
+email.port=587
+email.username=
+email.password=
+email.smtp.from=
+
+
+
+
+
+ 

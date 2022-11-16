@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 출신 지역 분포 Mapper -->
+<mapper namespace="kr.ac.jj.dashboard.application.dashboard.spread.mapper.SpreadMapper">
+
+    <!-- 출신 지역 분포 리스트 조회 -->
+    <select id="readList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+    WITH TBL AS (
+        SELECT IPSY_HIGH_LOCATION_DO_SUMMARY AS location
+                , IPSY_HIGH_LOCATION_SIGUNGU_SUMMARY AS location_si
+                , SUM(CASE WHEN IPSY_GUBUN_NAME_SUMMARY IN ('학생부종합','학생부교과','정시') THEN CNT ELSE 0 END) cnt_all
+                , SUM(CASE IPSY_GUBUN_NAME_SUMMARY WHEN '학생부종합' THEN CNT ELSE 0 END) AS cnt_jong
+                , SUM(CASE IPSY_GUBUN_NAME_SUMMARY WHEN '학생부교과' THEN CNT ELSE 0 END) AS cnt_gyo
+                , SUM(CASE IPSY_GUBUN_NAME_SUMMARY WHEN '정시' THEN CNT ELSE 0 END) AS cnt_jung
+                , SUM(CASE WHEN IPSY_GUBUN_NAME_SUMMARY NOT IN ('기타지역','학생부종합','학생부교과','정시') THEN CNT ELSE 0 END) cnt_all2
+                FROM ( SELECT   CASE WHEN IPSY_HIGH_LOCATION_DO = '전북' THEN IPSY_HIGH_LOCATION_SIGUNGU ELSE NULL END ipsy_high_location_sigungu_summary
+                              , CASE
+                                      WHEN IPSY_GUBUN_NAME LIKE '%(학생부교과)' THEN '학생부교과'
+                                      WHEN IPSY_GUBUN_NAME LIKE '%(학생부종합)' THEN '학생부종합'
+                                      WHEN IPSY_GUBUN_NAME LIKE '수시%'         THEN '수시'
+                                      WHEN IPSY_GUBUN_NAME LIKE '추가%'         THEN'추가'
+                                      WHEN IPSY_GUBUN_NAME LIKE '정시%'         THEN '정시'
+                                      ELSE IPSY_GUBUN_NAME
+                                  END ipsy_gubun_name_summary /* 입학 구분별 이름 */
+                              , CASE WHEN IPSY_HIGH_LOCATION_DO IS NULL OR IPSY_HIGH_LOCATION_DO = '기타' THEN '기타지역' ELSE IPSY_HIGH_LOCATION_DO END AS ipsy_high_location_do_summary
+                              , COUNT(*) cnt
+                       FROM DW_IPSYMAST A
+                       WHERE IPSY_YY = DATE_FORMAT(NOW(), '%Y')
+                       GROUP BY IPSY_GUBUN_NAME, IPSY_HIGH_LOCATION_DO, IPSY_HIGH_LOCATION_SIGUNGU
+                ) T
+                WHERE IPSY_HIGH_LOCATION_DO_SUMMARY != '기타지역'
+                GROUP BY IPSY_HIGH_LOCATION_DO_SUMMARY, IPSY_HIGH_LOCATION_SIGUNGU_SUMMARY
+                ORDER BY CASE IPSY_HIGH_LOCATION_DO_SUMMARY WHEN '전북' THEN 1 ELSE 2 END, IPSY_HIGH_LOCATION_DO_SUMMARY
+        )
+        SELECT 1 AS 'type', t.location
+            , cnt_all, cnt_jong, cnt_gyo, cnt_jung
+            #, cnt_all2
+            , ROUND(CNT_ALL/C1*100,1)*10 AS cnt_all_rate
+            , ROUND(CNT_JONG/C2*100,1)*10 AS cnt_jong_rate
+            , ROUND(CNT_GYO/C3*100,1)*10 AS cnt_gyo_rate
+            , ROUND(CNT_JUNG/C4*100,1)*10 AS cnt_jung_rate
+            #, ROUND(CNT_ALL2/C5*100,1)*10 AS cnt_all2_rate
+        FROM (
+            SELECT *
+            , (SELECT SUM(CNT_ALL) FROM TBL) C1
+            , (SELECT SUM(CNT_JONG) FROM TBL) C2
+            , (SELECT SUM(CNT_GYO) FROM TBL) C3
+            , (SELECT SUM(CNT_JUNG) FROM TBL) C4
+            , (SELECT SUM(CNT_ALL2) FROM TBL) C5
+            FROM TBL
+            GROUP BY LOCATION
+        ) T
+        UNION ALL
+        SELECT 2 AS 'type', LEFT(LOCATION_SI,2) location_si
+            , cnt_all, cnt_jong, cnt_gyo, cnt_jung
+            #, cnt_all2
+            , ROUND(CNT_ALL/C1*100,1)*10 AS cnt_all_rate
+            , ROUND(CNT_JONG/C2*100,1)*10 AS cnt_jong_rate
+            , ROUND(CNT_GYO/C3*100,1)*10 AS cnt_gyo_rate
+            , ROUND(CNT_JUNG/C4*100,1)*10 AS cnt_jung_rate
+            #, ROUND(CNT_ALL2/C5*100,1)*10 AS cnt_all2_rate
+        FROM (
+            SELECT *
+            , (SELECT SUM(CNT_ALL) FROM TBL) C1
+            , (SELECT SUM(CNT_JONG) FROM TBL) C2
+            , (SELECT SUM(CNT_GYO) FROM TBL) C3
+            , (SELECT SUM(CNT_JUNG) FROM TBL) C4
+            , (SELECT SUM(CNT_ALL2) FROM TBL) C5
+            FROM TBL
+            WHERE LOCATION = '전북'
+            GROUP BY LOCATION_SI
+        ) T
+    </select>
+</mapper>

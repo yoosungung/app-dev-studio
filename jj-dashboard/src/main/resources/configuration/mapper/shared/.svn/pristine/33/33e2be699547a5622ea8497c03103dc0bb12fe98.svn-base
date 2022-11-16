@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 인사정보 관리 - 사람 인터페이스 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.mapper.HumanResourceManagePersonIntrfcMapper">
+
+    <!-- 목록 생성 -->
+    <insert id="insertList">
+        <![CDATA[
+            INSERT INTO TB_COM_PERSON (
+                   PERSON_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , PERSON_SE
+                 , EMPL_NO
+                 , EMAIL_ADRES
+                 , KOREAN_NM
+                 , DEPT_ID
+                 , UNIV
+                 , UNDEG
+                 , SUBJCT
+                 , HFFC_STTUS
+                 , ECNY_DE
+                 , OFCPS_NM
+                 , TLPHON_NO
+            )
+            SELECT FN_UID('S') AS PERSON_ID
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , TIU.USER_SE AS PERSON_SE
+                 , TIU.USER_ID AS EMPL_NO
+                 , TIU.EMAIL_ADRES AS EMAIL_ADRES
+                 , TIU.USER_NM AS KOREAN_NM
+                 , TIU.DEPT_CODE AS DEPT_ID
+                 , TIU.UNIV_CODE AS UNIV
+                 , TIU.UNDEG_CODE AS UNDEG
+                 , TIU.SUBJCT_CODE AS SUBJCT
+                 , CASE WHEN TIU.DELETE_YN = 'Y' THEN 'T' ELSE 'C' END AS HFFC_STTUS
+                 , CASE WHEN LENGTH(TRIM(TIU.ECNY_DE)) = 8 THEN STR_TO_DATE(TIU.ECNY_DE,'%Y%m%d')
+                        WHEN LENGTH(TRIM(TIU.ECNY_DE)) = 6 THEN STR_TO_DATE(CONCAT(TIU.ECNY_DE, '01'),'%Y%m%d')
+                   END AS ECNY_DE
+                 , TIU.OFCPS_NM AS OFCPS_NM
+                 , TIU.TLPHON_NO AS TLPHON_NO
+            FROM   TB_INTRFC_USER TIU
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_COM_PERSON TCP
+                        WHERE  TCP.EMPL_NO = TIU.USER_ID
+                   )
+        ]]>
+    </insert>
+
+    <!-- 목록 수정 -->
+    <insert id="updateList">
+        <![CDATA[
+            UPDATE TB_COM_PERSON TCP, TB_INTRFC_USER TIU SET
+                   TCP.UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , TCP.UPDT_DT                          = #{$var.systemDate}
+                 , TCP.PERSON_SE                        = TIU.USER_SE
+                 , TCP.EMPL_NO                          = TIU.USER_ID
+                 , TCP.EMAIL_ADRES                      = TIU.EMAIL_ADRES
+                 , TCP.KOREAN_NM                        = TIU.USER_NM
+                 , TCP.DEPT_ID                          = TIU.DEPT_CODE
+                 , TCP.UNIV                             = TIU.UNIV_CODE
+                 , TCP.UNDEG                            = TIU.UNDEG_CODE
+                 , TCP.SUBJCT                           = TIU.SUBJCT_CODE
+                 , TCP.HFFC_STTUS                       = CASE WHEN TIU.DELETE_YN = 'Y' THEN 'T' ELSE 'C' END
+                 , TCP.ECNY_DE                          = CASE WHEN LENGTH(TRIM(TIU.ECNY_DE)) = 8 THEN STR_TO_DATE(TIU.ECNY_DE,'%Y%m%d')
+                                                               WHEN LENGTH(TRIM(TIU.ECNY_DE)) = 6 THEN STR_TO_DATE(CONCAT(TIU.ECNY_DE, '01'),'%Y%m%d')
+                                                          END
+                 , TCP.OFCPS_NM                         = TIU.OFCPS_NM
+                 , TCP.TLPHON_NO                        = TIU.TLPHON_NO
+            WHERE  TIU.USER_ID = TCP.EMPL_NO
+        ]]>
+    </insert>
+
+    <!-- 목록 수정 - 재직 구분 퇴직 처리 -->
+    <insert id="updateListHffcSttusToT">
+        <![CDATA[
+            UPDATE TB_COM_PERSON TCP SET
+                   TCP.UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , TCP.UPDT_DT                          = #{$var.systemDate}
+                 , TCP.HFFC_STTUS                       = 'T'
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_INTRFC_USER TIU
+                        WHERE  TIU.USER_ID = TCP.EMPL_NO
+                   )
+        ]]>
+    </insert>
+
+</mapper>

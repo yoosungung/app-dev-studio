@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.jd.survey.definition.JdSurveyDefinitionEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.jd.survey.definition.JdSurveyDefinition">
+        <![CDATA[
+            SELECT SD.ID
+                 , SD.NAME
+                 , SD.PURPOSE
+                 , SD.TARGET
+                 , SD.DESCRIPTION
+                 , SD.IS_PUBLIC
+                 , SD.ALLOW_MULTIPLE_SUBMISSIONS
+                 , SD.AUTO_REMINDER_LAST_SENT_DATE
+                 , SD.AUTO_REMINDERS_DAY_OF_MONTH
+                 , SD.REMINDERS_FREQUENCY
+                 , SD.AUTO_REMINDERS_MONTHLY_OCCUR
+                 , SD.AUTO_REMINDERS_WEEKLY_OCCUR
+                 , SD.COMPLETED_SURVEY_TEMPLATE
+                 , SD.EMAIL_INVITATION_TEMPLATE
+                 , SD.LOGO
+                 , SD.SEND_AUTO_REMINDERS
+                 , SD.STATUS
+                 , SD.SURVEY_THEME
+                 , SD.START_DT
+                 , SD.END_DT
+                 , SD.REGIST_DT
+                 , SD.DEPARTMENT_ID
+                 , SD.VERSION
+            FROM   SURVEY_DEFINITION SD
+            WHERE  SD.ID = #{id}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="jdSurveyDefinition.id">
+        <![CDATA[
+            INSERT INTO SURVEY_DEFINITION (
+                   ID
+                 , NAME
+                 , PURPOSE
+                 , TARGET
+                 , DESCRIPTION
+                 , IS_PUBLIC
+                 , ALLOW_MULTIPLE_SUBMISSIONS
+                 , AUTO_REMINDER_LAST_SENT_DATE
+                 , AUTO_REMINDERS_DAY_OF_MONTH
+                 , REMINDERS_FREQUENCY
+                 , AUTO_REMINDERS_MONTHLY_OCCUR
+                 , AUTO_REMINDERS_WEEKLY_OCCUR
+                 , COMPLETED_SURVEY_TEMPLATE
+                 , EMAIL_INVITATION_TEMPLATE
+                 , LOGO
+                 , SEND_AUTO_REMINDERS
+                 , STATUS
+                 , SURVEY_THEME
+                 , START_DT
+                 , END_DT
+                 , REGIST_DT
+                 , DEPARTMENT_ID
+                 , VERSION
+            ) VALUES (
+                   #{jdSurveyDefinition.id}
+                 , #{jdSurveyDefinition.name}
+                 , #{jdSurveyDefinition.purpose}
+                 , #{jdSurveyDefinition.target}
+                 , #{jdSurveyDefinition.description}
+                 , #{jdSurveyDefinition.isPublic}
+                 , #{jdSurveyDefinition.allowMultipleSubmissions}
+                 , #{jdSurveyDefinition.autoReminderLastSentDate}
+                 , #{jdSurveyDefinition.autoRemindersDayOfMonth}
+                 , #{jdSurveyDefinition.remindersFrequency}
+                 , #{jdSurveyDefinition.autoRemindersMonthlyOccur}
+                 , #{jdSurveyDefinition.autoRemindersWeeklyOccur}
+                 , #{jdSurveyDefinition.completedSurveyTemplate}
+                 , #{jdSurveyDefinition.emailInvitationTemplate}
+                 , #{jdSurveyDefinition.logo}
+                 , #{jdSurveyDefinition.sendAutoReminders}
+                 , #{jdSurveyDefinition.status}
+                 , #{jdSurveyDefinition.surveyTheme}
+                 , #{jdSurveyDefinition.startDt}
+                 , #{jdSurveyDefinition.endDt}
+                 , #{jdSurveyDefinition.registDt}
+                 , #{jdSurveyDefinition.departmentId}
+                 , #{jdSurveyDefinition.version}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE SURVEY_DEFINITION SET
+                   NAME                             = #{jdSurveyDefinition.name}
+                 , PURPOSE                          = #{jdSurveyDefinition.purpose}
+                 , TARGET                           = #{jdSurveyDefinition.target}
+                 , DESCRIPTION                      = #{jdSurveyDefinition.description}
+                 , IS_PUBLIC                        = #{jdSurveyDefinition.isPublic}
+                 , ALLOW_MULTIPLE_SUBMISSIONS       = #{jdSurveyDefinition.allowMultipleSubmissions}
+                 , AUTO_REMINDER_LAST_SENT_DATE     = #{jdSurveyDefinition.autoReminderLastSentDate}
+                 , AUTO_REMINDERS_DAY_OF_MONTH      = #{jdSurveyDefinition.autoRemindersDayOfMonth}
+                 , REMINDERS_FREQUENCY              = #{jdSurveyDefinition.remindersFrequency}
+                 , AUTO_REMINDERS_MONTHLY_OCCUR     = #{jdSurveyDefinition.autoRemindersMonthlyOccur}
+                 , AUTO_REMINDERS_WEEKLY_OCCUR      = #{jdSurveyDefinition.autoRemindersWeeklyOccur}
+                 , COMPLETED_SURVEY_TEMPLATE        = #{jdSurveyDefinition.completedSurveyTemplate}
+                 , EMAIL_INVITATION_TEMPLATE        = #{jdSurveyDefinition.emailInvitationTemplate}
+                 , LOGO                             = #{jdSurveyDefinition.logo}
+                 , SEND_AUTO_REMINDERS              = #{jdSurveyDefinition.sendAutoReminders}
+                 , STATUS                           = #{jdSurveyDefinition.status}
+                 , SURVEY_THEME                     = #{jdSurveyDefinition.surveyTheme}
+                 , START_DT                         = #{jdSurveyDefinition.startDt}
+                 , END_DT                           = #{jdSurveyDefinition.endDt}
+                 , REGIST_DT                        = #{jdSurveyDefinition.registDt}
+                 , DEPARTMENT_ID                    = #{jdSurveyDefinition.departmentId}
+                 , VERSION                          = #{jdSurveyDefinition.version}
+            WHERE  ID = #{jdSurveyDefinition.id}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   SURVEY_DEFINITION
+            WHERE  ID = #{id}
+        ]]>
+    </delete>
+
+</mapper>

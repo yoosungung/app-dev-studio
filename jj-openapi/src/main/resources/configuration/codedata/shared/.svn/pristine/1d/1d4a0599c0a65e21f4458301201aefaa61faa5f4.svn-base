@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ 공통 CodeData
+ -->
+<codeData namespace="common">
+
+    <!-- 시스템 로케일 -->
+    <group id="systemLocale">
+        <item code="ko_KR" message="common.codeData.systemLocale.ko_KR" name="대한민국 - 한국어" />
+    </group>
+
+    <!-- 예/아니오 -->
+    <group id="yesNo">
+        <item code="1" message="common.codeData.yesNo.1" name="예" />
+        <item code="0" message="common.codeData.yesNo.0" name="아니오" />
+    </group>
+
+    <!-- 사용 여부 -->
+    <group id="useYn">
+        <item code="1" message="common.codeData.useYn.1" name="사용" />
+        <item code="0" message="common.codeData.useYn.0" name="미사용" />
+    </group>
+
+    <!-- 성공 여부 -->
+    <group id="successYn">
+        <item code="1" message="common.codeData.successYn.1" name="성공" />
+        <item code="0" message="common.codeData.successYn.0" name="실패" />
+    </group>
+
+    <!-- 졸업 여부 -->
+    <group id="jolGbn">
+        <item code="졸업" message="common.codeData.jolGbn.2" name="졸업" />
+        <item code="재학" message="common.codeData.jolGbn.1" name="재학" />
+        <item code="휴학" message="common.codeData.jolGbn.0" name="휴학" />
+    </group>
+
+</codeData>

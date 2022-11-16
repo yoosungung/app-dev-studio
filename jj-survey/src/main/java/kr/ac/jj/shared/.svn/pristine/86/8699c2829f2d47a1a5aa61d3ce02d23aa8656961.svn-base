@@ -1,0 +1,17 @@
+package kr.ac.jj.shared.application.common.ddl;
+
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+
+@SharedMainSqlMapper
+public interface MainDdlMapper {
+
+    @Update(value = "ALTER TABLE ${tableName} DISABLE KEYS")
+    public void disableKeys(@Param("tableName") String tableName);
+
+    @Update(value = "ALTER TABLE ${tableName} ENABLE KEYS")
+    public void enableKeys(@Param("tableName") String tableName);
+
+}

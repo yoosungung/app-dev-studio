@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 메일 첨부파일 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.email.atchfile.TbComEmailAtchFileEntityMapper">
+
+    <!-- 목록 조회 - EMAIL_ID(으)로 -->
+    <select id="selectListByEmailId" resultType="kr.ac.jj.shared.domain.main.model.com.email.atchfile.TbComEmailAtchFile">
+        <![CDATA[
+            SELECT TCEAF.EMAIL_ATCH_FILE_ID
+                 , TCEAF.EMAIL_ID
+                 , TCEAF.ATCH_FILE_SN
+                 , TCEAF.FILE_PATH
+                 , TCEAF.FILE_NM
+            FROM   TB_COM_EMAIL_ATCH_FILE TCEAF
+            WHERE  TCEAF.EMAIL_ID = #{emailId}
+            ORDER BY TCEAF.ATCH_FILE_SN
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.com.email.atchfile.TbComEmailAtchFile">
+        <![CDATA[
+            SELECT TCEAF.EMAIL_ATCH_FILE_ID
+                 , TCEAF.EMAIL_ID
+                 , TCEAF.ATCH_FILE_SN
+                 , TCEAF.FILE_PATH
+                 , TCEAF.FILE_NM
+            FROM   TB_COM_EMAIL_ATCH_FILE TCEAF
+            WHERE  TCEAF.EMAIL_ATCH_FILE_ID = #{emailAtchFileId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_COM_EMAIL_ATCH_FILE (
+                   EMAIL_ATCH_FILE_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , EMAIL_ID
+                 , ATCH_FILE_SN
+                 , FILE_PATH
+                 , FILE_NM
+            ) VALUES (
+                   #{tbComEmailAtchFile.emailAtchFileId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbComEmailAtchFile.emailId}
+        ]]>
+
+        <choose>
+        <when test='tbComEmailAtchFile.atchFileSn == null'>
+            <![CDATA[
+                 , (SELECT IFNULL(MAX(A.ATCH_FILE_SN), 0) + 1 FROM TB_COM_EMAIL_ATCH_FILE A WHERE A.EMAIL_ID = #{tbComEmailAtchFile.emailId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , #{tbComEmailAtchFile.atchFileSn}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , #{tbComEmailAtchFile.filePath}
+                 , #{tbComEmailAtchFile.fileNm}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_COM_EMAIL_ATCH_FILE SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , EMAIL_ID                         = #{tbComEmailAtchFile.emailId}
+        ]]>
+
+        <choose>
+        <when test='tbComEmailAtchFile.atchFileSn == null'>
+            <![CDATA[
+                 , ATCH_FILE_SN                     = (SELECT IFNULL(MAX(A.ATCH_FILE_SN), 0) + 1 FROM TB_COM_EMAIL_ATCH_FILE A WHERE A.EMAIL_ID = #{tbComEmailAtchFile.emailId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , ATCH_FILE_SN                     = #{tbComEmailAtchFile.atchFileSn}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , FILE_PATH                        = #{tbComEmailAtchFile.filePath}
+                 , FILE_NM                          = #{tbComEmailAtchFile.fileNm}
+            WHERE  EMAIL_ATCH_FILE_ID = #{tbComEmailAtchFile.emailAtchFileId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_EMAIL_ATCH_FILE
+            WHERE  EMAIL_ATCH_FILE_ID = #{emailAtchFileId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - EMAIL_ID(으)로 -->
+    <delete id="deleteListByEmailId">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_EMAIL_ATCH_FILE
+            WHERE  EMAIL_ID = #{emailId}
+        ]]>
+    </delete>
+
+</mapper>

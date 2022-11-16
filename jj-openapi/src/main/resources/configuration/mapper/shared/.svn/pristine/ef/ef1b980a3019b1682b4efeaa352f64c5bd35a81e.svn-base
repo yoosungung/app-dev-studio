@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 메뉴별 권한 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.menu.author.TbSysMenuAuthorMapper">
+
+</mapper>

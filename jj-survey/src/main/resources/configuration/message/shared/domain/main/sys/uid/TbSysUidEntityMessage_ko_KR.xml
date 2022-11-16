@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 시스템 - UID Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbSysUid.uidValue"><![CDATA[UID 값]]></entry>
+    <entry key="domain.main.tbSysUid.uidSe"><![CDATA[UID 구분 => 테이블명 또는 구분값]]></entry>
+
+</properties>

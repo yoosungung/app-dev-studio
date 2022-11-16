@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 권한별 관련 코드 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.author.relatecode.TbSysAuthorRelateCodeEntityMapper">
+
+    <!-- 기본 조회 SQL -->
+    <sql id="baseSelectSql">
+        <![CDATA[
+            SELECT TSARC.AUTHOR_ID
+                 , TSARC.RELATE_CODE_SE
+                 , TSARC.RELATE_CODE_VALUE
+            FROM   TB_SYS_AUTHOR_RELATE_CODE TSARC
+        ]]>
+    </sql>
+
+    <!-- 목록 조회 - AUTHOR_ID, RELATE_CODE_SE(으)로 -->
+    <select id="selectListByAuthorIdAndRelateCodeSe" resultType="kr.ac.jj.shared.domain.main.model.sys.author.relatecode.TbSysAuthorRelateCode">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TSARC.AUTHOR_ID = #{authorId}
+            AND    TSARC.RELATE_CODE_SE = #{relateCodeSe}
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.sys.author.relatecode.TbSysAuthorRelateCode">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TSARC.AUTHOR_ID = #{authorId}
+            AND    TSARC.RELATE_CODE_SE = #{relateCodeSe}
+            AND    TSARC.RELATE_CODE_VALUE = #{relateCodeValue}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SYS_AUTHOR_RELATE_CODE (
+                   AUTHOR_ID
+                 , RELATE_CODE_SE
+                 , RELATE_CODE_VALUE
+                 , CREAT_USER_ID
+                 , CREAT_DT
+            ) VALUES (
+                   #{tbSysAuthorRelateCode.authorId}
+                 , #{tbSysAuthorRelateCode.relateCodeSe}
+                 , #{tbSysAuthorRelateCode.relateCodeValue}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SYS_AUTHOR_RELATE_CODE SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+            WHERE  AUTHOR_ID = #{tbSysAuthorRelateCode.authorId}
+            AND    RELATE_CODE_SE = #{tbSysAuthorRelateCode.relateCodeSe}
+            AND    RELATE_CODE_VALUE = #{tbSysAuthorRelateCode.relateCodeValue}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_AUTHOR_RELATE_CODE
+            WHERE  AUTHOR_ID = #{authorId}
+            AND    RELATE_CODE_SE = #{relateCodeSe}
+            AND    RELATE_CODE_VALUE = #{relateCodeValue}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - AUTHOR_ID, RELATE_CODE_SE(으)로 -->
+    <delete id="deleteListByAuthorIdAndRelateCodeSe">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_AUTHOR_RELATE_CODE
+            WHERE  AUTHOR_ID = #{authorId}
+            AND    RELATE_CODE_SE = #{relateCodeSe}
+        ]]>
+    </delete>
+
+</mapper>

@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+header, footer, section, article, aside, nav, hgroup, details, menu, figure, figcaption, summary, canvas {display:block}
+
+
+
+#vec_nav_wrap .vec_nav .vec_ul{display:block; width:820px;}
+#vec_nav_wrap .vec_nav .vec_ul li{float:left; display:block; width:12.5%;}
+#vec_nav_wrap .vec_nav .vec_ul li span{background:url(../../wcom/img/nfec_nav.png) no-repeat}
+
+#vec_nav_wrap .g_srch{width:180px;}
+#vec_nav_wrap .g_srch .gsrch_form{position:relative; padding:0; width:182px; height:22px; background:url(../../wcom/img/gsrch_inp.png) no-repeat 0 0; border:none;}
+#vec_nav_wrap .g_srch .gsrch_form.after{background:url(../../wcom/img/gsrch_inp.png) no-repeat 0 -30px; background-color:none;}
+
+#vec_nav_wrap .g_srch .gsrch_inp{line-height:20px;}
+#vec_nav_wrap .g_srch .btn_gsrch{top:5px; background:url(../../wcom/img/btn_gsrch.png) no-repeat 0 -20px}
+#vec_nav_wrap .g_srch .btn_gsrch.btn_after{background-position:0 0;}
+
+#header h1{background:url(../../wcom/img/svg_pack.png) no-repeat -450px 0;}
+.tsrch_form .btn_tsrch{background:#51585f url(../../wcom/img/svg_pack.png) no-repeat -432px -37px;}
+.lnb li a{background:#e8ecf3 url(../../wcom/img/svg_pack.png) no-repeat;}

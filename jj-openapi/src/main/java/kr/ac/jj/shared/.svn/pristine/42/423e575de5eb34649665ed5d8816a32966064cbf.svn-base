@@ -1,0 +1,53 @@
+package kr.ac.jj.shared.infrastructure.util;
+
+import java.text.ParseException;
+import java.util.Date;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
+
+import kr.ac.jj.shared.infrastructure.framework.core.foundation.exception.BaseException;
+
+public class DateUtil {
+
+    public static Date parseDate(String dateString) {
+        if (StringUtils.isEmpty(dateString)) {
+            return null;
+        }
+
+        String parsePattern = null;
+
+        if (StringUtils.length(dateString) == 10) {
+            String separator1 = dateString.substring(4, 5);
+            String separator2 = dateString.substring(7, 8);
+            parsePattern = "yyyy" + separator1 + "MM" + separator2 + "dd";
+        } else if (StringUtils.length(dateString) == 8) {
+            parsePattern = "yyyyMMdd";
+        }
+
+        if (parsePattern == null) {
+            return null;
+        }
+
+        try {
+            return DateUtils.parseDate(dateString, parsePattern);
+        } catch (ParseException e) {
+            throw new BaseException(e);
+        }
+    }
+
+    public static Date addDays(String dateString, int amount) {
+        if (StringUtils.isEmpty(dateString)) {
+            return null;
+        }
+
+        Date date = parseDate(dateString);
+
+        if (date == null) {
+            return null;
+        }
+
+        return DateUtils.addDays(date, amount);
+    }
+
+}

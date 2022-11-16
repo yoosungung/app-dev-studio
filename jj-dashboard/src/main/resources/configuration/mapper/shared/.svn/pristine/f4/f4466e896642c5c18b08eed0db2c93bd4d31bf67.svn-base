@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 사람 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.person.TbComPersonMapper">
+
+    <!-- 목록 생성 -->
+    <insert id="insertList">
+        <![CDATA[
+            INSERT INTO TB_COM_PERSON (
+                   PERSON_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , PERSON_SE
+                 , EMPL_NO
+                 , EMAIL_ADRES
+                 , KOREAN_NM
+                 , DEPT_ID
+                 , UNIV
+                 , UNDEG
+                 , SUBJCT
+                 , HFFC_STTUS
+                 , ECNY_DE
+                 , OFCPS_NM
+                 , TLPHON_NO
+            )
+            SELECT FN_UID('S') AS PERSON_ID
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , TIU.USER_SE AS PERSON_SE
+                 , TIU.USER_ID AS EMPL_NO
+                 , TIU.EMAIL_ADRES AS EMAIL_ADRES
+                 , TIU.USER_NM AS KOREAN_NM
+                 , TIU.DEPT_CODE AS DEPT_ID
+                 , TIU.UNIV_CODE AS UNIV
+                 , TIU.UNDEG_CODE AS UNDEG
+                 , TIU.SUBJCT_CODE AS SUBJCT
+                 , CASE WHEN TIU.DELETE_YN = 'Y' THEN 'T' ELSE 'C' END AS HFFC_STTUS
+                 , CASE WHEN LENGTH(TRIM(TIU.ECNY_DE)) = 8 THEN STR_TO_DATE(TIU.ECNY_DE,'%Y%m%d')
+                        WHEN LENGTH(TRIM(TIU.ECNY_DE)) = 6 THEN STR_TO_DATE(CONCAT(TIU.ECNY_DE, '01'),'%Y%m%d')
+                   END AS ECNY_DE
+                 , TIU.OFCPS_NM AS OFCPS_NM
+                 , TIU.TLPHON_NO AS TLPHON_NO
+            FROM   TB_INTRFC_USER TIU
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_COM_PERSON TCP
+                        WHERE  TCP.EMPL_NO = TIU.USER_ID
+                   )
+        ]]>
+    </insert>
+
+    <!-- 목록 수정 -->
+    <insert id="updateList">
+        <![CDATA[
+            UPDATE TB_COM_PERSON TCP, TB_INTRFC_USER TIU SET
+                   TCP.UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , TCP.UPDT_DT                          = #{$var.systemDate}
+                 , TCP.PERSON_SE                        = TIU.USER_SE
+                 , TCP.EMPL_NO                          = TIU.USER_ID
+                 , TCP.EMAIL_ADRES                      = TIU.EMAIL_ADRES
+                 , TCP.KOREAN_NM                        = TIU.USER_NM
+                 , TCP.DEPT_ID                          = TIU.DEPT_CODE
+                 , TCP.UNIV                             = TIU.UNIV_CODE
+                 , TCP.UNDEG                            = TIU.UNDEG_CODE
+                 , TCP.SUBJCT                           = TIU.SUBJCT_CODE
+                 , TCP.HFFC_STTUS                       = CASE WHEN TIU.DELETE_YN = 'Y' THEN 'T' ELSE 'C' END
+                 , TCP.ECNY_DE                          = CASE WHEN LENGTH(TRIM(TIU.ECNY_DE)) = 8 THEN STR_TO_DATE(TIU.ECNY_DE,'%Y%m%d')
+                                                               WHEN LENGTH(TRIM(TIU.ECNY_DE)) = 6 THEN STR_TO_DATE(CONCAT(TIU.ECNY_DE, '01'),'%Y%m%d')
+                                                          END
+                 , TCP.OFCPS_NM                         = TIU.OFCPS_NM
+                 , TCP.TLPHON_NO                        = TIU.TLPHON_NO
+            WHERE  TIU.USER_ID = TCP.EMPL_NO
+        ]]>
+    </insert>
+
+    <!-- 목록 수정 - 재직 구분 퇴직 처리 -->
+    <insert id="updateListHffcSttusToT">
+        <![CDATA[
+            UPDATE TB_COM_PERSON TCP SET
+                   TCP.UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , TCP.UPDT_DT                          = #{$var.systemDate}
+                 , TCP.HFFC_STTUS                       = 'T'
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_INTRFC_USER TIU
+                        WHERE  TIU.USER_ID = TCP.EMPL_NO
+                   )
+        ]]>
+    </insert>
+
+    <!-- PERSON_ID 조회 - 사번으로 -->
+    <select id="selectPersonIdByEmplNo" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TCP.PERSON_ID
+            FROM   TB_COM_PERSON TCP
+            WHERE  TCP.EMPL_NO = #{emplNo}
+        ]]>
+    </select>
+
+    <!-- PERSON_ID 조회 - 사람 정보로 -->
+    <select id="selectPersonId" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TCP.PERSON_ID
+            FROM   TB_COM_PERSON TCP
+            WHERE  1 = 1
+        ]]>
+
+        <choose>
+        <when test='tbComPerson.koreanNm != null and tbComPerson.koreanNm != ""'>
+            <![CDATA[
+            AND    UPPER(TCP.KOREAN_NM) = UPPER(#{tbComPerson.koreanNm})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+            AND    TCP.KOREAN_NM IS NULL
+            ]]>
+        </otherwise>
+        </choose>
+
+        <choose>
+        <when test='tbComPerson.emailAdres != null and tbComPerson.emailAdres != ""'>
+            <![CDATA[
+            AND    UPPER(TCP.EMAIL_ADRES) = UPPER(#{tbComPerson.emailAdres})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+            AND    TCP.EMAIL_ADRES IS NULL
+            ]]>
+        </otherwise>
+        </choose>
+
+        <choose>
+        <when test='tbComPerson.tlphonNo != null and tbComPerson.tlphonNo != ""'>
+            <![CDATA[
+            AND    UPPER(REPLACE(TCP.TLPHON_NO, '-', '')) = UPPER(REPLACE(#{tbComPerson.tlphonNo}, '-', ''))
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+            AND    TCP.TLPHON_NO IS NULL
+            ]]>
+        </otherwise>
+        </choose>
+    </select>
+
+    <!-- 사번, PERSON_ID 목록 조회 -->
+    <select id="selectEmplNoPersonIdList" resultType="kr.ac.jj.shared.domain.main.model.com.person.TbComPerson">
+        <![CDATA[
+            SELECT TCP.EMPL_NO
+                 , TCP.PERSON_ID
+            FROM   TB_COM_PERSON TCP
+            WHERE  TCP.PERSON_SE IS NOT NULL
+            ORDER BY TCP.EMPL_NO
+        ]]>
+    </select>
+
+    <!-- 사번, USER_ID 목록 조회 -->
+    <select id="selectEmplNoUserIdList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TCP.EMPL_NO
+                 , TCPU.USER_ID
+            FROM   TB_COM_PERSON TCP
+                   INNER JOIN TB_COM_PERSON_USER TCPU ON TCPU.PERSON_ID = TCP.PERSON_ID
+            WHERE  TCP.PERSON_SE IS NOT NULL
+            ORDER BY TCP.EMPL_NO
+        ]]>
+    </select>
+
+</mapper>

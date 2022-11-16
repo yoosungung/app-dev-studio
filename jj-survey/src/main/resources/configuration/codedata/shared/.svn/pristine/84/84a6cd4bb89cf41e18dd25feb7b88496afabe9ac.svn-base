@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ 공통 - 부서 CodeData
+ -->
+<codeData namespace="domain.com.tbComDept">
+
+    <!-- 부서 종류 -->
+    <group id="deptKnd">
+        <item code="EXECUTIVES" message="domain.com.tbComDept.deptKnd.EXECUTIVES" name="임직원" />
+        <item code="STUDENT" message="domain.com.tbComDept.deptKnd.STUDENT" name="학생" />
+    </group>
+
+</codeData>

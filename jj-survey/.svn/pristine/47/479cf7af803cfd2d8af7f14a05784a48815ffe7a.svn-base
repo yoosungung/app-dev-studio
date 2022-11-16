@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 설문_설문지 Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.survey.qestnr.TbSurveyQestnrMapper">
+
+    <!-- SURVEY_QESTNR_ID 조회 - SURVEY_ID로 -->
+    <select id="selectSurveyQestnrIdBySurveyId" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TSQ.SURVEY_QESTNR_ID
+            FROM   SURVEY S
+                   INNER JOIN SURVEY_DEFINITION SD ON SD.ID = S.SURVEY_DEFINITION_ID
+                   INNER JOIN TB_SURVEY_QESTNR TSQ ON TSQ.SURVEY_DEFINITION_ID = SD.ID
+            WHERE  S.ID = #{surveyId}
+        ]]>
+    </select>
+
+</mapper>

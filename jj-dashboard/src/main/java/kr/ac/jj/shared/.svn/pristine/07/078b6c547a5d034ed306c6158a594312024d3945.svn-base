@@ -1,0 +1,58 @@
+package kr.ac.jj.shared.infrastructure.framework.core.support.collection;
+
+import java.util.Date;
+import java.util.LinkedHashMap;
+
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
+
+import kr.ac.jj.shared.infrastructure.util.DateUtil;
+
+public class BaseMap extends LinkedHashMap<String, Object> {
+
+    private static final long serialVersionUID = 4817655406253953668L;
+
+    public void longToDate(String... keys) {
+        for (String key : keys) {
+            if (this.get(key) == null) {
+                continue;
+            }
+
+            String value = this.get(key) + "";
+
+            if (StringUtils.isNotEmpty(value)) {
+                this.put(key, new Date(Long.parseLong(value)));
+            }
+        }
+    }
+
+    public void booleanToChar10(String... keys) {
+        for (String key : keys) {
+            if (this.get(key) == null) {
+                continue;
+            }
+
+            String value = this.get(key) + "";
+
+            if (StringUtils.isNotEmpty(value)) {
+                this.put(key, BooleanUtils.toBoolean(value) ? "1" : "0");
+            }
+        }
+    }
+
+    public void addDays(String key, int amount) {
+        Object value = this.get(key);
+
+        if (value == null) {
+            return;
+        }
+
+        if (value instanceof Date) {
+            this.put(key, DateUtils.addDays((Date) value, amount));
+        } else if (value instanceof String) {
+            this.put(key, DateUtil.addDays((String) value, amount));
+        }
+    }
+
+}

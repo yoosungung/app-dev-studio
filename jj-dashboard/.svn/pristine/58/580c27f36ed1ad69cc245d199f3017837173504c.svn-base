@@ -1,0 +1,30 @@
+package kr.ac.jj.dashboard.application.dashboard.ipsy.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import kr.ac.jj.dashboard.application.dashboard.ipsy.service.IpsyServiceImpl;
+
+/**
+ * 입학 분석 데이터 RestController
+ *
+ */
+@RestController
+@RequestMapping(path = "/dashboard/ipsy/Ipsy1", consumes = { MediaType.APPLICATION_JSON_VALUE })
+public class IpsyRestController {
+
+    private @Autowired IpsyServiceImpl ipsyService;
+
+    @PostMapping(path = "/readData")
+    public List<Map<String, Object>> readList(@RequestBody Map<String, Object> search) {
+        return ipsyService.readData(search);
+    }
+
+}

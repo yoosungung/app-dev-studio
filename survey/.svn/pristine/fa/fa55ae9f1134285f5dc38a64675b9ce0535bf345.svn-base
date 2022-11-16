@@ -1,0 +1,360 @@
+@charset "utf-8";
+/* CSS Document */
+
+.skip{}
+.skip a{position:absolute;top:-100px; left:0;display:block; margin:0;width:100%; padding:15px 0; text-align:center; background:#dbe7f6; z-index:9999;}
+.skip a:hover, .skip a:active, .skip a:focus{top:0;}
+
+.wrap{position:relative; width:100%; height:auto;}
+
+/* header */
+#header_wrap{position:relative; width:100%; height:auto; background:url(/wcom/img/zeus2014/cloud/bg_cloudnav.jpg) center bottom repeat-x;}
+#header{position:relative; width:1024px; height:120px; margin:0 auto; zoom:1;}
+#header:after{clear:both; display:block; content:""}
+
+#header #gnb{display:block; position:relative; padding-top:5px; height:28px;}
+#header #gnb .zeusnav{display:none; float:left;}
+#header #gnb .zeusnav li{float:left;}
+#header #gnb .zeusnav li a{display:block; margin-left:5px; padding-left:6px; line-height:33px; font-size:11px; color:#777; background:url(/wcom/img/zeus2014/main/bullet_line.gif) 0px 11px no-repeat;}
+#header #gnb .zeusnav li a:hover, #header #gnb .zeusnav li a:focus, #header #gnb .zeusnav li a:active{color:#00b7ce;}
+#header #gnb .zeusnav li a.first{margin:0; background:none;}
+
+#header #gnb .tm{float:right;}
+#header #gnb .tm li{position:relative; float:left;}
+#header #gnb .tm li a{display:inline-block; height:20px; line-height:20px; color:#777; font-family:"Nanum Gothic","나눔고딕";}
+#header #gnb .tm li .app{position:absolute; top:0px; left:0px; padding-left:25px; background:url(/wcom/img/zeus2014/main/sp_main.png) -450px 5px no-repeat;}
+#header #gnb .tm li .login{margin:1px 0px 0px 12px; padding:0px 15px; height:18px; line-height:18px; background:#00b7ce; border-radius:20px; color:#fff; font-weight:bold;}
+#header #gnb .tm li .join{margin-left:12px; padding-left:11px; background:url(/wcom/img/zeus2014/main/bullet_line.gif) 0px 6px no-repeat;}
+#header #gnb .tm li .admin{margin-left:12px; padding-left:11px; background:url(/wcom/img/zeus2014/main/bullet_line.gif) 0px 6px no-repeat; font-weight: bold; color: #fa7828;}
+#header #gnb .tm li span{display:inline-block; line-height:20px; font-family:"Nanum Gothic","나눔고딕";}
+#header #gnb .tm li .allmenu{display:inline-block; vertical-align:top; margin:2px 9px 0px 13px; width:16px; height:16px; background:url(/wcom/img/zeus2014/public/sp_common.png) 0px -100px no-repeat; text-indent:-9999em;}
+#header #gnb .tm li .allmenu:hover, #header #gnb .tm li .allmenu:focus, #header #gnb .tm li .allmenu:active, #header #gnb .tm li .allmenu:active{background-position:-50px -100px;}
+#header #gnb .tm li .layer_menu{display:block; position:absolute; top:38px; right:0px; padding:10px 0px; width:198px; border:1px solid #d4d4d4; background:#f4f4f4; z-index:200;}
+#header #gnb .tm li .layer_menu ul{background: url(/wcom/img/zeus2014/public/bg_layermenu.gif) left top repeat-y;float: left;width: 33.5%;}
+#header #gnb .tm li .layer_menu ul.first{width: 33%;background: none;}
+
+#header #gnb .tm li .layer_menu ul:after{clear:both; display:block; content:""}
+#header #gnb .tm li .layer_menu ul li{padding:0px 24px; width:50px; height:25px;}
+#header #gnb .tm li .layer_menu ul li a{line-height:25px;}
+#header #gnb .tm li .layer_menu ul li a:hover, #header #gnb .tm li .layer_menu ul li a:focus, #header #gnb .tm li .layer_menu ul li a:active{text-decoration:underline;}
+#header #gnb .tm li .layer_menu .layer_triangle{display:block; position:absolute; top:-6px; right:10px; width:12px; height:6px; background:url(/wcom/img/zeus2014/public/sp_common.png) -100px -100px no-repeat;}
+
+#header #lnb{display:block;}
+#header #lnb h1{display:block; position:absolute; top:20px; left:10px; line-height:30px;}
+#header #lnb h1 a{font-family:'Nanum Gothic'; font-size:18px; }
+#header #lnb h1 img{max-width:300px; max-height:30px; padding-right:5px; vertical-align:middle;}
+#header #lnb h1 strong{padding-left:10px;}
+
+#header #lnb #srch{position:absolute; right:3px; top:80px; height:24px; z-index:100;}
+.srch_form{position:relative; height:28px;}
+.srch_form input{float:left; padding:5px 10px; width:150px; height:18px; border:none; background:#a3d9e4;}
+.srch_form .btn_srch{display:block; float:left; margin-left:5px; width:28px; height:28px; 
+	background:url(/wcom/img/zeus2014/cloud/sp_cloud.png) 0px 0px no-repeat; border:0; text-indent:-9990em;
+	}
+#header #lnb #srch .zeuslink{display:block; position:absolute; top:-19px; right:0px; padding-right:10px; font-size:11px; background:url(/wcom/img/zeus2014/cloud/sp_cloud.png) 156px -46px no-repeat;}
+#header #lnb #srch .zeuslink span{color:#00b7ce;}
+
+
+#header #nav{display:block; position:relative; margin-top:35px; height:52px;}
+#header #nav .nav_list{display:block; zoom:1;}
+#header #nav .nav_list:after{clear:both; display:block; content:""}
+#header #nav .nav_list li{display:block; position:relative; float:left; margin:7px 5px 0px 0px; }
+#header #nav .nav_list li .nav_new{position:absolute; left:50%; top:-5px; margin:0 0 0 10px}
+#header #nav .nav_list li a{display:block; position:relative; text-align:center; width:150px; height:38px; line-height:38px; font-family:"Nanum Gothic","나눔고딕"; color:#fff; font-size:16px;}
+#header #nav .nav_list li a:hover, #header #nav .nav_list li a:focus, #header #nav .nav_list li a:active{color:#b6e9f0;}
+#header #nav .nav_list li a.active{background:url(/wcom/img/zeus2014/cloud/black30.png); border-radius:20px;}
+
+
+
+/* #container{position:relative; width:1024px; height:auto; padding:0; margin:0 auto 20px auto; display: block;} */
+#container_gray{position:relative; padding:20px 0px; width:100%; height:auto; background:#ebebeb;}
+#container{position:relative; width:100%; height:auto; padding:20px 0px;}
+#container.maincont{padding-top:0px;}
+.section_wrap{position:relative; width:1024px; margin:0 auto; zoom:1;}
+.section_wrap:after{clear:both; display:block; content:""}
+.section_wrap.sub{padding-bottom:20px; min-height:100px; background:#fff url(/wcom/img/zeus2014/cloud/bg_cloud.gif) top right repeat-y; border:1px solid #e2e2e2;}
+.section_wrap .section_left{position:relative; float:left; margin-left:20px; width:743px;}
+.section_wrap .section_right{position:relative; float:right; width:238px;}
+
+
+.newest{position:relative; float:left; width:440px; height:300px;}
+
+.newest .news{position:absolute; left:0px; bottom:0px; padding-top:9px; width:100%; height:39px; background:url(/wcom/img/zeus2014/public/black40.png); overflow: hidden;}
+.newest .news ul{height:30px; position: relative;}
+.newest .news ul li{position:relative; padding-left:90px; width:280px; height: 100%;}
+.newest .news ul li h3{position:absolute; top:0px; left:20px; line-height:30px; color:#fff; font-size:13px;}
+.newest .news ul li a{display:block; height:30px; line-height:30px; color:#fff; font-size: 13px;}
+.newest .news ul li a:hover p, .newest .news ul li a:focus p, .newest .news ul li a:active p{text-decoration:underline;}
+.newest .news ul li span{display:block; float:left; width:50px;}
+.newest .news ul li p{float:left; width:230px;
+	overflow : hidden; white-space: nowrap;	text-overflow:ellipsis;	-o-text-overflow:ellipsis; -ms-text-overflow:ellipsis;
+	}
+.newest .news .btn_news{display:block; position:absolute; top:16px; width:15px; height:15px; background:url(/wcom/img/zeus2014/cloud/sp_cloud.png) no-repeat; text-indent:-9999em;}
+.newest .news .btn_news.play{right:20px; background-position:-50px 0px;}
+.newest .news .btn_news.stop{right:20px; background-position:-100px 0px;}
+
+
+
+.board_wrap{position:relative; float:left; margin-left:15px; width:567px; height:175px; background:#fff; border:1px solid #dedede; border-top:none;}
+.board_tab{position:relative; height:40px; background:#e7e7e7;}
+.board_tab a{display:block; float:left; text-align:center; width:175px; height:39px; line-height:39px; font-family:"Nanum Gothic","나눔고딕"; font-size:14px; border-top:1px solid #dbdbdb;}
+.board_tab a.active{height:38px; line-height:38px; background:#fff; border-top:2px solid #00b7ce;}
+
+.board_wrap .board_list{padding:20px 20px 0px 160px; min-height:100px; background:url(/wcom/img/zeus2014/cloud/sp_notice.png) no-repeat;}
+.board_wrap .board_list.board1{background-position:30px 20px}
+.board_wrap .board_list.board2{background-position:30px -180px}
+.board_wrap .board_list.board3{background-position:30px -380px}
+.board_wrap .board_list li{position:relative; height:26px;}
+.board_wrap .board_list li a{font-family:"Nanum Gothic","나눔고딕"; font-size:12px;}
+.board_wrap .board_list li .title{float:left; padding-left:6px; width:280px; background:url(/wcom/img/zeus2014/main/bullet_gray.gif) left 7px no-repeat;
+	overflow : hidden; white-space: nowrap;	text-overflow:ellipsis;	-o-text-overflow:ellipsis; -ms-text-overflow:ellipsis;
+	}
+.board_wrap .board_list li .title:hover, .board_wrap .board_list li .title:focus p, .board_wrap .board_list li .title:active p{text-decoration:underline;}
+.board_wrap .board_list li span{float:right; width:60px; text-align:right; font-family:"verdana"; font-size:11px; color:#878787;}
+.board_wrap .notice_more{display:block; position:absolute; top:0px; right:0px; width:42px; height:40px; background:url(/wcom/img/zeus2014/cloud/sp_cloud.png) -200px -300px no-repeat;}
+
+.advertising{position:relative; float:left; margin:15px 0px 0px 15px; width:198px;}
+.icon_exp{position:absolute; top:191px; right:0px; width:188px; height:107px; background:#aab4c3; border:1px solid #9ea8b8; color:#fffefe; font-size:11px;}
+.icon_exp .exp_list{padding:8px 0px 0px 12px;}
+.icon_exp .exp_list li{height:24px;}
+.icon_exp .exp_list li .texticon{margin-right:6px;}
+.icon_exp .icon_more{position:absolute; top:-1px; right:-1px; z-index:20;}
+.icon_exp .exp_arrow{display:block; position:absolute; bottom:-7px; left:50%; margin-left:-7px; width:13px; height:7px; background:url(/wcom/img/zeus2014/cloud/icon_exp.png) no-repeat; z-index:50;}
+.exp_layer{display:block; position:absolute; top:-1px; right:-1px; width:567px; height:107px; background:#aab4c3; border:1px solid #9ea8b8; z-index:100;}
+.exp_layer ul{padding:5px 0px 0px 10px;}
+.exp_layer ul li{min-height:22px;}
+.exp_layer ul li .texticon{float:left; margin-right:6px;}
+.exp_layer ul li .exptext{display:inline-block; float:left; width:500px;}
+.exp_layer .close_exp{display:block; position:absolute; top:10px; right:10px; width:13px; height:13px; background:url(/wcom/img/zeus2014/btn/sp_btn.png) -281px -41px no-repeat; text-indent:-9999em;}
+
+.equipment{position:relative; float:left; width:100%;}
+.equipment p{height:20px; padding:20px 0px 15px 0px;}
+
+.equipment .alignment{position:absolute; top:15px; right:0px;}
+.equipment .alignment li{position:relative; float:left;}
+.equipment .alignment li a{display:block; padding:0px 8px; height:26px; line-height:27px; font-size:11px; color:#8e8e8e; background:url(/wcom/img/zeus2014/main/bullet_line.gif) 0px 8px no-repeat;}
+.equipment .alignment li.first a{background:none;}
+.equipment .alignment li.grade_up{padding-right:8px; background:url(/wcom/img/zeus2014/cloud/sp_cloud.png) 45px -189px no-repeat;}
+.equipment .alignment li.grade_down{padding-right:8px; background:url(/wcom/img/zeus2014/cloud/sp_cloud.png) 45px -239px no-repeat;}
+.equipment .alignment li .active{color:#00b7ce;}
+
+.equip_list{position:relative; margin:-16px 0px 0px -16px;}
+.equip_list:after{display:block; clear:both; content:"";}
+.equip_list li{position:relative; float:left; margin:16px 0px 0px 16px; width:190px; height:220px; border:1px solid #e5e5e5;}
+.equip_list li dl{padding-top:126px;}
+.equip_list li dl dt{padding:13px 15px 2px 15px; font-weight:bold;
+	overflow : hidden; white-space: nowrap;	text-overflow:ellipsis;	-o-text-overflow:ellipsis; -ms-text-overflow:ellipsis;
+	}
+.equip_list li:hover dt, .equip_list li:focus dt, .equip_list li:active dt{text-decoration:underline;}
+.equip_list li dl .engtit{padding:0px 15px; 
+	overflow : hidden; white-space: nowrap;	text-overflow:ellipsis;	-o-text-overflow:ellipsis; -ms-text-overflow:ellipsis;
+	}
+.equip_list li dl .thumbnail{position:absolute; top:-1px; left:-1px;}
+.equip_list li dl .thumbnail img{width:192px; height:130px;}
+.equip_list li dl .thumbnail .blackline{display:block; position:absolute; top:0px; left:0px; width:192px; height:130px; background:url(/wcom/img/zeus2014/cloud/list_line.png) no-repeat;}
+.equip_list li dl .icon{position:absolute; bottom:0px; left:0px; width:100%; padding:8px 0;  height:17px; background:#f6f6f6; border-top:1px solid #e5e5e5;z-index:20; }
+.equip_list li dl .icon:after{clear:both; display:block; content:""}
+.equip_list li dl .icon img{float:left; margin:0 0 0 4px}
+.equip_list li dl .icon img.first{margin-left:5px;}
+.equip_list li dl .score{display:block; position:absolute; bottom:0px; left:0px; width:100%; padding-top:4px;  height:30px; line-height:34px; text-align:right; background:#f6f6f6; border-top:1px solid #e5e5e5;}
+.equip_list li dl .score span{margin-right:10px;}
+.texticon{display:inline-block; margin-right:3px; width:46px; height:20px; line-height:21px; border-radius:20px; color:#fff; font-size:11px; text-align:center;}
+.texticon.icon1_1{background:#a06dc7;}
+.texticon.icon1_2{background:#826dc7;}
+.texticon.icon2_1{background:#5b8dd7;}
+.texticon.icon2_2{background:#47a0b6;}
+.wrap_texticon{position:absolute; top:9px; left:15px;}
+
+
+
+#footer_wrap{position:relative; width:100%; height:auto; background:#595d65;}
+#footer{position:relative; width:1024px; height:auto; margin:0 auto; padding:16px 0 30px; color:#dcdcdc;}
+#footer address{padding-left:15px; font-style:normal}
+#footer address p{height:18px; line-height:18px;}
+#footer address .phonenum{display:inline-block; margin-left:10px; padding-left:18px; color:#00b7ce !important; background:url(/wcom/img/zeus2014/public/footer_phone.png) left 1px no-repeat;}
+#footer .logo{position:absolute; top:20px; right:15px;}
+
+
+
+/*서브*/
+.tit_right{height:35px; line-height:25px; color:#000; font-size:16px; font-family:'Nanum Gothic'; font-weight:normal;}
+.tit_right.map{padding:10px 0 0px 15px; height: 20px;}
+
+.tab_notice{display:block; position:relative; margin-top:15px; height:47px;}
+.tab_notice:after{display:block; clear:both; content:"";}
+.tab_notice li{float:left; margin-right:7px;}
+.tab_notice li a{display:block; position:relative; width:140px; height:30px; line-height:30px; text-align:center; font-weight:bold; color:#686868; background:#fafafa; border:1px solid #dddddd; border-radius:30px;}
+.tab_notice li a.active{background:#a5abb6; border:1px solid #878f9f; color:#fff;}
+.tab_notice li .tab1{display:inline-block; padding-left:20px; background:url(/wcom/img/zeus2014/cloud/sp_cloud.png) -250px -142px no-repeat;}
+.tab_notice li a.active .tab1{background-position:-250px -92px;}
+.tab_notice li .tab2{display:inline-block; padding-left:20px; background:url(/wcom/img/zeus2014/cloud/sp_cloud.png) -250px -242px no-repeat;}
+.tab_notice li a.active .tab2{background-position:-250px -192px;}
+.tab_notice li .arrow{display:none; position:absolute; top:30px; left:50%; margin-left:-5px; width:11px; height:6px; background:url(/wcom/img/zeus2014/cloud/sp_cloud.png) -200px -50px no-repeat;}
+.tab_notice li a.active .arrow{display:block;}
+
+.cloud_tbl{position:relative; width:100%; text-align:center; color:#888888; border-top:2px solid #8b8b8b;}
+.cloud_tbl thead th{padding:0px; height:43px; line-height:43px; color:#333; border-bottom:1px solid #c6c6c6;}
+.cloud_tbl tbody td{padding:10px 10px; border-bottom:1px solid #dfdfdf;}
+.cloud_tbl tbody td a{display:block; line-height:14px; text-align:left; color:#888888;}
+.cloud_tbl tbody tr:hover td{background:#fbfbfb;}
+.cloud_tbl tbody td .notice_top{padding-left:5px; vertical-align:middle;}
+.cloud_tbl .active td a{font-weight:bold; text-decoration:underline;}
+.cloud_tbl .opencont{background:#fafafa; text-align:left;}
+.cloud_tbl .opencont .contbox{padding:5px 10px 5px 50px;}
+
+.srch_notice{position:relative; text-align:center; margin-top:20px; padding:14px 0px; width:100%; height:30px; background:#eaf5f7; border-top:1px solid #d2e2e5; border-bottom:1px solid #d2e2e5; font-size:0;}
+.srch_notice select{padding-left:3px; width:100px; height:30px; background:#fff; border:1px solid #e3e3e3; border-bottom:1px solid #cfcfcf;}
+.srch_notice input{margin-left:4px; padding:5px 10px; width:250px; height:18px; background:#fff; border:1px solid #e3e3e3; border-bottom:1px solid #cfcfcf;}
+.srch_notice button{margin-left:4px; width:58px; height:30px; font-family:'Dotum'; color:#666; background:#fff; border:1px solid #dadada; border-bottom:1px solid #b6b6b6;}
+.srch_notice.main{background:#e7e7e7; border:none;}
+
+.list_type1{position:relative; padding:20px; border-bottom:1px solid #e2e2e2;}
+.list_type1 ul{margin-top:10px;}
+.list_type1 ul li{position:relative;}
+.list_type1 ul li .title{line-height:25px; padding-left:6px; background:url(/wcom/img/zeus2014/main/bullet_gray.gif) left 10px no-repeat;
+	overflow : hidden; white-space: nowrap;	text-overflow:ellipsis;	-o-text-overflow:ellipsis; -ms-text-overflow:ellipsis;
+	}
+.list_type1 ul li .title:hover, .list_type1 ul li .title:focus p, .list_type1 ul li .title:active p{text-decoration:underline;}
+.list_type1 ul li.firstone{margin-bottom:20px; height:120px; overflow:hidden;}
+.list_type1 ul li.firstone strong{display:block; height:28px;
+overflow : hidden;
+white-space: nowrap;
+text-overflow:ellipsis;
+-o-text-overflow:ellipsis;
+-ms-text-overflow:ellipsis;
+	}
+.list_type1 ul li.firstone p{text-align:justify; color:#777777;}
+.list_type1 ul li.firstone:hover strong, .list_type1 ul li.firstone:focus strong, .list_type1 ul li.firstone:active strong{text-decoration:underline;}
+
+.list_type2{position:relative; padding:20px;}
+.list_type2 ul{margin-top:10px;}
+.list_type2 ul li{position:relative;}
+.list_type2 ul li p{line-height:25px; padding-left:6px; background:url(/wcom/img/zeus2014/main/bullet_gray.gif) left 10px no-repeat;
+overflow : hidden; 
+white-space: nowrap;	
+text-overflow:ellipsis;	
+-o-text-overflow:ellipsis;
+-ms-text-overflow:ellipsis;
+	}
+.list_type2 ul li span{padding-left:6px; color:#8e8d8d; font-size:11px;}
+.list_type2 ul li:hover p, .list_type2 ul li:focus p, .list_type2 ul li:active p{text-decoration:underline;}
+
+.list_type3{position:relative; padding:20px 20px 10px 20px;}
+.list_type3.sub{border-bottom:1px solid #e2e2e2; padding-bottom:20px;}
+.list_type3.eqSub{border:1px solid #e2e2e2; padding-bottom:10px 0 20px 0; padding-top:10px;}
+.list_type3 ul{margin-top:-15px;}
+.list_type3 ul li{margin-top:15px; height:60px;}
+.list_type3 ul li dl{position:relative; padding-left:97px;}
+.list_type3 ul li dl dt{
+	overflow : hidden; white-space: nowrap;	text-overflow:ellipsis;	-o-text-overflow:ellipsis; -ms-text-overflow:ellipsis;
+	}
+.list_type3 ul li dl .thumbnail{position:absolute; top:0px; left:0px;}
+.list_type3 ul li dl .thumbnail img{width:88px; height:60px;}
+.list_type3 ul li dl .thumbnail .blackline{display:block; position:absolute; top:0px; left:0px; width:88px; height:60px; background:url(/wcom/img/zeus2014/cloud/list3_top.png) no-repeat;}
+.list_type3 ul li dl .engtit{font-size:11px;
+	overflow : hidden; white-space: nowrap;	text-overflow:ellipsis;	-o-text-overflow:ellipsis; -ms-text-overflow:ellipsis;
+	}
+.list_type3 ul li dl:hover dt, .list_type3 ul li dl:focus dt, .list_type3 ul li dl:active dt{text-decoration:underline;}
+
+
+.list_type4{position:relative; padding:20px;}
+.list_type4 ul{}
+.list_type4 ul li{position:relative; margin-top:10px;}
+.list_type4 ul li .title{line-height:20px; padding-left:6px; background:url(/wcom/img/zeus2014/main/bullet_gray.gif) left 10px no-repeat;
+	overflow : hidden; white-space: nowrap;	text-overflow:ellipsis;	-o-text-overflow:ellipsis; -ms-text-overflow:ellipsis;
+	}
+.list_type4 ul li:hover .title, .list_type4 ul li:focus .title, .list_type4 ul li:active .title{text-decoration:underline;}
+.list_type4 ul li .period{padding-left:7px; font-size:11px; color:#686868;}
+.list_type4 ul li.firstone{margin-bottom:20px; height:120px; overflow:hidden;}
+.list_type4 ul li.firstone strong{display:block; height:20px;
+	overflow : hidden; white-space: nowrap;	text-overflow:ellipsis;	-o-text-overflow:ellipsis; -ms-text-overflow:ellipsis;
+	}
+.list_type4 ul li.firstone p{text-align:justify; color:#777777;}
+.list_type4 ul li.firstone p.period{padding:0px; margin-bottom:7px;}
+.list_type4 ul li.firstone:hover strong, .list_type4 ul li.firstone:focus strong, .list_type4 ul li.firstone:active strong{text-decoration:underline;}
+
+
+
+
+.head_calendar{position:relative; height:66px;}
+.head_calendar span{display:block; padding-top:20px; width:170px; height:30px; line-height:30px; text-align:center; font-family:'Nanum Gothic'; font-size:24px;}
+.head_calendar .btn_month{display:block; position:absolute; top:20px; width:24px; height:24px; background:url(/wcom/img/zeus2014/cloud/sp_cloud.png) no-repeat; text-indent:-9999em;}
+.head_calendar .btn_month.prev{left:5px; background-position:0px -300px;}
+.head_calendar .btn_month.next{left:138px; background-position:-50px -300px;}
+
+.choice{display:block; position:absolute; top:20px; right:0px;}
+.choice label{padding-right:5px; color:#858585; font-weight:bold;}
+.choice select{padding-left:5px; width:180px; height:28px; line-height:24px; background:#fafafa; border:1px solid #e0e0e0;}
+
+.tbl_calendar{position:relative; width:100%; border-top:2px solid #878f9f;}
+.tbl_calendar thead th{height:38px; line-height:38px; background:#e8ebf2; border-bottom:1px solid #c9cfdc; border-left:1px solid #c9cfdc;}
+.tbl_calendar tbody td{padding:8px; height:80px; vertical-align:top; color:#8f8f8f; border-bottom:1px solid #e0e0e0; border-left:1px solid #e0e0e0;}
+.tbl_calendar strong{display:block; height:25px;}
+.tbl_calendar .edge{border-left:none;}
+.tbl_calendar .edge strong{color:#ff4200;}
+.tbl_calendar .sun{color:#ff4200;}
+.tbl_calendar .satur{color:#3f92d8;}
+
+.icon_wrap{display:block; position:relative; padding-top:10px;}
+.icon_wrap:after{display:block; clear:both; content:"";}
+.icon_wrap ul{display:block; float:left; width:50%;}
+.icon_wrap ul li{position:relative; margin-top:10px; padding-left:30px;}
+.icon_wrap ul li .calicon{position:absolute; top:2px; left:0px;}
+.calicon{display:inline-block; padding-left:24px; min-width:21px; height:21px; line-height:23px; font-size:11px; cursor:pointer;}
+.calicon.icon1{background:url(/wcom/img/zeus2014/cloud/calicon1.png) no-repeat;}
+.calicon.icon2{background:url(/wcom/img/zeus2014/cloud/calicon2.png) no-repeat;}
+.calicon.icon3{background:url(/wcom/img/zeus2014/cloud/calicon3.png) no-repeat;}
+.calicon.icon4{background:url(/wcom/img/zeus2014/cloud/calicon4.png) no-repeat;}
+.calicon.icon5{background:url(/wcom/img/zeus2014/cloud/calicon5.png) no-repeat;}
+.calicon.icon6{background:url(/wcom/img/zeus2014/cloud/calicon6.png) no-repeat;}
+
+.bnr_wrap{position:relative; border-bottom:1px solid #e2e2e2;}
+
+/*예약현황 상세 레이어 팝업 */
+table.tbl_calendar tbody td .summery { position:absolute; top:50%; left:50%; margin:-140px 0 0 -160px;  width:320px; height:280px; border:1px solid #dddddd; background:#f5f6f6; z-index:2002; }
+table.tbl_calendar tbody td .summery .title { position:relative; padding-left:15px; height:38px; border-bottom:1px solid #dddddd; color:#505050; font-weight:bold; line-height:38px; }
+table.tbl_calendar tbody td .summery .title .date { color:#4791de; padding-left:15px; font-weight:normal; display:inline;  }
+table.tbl_calendar tbody td .summery .title button.close { position:absolute; right:10px; top:8px; padding:0; margin:0; background:none; border:1px solid #dcdcdc; }
+table.tbl_calendar tbody td .summery .list { position:relative; padding:15px; height:211px; color:#505050; overflow-x:hidden; overflow-y:scroll; }
+table.tbl_calendar tbody td .summery .list ul { position:relative; color:#505050; }
+table.tbl_calendar tbody td .summery .list ul li { position:relative; color:#646464; /* background-position:1px 9px; */ background-repeat:no-repeat; padding:0px 0 5px 29px; font-weight:normal; }
+table.tbl_calendar tbody td .summery .list ul li .equip_nm { color:#505050; }
+table.tbl_calendar tbody td .summery .list ul li .model_nm { color:#505050; }
+table.tbl_calendar tbody td .summery .list ul li .user_nm{ color:#505050; font-weight:bold; }
+
+table.tbl_calendar tbody td .event.type_01 { background-image:url(/wcom/img/cloud/icon/resv_exp_01.png); }
+table.tbl_calendar tbody td .event.type_01 strong { color:#f37f02; }
+table.tbl_calendar tbody td .summery li.type_01 {background:url(/wcom/img/zeus2014/cloud/calicon4.png);}
+
+table.tbl_calendar tbody td .event.type_02 { background-image:url(/wcom/img/cloud/icon/resv_exp_02.png); }
+table.tbl_calendar tbody td .event.type_02 strong { color:#399ce9; }
+table.tbl_calendar tbody td .summery li.type_02 {background:url(/wcom/img/zeus2014/cloud/calicon5.png);}
+
+table.tbl_calendar tbody td .event.type_03 { background-image:url(/wcom/img/cloud/icon/resv_exp_03.png); }
+table.tbl_calendar tbody td .event.type_03 strong { color:#11b700; }
+table.tbl_calendar tbody td .summery li.type_03 {background:url(/wcom/img/zeus2014/cloud/calicon6.png);}
+
+table.tbl_calendar tbody td .event.type_04 { background-image:url(/wcom/img/cloud/icon/resv_exp_04.png); }
+table.tbl_calendar tbody td .event.type_04 strong { color:#11b700; }
+table.tbl_calendar tbody td .summery li.type_04 {background:url(/wcom/img/zeus2014/cloud/calicon1.png);}
+
+table.tbl_calendar tbody td .event.type_05 { background-image:url(/wcom/img/cloud/icon/resv_exp_05.png); }
+table.tbl_calendar tbody td .event.type_05 strong { color:#11b700; }
+table.tbl_calendar tbody td .summery li.type_05 {background:url(/wcom/img/zeus2014/cloud/calicon2.png);}
+
+table.tbl_calendar tbody td .event.type_06 { background-image:url(/wcom/img/cloud/icon/resv_exp_06.png); }
+table.tbl_calendar tbody td .event.type_06 strong { color:#11b700; }
+table.tbl_calendar tbody td .summery li.type_06 {background:url(/wcom/img/zeus2014/cloud/calicon3.png);}
+
+.layer_notice{top:100px; left:300px; width:660px; background:#fff; border:2px solid #435363; border-radius:10px; box-shadow:3px 3px 3px rgba(0,0,0,0.3); z-index:100;}
+.layer_notice .head_notice{padding:20px; background:#435363; border-radius:6px 6px 0px 0px;}
+.layer_notice .head_notice .tit_notice{padding:1px 0px 1px 32px; width:540px; font:18px/24px "Nanum Gothic"; font-weight:normal; color:#fff; background:url(../../../wcom/img/zeus2014/cloud/icon_notice.png) left top no-repeat;}
+.layer_notice .cont_notice{position:relative; max-height:600px; overflow:auto; margin:20px; border-top:none; border-radius:0px 0px 10px 10px;}
+.layer_notice .cont_notice .file_notice{margin-bottom:15px; padding-bottom:15px; border-bottom:1px dashed #e2e2e2;}
+.layer_notice .cont_notice .file_notice ul{}
+.layer_notice .cont_notice .file_notice ul li{padding-bottom:2px;}
+.layer_notice .cont_notice .file_notice ul li a{display:inline-block; padding-left:20px; font-size:11px; background:url(../../../wcom/img/zeus2014/cloud/icon_file.png) left top no-repeat;}
+.layer_notice .cont_notice .file_notice ul li a:hover, .layer_notice .cont_notice .file_notice ul li a:focus, .layer_notice .cont_notice .file_notice ul li a:active{text-decoration:underline;}
+.layer_notice .foot_notice{padding-right:20px; height:35px; line-height:35px; text-align:right; background:#ececec; border-top:1px solid #d8d8d8; border-radius:0px 0px 10px 10px;}
+.layer_notice .foot_notice input[type="checkbox"]{vertical-align:top; margin:10px 5px 0px 0px;}
+.layer_notice .btn_layerclose{display:block; position:absolute; top:30px; right:35px; width:21px; height:21px; background:url(../../../wcom/img/zeus2014/cloud/btn_layerclose.png) left top no-repeat; text-indent:-9999em; z-index:200;}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 부서 관리 DW Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.admin.appmanage.deptmanage.mapper.DeptManageDwMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+        SELECT DEPT_ID DEPT_CODE
+             , DEPT_NAME
+             , PAR_ID UPPER_DEPT_CODE
+             , 1 DEPT_LEVEL
+          FROM DW_DEPT_GLOBAL
+        UNION ALL
+        SELECT CODE_CODE DEPT_CODE
+             , CODE_FNAME DEPT_NAME
+             , '' UPPER_DEPT_CODE
+             , CASE WHEN CODE_TYPE = '101' THEN 1
+                    WHEN CODE_TYPE = '102' THEN 2
+                    ELSE 3
+                END DEPT_LEVEL
+          FROM DW_CODEMAST DC
+         WHERE CODE_TYPE IN ('101','102','103')
+        ]]>
+    </select>
+
+</mapper>

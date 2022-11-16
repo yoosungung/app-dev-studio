@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 설문_설문지_공통문항 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbSurveyQestnrCmmn.surveyQestnrId"><![CDATA[설문지 ID]]></entry>
+    <entry key="domain.main.tbSurveyQestnrCmmn.sexdstn"><![CDATA[성별]]></entry>
+    <entry key="domain.main.tbSurveyQestnrCmmn.area"><![CDATA[지역]]></entry>
+    <entry key="domain.main.tbSurveyQestnrCmmn.grade"><![CDATA[학년]]></entry>
+    <entry key="domain.main.tbSurveyQestnrCmmn.cghmy"><![CDATA[단과 대학]]></entry>
+    <entry key="domain.main.tbSurveyQestnrCmmn.subjct"><![CDATA[학과]]></entry>
+    <entry key="domain.main.tbSurveyQestnrCmmn.stsfdg01"><![CDATA[만족도 01 => 전주대학교에 전반적으로 만족하십니까?]]></entry>
+    <entry key="domain.main.tbSurveyQestnrCmmn.stsfdg02"><![CDATA[만족도 02 => 전주대학교의 교육에 대해 만족하십니까?]]></entry>
+    <entry key="domain.main.tbSurveyQestnrCmmn.stsfdg03"><![CDATA[만족도 03 => 전주대학교의 교육환경에 대해 만족하십니까?]]></entry>
+
+</properties>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+
+    <definition extends="preview" name="settings/surveyDefinitionPages/fork" template="/WEB-INF/layouts/jd/bootstrap-blank.jspx">
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/surveyDefinitionPages/fork.jspx"/>
+    </definition>
+
+    <definition extends="preview" name="settings/surveyDefinitionPages/create" template="/WEB-INF/layouts/jd/bootstrap-blank.jspx">
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/surveyDefinitionPages/create.jspx"/>
+    </definition>
+
+    <definition extends="preview" name="settings/surveyDefinitionPages/update" template="/WEB-INF/layouts/jd/bootstrap-blank.jspx">
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/surveyDefinitionPages/update.jspx"/>
+    </definition>
+
+
+
+    <definition extends="preview" name="settings/surveyDefinitionPages/show" template="/WEB-INF/layouts/jd/preview.jspx">
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/surveyDefinitionPages/show.jspx"/>
+    </definition>
+
+
+    <definition extends="preview" name="settings/surveyDefinitionPages/saved">
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/surveyDefinitionPages/saved.jspx"/>
+    </definition>
+
+
+
+</tiles-definitions>

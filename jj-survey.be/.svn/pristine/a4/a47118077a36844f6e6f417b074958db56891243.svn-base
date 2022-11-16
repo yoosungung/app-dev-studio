@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 사용자 로그인 실패 Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrMapper">
+
+    <!-- 수정 => 0 -->
+    <update id="updateZero">
+        <![CDATA[
+            UPDATE TB_SYS_USER_LOGIN_FAILR SET
+                   FAILR_CO                         = 0
+            WHERE  LOGIN_NM = #{loginNm}
+        ]]>
+    </update>
+
+</mapper>

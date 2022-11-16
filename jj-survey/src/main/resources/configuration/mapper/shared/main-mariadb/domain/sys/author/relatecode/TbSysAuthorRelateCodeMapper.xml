@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 권한별 관련 코드 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.author.relatecode.TbSysAuthorRelateCodeMapper">
+
+    <!-- 목록 삭제 - AUTHOR_ID(으)로 -->
+    <delete id="deleteListByAuthorId">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_AUTHOR_RELATE_CODE
+            WHERE  AUTHOR_ID = #{authorId}
+        ]]>
+    </delete>
+
+</mapper>

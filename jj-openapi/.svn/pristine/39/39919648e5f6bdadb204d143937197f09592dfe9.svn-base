@@ -1,0 +1,84 @@
+package kr.ac.jj.openapi.application.bannermanage.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.openapi.application.bannermanage.mapper.BannerManageMapper;
+import kr.ac.jj.openapi.application.bannermanage.model.BannerManageModel;
+import kr.ac.jj.openapi.domain.main.mapper.api.banner.TbApiBannerMapper;
+import kr.ac.jj.openapi.domain.main.model.api.banner.TbApiBanner;
+import kr.ac.jj.shared.infrastructure.framework.core.foundation.exception.BizException;
+import kr.ac.jj.shared.infrastructure.framework.web.context.support.MessageUtil;
+
+/**
+ * 키 발급 관리 Service
+ */
+@Service
+public class BannerManageServiceImpl {
+
+    private @Autowired BannerManageMapper bannerManageMapper;
+    private @Autowired TbApiBannerMapper tbApiBannerMapper;
+
+    /**
+     * 목록 조회
+     *
+     * @param gridRequest
+     * @return
+     */
+    public List<Map<String, Object>> readList() {
+        return bannerManageMapper.selectAll();
+    }
+
+    /**
+     * 수정
+     *
+     * @param model
+     */
+    public void update(BannerManageModel model) {
+
+    }
+
+    /**
+     * 추가
+     *
+     * @param model
+     */
+    public void create(BannerManageModel model) {
+        TbApiBanner tbApiBanner = model.getTbApiBanner();
+
+        tbApiBanner.newId();
+        tbApiBanner.setBannerSttus("1");
+
+        if (tbApiBannerMapper.insert(tbApiBanner) == 0) {
+            throw new BizException(MessageUtil.getMessage("Q&A를 등록할 수 없습니다."));
+        }
+    }
+
+    /**
+     * 삭제
+     *
+     * @param List<Map>
+     */
+    public void delete(List<Map<String, Object>> bannerList) {
+        String checked = "";
+        for (int i = 0; i < bannerList.size(); i++) {
+            Map<String, Object> curMap = bannerList.get(i);
+            if ((Boolean) curMap.get("_rowCheck_") == true) {
+                tbApiBannerMapper.delete(curMap.get("bannerId").toString());
+            }
+        }
+    }
+
+    /**
+     * 사용여부 업데이트
+     *
+     * @param update
+     */
+    public void useUpdate(BannerManageModel model) {
+
+    }
+
+}

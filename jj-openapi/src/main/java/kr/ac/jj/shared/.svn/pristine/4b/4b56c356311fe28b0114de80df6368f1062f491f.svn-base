@@ -1,0 +1,16 @@
+package kr.ac.jj.shared.infrastructure.security.password;
+
+import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
+
+public class JJSha256PasswordEncoder extends MessageDigestPasswordEncoder {
+
+    public JJSha256PasswordEncoder(String algorithm) {
+        super(algorithm);
+    }
+
+    @Override
+    public boolean matches(CharSequence rawPassword, String encodedPassword) {
+        return super.matches("jjuniv00" + rawPassword, encodedPassword.toLowerCase());
+    }
+
+}

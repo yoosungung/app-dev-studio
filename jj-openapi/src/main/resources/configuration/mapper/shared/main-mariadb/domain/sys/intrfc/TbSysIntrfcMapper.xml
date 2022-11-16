@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 인터페이스 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.intrfc.TbSysIntrfcMapper">
+
+    <!-- 전체 삭제 -->
+    <delete id="deleteAll">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_INTRFC
+            WHERE  TABLE_NM = #{tableNm}
+        ]]>
+    </delete>
+
+</mapper>

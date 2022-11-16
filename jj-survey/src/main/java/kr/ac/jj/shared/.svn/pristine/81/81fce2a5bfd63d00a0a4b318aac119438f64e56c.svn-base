@@ -1,0 +1,54 @@
+package kr.ac.jj.shared.config;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import kr.ac.jj.shared.infrastructure.framework.core.persistence.dao.helper.SqlHelperForMariaDB;
+import kr.ac.jj.shared.infrastructure.framework.core.persistence.dao.helper.SqlHelperForOracle;
+import kr.ac.jj.shared.infrastructure.framework.core.persistence.dao.helper.SqlHelperUtil;
+
+@Configuration
+@EnableTransactionManagement
+public class SharedDataSourceMapperConfig {
+
+    public SharedDataSourceMapperConfig() {
+        SqlHelperUtil.addSqlHelper(new SqlHelperForMariaDB());
+        SqlHelperUtil.addSqlHelper(new SqlHelperForOracle());
+    }
+
+    @MapperScan(annotationClass = SharedMainSqlMapper.class, sqlSessionFactoryRef = "sqlSessionFactory.main", basePackages = {
+            "kr.ac.jj.shared" })
+    @MapperScan(annotationClass = SharedDwSqlMapper.class, sqlSessionFactoryRef = "sqlSessionFactory.dw", basePackages = {
+            "kr.ac.jj.shared" })
+    public static class MapperScanPackages {
+    }
+
+    @Target(ElementType.TYPE)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    @Component
+    public @interface SharedMainSqlMapper {
+
+        String value() default "";
+
+    }
+
+    @Target(ElementType.TYPE)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    @Component
+    public @interface SharedDwSqlMapper {
+
+        String value() default "";
+
+    }
+
+}

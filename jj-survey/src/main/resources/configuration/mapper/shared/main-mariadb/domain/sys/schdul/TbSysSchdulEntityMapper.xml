@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 스케줄 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.schdul.TbSysSchdulEntityMapper">
+
+    <!-- 기본 조회 SQL -->
+    <sql id="baseSelectSql">
+        <![CDATA[
+            SELECT TSS.SCHDUL_ID
+                 , TSS.SCHDUL_KEY
+                 , TSS.SCHDUL_NM
+                 , TSS.OPERT_CLASS
+                 , TSS.EXECUT_LOG_CSTDY_DAYCNT
+                 , TSS.EXECUT_LOG_CSTDY_CO
+                 , TSS.VALID_YN
+                 , TSS.USE_YN
+            FROM   TB_SYS_SCHDUL TSS
+        ]]>
+    </sql>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.sys.schdul.TbSysSchdul">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TSS.SCHDUL_ID = #{schdulId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SYS_SCHDUL (
+                   SCHDUL_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SCHDUL_KEY
+                 , SCHDUL_NM
+                 , OPERT_CLASS
+                 , EXECUT_LOG_CSTDY_DAYCNT
+                 , EXECUT_LOG_CSTDY_CO
+                 , VALID_YN
+                 , USE_YN
+            ) VALUES (
+                   #{tbSysSchdul.schdulId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbSysSchdul.schdulKey}
+                 , #{tbSysSchdul.schdulNm}
+                 , #{tbSysSchdul.opertClass}
+                 , #{tbSysSchdul.executLogCstdyDaycnt}
+                 , #{tbSysSchdul.executLogCstdyCo}
+                 , #{tbSysSchdul.validYn}
+                 , #{tbSysSchdul.useYn}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SYS_SCHDUL SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , SCHDUL_KEY                       = #{tbSysSchdul.schdulKey}
+                 , SCHDUL_NM                        = #{tbSysSchdul.schdulNm}
+                 , OPERT_CLASS                      = #{tbSysSchdul.opertClass}
+                 , EXECUT_LOG_CSTDY_DAYCNT          = #{tbSysSchdul.executLogCstdyDaycnt}
+                 , EXECUT_LOG_CSTDY_CO              = #{tbSysSchdul.executLogCstdyCo}
+                 , VALID_YN                         = #{tbSysSchdul.validYn}
+                 , USE_YN                           = #{tbSysSchdul.useYn}
+            WHERE  SCHDUL_ID = #{tbSysSchdul.schdulId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_SCHDUL
+            WHERE  SCHDUL_ID = #{schdulId}
+        ]]>
+    </delete>
+
+</mapper>

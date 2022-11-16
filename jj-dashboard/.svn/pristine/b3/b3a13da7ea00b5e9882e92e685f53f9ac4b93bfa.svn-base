@@ -1,0 +1,25 @@
+################################################################################
+# 실행환경 - 운영
+################################################################################
+spring:
+  profiles:
+    include:
+    - logging-file
+
+config:
+  shared:
+    datasources:
+      main:
+        hikari:
+          jdbc-url: "jdbc:mariadb://202.31.236.115:3306/jj_dashboard"
+          minimum-idle: 10
+          maximum-pool-size: 500
+    server-url: https://bigdata.jj.ac.kr
+    login:
+      admin:
+        ip-list:
+        - "202.31.235.17"
+        key: "FAFgWu2kgfHzM5h5cE3JEV3jUyD97HPwWx8QGtK1R3FNWmno2c"
+        password: "gY)Kb7fRr0b21=/,]S{_ni+^AyM?[HL2%$OzJ1!$S0fNBn^cMw"
+    scheduler:
+      enable: true

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="article"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"  
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" 
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/2015/table" 
+	xmlns:sec="http://www.springframework.org/security/tags"
+	version="2.0">
+	
+	<jsp:directive.page contentType="text/html;charset=UTF-8"/>
+	<jsp:output omit-xml-declaration="yes"/>
+	
+	<script type="text/javascript">
+		$(function() {
+			$('#cmtForm').on('submit', function() {
+				if(this.comments.value == '') {
+					alert('댓글을 입력하세요.');
+					this.comments.focus();
+				}
+				else {
+					$.ajax({
+						type: 'post',
+						url: '/pub/survey/cmt',
+						data: $(this).serialize()
+					}).done(function(data) {
+						if(data == -1) {
+							alert('로그인 후 이용 가능합니다.');
+						}
+						else {
+							cmtInit();
+						}
+					});	
+				}
+				return false;
+			});
+			
+			$('#replyfold').on('click', function(e) {
+				if($(this).hasClass('replyopen')) {
+					$(this).removeClass('replyopen').addClass('replyclose');
+					$('#replyarea').hide();
+				}
+				else {
+					$(this).removeClass('replyclose').addClass('replyopen');
+					$('#replyarea').show();
+				}
+				
+				e.preventDefault();
+			})
+			
+		});
+	</script>	
+	
+	<div class="ac_reply" style="border: none;">		    						
+		<a href="" id="replyfold" class="replyfold replyopen"><strong>댓글 (<span>${fn:length(comments)}</span>)</strong></a>
+	</div>
+	
+	<div id="replyarea" class="reply_area" style="padding-bottom: 5px; border-top: 1px solid #e2e2e2;">
+		<form id="cmtForm" action="${pageContext.request.contextPath}/pub/survey/cmt" method="post" style="margin-bottom: 15px;">
+			<input type="hidden" name="surveyDefinitionId" value="${surveyDefinitionId}" />
+			<div class="replywrite">
+				<textarea id="comments" name="comments" style="width:85%"><!----></textarea>
+				<button type="submit">댓글입력</button>
+			</div>
+		</form>
+		<ul>
+			<c:forEach var="cmt" items="${comments}">
+				<li>	
+					<span class="writer"><strong>${cmt.userNm}</strong></span><span class="writedate"><fmt:formatDate value="${cmt.registDt}" pattern="yyyy.MM.dd HH:mm:ss" /></span>
+					<p>${fn:escapeXml(cmt.comments)}</p>
+					<sec:authorize ifAnyGranted="ROLE_ADMIN,ROLE_SURVEY_ADMIN,ROLE_SURVEY_PARTICIPANT">
+						<sec:authentication property="principal.id" var="loginUserId" />
+						<c:if test="${loginUserId == cmt.userId}">
+							<a href="javascript:delCmt(${cmt.id});" class="remove">삭제</a>
+						</c:if>
+					</sec:authorize>
+				</li>
+			</c:forEach>
+		</ul>
+	</div>
+	
+</div>

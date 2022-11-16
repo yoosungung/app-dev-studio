@@ -1,0 +1,117 @@
+package kr.ac.jj.shared.application.admin.appmanage.hrmanage.model;
+
+/**
+ * 포탈 인사 마스터
+ */
+public class PortalInsaMaster {
+
+    private String userId;
+    private String userPwd;
+    private String email;
+    private String deptId;
+    private String div;
+    private String userDate;
+    private String userIrum;
+    private String userTel;
+    private String daehak;
+    private String hakbu;
+    private String hakgwa;
+    private String bojikname;
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserPwd() {
+        return this.userPwd;
+    }
+
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDeptId() {
+        return this.deptId;
+    }
+
+    public void setDeptId(String deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getDiv() {
+        return this.div;
+    }
+
+    public void setDiv(String div) {
+        this.div = div;
+    }
+
+    public String getUserDate() {
+        return this.userDate;
+    }
+
+    public void setUserDate(String userDate) {
+        this.userDate = userDate;
+    }
+
+    public String getUserIrum() {
+        return this.userIrum;
+    }
+
+    public void setUserIrum(String userIrum) {
+        this.userIrum = userIrum;
+    }
+
+    public String getUserTel() {
+        return this.userTel;
+    }
+
+    public void setUserTel(String userTel) {
+        this.userTel = userTel;
+    }
+
+    public String getDaehak() {
+        return this.daehak;
+    }
+
+    public void setDaehak(String daehak) {
+        this.daehak = daehak;
+    }
+
+    public String getHakbu() {
+        return this.hakbu;
+    }
+
+    public void setHakbu(String hakbu) {
+        this.hakbu = hakbu;
+    }
+
+    public String getHakgwa() {
+        return this.hakgwa;
+    }
+
+    public void setHakgwa(String hakgwa) {
+        this.hakgwa = hakgwa;
+    }
+
+    public String getBojikname() {
+        return this.bojikname;
+    }
+
+    public void setBojikname(String bojikname) {
+        this.bojikname = bojikname;
+    }
+
+}

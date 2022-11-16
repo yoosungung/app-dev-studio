@@ -1,0 +1,68 @@
+package kr.ac.jj.shared.infrastructure.framework.core.support.codedata;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import kr.ac.jj.shared.infrastructure.framework.core.support.collection.BaseMap;
+import kr.ac.jj.shared.infrastructure.framework.core.support.collection.BaseMapList;
+
+@Component
+public class CodeDataSourceUtil {
+
+    private static CodeDataBooleanTypeList codeDataBooleanTypeList;
+
+    public CodeDataSourceUtil(@Autowired CodeDataBooleanTypeList codeDataBooleanTypeList) {
+        CodeDataSourceUtil.codeDataBooleanTypeList = codeDataBooleanTypeList;
+    }
+
+    public static boolean isBooleanType(BaseMapList codeDataList) {
+        if (codeDataList.size() != 2) {
+            return false;
+        }
+
+        String code1 = codeDataList.get(0, "code") + "";
+        String code2 = codeDataList.get(1, "code") + "";
+
+        return codeDataBooleanTypeList.isBooleanType(code1, code2);
+    }
+
+    public static BaseMapList convertToBoolean(BaseMapList codeDataList) {
+        BaseMapList booleanCodeDataList = new BaseMapList();
+
+        for (BaseMap map : codeDataList) {
+            BaseMap booleanMap = new BaseMap();
+            booleanMap.putAll(map);
+
+            if (booleanMap.get("code") != null) {
+                booleanMap.put("code", codeDataBooleanTypeList.isTrueCode(booleanMap.get("code") + ""));
+            }
+
+            booleanCodeDataList.add(booleanMap);
+        }
+
+        return booleanCodeDataList;
+    }
+
+    public static String getBooleanCode(BaseMapList codeDataList, Boolean codeValue) {
+        if (codeValue == null) {
+            return null;
+        }
+
+        for (BaseMap codeData : codeDataList) {
+            String code = codeData.get("code") + "";
+
+            if (codeValue) {
+                if (codeDataBooleanTypeList.isTrueCode(code)) {
+                    return code;
+                }
+            } else {
+                if (codeDataBooleanTypeList.isFalseCode(code)) {
+                    return code;
+                }
+            }
+        }
+
+        return null;
+    }
+
+}

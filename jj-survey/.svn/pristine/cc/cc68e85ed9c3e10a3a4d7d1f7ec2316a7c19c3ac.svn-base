@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+  Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.jdSurveyQuestionColumnLabel.id"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyQuestionColumnLabel.type"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyQuestionColumnLabel.label"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyQuestionColumnLabel.columnLabelOrder"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyQuestionColumnLabel.questionId"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyQuestionColumnLabel.version"><![CDATA[]]></entry>
+
+</properties>

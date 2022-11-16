@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="page-body"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:section="urn:jsptagdir:/WEB-INF/tags/jd/form"
+    xmlns:util="urn:jsptagdir:/WEB-INF/tags/jd/util"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:form="http://www.springframework.org/tags/form"
+    xmlns:table="urn:jsptagdir:/WEB-INF/tags/jd/form/fields"
+    xmlns:field="urn:jsptagdir:/WEB-INF/tags/jd/form/fields"
+    xmlns:page="urn:jsptagdir:/WEB-INF/tags/jd/form"
+    version="2.0">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <script type="text/javascript">
+        $(function() {
+            $('.fancyboxLink').on('click', function(e) {
+                var modalWidth = $(this).data('modal-width');
+                if(!modalWidth) modalWidth = 850;
+
+                var url = $(this).attr('href');
+                var title = $(this).attr('title');
+                if(typeof title == typeof undefined) {
+                    title = $(this).data('original-title');
+                }
+
+                bootbox.dialog({
+                    title: title,
+                    message: $('<iframe src="" frameborder="0" width="" height="700"></iframe>').attr('src', url).attr('width', (modalWidth - 49)),
+                    className: "modal-survey"
+                });
+                $('.modal-survey .modal-dialog').css({width: modalWidth + 'px'});
+                e.preventDefault();
+            });
+
+            $('#surveyPublish').on('click', function(e) {
+                if(confirm('설문조사를 활성화 시키겠습니까?\n\n활성화된 설문은 작성중 상태로 되돌릴 수 없습니다.\n\n주의바랍니다.')) {
+                    location.href = $(this).attr('href');
+                }
+                e.preventDefault();
+            });
+        });
+
+        function delSurvey() {
+            if(confirm('설문조사를 삭제 하시겠습니까?')) {
+                $('#surveyDeleteForm').submit();
+            }
+        }
+    </script>
+
+    <c:if test="${isNotPublishReady}">
+        <div class="alert alert-danger fade in radius-bordered alert-shadowed">
+            <i class="fa-fw fa fa-times"><!----></i>
+            <strong>오류</strong> 설문조사를 개시하지 못했습니다. 빈 질문 또는 빈 옵션은 없는지 확인바랍니다.
+        </div>
+    </c:if>
+
+    <div class="widget radius-bordered">
+        <div class="widget-header header-large bordered-bottom bordered-blueberry">
+            <span class="widget-caption" style="font-size: 16px; margin-top: 8px;">설문조사 : ${surveyDefinition.name}</span>
+            <div class="widget-buttons widget-custom-buttons">
+                <c:if test="${surveyDefinition.statusAsString eq 'I'}">
+                    <spring:url var="form_url" value="/settings/surveyDefinitions/logo?id=${surveyDefinition.id}" />
+                    <a href="${form_url}" class="fancyboxLink tooltip-info" data-original-title="대표이미지 설정" data-toggle="tooltip" data-placement="bottom">
+                        <i class="fa fa-picture-o"><!----></i>
+                    </a>
+                </c:if>
+
+                <c:if test="${surveyDefinition.status eq 'I'}">
+                    <a target="_blank" href="${pageContext.request.contextPath}/settings/surveyDefinitionPages/${surveyDefinition.id}?create" class="fancyboxLink tooltip-info" data-original-title="페이지 추가" data-toggle="tooltip" data-placement="bottom">
+                        <i class="fa fa-plus"><!----></i>
+                    </a>
+                </c:if>
+
+                <c:if test="${surveyDefinition.status eq 'I'}">
+                    <a href="${pageContext.request.contextPath}/settings/surveyDefinitions/${surveyDefinition.id}?publish" id="surveyPublish" class="tooltip-warning" data-original-title="설문조사 활성화" data-toggle="tooltip" data-placement="bottom">
+                        <i class="fa fa-lock"><!----></i>
+                    </a>
+                </c:if>
+
+                <c:if test="${surveyDefinition.status eq 'P'}">
+                    <a href="${pageContext.request.contextPath}/settings/surveyDefinitions/${surveyDefinition.id}?unpublish" class="tooltip-info" data-original-title="설문조사 비활성화" data-toggle="tooltip" data-placement="bottom">
+                        <i class="fa fa-unlock"><!----></i>
+                    </a>
+                </c:if>
+
+                <c:if test="${surveyDefinition.status eq 'D'}">
+                    <a href="${pageContext.request.contextPath}/settings/surveyDefinitions/${surveyDefinition.id}?publish" class="tooltip-info" data-original-title="설문조사 활성화" data-toggle="tooltip" data-placement="bottom">
+                        <i class="fa fa-lock"><!----></i>
+                    </a>
+                </c:if>
+
+                <a href="${pageContext.request.contextPath}/settings/surveyDefinitions/${surveyDefinition.id}?export" class="tooltip-info" data-original-title="설문조사 다운로드" data-toggle="tooltip" data-placement="bottom">
+                    <i class="fa fa-download"><!----></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body no-padding">
+            <div class="widget-main">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p class="text-primary" style="margin-bottom: 0;">
+                                    <span class="label label-orange">
+                                        분류 : ${surveyDefinition.department.name}
+                                    </span>
+                                    <span class="label label-orange" style="margin-left: 10px;">
+                                        상태 :
+                                        <c:choose>
+                                            <c:when test="${surveyDefinition.status.stringValue eq 'I'}">작성중</c:when>
+                                            <c:when test="${surveyDefinition.status.stringValue eq 'P'}">개시</c:when>
+                                            <c:when test="${surveyDefinition.status.stringValue eq 'D'}">비활성</c:when>
+                                            <c:otherwise></c:otherwise>
+                                        </c:choose>
+                                    </span>
+                                    <span class="label label-orange" style="margin-left: 10px;">공개 : ${surveyDefinition.isPublic}</span>
+                                    <span class="label label-orange" style="margin-left: 10px;">
+                                        기간 :
+                                            <fmt:formatDate value="${surveyDefinition.startDt}" pattern="yyyy-MM-dd HH:mm" /> ~
+                                            <fmt:formatDate value="${surveyDefinition.endDt}" pattern="yyyy-MM-dd HH:mm" />
+                                    </span>
+                                </p>
+                            </td>
+                        </tr>
+                        <c:if test="${surveyDefinition.statusAsString eq 'P'}">
+                            <tr>
+                                <td>설문조사 URL : <a href="${surveyLink}" target="_blank">${surveyLink}</a></td>
+                            </tr>
+                        </c:if>
+                    </tbody>
+                </table>
+                <c:if test="${not empty surveyDefinition.description}">
+                    <div class="DTTTFooter">
+                        <div aria-relevant="all" aria-live="polite" role="alert" id="expandabledatatable_info" class="dataTables_info" style="margin-bottom: 10px;">
+                            ${surveyDefinition.description}
+                        </div>
+                    </div>
+                </c:if>
+            </div>
+        </div>
+    </div>
+
+    <c:choose>
+        <c:when test="${not empty surveyDefinition.pages}">
+            <spring:message code="${fn:toLowerCase('com.jd.survey.domain.settings.SurveyDefinitionPage')}_label_short" var="parentSingularLabel" htmlEscape="false" />
+            <c:forEach items="${surveyDefinition.pages}" var="page" varStatus="loop">
+                <spring:message code="${fn:toLowerCase('com.jd.survey.domain.settings.SurveyDefinition.pages')}_label" var="section_label" htmlEscape="false" />
+                <section:page order="${loop.index + 1}" title="${page.title}" object="${page}" path="/settings/surveyDefinitionPages">
+                    <c:if test="${not empty page.instructions}">
+                        <p>지침 : ${page.instructions}</p>
+                        <hr class="wide" />
+                    </c:if>
+                    <table:questionstable questions="${page.questions}" pageid="${page.id}" pageorder="${page.order}" surveyStatus="${surveyDefinition.status}"/>
+                </section:page>
+            </c:forEach>
+        </c:when>
+        <c:otherwise>
+            <div class="alert alert-info fade in radius-bordered alert-shadowed">
+                <i class="fa-fw fa fa-info"><!----></i>
+                등록된 설문조사 페이지가 없습니다. 설문조사 페이지를 등록하세요.
+            </div>
+        </c:otherwise>
+    </c:choose>
+</div>
+

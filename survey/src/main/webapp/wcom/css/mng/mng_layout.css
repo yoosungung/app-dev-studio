@@ -1,0 +1,55 @@
+/*-------------------------------------------------
+layout Style Sheet
+Version : 1.0
+Create date : 2012. 04. 17.
+Last update : 2012. 04. 17.
+-------------------------------------------------*/
+html, 
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#admin_header { height: 65px; position:relative; z-index:100; background:url(/wcom/img/mng/bg/gnavi_bg.gif) left top repeat-x; }
+#admin_header .header_content { position:relative; height:65px; width:95%; margin: 0 auto; }
+#admin_header .header_content a { color:#fff;}
+.wrap { width:auto; min-height:100%; margin: -65px 0 -90px; background:url(/wcom/img/mng/bg/content_bg.gif) left 65px repeat-x; }
+* html .wrap { height: 100%; }
+#content { padding: 110px 0 110px 0; width:95%; margin: 0 auto; }
+
+#admin_footer { height:105px; background:url(/wcom/img/mng/bg/fbg.gif); height:90px; }
+#admin_footer .footer_content{ position:relative; width:95%; height:65px; margin:0 auto; padding:25px 5px 0 5px; color:#959595; font-size:0.9em; }
+
+
+.header_content .logo { position:absolute; z-index:101; width:180px; height:40px; padding-top:15px; }
+.header_content .header_menus { position:relative; height:65px; padding-left:180px; z-index:100; text-align:left; }
+.header_content .header_menus ul#topmenu { position:relative; float:left; height:65px; background:url(/wcom/img/mng/bg/top_menu_off.gif) right top no-repeat; text-align:left; }
+.header_content .header_menus ul#topmenu li { float:left; height:65px; padding:0px 13px; background:url(/wcom/img/mng/bg/top_menu_off.gif) left top no-repeat; text-align:left; }
+.header_content .header_menus ul#topmenu li a { float:left; font-weight:bold; line-height:65px; vertical-align:bottom; color:#AFB1BC; text-decoration:none; }
+.header_content .header_menus ul#topmenu li a:active,
+.header_content .header_menus ul#topmenu li a:focus,
+.header_content .header_menus ul#topmenu li a:hover { color:white;}
+.header_content .header_menus ul#topmenu li ul.sub_menus { position:absolute; left:0; top:65px; width:1000px; height:auto; clear:both; display:none; text-align:left; }
+.header_content .header_menus ul#topmenu li ul li { position:relative; float:left; height:auto; border:0px; padding:5px 0px; margin-right:20px; background:none; }
+.header_content .header_menus ul#topmenu li ul li a { text-decoration:none; line-height:22px; color:#9FA1AC; white-space:nowrap; }
+.header_content .header_menus ul#topmenu li ul li a:active,
+.header_content .header_menus ul#topmenu li ul li a:focus,
+.header_content .header_menus ul#topmenu li ul li a:hover { color:#7F818C; }
+.header_content .header_menus ul#topmenu li.last { }
+
+.header_content .header_menus ul#topmenu li.li1 { }
+.header_content .header_menus ul#topmenu li.li2 { }
+.header_content .header_menus ul#topmenu li.li3 { }
+.header_content .header_menus ul#topmenu li.li4 { }
+.header_content .header_menus ul#topmenu li.li5 { }
+.header_content .header_menus ul#topmenu li.li6 { }
+
+.header_content .header_menus .login_infor { float:right; padding-top:25px; }
+.header_content .header_menus .login_infor li.user { float:left; margin-right:10px; color:#AFB1BC; text-align:right;}
+.header_content .header_menus .login_infor li.user strong { font-weight:bold; color:#AFB1BC;}
+.header_content .header_menus .login_infor li.btn { float:left; width:77px;}
+
+
+#content h1.stitle01_01,
+#content h1.stitle01_03 { background:url(/wcom/img/mng/icon/hstyle.gif) left no-repeat; height:auto; color:#2F3743; font-size:16px; padding:0 0 0 20px; margin:0 0 10px 0; border:0px; }

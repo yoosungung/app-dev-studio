@@ -1,0 +1,172 @@
+package kr.ac.jj.shared.infrastructure.framework.config;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.BaseJob;
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.interceptor.BaseJobInterceptor;
+
+@Configuration
+@ConfigurationProperties(prefix = "framework")
+public class FrameworkConfigProperties {
+
+    private Message message;
+    private Scheduler scheduler;
+
+    public Message getMessage() {
+        return this.message;
+    }
+
+    public void setMessage(Message message) {
+        this.message = message;
+    }
+
+    public Scheduler getScheduler() {
+        return this.scheduler;
+    }
+
+    public void setScheduler(Scheduler scheduler) {
+        this.scheduler = scheduler;
+    }
+
+    public static class Message {
+
+        private InvalidText invalidText;
+
+        public InvalidText getInvalidText() {
+            return this.invalidText;
+        }
+
+        public void setInvalidText(InvalidText invalidText) {
+            this.invalidText = invalidText;
+        }
+
+        public static class InvalidText {
+
+            private String prefix;
+            private String suffix;
+
+            public String getPrefix() {
+                return this.prefix;
+            }
+
+            public void setPrefix(String prefix) {
+                this.prefix = prefix;
+            }
+
+            public String getSuffix() {
+                return this.suffix;
+            }
+
+            public void setSuffix(String suffix) {
+                this.suffix = suffix;
+            }
+
+        }
+
+    }
+
+    public static class Scheduler {
+
+        private Boolean enable;
+        private Class<? extends BaseJobInterceptor> jobInterceptor;
+        private Map<String, JobDetailConfig> jobDetails;
+        private String[] clusteredProfiles;
+
+        public Boolean getEnable() {
+            return this.enable;
+        }
+
+        public void setEnable(Boolean enable) {
+            this.enable = enable;
+        }
+
+        public Class<? extends BaseJobInterceptor> getJobInterceptor() {
+            return this.jobInterceptor;
+        }
+
+        public void setJobInterceptor(Class<? extends BaseJobInterceptor> jobInterceptor) {
+            this.jobInterceptor = jobInterceptor;
+        }
+
+        public Map<String, JobDetailConfig> getJobDetails() {
+            return this.jobDetails;
+        }
+
+        public void setJobDetails(Map<String, JobDetailConfig> jobDetails) {
+            this.jobDetails = jobDetails;
+        }
+
+        public String[] getClusteredProfiles() {
+            return this.clusteredProfiles;
+        }
+
+        public void setClusteredProfiles(String[] clusteredProfiles) {
+            this.clusteredProfiles = clusteredProfiles;
+        }
+
+        public static class JobDetailConfig {
+
+            private String name;
+            private Class<? extends BaseJob> jobClass;
+            private Boolean holdingJobContinuouslyExecute;
+            private List<String> cronExpressionList;
+            private Integer startDelay;
+            private String[] profiles;
+
+            public String getName() {
+                return this.name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public Class<? extends BaseJob> getJobClass() {
+                return this.jobClass;
+            }
+
+            public void setJobClass(Class<? extends BaseJob> jobClass) {
+                this.jobClass = jobClass;
+            }
+
+            public Boolean getHoldingJobContinuouslyExecute() {
+                return this.holdingJobContinuouslyExecute;
+            }
+
+            public void setHoldingJobContinuouslyExecute(Boolean holdingJobContinuouslyExecute) {
+                this.holdingJobContinuouslyExecute = holdingJobContinuouslyExecute;
+            }
+
+            public List<String> getCronExpressionList() {
+                return this.cronExpressionList;
+            }
+
+            public void setCronExpressionList(List<String> cronExpressionList) {
+                this.cronExpressionList = cronExpressionList;
+            }
+
+            public Integer getStartDelay() {
+                return this.startDelay;
+            }
+
+            public void setStartDelay(Integer startDelay) {
+                this.startDelay = startDelay;
+            }
+
+            public String[] getProfiles() {
+                return this.profiles;
+            }
+
+            public void setProfiles(String[] profiles) {
+                this.profiles = profiles;
+            }
+
+        }
+
+    }
+
+}

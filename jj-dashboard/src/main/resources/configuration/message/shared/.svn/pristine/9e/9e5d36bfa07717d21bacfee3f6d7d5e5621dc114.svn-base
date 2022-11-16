@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 시스템 - 쿼리 로그 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbSysLogQuery.queryLogId"><![CDATA[쿼리 로그 ID]]></entry>
+    <entry key="domain.main.tbSysLogQuery.querySn"><![CDATA[쿼리 순번]]></entry>
+    <entry key="domain.main.tbSysLogQuery.queryDt"><![CDATA[쿼리 일시]]></entry>
+    <entry key="domain.main.tbSysLogQuery.queryId"><![CDATA[쿼리 ID]]></entry>
+    <entry key="domain.main.tbSysLogQuery.querySntenc"><![CDATA[쿼리 문장]]></entry>
+    <entry key="domain.main.tbSysLogQuery.queryParamtr"><![CDATA[쿼리 파라미터]]></entry>
+    <entry key="domain.main.tbSysLogQuery.querySntencCmplt"><![CDATA[완성된 쿼리 문장(파라미터 값 포함)]]></entry>
+
+</properties>

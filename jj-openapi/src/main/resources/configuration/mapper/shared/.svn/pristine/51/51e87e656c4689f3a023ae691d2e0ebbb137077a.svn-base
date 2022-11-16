@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 에러 로그 관리 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.admin.logmanage.errorlog.mapper.ErrorLogManageMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TSLE.ERROR_LOG_ID
+                 , TSLE.ERROR_CODE
+                 , TSLE.ERROR_DT
+                 , FN_USER_NAME(TSL.USER_ID, #{$var.userLocale}) AS USER_NM
+                 , TSL.REQUST_PATH
+                 , TSL.RSPNS_STTUS_CODE
+                 , TSL.REQUST_IP
+                 , TSL.SERVER_IP
+                 , TSL.REQUST_TY
+                 , TSL.REQUST_MTHD
+            FROM   TB_SYS_LOG_ERROR TSLE
+                   INNER JOIN TB_SYS_LOG TSL ON TSL.LOG_ID = TSLE.LOG_ID
+            WHERE  TSL.RSPNS_STTUS_CODE IS NOT NULL
+        ]]>
+
+        <!-- 에러 코드 -->
+        <if test='search != null and search.errorCode != null and search.errorCode != ""'>
+            <![CDATA[
+            AND    UPPER(TSLE.ERROR_CODE) LIKE CONCAT_WS('', '%', UPPER(#{search.errorCode}), '%')
+            ]]>
+        </if>
+
+        <!-- 사용자 이름 -->
+        <if test='search != null and search.userNm != null and search.userNm != ""'>
+            <![CDATA[
+            AND    UPPER(FN_USER_NAME(TSL.USER_ID, #{$var.userLocale})) LIKE CONCAT_WS('', '%', UPPER(#{search.userNm}), '%')
+            ]]>
+        </if>
+
+        <!-- 페이지 경로 -->
+        <if test='search != null and search.requstPath != null and search.requstPath != ""'>
+            <![CDATA[
+            AND    UPPER(TSL.REQUST_PATH) LIKE CONCAT_WS('', '%', UPPER(#{search.requstPath}), '%')
+            ]]>
+        </if>
+
+        <!-- 에러 일자 -->
+        <if test='search != null and search.errorDtStart != null'>
+            <![CDATA[
+            AND    TSLE.ERROR_DT >= #{search.errorDtStart, jdbcType=DATE}
+            ]]>
+        </if>
+        <if test='search != null and search.errorDtEnd != null'>
+            <![CDATA[
+            AND    TSLE.ERROR_DT < #{search.errorDtEnd, typeHandler=LongDateAddTypeHandler}
+            ]]>
+        </if>
+    </select>
+
+</mapper>

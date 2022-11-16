@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 설문_응답 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.survey.SurveyEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.survey.Survey">
+        <![CDATA[
+            SELECT S.ID
+                 , S.SURVEY_DEFINITION_ID
+                 , S.IP_ADDRESS
+                 , S.PERSON_ID
+                 , S.EMAIL
+                 , S.KOREAN_NM
+                 , S.ENGL_NM
+                 , S.CHCRT_NM
+                 , S.STATUS
+                 , S.CREATION_DATE
+                 , S.LAST_UPDATE_DATE
+                 , S.SUBMISSION_DATE
+                 , S.TYPE_NAME
+                 , S.VERSION
+            FROM   SURVEY S
+            WHERE  S.ID = #{id}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO SURVEY (
+                   ID
+                 , SURVEY_DEFINITION_ID
+                 , IP_ADDRESS
+                 , PERSON_ID
+                 , EMAIL
+                 , KOREAN_NM
+                 , ENGL_NM
+                 , CHCRT_NM
+                 , STATUS
+                 , CREATION_DATE
+                 , LAST_UPDATE_DATE
+                 , SUBMISSION_DATE
+                 , TYPE_NAME
+                 , VERSION
+            ) VALUES (
+                   #{survey.id}
+                 , #{survey.surveyDefinitionId}
+                 , #{survey.ipAddress}
+                 , #{survey.personId}
+                 , #{survey.email}
+                 , #{survey.koreanNm}
+                 , #{survey.englNm}
+                 , #{survey.chcrtNm}
+                 , #{survey.status}
+                 , #{survey.creationDate}
+                 , #{survey.lastUpdateDate}
+                 , #{survey.submissionDate}
+                 , #{survey.typeName}
+                 , #{survey.version}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE SURVEY SET
+                   SURVEY_DEFINITION_ID             = #{survey.surveyDefinitionId}
+                 , IP_ADDRESS                       = #{survey.ipAddress}
+                 , PERSON_ID                        = #{survey.personId}
+                 , EMAIL                            = #{survey.email}
+                 , KOREAN_NM                        = #{survey.koreanNm}
+                 , ENGL_NM                          = #{survey.englNm}
+                 , CHCRT_NM                         = #{survey.chcrtNm}
+                 , STATUS                           = #{survey.status}
+                 , CREATION_DATE                    = #{survey.creationDate}
+                 , LAST_UPDATE_DATE                 = #{survey.lastUpdateDate}
+                 , SUBMISSION_DATE                  = #{survey.submissionDate}
+                 , TYPE_NAME                        = #{survey.typeName}
+                 , VERSION                          = #{survey.version}
+            WHERE  ID = #{survey.id}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   SURVEY
+            WHERE  ID = #{id}
+        ]]>
+    </delete>
+
+</mapper>

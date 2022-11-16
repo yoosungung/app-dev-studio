@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.jd.survey.question.option.JdSurveyQuestionOptionEntityMapper">
+
+    <!-- 목록 조회 - QUESTION_ID(으)로 -->
+    <select id="selectListByQuestionId" resultType="kr.ac.jj.survey.domain.main.model.jd.survey.question.option.JdSurveyQuestionOption">
+        <![CDATA[
+            SELECT SQO.ID
+                 , SQO.OPTION_TEXT
+                 , SQO.OPTION_VALUE
+                 , SQO.OPTION_ORDER
+                 , SQO.QUESTION_ID
+                 , SQO.VERSION
+            FROM   SURVEY_QUESTION_OPTION SQO
+            WHERE  SQO.QUESTION_ID = #{questionId}
+            ORDER BY SQO.OPTION_ORDER
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.jd.survey.question.option.JdSurveyQuestionOption">
+        <![CDATA[
+            SELECT SQO.ID
+                 , SQO.OPTION_TEXT
+                 , SQO.OPTION_VALUE
+                 , SQO.OPTION_ORDER
+                 , SQO.QUESTION_ID
+                 , SQO.VERSION
+            FROM   SURVEY_QUESTION_OPTION SQO
+            WHERE  SQO.ID = #{id}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="jdSurveyQuestionOption.id">
+        <![CDATA[
+            INSERT INTO SURVEY_QUESTION_OPTION (
+                   ID
+                 , OPTION_TEXT
+                 , OPTION_VALUE
+                 , OPTION_ORDER
+                 , QUESTION_ID
+                 , VERSION
+            ) VALUES (
+                   #{jdSurveyQuestionOption.id}
+                 , #{jdSurveyQuestionOption.optionText}
+                 , #{jdSurveyQuestionOption.optionValue}
+        ]]>
+
+        <choose>
+        <when test='jdSurveyQuestionOption.optionOrder == null'>
+            <![CDATA[
+                 , (SELECT IFNULL(MAX(A.OPTION_ORDER), 0) + 1 FROM SURVEY_QUESTION_OPTION A WHERE A.QUESTION_ID = #{jdSurveyQuestionOption.questionId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , #{jdSurveyQuestionOption.optionOrder}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , #{jdSurveyQuestionOption.questionId}
+                 , #{jdSurveyQuestionOption.version}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE SURVEY_QUESTION_OPTION SET
+                   OPTION_TEXT                      = #{jdSurveyQuestionOption.optionText}
+                 , OPTION_VALUE                     = #{jdSurveyQuestionOption.optionValue}
+        ]]>
+
+        <choose>
+        <when test='jdSurveyQuestionOption.optionOrder == null'>
+            <![CDATA[
+                 , OPTION_ORDER                     = (SELECT IFNULL(MAX(A.OPTION_ORDER), 0) + 1 FROM SURVEY_QUESTION_OPTION A WHERE A.QUESTION_ID = #{jdSurveyQuestionOption.questionId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , OPTION_ORDER                     = #{jdSurveyQuestionOption.optionOrder}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , QUESTION_ID                      = #{jdSurveyQuestionOption.questionId}
+                 , VERSION                          = #{jdSurveyQuestionOption.version}
+            WHERE  ID = #{jdSurveyQuestionOption.id}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   SURVEY_QUESTION_OPTION
+            WHERE  ID = #{id}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - QUESTION_ID(으)로 -->
+    <delete id="deleteListByQuestionId">
+        <![CDATA[
+            DELETE
+            FROM   SURVEY_QUESTION_OPTION
+            WHERE  QUESTION_ID = #{questionId}
+        ]]>
+    </delete>
+
+</mapper>

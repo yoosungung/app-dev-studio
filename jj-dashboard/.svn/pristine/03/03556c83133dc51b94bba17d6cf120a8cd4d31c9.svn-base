@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="tiles-shared:/**" template="/WEB-INF/tiles/dashboard/layout/TilesLayoutCommon.jsp">
+        <put-attribute name="content" value="/WEB-INF/views/shared/{1}.jsp" />
+    </definition>
+
+    <definition name="tiles-common:/**" template="/WEB-INF/tiles/dashboard/layout/TilesLayoutCommon.jsp">
+        <put-attribute name="content" value="/WEB-INF/views/dashboard/{1}.jsp" />
+    </definition>
+
+    <definition name="tiles-login:/**" template="/WEB-INF/tiles/dashboard/layout/TilesLayoutLogin.jsp">
+        <put-attribute name="content" value="/WEB-INF/views/dashboard/{1}.jsp" />
+    </definition>
+
+    <definition name="tiles-main:/**" template="/WEB-INF/tiles/dashboard/layout/TilesLayoutMain.jsp">
+        <put-attribute name="content" value="/WEB-INF/views/dashboard/{1}.jsp" />
+    </definition>
+
+    <definition name="tiles2-shared:/**" template="/WEB-INF/tiles/dashboard/layout/TilesLayoutCommon.jsp">
+        <put-attribute name="content" value="/WEB-INF/views/shared/{1}.jsp" />
+        <put-attribute name="service" value="/shared/{1}ViewService.js" />
+    </definition>
+
+    <definition name="tiles2-common:/**" template="/WEB-INF/tiles/dashboard/layout/TilesLayoutCommon.jsp">
+        <put-attribute name="content" value="/WEB-INF/views/dashboard/{1}.jsp" />
+        <put-attribute name="service" value="/dashboard/{1}ViewService.js" />
+    </definition>
+
+    <definition name="tiles2-login:/**" template="/WEB-INF/tiles/dashboard/layout/TilesLayoutLogin.jsp">
+        <put-attribute name="content" value="/WEB-INF/views/dashboard/{1}.jsp" />
+        <put-attribute name="service" value="/dashboard/{1}ViewService.js" />
+    </definition>
+
+    <definition name="tiles2-main:/**" template="/WEB-INF/tiles/dashboard/layout/TilesLayoutMain.jsp">
+        <put-attribute name="content" value="/WEB-INF/views/dashboard/{1}.jsp" />
+        <put-attribute name="service" value="/dashboard/{1}ViewService.js" />
+    </definition>
+
+</tiles-definitions>

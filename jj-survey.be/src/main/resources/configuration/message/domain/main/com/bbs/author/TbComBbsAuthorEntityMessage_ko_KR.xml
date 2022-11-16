@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 공통 - 게시판별 권한 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbComBbsAuthor.inqirePosblYn"><![CDATA[조회 가능]]></entry>
+    <entry key="domain.main.tbComBbsAuthor.writngPosblYn"><![CDATA[작성 가능]]></entry>
+
+</properties>

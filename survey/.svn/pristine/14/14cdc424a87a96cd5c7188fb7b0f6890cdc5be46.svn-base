@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="page-body"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"  
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" 
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/2015/table" 
+	xmlns:sec="http://www.springframework.org/security/tags" 
+	version="2.0">
+	
+	<jsp:directive.page contentType="text/html;charset=UTF-8"/>
+	<jsp:output omit-xml-declaration="yes"/>
+	
+	<style type="text/css">
+		.progress_visual .fade_wrap .item01 .timer {
+			left:800px;
+		}
+		.progress_visual .fade_wrap .item01 .share {
+			margin-left: 385px;
+			left: initial;
+		}
+		.progress_visual .fade_wrap .items .btn_red, .progress_visual .fade_wrap .items .btn_result {
+			margin-left: 350px;
+ 			margin-bottom:27px; 
+			left: initial;
+		}
+		
+		.progress_visual .aside_box .brn_txt2 ul li { 
+			width: 100px;
+		}
+		.actual .btn_red, .actual .btn_result {
+			margin-left: 350px;
+			left: initial;
+		}
+		.progress_visual .inner {
+			width: 20000px;
+		}
+		.progress_visual .inner .items {
+			position: absolute;
+		}
+		.progress_visual .inner .items .item01 {
+			float: left;
+			position:relative;
+		}
+	</style>
+	
+	<script type="text/javascript">		
+		<![CDATA[
+			$(function() {
+				
+				var dt = new Date(); // 날짜값 입력			
+				$('.now_year').text(dt.getFullYear());
+				$('.now_month').text(dt.getMonth()+1);
+				$('.now_date').text(dt.getDate());
+			
+				$('.now_day').text(' ('+dt.getFullYear()+'.'+(dt.getMonth()+1)+'.'+dt.getDate()+')')
+				
+				changeTap(0);
+				
+				var scrollSpeed = 800;
+				var bounceSpeed = 300;
+				var bounceDistance = 20;
+				var bounceTimes = 2;
+				
+				var index = 0;
+				var btnBreak = false;
+				
+				$('.btn_box a').on('click', function(e) {
+					if(!btnBreak) {
+						if($(this).next().length > 0) { // on click btn_prev
+							if(index > 0) {
+								index--; btnBreak = true;
+								$('#items').animate({ left: '+=988' }, scrollSpeed, 'easeInOutExpo', function() {
+									btnBreak = false;
+								});
+							}
+							else $('#items').effect('bounce', {direction: 'right', distance: bounceDistance, times: bounceTimes}, bounceSpeed);
+						}
+						else { // on click btn_next
+							if(index < $('.item01').length - 1) {
+								index++; btnBreak = true;
+								$('#items').animate({ left: '-=988' }, scrollSpeed, 'easeInOutExpo', function() {
+									btnBreak = false;
+								});
+							}
+							else $('#items').effect('bounce', {direction: 'left', distance: bounceDistance, times: bounceTimes}, bounceSpeed);
+						}
+					}
+					e.preventDefault();
+				});
+				
+				$('.share a').on('click', function(e) {
+					var snsUrl = encodeURIComponent(document.domain + $(this).attr('href'));
+					var snsTitle = encodeURIComponent("[출처:ZEUS 조사] " + $(this).attr('title'));
+					
+					if($(this).hasClass('btn_fb')) {
+						window.open("http://facebook.com/sharer.php?u=" + snsUrl + "&t=" + snsTitle);
+					}
+					else if($(this).hasClass('btn_twt')) {
+						window.open("http://twitter.com/home?status=" + snsTitle + " " + snsUrl);
+					}
+					else if($(this).hasClass('btn_email')) {
+						location.href = 'mailto:lea0829@kbsi.re.kr';
+					}
+					else {
+						alert('정의되지 않은 SNS 주소입니다.');
+					}
+					e.preventDefault();
+				});
+			});
+			
+			
+			function changeTap(idx) {
+				//탭
+				$('.arr_tab ul li').each(function(i) {
+					if(i == idx)  $(this).addClass('active');
+					else $(this).removeClass('active');
+				})
+				//내용
+				$('.fade_wrap').each(function(i) {
+					if(i == idx) {
+						$(this).show();
+						if(idx == 0) {
+							$('.item01').each(function(j) {
+								if($(this).find('.timer #status').val() == 'P') startclock($(this).find('.timer #surveyId').val());
+							})
+						}
+						else if($(this).find('.timer #status').val() == 'P') startclock($(this).find('.timer #surveyId').val());
+					}
+					else $(this).hide();
+				});
+			}
+			
+			var timerID = null;
+			var timerRunning = false;
+			
+			function stopclock () {
+				if(timerRunning) clearTimeout(timerID);
+				timerRunning = false;
+			}
+			
+			function startclock (surveyId) {
+				stopclock();
+				showtime(surveyId);
+			}
+			
+			function showtime(surveyId) {
+				now = new Date();
+				var CurMonth = now.getMonth();
+				var CurDate = now.getDate();
+				var CurHour = now.getHours();
+				var CurMinute = now.getMinutes();
+				var CurSecond = now.getSeconds();
+				
+				var endDt = $('#endDt'+surveyId).val();
+				
+				var endYear = endDt.split('.')[0];
+				var endMonth = minusZero(endDt.split('.')[1], '12');
+				var endDate = minusZero(endDt.split('.')[2], '31');
+				var endHour = minusZero(endDt.split('.')[3], '24');
+				var endMinute = minusZero(endDt.split('.')[4], '59');
+				var endSecond = minusZero(endDt.split('.')[5], '59');
+				
+				var Monthleft = endMonth - (CurMonth+1);
+				var Dateleft = endDate - CurDate;
+				var Hourleft = endHour - CurHour;
+				var Minuteleft = endMinute - CurMinute;
+				var Secondleft = endSecond - CurSecond;
+				
+				var obj = document.getElementById('left_time'+surveyId);
+				
+				event_day = new Date(endYear, endMonth, endDate, endHour, endMinute, endSecond);
+				
+				if(event_day.getTime()>now.getTime()){
+						
+					var leftStr = '';
+					if(Monthleft > 0) leftStr += Monthleft+'달 ';
+					if(Monthleft > 0 || Dateleft > 0) {
+						if(Hourleft<0) {
+							if(Dateleft == 1) leftStr += '';
+							else leftStr += plusZero(Dateleft-1)+'일 ';
+						}
+						else leftStr += plusZero(Dateleft)+'일 ';
+					}
+					
+					if(!(Monthleft > 0) && Dateleft > 0) {
+						if(Hourleft<0) {
+							leftStr += plusZero(24+Hourleft)+'시간 ';	
+						} else if(Hourleft == 0) {
+							leftStr += '24시간 ';
+						} else if((Hourleft-1)>0) {
+							leftStr += plusZero((Hourleft-1))+'시간 ';
+						}
+					}
+					else if(!(Monthleft > 0) && !(Dateleft > 0)) {
+						if(Hourleft<0) leftStr += plusZero(24+Hourleft)+'시간 ';	
+						else if(Hourleft == 0) leftStr += '24시간 ';
+						else if((Hourleft-1)>0) leftStr += plusZero((Hourleft-1))+'시간 ';
+					}
+					
+					if(!(Monthleft > 0) && !(Dateleft > 0) && Minuteleft > 0) leftStr += plusZero(Minuteleft)+'분 ';
+					if(!(Monthleft > 0) && !(Dateleft > 0) && !(Hourleft > 0) && Secondleft > 0) leftStr += plusZero(Secondleft)+'초';
+					
+					obj.innerHTML = leftStr;
+				}
+				else obj.innerHTML = '00시간 00분 00초';
+				now = null;
+				timerID = setTimeout('showtime('+surveyId+')',1000);
+				timerRunning = true;
+			}
+			
+			
+			function minusZero(str, substr) {
+				if(str.match('^0') && !str.match('00')) str = str.substring(1,2);
+				else if(str.match('00')) str = substr;
+				return str;
+			}
+			
+			function plusZero(str) {
+				if((str.toString().length)<2) str = '0'+str;
+				return str;
+			}
+			
+			function surveyPopup(url, name) {
+				
+				var top = (screen.height-550)/2;
+				var left = (screen.width-1100)/2;
+				
+				window.open(url, name,'width=1100, height=550, top='+top+',left='+left);
+			}
+			
+			function checkSurveyTarget(id) {
+				var flag = true;
+				
+				$.ajax({
+					type: 'post',
+					async: false,
+					url: '${pageContext.request.contextPath}/pub/survey/'+id,
+				}).done(function(data) {
+					if(data == 0) {
+						alert('조사대상자가 아닙니다.');
+						flag = false;
+					}
+				});
+				return flag;
+			}
+		]]>
+	</script>
+	
+	<!-- container -->
+   	<div id="container">
+   		<div class="section_wrap">
+   			<div class="progress_visual">
+				<div class="arr_tab">
+					<ul>
+						<li class="active"><a href="javascript:changeTap(0);" class="edge">설문조사<br/><c:if test="${fn:length(surveyList) > 1}">(${fn:length(surveyList)}건)</c:if></a></li>
+						<li><a href="javascript:changeTap(1);">국가연구시설<br />장비 관리<br />실태조사</a></li>
+						<li><a href="javascript:changeTap(2);">전담<br />운영인력<br />실태조사</a></li>
+						<li><a href="javascript:changeTap(3);">국가대형<br />연구시설<br />실태조사</a></li>
+					</ul>
+				</div>
+				
+				<!-- 설문조사 -->
+				<div class="fade_wrap">
+					<div class="inner">
+						<div id="items" class="items">
+							<c:forEach var="survey" items="${surveyList}" varStatus="status">
+								<c:choose>
+									<c:when test="${survey.status eq 'P'}">
+										<div class="item01">
+											<img src="${pageContext.request.contextPath}/settings/surveyDefinitions/logo/${survey.surveyDefinitionId}" style="width: 988px; height: 438px" alt="${survey.name}" />
+											<div class="label"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/label_01.png" alt="조사진행중" /></div>
+											<div class="share">
+												<a href="${pageContext.request.contextPath}/pub/survey/research/${survey.surveyDefinitionId}?process" title="${survey.name}" class="edge btn_fb"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/icon_fb.png" alt="페이스북" /></a>
+												<a href="${pageContext.request.contextPath}/pub/survey/research/${survey.surveyDefinitionId}?process" title="${survey.name}" class="btn_twt"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/icon_twt.png" alt="트위터" /></a>
+												<a href="javascript:void(0);" class="btn_email"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/icon_mail.png" alt="이메일" /></a>
+											</div>
+											<div class="timer">
+												<input type="hidden" id="surveyId" value="${survey.surveyDefinitionId}"/>
+												<input type="hidden" id="status" value="${survey.status}"/>
+												<input type="hidden" id="endDt${survey.surveyDefinitionId}" value="${survey.endDt}"/>												
+												<p class="clock">남은시간 <strong id="left_time${survey.surveyDefinitionId}" class="f_red"><!--  --></strong></p>
+												<p class="part">현재참여 <strong class="f_red">${survey.userCnt}</strong></p>
+											</div>
+											<a href="${pageContext.request.contextPath}/pub/survey/research/${survey.surveyDefinitionId}?process" class="btn_red">투표하기</a>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="item01">
+											<img src="${pageContext.request.contextPath}/settings/surveyDefinitions/logo/${survey.surveyDefinitionId}" style="width: 988px; height: 438px" alt="${survey.name}" />
+											<div class="share">
+												<a href="${pageContext.request.contextPath}/pub/survey/research/${survey.surveyDefinitionId}" title="${survey.name}" class="edge btn_fb"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/icon_fb.png" alt="페이스북" /></a>
+												<a href="${pageContext.request.contextPath}/pub/survey/research/${survey.surveyDefinitionId}" title="${survey.name}" class="btn_twt"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/icon_twt.png" alt="트위터" /></a>
+												<a href="javascript:void(0);" class="btn_email"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/icon_mail.png" alt="이메일" /></a>
+											</div>
+											<div class="timer">
+												<input type="hidden" id="status" value="${survey.status}"/>
+												<p class="clock">설문이 종료되었습니다.</p>
+												<p class="part">전체참여 <strong class="f_red">${survey.userCnt}</strong></p>
+											</div>
+											<a href="${pageContext.request.contextPath}/pub/survey/research/${survey.surveyDefinitionId}" class="btn_result">결과보기</a>
+										</div>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</div>
+						<c:if test="${fn:length(surveyList) > 1}">
+							<div class="btn_box">
+								<a href="javascript:void(0);" class="btn_prev">이전</a>
+								<a href="javascript:void(0);" class="btn_next">다음</a>
+							</div>
+						</c:if>
+					</div>
+
+					<div class="aside_box">
+						
+						<div class="brn_txt">
+							<p><span class="b_font now_year"><!-- --></span>년 <span class="b_font now_month"><!-- --></span>월 <span class="b_font now_date"><!-- --></span>일까지</p>
+							<p class="icon01"><span class="b_font">${surveyStatics.surveyCnt}</span>건의 설문에</p>
+							<p class="icon02"><span class="b_font f_yellow">${surveyStatics.userCnt}</span>명이</p>
+							참여하셨습니다.
+						</div>
+						<div class="brn_img">
+							<a href="http://www.zeus.go.kr/market/cafe/survey/post?cafeIndividualNickNm=false"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/img_brn01.jpg" alt="설문주제를 제안해주세요." /></a>
+						</div>
+					</div>
+				</div>
+				<!-- //설문조사 -->
+				
+				<!-- 실태조사 -->
+				<c:forEach var="survey" items="${actualSurveyList}" varStatus="status">
+					<div class="fade_wrap" style="display:none">
+						<div class="inner">
+							<img src="${pageContext.request.contextPath}/settings/surveyDefinitions/logo/${survey.surveyDefinitionId}" style="width: 988px; height: 438px" alt="${survey.name}" />
+								<c:if test="${survey.status eq 'P'}">
+									<div class="label"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/label_01.png" alt="조사진행중" /></div>
+								</c:if>
+							
+							<ul class="list_type_dt">
+								<li>
+									<dl>
+										<dt>목적</dt>
+										<dd>
+											${survey.purpose}
+										</dd>
+									</dl>
+								</li>
+								<li>
+									<dl>
+										<dt>대상</dt>
+										<dd>
+											${survey.target}
+										</dd>
+									</dl>
+								</li>
+								<li>
+									<dl>
+										<dt>일시</dt>
+										<dd><spring:eval expression="survey.startDay"/> ~ <spring:eval expression="survey.endDay"/> (${survey.term}일간)</dd>
+									</dl>
+								</li>
+							</ul>
+							<div class="actual">
+								<sec:authorize ifNotGranted="ROLE_ADMIN, ROLE_SURVEY_PARTICIPANT">
+									<c:choose>
+										<c:when test="${survey.status eq 'E'}">
+											<a href="${pageContext.request.contextPath}/public/login" class="btn_result">결과보기</a>
+										</c:when>
+										<c:otherwise>
+											<a href="${pageContext.request.contextPath}/public/login" class="btn_red">시작하기</a>
+										</c:otherwise>
+									</c:choose>
+								</sec:authorize>
+								<sec:authorize ifAnyGranted="ROLE_ADMIN, ROLE_SURVEY_PARTICIPANT">
+									<c:choose>
+										<c:when test="${survey.realStatus ne 'S' and survey.status eq 'P'}">
+											<a href="javascript:surveyPopup('${pageContext.request.contextPath}/surveys/private/${survey.surveyDefinitionId}?list', 'survey${survey.surveyDefinitionId}');" onclick="return checkSurveyTarget(${survey.surveyDefinitionId});" class="btn_red">시작하기</a>
+										</c:when>
+										<c:when test="${survey.realStatus eq 'S'}">
+											<a href="javascript:surveyPopup('${pageContext.request.contextPath}/surveys/private/${survey.surveyId}', 'survey${survey.surveyDefinitionId}');" onclick="return checkSurveyTarget(${survey.surveyDefinitionId});" class="btn_result">결과보기</a>
+										</c:when>
+										<c:when test="${survey.realStatus ne 'S' and survey.status eq 'E'}">
+											<a href="javascript:alert('조사참여 내역이 없습니다.');" class="btn_result">결과보기</a>
+										</c:when>
+									</c:choose>
+								</sec:authorize>
+							</div>
+						</div>
+
+						<div class="aside_box">
+							<div class="timer type2">
+								<input type="hidden" id="surveyId" value="${survey.surveyDefinitionId}"/>
+								<input type="hidden" id="status" value="${survey.status}"/>
+								<input type="hidden" id="endDt${survey.surveyDefinitionId}" value="${survey.endDt}"/>
+								<c:choose>
+									<c:when test="${survey.status eq 'P'}">
+										<p class="clock">남은시간 <strong id="left_time${survey.surveyDefinitionId}" class="f_red"><!-- --></strong></p>
+									</c:when>
+									<c:otherwise>
+										<p class="clock">조사가 종료되었습니다.</p>
+									</c:otherwise>
+								</c:choose>
+							</div>
+							
+							<div class="brn_txt2">
+								<p class="tit">제출현황<span class="now_day"><!-- --></span></p>
+								<ul>
+									<li class="edge">
+										<dl>
+											<dt>제출</dt>
+											<dd class="f_zeus">${survey.userCnt}</dd>
+										</dl>
+									</li>
+									<li>
+										<dl>
+											<dt>미제출</dt>
+											<dd class="f_pink">${survey.totalCnt-survey.userCnt}</dd>
+										</dl>
+									</li>
+								</ul>
+							</div>
+							<div class="brn_txt3">
+								<a href="${pageContext.request.contextPath}/pub/survey/targets/${survey.departmentId}">
+									<p class="tit">대상확인</p>
+									<p class="txt">
+										국가연구기설장비 실태조사<br />
+										대상기관 목록을 조회해 보세요.
+									</p>
+								</a>
+							</div>
+							<div class="brn_txt4">
+								<p class="tit">다운로드</p>
+								<ul>
+									<li class="edge"><a href="">공문</a></li>
+									<li><a href="">계획서</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+				<!-- //실태조사 -->
+   			</div>
+
+   			<div class="resrch_notice_wrap">
+				<div class="section type01">
+					<h2>Q&#38;A</h2>
+					<div class="exp_box">
+						궁금하신 점이 있으신가요?<br />
+						ZEUS가 빠르게 답변드립니다.
+					</div>
+					<ul class="qna_list">
+						<c:forEach var="qna" items="${qnaList}" varStatus="status">
+							<li><a href="">${qna.subject}</a></li>
+						</c:forEach>  
+					</ul>
+					<a href="http://www.zeus.go.kr/board/qna/search?classCd=8" class="btn_more">더보기</a>
+				</div>
+				<div class="section type02">
+					<div class="brn_header">
+						<p>실태조사에 대해 자세히 알고 싶으신가요?</p>
+						원하시는 실태조사를 클릭하시면 자세히 알려드립니다!
+					</div>
+					<ul class="brn_list">
+						<li><a href="">국가연구시설장비 관리 실태조사</a></li>
+						<li><a href="">국가연구시설장비 전담 운영인력 실태조사</a></li>
+						<li><a href="">국가대형연구시설 실태조사</a></li>
+					</ul>
+				</div>
+				<div class="section type03">
+					<h2>최신설문조사</h2>
+					<ul class="news_list">
+						<c:forEach var="survey" items="${newestSurveyList}" varStatus="status">
+							<li class="${status.count == 1 ? 'edge': ''}">
+								<span class="alram ${survey.status eq 'P' ? 'on': ''}">${survey.status eq 'P' ? '투표중': '종료'}</span>
+											<a href="${pageContext.request.contextPath}/pub/survey/research/${survey.surveyDefinitionId}${survey.status eq 'P' ? '?process':''}">${survey.name}</a>
+								<div class="info">
+									<span class="bar">${survey.status eq 'P' ? '현재참여': '전체참여'} <em class="f_red">${survey.userCnt}</em></span>
+									<span><spring:eval expression="survey.startDay"/> ~ <spring:eval expression="survey.endDay"/></span>
+								</div>
+							</li>
+						</c:forEach>
+					</ul>
+					<a href="${pageContext.request.contextPath}/pub/survey/research" class="btn_more">더보기</a>
+				</div>
+   			</div>
+   		</div>
+   	</div>
+   	<!-- end container -->
+</div>	
+

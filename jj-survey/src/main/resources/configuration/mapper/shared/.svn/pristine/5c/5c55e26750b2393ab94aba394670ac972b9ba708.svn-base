@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 리소스 관리 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.admin.sysmanage.resrcemanage.mapper.ResourceManageMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TSR.RESRCE_ID
+                 , TSR.RESRCE_TY
+                 , ${$var.getCodeData("/domain.main.tbSysResrce/resrceTy", "TSR.RESRCE_TY", "TSR.RESRCE_TY")} AS RESRCE_TY_NM
+                 , TSR.RESRCE_PTTRN
+                 , TSR.SORT_ORDR
+                 , ${$var.getCodeData("/common/useYn", "TSR.USE_YN", "TSR.USE_YN")} AS USE_YN_NM
+            FROM   TB_SYS_RESRCE TSR
+            WHERE  1 = 1
+        ]]>
+
+        <!-- 리소스 유형 -->
+        <if test='search != null and search.resrceTy != null and search.resrceTy != ""'>
+            <![CDATA[
+            AND    TSR.RESRCE_TY = #{search.resrceTy}
+            ]]>
+        </if>
+
+        <!-- 리소스 패턴 -->
+        <if test='search != null and search.resrcePttrn != null and search.resrcePttrn != ""'>
+            <![CDATA[
+            AND    UPPER(TSR.RESRCE_PTTRN) LIKE CONCAT_WS('', '%', UPPER(#{search.resrcePttrn}), '%')
+            ]]>
+        </if>
+
+        <!-- 사용 여부 -->
+        <if test='search != null and search.useYn != null and search.useYn != ""'>
+            <![CDATA[
+            AND    TSR.USE_YN = #{search.useYn}
+            ]]>
+        </if>
+    </select>
+
+    <!-- 순서 저장 -->
+    <update id="updateOrdr">
+        <![CDATA[
+            UPDATE TB_SYS_RESRCE SET
+                   SORT_ORDR                        = #{resourceManageOrdr.sortOrdr}
+            WHERE  RESRCE_ID = #{resourceManageOrdr.resrceId}
+        ]]>
+    </update>
+
+</mapper>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jd.survey.pub.mapper.SurveyDefinitionStatusMapper">
+
+    <select id="getOrganStatus" resultType="com.jd.survey.pub.domain.SurveyDefinitionStatus">
+        /* 기관유형별 현황 */
+        SELECT A.code, A.name, IF(A.cnt = 0, 0, ROUND((B.cnt/A.cnt)*100, 2)) cnt
+        FROM (
+                SELECT C.code, C.name, COALESCE(COUNT(A.user_id) , 0) cnt
+                FROM (
+                        SELECT A.user_id, SUBSTR(C.organ_type,1,2) code
+                        FROM (
+                                SELECT B.login as user_id
+                                FROM survey_sec_user_definition  A,
+                                survey_sec_user B
+                                WHERE A.user_id = B.id
+                                AND A.survey_definition_id = #{surveyDefinitionId}
+                            ) A ,
+                        tb_user B,
+                        tb_mem_organ C
+                        WHERE A.user_id = B.user_id
+                        AND B.organ_cd = C.organ_cd
+                    ) A,
+                tb_code B,
+                tb_code C
+                WHERE A.code(+) = b.code
+                AND B.pcode(+) = C.code
+                AND B.type_cd = 'ORCAT'
+                AND C.type_cd = 'ORCAT'
+                GROUP BY C.code, C.name
+            )  A,
+            (
+                SELECT C.code, C.name, COALESCE(COUNT(A.user_id) , 0) cnt
+                FROM (
+                        SELECT A.user_id, SUBSTR(C.organ_type,1,2) code
+                        FROM (
+                                SELECT login user_id
+                                FROM survey
+                                WHERE status = 'S'
+                                AND survey_definition_id = #{surveyDefinitionId}
+                            ) A,
+                        tb_user B,
+                        tb_mem_organ C
+                        WHERE a.user_id = b.user_id
+                        AND b.organ_cd = c.organ_cd
+                    ) A,
+                tb_code B,
+                tb_code C
+                WHERE A.code(+) = b.code
+                AND B.pcode(+) = C.code
+                AND B.type_cd = 'ORCAT'
+                AND C.type_cd = 'ORCAT'
+                GROUP BY C.code, C.name
+            ) B
+        WHERE A.code = B.code
+        ORDER BY A.code
+    </select>
+
+    <select id="getAreaStatus" resultType="com.jd.survey.pub.domain.SurveyDefinitionStatus">
+        /*지역별 현황*/
+        SELECT A.code, A.name, COALESCE(IF(A.cnt = 0, 0, ROUND((B.cnt/A.cnt)*100, 2)) ,0) cnt
+        FROM    (
+                    SELECT B.code,     B.name, COALESCE(COUNT(*),0) cnt
+                    FROM    (
+                                SELECT B.pcode pcode
+                                FROM (
+                                        SELECT A.user_id, C.area_cd code
+                                        FROM (
+                                                SELECT B.login as user_id
+                                                FROM survey_sec_user_definition  A,
+                                                survey_sec_user B
+                                                WHERE A.user_id = B.id
+                                                AND A.survey_definition_id = #{surveyDefinitionId}
+                                            ) A,
+                                        tb_user B,
+                                        tb_org_base C
+                                        WHERE A.user_id = B.user_id
+                                        AND B.organ_cd = C.organ_cd
+                                    ) A,
+                                tb_code B
+                                WHERE A.code = B.code
+                                AND B.type_cd = 'AREA2'
+                                AND B.pcode != 'ROOT'
+                            ) A,
+                    tb_code B
+                    WHERE A.pcode(+) = B.code
+                    AND B.type_cd = 'AREA2'
+                    AND B.pcode = 'ROOT'
+                    GROUP BY B.code, B.name
+                )  A,
+                (
+                    SELECT B.code, B.name, COALESCE(COUNT(*),0) cnt
+                    FROM    (
+                                SELECT B.pcode pcode
+                                FROM (
+                                        SELECT A.user_id, C.area_cd code
+                                        FROM (
+                                                SELECT login user_id
+                                                FROM survey
+                                                WHERE status = 'S'
+                                                AND survey_definition_id = #{surveyDefinitionId}
+                                            ) A,
+                                        tb_user B,
+                                        tb_org_base C
+                                        WHERE A.user_id = B.user_id
+                                        AND B.organ_cd = C.organ_cd
+                                    ) A,
+                                tb_code B
+                                WHERE A.code = B.code
+                                AND B.type_cd = 'AREA2'
+                                AND B.pcode != 'ROOT'
+                            ) A,
+                    tb_code B
+                    WHERE A.pcode = B.code
+                    AND B.type_cd = 'AREA2'
+                    AND B.pcode = 'ROOT'
+                    GROUP BY B.code, B.name
+                ) B
+        WHERE A.code = B.code(+)
+        ORDER BY code
+    </select>
+
+</mapper>

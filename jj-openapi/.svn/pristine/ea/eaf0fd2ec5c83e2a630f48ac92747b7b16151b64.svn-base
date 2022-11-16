@@ -1,0 +1,43 @@
+function BannerManageViewService(vue) {
+
+    /**
+     * 목록 조회
+     */
+    this.readList = function() {
+        CommonUtil.axios()
+        .post("readList",{})
+        .then(function(response) {
+            console.log(response.data);
+            vue.bannerList = response.data;
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+    /**
+     * 추가
+     */
+    this.create = function() {
+        if (!CommonUtil.checkValid()) {
+            return;
+        }
+        if (!confirm("등록하시겠습니까?")) {
+            return;
+        }
+
+        CommonUtil.axios()
+        .post("create", vue.model)
+        .then(function(response) {
+            alert("등록되었습니다.");
+
+            vues.list.service.readList();
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+
+
+}

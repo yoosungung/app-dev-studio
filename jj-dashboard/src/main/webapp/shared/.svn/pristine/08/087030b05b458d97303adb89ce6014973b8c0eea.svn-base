@@ -1,0 +1,137 @@
+[v-cloak] {
+    visibility: hidden;
+}
+
+.valid-message {
+    color: red;
+}
+
+div.table {
+    display: table;
+}
+
+div.table.fixed {
+    table-layout: fixed;
+}
+
+div.table>div {
+    display: table-cell;
+}
+
+div.table.space>div:not(:first-child ) {
+    padding-left: 3px;
+}
+table.form input[type="text"], table.form input[type="password"], table.form textarea,
+    table.list input[type="text"], table.list input[type="password"], table.list textarea
+    {
+    width: calc(100% - 10px);
+}
+
+table.form input[type="number"], table.list input[type="number"] {
+    width: calc(100% - 4px);
+}
+
+button {
+    white-space: nowrap;
+}
+
+h3 {
+    margin-top: 10px;
+}
+
+.page-space {
+    margin-top: 10px;
+}
+
+.full {
+    width: 100%;
+}
+
+.grid .title-bar {
+    display: table;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.grid .title-bar>div {
+    display: table-cell;
+}
+
+.grid .title-bar>div:last-child {
+    text-align: right;
+}
+
+.grid table.list thead th .sort {
+    padding-right: 2px;
+}
+
+.grid table.list thead th .sort::before {
+    content: '↕';
+    color: gray;
+}
+
+.grid table.list thead th .sort.asc::before {
+    content: '↑';
+    color: red;
+}
+
+.grid table.list thead th .sort.desc::before {
+    content: '↓';
+    color: red;
+}
+
+.grid .paging {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+table.form th.required {
+    position: relative;
+}
+
+table.form th.required::after {
+    content: '*';
+    color: red;
+    position: absolute;
+    right: 1px;
+}
+
+table.list th.required::after {
+    content: '*';
+    color: red;
+    margin-left: 1px;
+}
+
+.tal {
+    text-align: left;
+}
+
+.tac {
+    text-align: center;
+}
+
+.tar {
+    text-align: right;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.icon-date {
+    display: inline-block;
+    background: url(images/icon-date.png) no-repeat center center;
+    background-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.ck.ck-content {
+    min-height: 150px;
+}

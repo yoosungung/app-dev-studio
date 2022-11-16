@@ -1,0 +1,20 @@
+package kr.ac.jj.shared.application.admin.appmanage.deptmanage.handler;
+
+import java.util.Map;
+
+import org.apache.ibatis.session.ResultContext;
+
+import kr.ac.jj.shared.application.admin.appmanage.deptmanage.service.DeptManageServiceImpl;
+import kr.ac.jj.shared.infrastructure.framework.core.support.context.ApplicationContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.handler.DataResultHandler;
+
+public class DeptManageResultHandler extends DataResultHandler {
+
+    @Override
+    public void handleResult(ResultContext<? extends Map<String, Object>> resultContext) {
+        DeptManageServiceImpl deptManageService = ApplicationContextUtil.getBean(DeptManageServiceImpl.class);
+
+        deptManageService.updateFromDw(resultContext.getResultObject());
+    }
+
+}

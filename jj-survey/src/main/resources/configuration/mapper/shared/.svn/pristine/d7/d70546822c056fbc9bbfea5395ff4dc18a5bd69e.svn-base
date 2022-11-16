@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 부서별 권한 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.dept.author.TbComDeptAuthorEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.com.dept.author.TbComDeptAuthor">
+        <![CDATA[
+            SELECT TCDA.DEPT_ID
+                 , TCDA.AUTHOR_ID
+            FROM   TB_COM_DEPT_AUTHOR TCDA
+            WHERE  TCDA.DEPT_ID = #{deptId}
+            AND    TCDA.AUTHOR_ID = #{authorId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_COM_DEPT_AUTHOR (
+                   DEPT_ID
+                 , AUTHOR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+            ) VALUES (
+                   #{tbComDeptAuthor.deptId}
+                 , #{tbComDeptAuthor.authorId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_COM_DEPT_AUTHOR SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+            WHERE  DEPT_ID = #{tbComDeptAuthor.deptId}
+            AND    AUTHOR_ID = #{tbComDeptAuthor.authorId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_DEPT_AUTHOR
+            WHERE  DEPT_ID = #{deptId}
+            AND    AUTHOR_ID = #{authorId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - DEPT_ID(으)로 -->
+    <delete id="deleteListByDeptId">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_DEPT_AUTHOR
+            WHERE  DEPT_ID = #{deptId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - AUTHOR_ID(으)로 -->
+    <delete id="deleteListByAuthorId">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_DEPT_AUTHOR
+            WHERE  AUTHOR_ID = #{authorId}
+        ]]>
+    </delete>
+
+</mapper>

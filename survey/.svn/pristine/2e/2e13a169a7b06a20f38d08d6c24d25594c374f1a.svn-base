@@ -1,0 +1,35 @@
+<div class="container"
+	xmlns:spring="http://www.springframework.org/tags" 
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+	xmlns:tiles="http://tiles.apache.org/tags-tiles" 
+	version="2.0">
+
+	<jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
+	<jsp:output omit-xml-declaration="yes" />
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />  
+	<jsp:directive.page pageEncoding="UTF-8" />
+	
+	<spring:url var="resourcesJSpringSecurityCheckUrl" value="/resources/j_spring_security_check" />
+	<form class="form-1" method="POST" action="${resourcesJSpringSecurityCheckUrl}" name="f">
+		<div class="login-container animated fadeInDown">
+			<div class="loginbox bg-white">
+				<div class="loginbox-title">SIGN IN</div>
+				<div class="loginbox-social">
+					<div class="social-title ">아이디 / 비밀번호를 입력하세요.</div>
+				</div>
+				<div class="loginbox-textbox">
+					<input type="text" name="j_username" class="form-control" placeholder="아이디" />
+				</div>
+				<div class="loginbox-textbox">
+					<input type="password" name="j_password" class="form-control" placeholder="비밀번호" />
+				</div>
+				<div class="loginbox-submit">
+					<input type="submit" class="btn btn-primary btn-block" value="Login" />
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

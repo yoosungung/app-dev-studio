@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 직무별 권한 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.dty.author.TbComDtyAuthorEntityMapper">
+
+    <!-- 기본 조회 SQL -->
+    <sql id="baseSelectSql">
+        <![CDATA[
+            SELECT TCDA.DTY_ID
+                 , TCDA.AUTHOR_ID
+            FROM   TB_COM_DTY_AUTHOR TCDA
+        ]]>
+    </sql>
+
+    <!-- 목록 조회 - DTY_ID(으)로 -->
+    <select id="selectListByDtyId" resultType="kr.ac.jj.shared.domain.main.model.com.dty.author.TbComDtyAuthor">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TCDA.DTY_ID = #{dtyId}
+        ]]>
+    </select>
+
+    <!-- 목록 조회 - AUTHOR_ID(으)로 -->
+    <select id="selectListByAuthorId" resultType="kr.ac.jj.shared.domain.main.model.com.dty.author.TbComDtyAuthor">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TCDA.AUTHOR_ID = #{authorId}
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.com.dty.author.TbComDtyAuthor">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TCDA.DTY_ID = #{dtyId}
+            AND    TCDA.AUTHOR_ID = #{authorId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_COM_DTY_AUTHOR (
+                   DTY_ID
+                 , AUTHOR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+            ) VALUES (
+                   #{tbComDtyAuthor.dtyId}
+                 , #{tbComDtyAuthor.authorId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_COM_DTY_AUTHOR SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+            WHERE  DTY_ID = #{tbComDtyAuthor.dtyId}
+            AND    AUTHOR_ID = #{tbComDtyAuthor.authorId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_DTY_AUTHOR
+            WHERE  DTY_ID = #{dtyId}
+            AND    AUTHOR_ID = #{authorId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - DTY_ID(으)로 -->
+    <delete id="deleteListByDtyId">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_DTY_AUTHOR
+            WHERE  DTY_ID = #{dtyId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - AUTHOR_ID(으)로 -->
+    <delete id="deleteListByAuthorId">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_DTY_AUTHOR
+            WHERE  AUTHOR_ID = #{authorId}
+        ]]>
+    </delete>
+
+</mapper>

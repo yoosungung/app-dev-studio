@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 입학 데이터 CodeData -->
+<mapper namespace="dashboard-codedata.entrance">
+
+    <!-- 고등학교 조회 -->
+    <select id="readSchoList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT SCHO_FNAME AS CODE
+             , SCHO_FNAME AS NAME
+        FROM IPSYMAST
+        GROUP BY SCHO_FNAME
+        ORDER BY SCHO_FNAME
+    </select>
+
+    <!-- 단과대학 조회 -->
+    <select id="readDaehakList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT IPSY_DAEHAK AS CODE
+             , IPSY_DAEHAK AS NAME
+        FROM IPSYMAST
+        GROUP BY IPSY_DAEHAK
+        ORDER BY IPSY_DAEHAK
+    </select>
+
+    <!-- 학과 조회 -->
+    <select id="readHakkwa1nameList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT IPSY_HAKKWA1_NAME AS CODE
+             , IPSY_HAKKWA1_NAME AS NAME
+        FROM IPSYMAST
+        GROUP BY IPSY_HAKKWA1_NAME
+        ORDER BY IPSY_HAKKWA1_NAME
+    </select>
+
+    <!-- 입학 전형별 조회 -->
+    <select id="readJunhyungList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT IPSY_JUNHYUNG AS CODE
+             , IPSY_JUNHYUNG AS NAME
+        FROM IPSYMAST
+        GROUP BY IPSY_JUNHYUNG
+        ORDER BY IPSY_JUNHYUNG
+    </select>
+
+</mapper>

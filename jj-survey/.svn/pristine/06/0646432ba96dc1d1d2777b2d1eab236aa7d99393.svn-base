@@ -1,0 +1,18 @@
+package kr.ac.jj.survey.domain.main.model.survey.group.person;
+
+import kr.ac.jj.shared.infrastructure.idgen.util.IdGenerationUtil;
+
+/**
+ * 설문_그룹_사람
+ */
+public class TbSurveyGroupPerson extends TbSurveyGroupPersonEntity {
+
+    private static final long serialVersionUID = 6283735766263178700L;
+
+    public TbSurveyGroupPerson newId() {
+        this.setSurveyGroupPersonId(IdGenerationUtil.createUid("TB_SURVEY_GROUP_PERSON"));
+
+        return this;
+    }
+
+}

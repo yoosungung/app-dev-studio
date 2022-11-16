@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 설문_그룹_사람 Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.survey.group.person.TbSurveyGroupPersonMapper">
+
+    <!-- 생성 - 존재하지 않는 경우 -->
+    <insert id="insertNotExists">
+        <![CDATA[
+            INSERT INTO TB_SURVEY_GROUP_PERSON (
+                   SURVEY_GROUP_ID
+                 , PERSON_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+            )
+            SELECT #{tbSurveyGroupPerson.surveyGroupId}
+                 , #{tbSurveyGroupPerson.personId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+            FROM   TB_COM_PERSON TCP
+            WHERE  TCP.PERSON_ID = #{tbSurveyGroupPerson.personId}
+            AND    TCP.EMAIL_ADRES IS NOT NULL
+            AND    NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_SURVEY_GROUP_PERSON TSGP
+                        WHERE  TSGP.SURVEY_GROUP_ID = #{tbSurveyGroupPerson.surveyGroupId}
+                        AND    TSGP.PERSON_ID = #{tbSurveyGroupPerson.personId}
+                   )
+        ]]>
+    </insert>
+
+    <!-- 목록 생성 - 부서 ID로부터 -->
+    <insert id="insertListFromDeptId">
+        <![CDATA[
+            INSERT INTO TB_SURVEY_GROUP_PERSON (
+                   SURVEY_GROUP_ID
+                 , PERSON_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+            )
+            SELECT #{surveyGroupId}
+                 , TCP.PERSON_ID
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+            FROM   TB_COM_PERSON TCP
+            WHERE  TCP.DEPT_ID = #{deptId}
+            AND    TCP.EMAIL_ADRES IS NOT NULL
+            AND    NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_SURVEY_GROUP_PERSON TSGP
+                        WHERE  TSGP.SURVEY_GROUP_ID = #{surveyGroupId}
+                        AND    TSGP.PERSON_ID = TCP.PERSON_ID
+                   )
+        ]]>
+    </insert>
+
+</mapper>

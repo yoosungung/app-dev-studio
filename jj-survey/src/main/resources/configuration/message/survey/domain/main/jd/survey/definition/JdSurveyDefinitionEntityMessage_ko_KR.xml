@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+  Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.jdSurveyDefinition.id"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.name"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.purpose"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.target"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.description"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.isPublic"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.allowMultipleSubmissions"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.autoReminderLastSentDate"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.autoRemindersDayOfMonth"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.remindersFrequency"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.autoRemindersMonthlyOccur"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.autoRemindersWeeklyOccur"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.completedSurveyTemplate"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.emailInvitationTemplate"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.logo"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.sendAutoReminders"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.status"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.surveyTheme"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.startDt"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.endDt"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.registDt"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.departmentId"><![CDATA[]]></entry>
+    <entry key="domain.main.jdSurveyDefinition.version"><![CDATA[]]></entry>
+
+</properties>

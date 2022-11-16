@@ -1,0 +1,238 @@
+package kr.ac.jj.shared.application.common.user.service;
+
+import java.util.Collection;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.application.common.user.exception.UsernameEmptyValueException;
+import kr.ac.jj.shared.application.common.user.mapper.UserMapper;
+import kr.ac.jj.shared.application.common.user.model.LoginUser;
+import kr.ac.jj.shared.config.props.SharedConfigProperties;
+import kr.ac.jj.shared.domain.main.mapper.com.person.TbComPersonMapper;
+import kr.ac.jj.shared.domain.main.mapper.com.person.user.TbComPersonUserMapper;
+import kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserMapper;
+import kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrMapper;
+import kr.ac.jj.shared.domain.main.model.sys.log.login.TbSysLogLogin;
+import kr.ac.jj.shared.domain.main.model.sys.user.TbSysUser;
+import kr.ac.jj.shared.domain.main.model.sys.user.loginfailr.TbSysUserLoginFailr;
+import kr.ac.jj.shared.infrastructure.framework.web.context.request.RequestContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.web.context.support.MessageUtil;
+import kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.controller.HumanResourceManageController;
+
+/**
+ * 사용자 로그인 Service
+ */
+@Service
+public class UserLoginServiceImpl implements UserDetailsService {
+
+    private @Autowired SharedConfigProperties sharedConfig;
+    private @Autowired UserMapper userMapper;
+    private @Autowired TbSysUserMapper tbSysUserMapper;
+    private @Autowired TbComPersonUserMapper tbComPersonUserMapper;
+    private @Autowired TbComPersonMapper tbComPersonMapper;
+    private @Autowired TbSysUserLoginFailrMapper tbSysUserLoginFailrMapper;
+    private @Autowired HumanResourceManageController humanResourceManageController;
+
+    @Override
+    public LoginUser loadUserByUsername(String username) throws UsernameNotFoundException {
+        String loginTy = "COMMON";
+
+        this.setTbSysLogLoginAttribute(username, loginTy);
+
+        String userId = userMapper.selectUserIdByLoginNm(username);
+
+        if (StringUtils.isEmpty(userId)) {
+            humanResourceManageController.createOrUpdateOne(username);
+
+            userId = userMapper.selectUserIdByLoginNm(username);
+        }
+
+        if (StringUtils.isEmpty(userId)) {
+            if (!this.isAccountNonLocked(username)) {
+                throw new LockedException(
+                        MessageUtil.getMessage("AbstractUserDetailsAuthenticationProvider.locked", "사용자 계정이 잠겼습니다."));
+            }
+
+            throw new UsernameNotFoundException(MessageUtil.getMessage(
+                    "AbstractUserDetailsAuthenticationProvider.badCredentials", "가입된 계정이 없습니다. 아이디/비밀번호를 확인하세요."));
+        }
+
+        return this.getLoginUser(userId, loginTy);
+    }
+
+    public LoginUser loadUserByAdmin(String username) {
+        String loginTy = "ADMIN";
+
+        this.setTbSysLogLoginAttribute(username, loginTy);
+
+        String userId = userMapper.selectUserIdByLoginNm(username);
+
+        if (StringUtils.isEmpty(userId)) {
+            humanResourceManageController.createOrUpdateOne(username);
+
+            userId = userMapper.selectUserIdByLoginNm(username);
+        }
+
+        if (StringUtils.isEmpty(userId)) {
+            throw new BadCredentialsException(MessageUtil.getMessage(
+                    "AbstractUserDetailsAuthenticationProvider.badCredentials", "가입된 계정이 없습니다. 아이디/비밀번호를 확인하세요."));
+        }
+
+        return this.getLoginUser(userId, loginTy);
+    }
+
+    public LoginUser loadUserBySso(String username) {
+        String loginTy = "SSO";
+
+        this.setTbSysLogLoginAttribute(username, loginTy);
+
+        if (StringUtils.isEmpty(username)) {
+            throw new UsernameEmptyValueException("SSO Username is not found.");
+        }
+
+        String userId = userMapper.selectUserIdBySsoKey(username);
+
+        if (StringUtils.isEmpty(userId)) {
+            throw new UsernameNotFoundException(
+                    "SSO User \"" + StringUtils.defaultIfEmpty(username, "") + "\" is not found.");
+        }
+
+        return this.getLoginUser(userId, loginTy);
+    }
+
+    public LoginUser loadUserSurveyPersonId(String username) {
+        String loginTy = "SURVEY";
+
+        this.setTbSysLogLoginAttribute(username, loginTy);
+
+        if (StringUtils.isEmpty(username)) {
+            throw new UsernameEmptyValueException("Survey Username is not found.");
+        }
+
+        String personId = userMapper.selectUserIdBySurveyPersonId(username);
+
+        if (StringUtils.isEmpty(personId)) {
+            throw new UsernameNotFoundException(
+                    "Survey User \"" + StringUtils.defaultIfEmpty(username, "") + "\" is not found.");
+        }
+
+        String[] authorCodes = new String[] { "ROLE_USER", "ROLE_SURVEY_PARTICIPANT" };
+        Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(authorCodes);
+
+        LoginUser loginUser = new LoginUser(username, personId, true, true, true, true, authorities, personId, loginTy);
+        loginUser.setPersonId(personId);
+
+        return loginUser;
+    }
+
+    private void setTbSysLogLoginAttribute(String loginNm, String loginTy) {
+        HttpServletRequest request = RequestContextUtil.getRequest();
+
+        request.setAttribute(this.getClass().getName() + ".loginNm", loginNm);
+        request.setAttribute(this.getClass().getName() + ".loginTy", loginTy);
+    }
+
+    private LoginUser getLoginUser(String userId, String loginTy) {
+        TbSysUser tbSysUser = tbSysUserMapper.select(userId);
+        List<String> authorCodeList = userMapper.selectAuthorCodeList(userId);
+
+        if (authorCodeList.isEmpty()) {
+            for (String authorCode : sharedConfig.getLogin().getDefaultAuthorCodes()) {
+                authorCodeList.add(authorCode);
+            }
+        }
+
+        String username = tbSysUser.getLoginNm();
+        String password = tbSysUser.getLoginPassword();
+        boolean enabled = BooleanUtils.isTrue(tbSysUser.getUseYn());
+        boolean accountNonExpired = true;
+        boolean credentialsNonExpired = true;
+        boolean accountNonLocked = this.isAccountNonLocked(tbSysUser.getLoginNm());
+        String[] authorCodes = authorCodeList.toArray(new String[authorCodeList.size()]);
+        Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(authorCodes);
+
+        LoginUser loginUser = new LoginUser(username, password, enabled //
+                , accountNonExpired, credentialsNonExpired, accountNonLocked //
+                , authorities //
+                , userId, loginTy);
+
+        return loginUser;
+    }
+
+    private boolean isAccountNonLocked(String loginNm) {
+        int failAvailCount = sharedConfig.getLogin().getFail().getAvailCount();
+
+        if (failAvailCount <= 0) {
+            return true;
+        }
+
+        TbSysUserLoginFailr tbSysUserLoginFailr = tbSysUserLoginFailrMapper.select(loginNm);
+
+        if (tbSysUserLoginFailr == null) {
+            return true;
+        }
+
+        return tbSysUserLoginFailr.getFailrCo() < failAvailCount;
+    }
+
+    public void updateLoginUser(LoginUser loginUser) {
+        if (StringUtils.isEmpty(loginUser.getPersonId())) {
+            loginUser.setPersonId(tbComPersonUserMapper.selectPersonIdByUserId(loginUser.getUserId()));
+        }
+
+        if (StringUtils.isNotEmpty(loginUser.getPersonId())) {
+            loginUser.setTbComPerson(tbComPersonMapper.select(loginUser.getPersonId()));
+        }
+
+        if (!StringUtils.equals(loginUser.getLoginTy(), "ADMIN")) {
+            tbSysUserMapper.updateLoginDt(loginUser.getUserId());
+        }
+    }
+
+    public void updateLoginErrorCountToZero(String loginNm) {
+        if (StringUtils.isEmpty(loginNm)) {
+            return;
+        }
+
+        tbSysUserLoginFailrMapper.updateZero(loginNm);
+    }
+
+    public void updateLoginErrorCountAdd(String loginNm) {
+        if (StringUtils.isEmpty(loginNm) || StringUtils.length(loginNm) > 50) {
+            return;
+        }
+
+        TbSysUserLoginFailr tbSysUserLoginFailr = new TbSysUserLoginFailr();
+        tbSysUserLoginFailr.setLoginNm(loginNm);
+
+        if (tbSysUserLoginFailrMapper.update(tbSysUserLoginFailr) == 0) {
+            tbSysUserLoginFailrMapper.insert(tbSysUserLoginFailr);
+        }
+    }
+
+    public void createLoginLog(boolean succesYn) {
+        HttpServletRequest request = RequestContextUtil.getRequest();
+
+        String loginNm = (String) request.getAttribute(this.getClass().getName() + ".loginNm");
+        String loginTy = (String) request.getAttribute(this.getClass().getName() + ".loginTy");
+
+        TbSysLogLogin tbSysLogLogin = new TbSysLogLogin();
+        tbSysLogLogin.setLoginNm(loginNm);
+        tbSysLogLogin.setLoginTy(loginTy);
+        tbSysLogLogin.setSuccesYn(succesYn);
+        tbSysLogLogin.insertQueue();
+    }
+
+}

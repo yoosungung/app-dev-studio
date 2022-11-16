@@ -1,0 +1,42 @@
+package kr.ac.jj.shared.application.admin.sysmanage.menumanage.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.shared.config.datasources.SharedDataSourceMainConfig.SharedMainSqlMapper;
+
+/**
+ * 메뉴 관리 Mapper
+ */
+@SharedMainSqlMapper
+public interface MenuManageMapper {
+
+    /**
+     * 트리 조회
+     *
+     * @param menuKnd
+     * @return
+     */
+    public List<Map<String, Object>> selectTree(@Param("menuKnd") String menuKnd);
+
+    /**
+     * 트리 조회 - 상위 메뉴 선택용
+     *
+     * @param menuKnd
+     * @param maxLevel
+     * @return
+     */
+    public List<Map<String, Object>> selectTreeForUpperMenuSelect(@Param("menuKnd") String menuKnd,
+            @Param("maxLevel") Integer maxLevel);
+
+    /**
+     * 하위 메뉴 갯수 조회
+     *
+     * @param upperMenuId
+     * @return
+     */
+    public int selectChildMenuCount(@Param("upperMenuId") String upperMenuId);
+
+}

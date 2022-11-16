@@ -1,0 +1,24 @@
+package kr.ac.jj.shared.domain.main.mapper.intrfc.code;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+import kr.ac.jj.shared.domain.main.model.intrfc.code.TbIntrfcCode;
+
+/**
+ * 인터페이스 - 코드 Mapper
+ */
+@SharedMainSqlMapper
+public interface TbIntrfcCodeMapper extends TbIntrfcCodeEntityMapper {
+
+    /**
+     * 목록 생성
+     *
+     * @param tbIntrfcCodeList
+     * @return
+     */
+    public int insertList(@Param("tbIntrfcCodeList") List<TbIntrfcCode> tbIntrfcCodeList);
+
+}

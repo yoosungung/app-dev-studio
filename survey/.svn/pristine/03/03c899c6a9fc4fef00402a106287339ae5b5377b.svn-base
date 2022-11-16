@@ -1,0 +1,46 @@
+@media print{
+/*
+.side_contents_section, .display_print{display:none;; overflow:hidden}
+.content_title{width:600px; text-align:center; overflow:hidden}
+.contents_data{width:600px;position:relative; right:335px; overflow:hidden}
+.application_table{width:100%;text-align:left;border-collapse:collapse}
+.application_table th{background:#f7f7f7; text-align:center;border:1px solid #000;padding:10px 0;}
+.application_table td{border:1px solid #000;padding:10px 5px 10px 10px;}
+.footer{text-indent:-5000px;}
+.footer .f_link li{background:none}
+*/
+body{color:#000;margin:0; padding:0} 
+
+.wrap {width:636px; background:none; position:relative; left:0; top:0; margin:0; padding:0; }
+.wrap .container { width:auto }
+.wrap .side_contents_section { display:none}
+.wrap .side_contents_section .login_section { display:none }
+.wrap .side_contents_section .equip_search_section { display:none }
+.wrap .side_contents_section .equip_search_section .equip_search_bar { display:none }
+.wrap .side_contents_section .side_bar_section {display:none }
+.wrap .main_contents_section { margin-left:20px;}
+.equip_detail_view .footer { display:none; }
+
+.imgr img { opacity:100; z-index:2; }
+
+
+
+#cloud_header { display:none;}
+#cloud_footer { display:none;}
+#cloud_container { padding:0; }
+#cloud_container #right_content { display:none;}
+.equip_detail_view .equip_detail_header { display:none; }
+.btn_box_right { display:none; }
+.btn_box_center { display:none; }
+
+
+.display_print, #footer{display:none; }
+
+.content_title{ width:100%;text-align:center;}
+
+.application_table{ width:100%; text-align:left; border-collapse:collapse}
+.application_table th{ background:#f7f7f7; text-align:center; border:1px solid #000; padding:10px 0;}
+.application_table td{ border:1px solid #000000; padding:10px 5px 10px 10px;}
+
+.ticket_content{width:100%; color:#000000; }
+}

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 인사정보 관리 - 직무 인터페이스 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.mapper.HumanResourceManageDtyIntrfcMapper">
+
+    <!-- 목록 생성 -->
+    <insert id="insertList">
+        <![CDATA[
+            INSERT INTO TB_COM_DTY (
+                   DTY_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , DTY_SE
+                 , DTY_CODE
+                 , DTY_NM
+                 , USE_YN
+            )
+            SELECT FN_UID('S') AS DTY_ID
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{dtySe} AS DTY_SE
+                 , TIC.CODE_VALUE AS DTY_CODE
+                 , TIC.CODE_NM AS DTY_NM
+                 , CASE WHEN TIC.CODE_INDICT_YN = 'Y' THEN '1' ELSE '0' END AS USE_YN
+            FROM   TB_INTRFC_CODE TIC
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_COM_DTY TCD
+                        WHERE  TCD.DTY_SE = #{dtySe}
+                        AND    TCD.DTY_CODE = TIC.CODE_VALUE
+                   )
+            AND    TIC.CODE_TY = '203'
+            AND    TIC.CODE_VALUE NOT IN ('0000', 'type')
+        ]]>
+    </insert>
+
+    <!-- 목록 수정 -->
+    <update id="updateList">
+        <![CDATA[
+            UPDATE TB_COM_DTY TCD, TB_INTRFC_CODE TIC SET
+                   TCD.UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , TCD.UPDT_DT                          = #{$var.systemDate}
+                 , TCD.DTY_NM                           = TIC.CODE_NM
+                 , TCD.USE_YN                           = CASE WHEN TIC.CODE_INDICT_YN = 'Y' THEN '1' ELSE '0' END
+            WHERE  TCD.DTY_SE = #{dtySe}
+            AND    TIC.CODE_TY = '203'
+            AND    TIC.CODE_VALUE = TCD.DTY_CODE
+        ]]>
+    </update>
+
+    <!-- 목록 수정 - 사용 여부 미사용 처리 -->
+    <update id="updateListUseYnTo0">
+        <![CDATA[
+            UPDATE TB_COM_DTY TCD SET
+                   TCD.UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , TCD.UPDT_DT                          = #{$var.systemDate}
+                 , TCD.USE_YN                           = '0'
+            WHERE  TCD.DTY_SE = #{dtySe}
+            AND    NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_INTRFC_CODE TIC
+                        WHERE  TIC.CODE_VALUE = TCD.DTY_CODE
+                        AND    TIC.CODE_TY = '203'
+                        AND    TIC.CODE_VALUE NOT IN ('0000', 'type')
+                   )
+            AND    TCD.USE_YN = '1'
+        ]]>
+    </update>
+
+</mapper>

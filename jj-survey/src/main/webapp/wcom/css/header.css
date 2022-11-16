@@ -1,0 +1,370 @@
+@charset "utf-8";
+/* CSS Document */
+
+.skip{}
+.skip a{position:absolute;top:-100px; left:0;display:block; margin:0;width:100%; padding:15px 0; text-align:center; background:#dbe7f6; z-index:9999;}
+.skip a:hover, .skip a:active, .skip a:focus{top:0;}
+
+.wrap{position:relative; width:100%; height:auto;}
+#header_wrap{position:relative; width:100%; height:auto; margin:0 0 10px 0; border-bottom:2px solid #00b7ce; zoom:1;}
+#header_wrap.ifsrch{border-bottom:1px solid #767676; margin:0px; min-width:1024px;}
+#header_wrap.ifsrch #header_sub{border:none;}
+#header_wrap.usenav{background:url(../../wcom/img/zeus2014/public/line_nav.gif) left bottom repeat-x;}
+
+
+/* header_main */
+#header{position:relative; width:1024px; margin:0 auto; height:187px;}
+#header.sub2{width:934px;}
+#header:after{clear:both; display:block; content:""}
+#header #gnb{display:block; position:relative; padding-top:5px; height:28px;}
+#header #gnb ul{float:right;}
+#header #gnb ul li{float:left;}
+#header #gnb ul li a{display:inline-block; height:20px; line-height:20px; color:#777; font-family:"Nanum Gothic","나눔고딕";}
+#header #gnb ul li .app{position:absolute; top:5px; left:0px; padding-left:25px; background:url(../../wcom/img/zeus2014/main/sp_main.png) -450px 0px no-repeat;}
+#header #gnb ul li .login{margin:1px 0px 0px 12px; padding:0px 15px; height:18px; line-height:18px; background:#00b7ce; border-radius:20px; color:#fff; font-weight:bold;}
+#header #gnb ul li .join{margin-left:12px; padding-left:11px; background:url(../../wcom/img/zeus2014/main/bullet_line.gif) 0px 6px no-repeat;}
+#header #gnb ul li .rm{margin-left:12px; padding-left:11px; background:url(../../wcom/img/zeus2014/main/bullet_line.gif) 0px 6px no-repeat;}
+#header #gnb ul li .greet{display:inline-block; line-height:20px; font-family:"Nanum Gothic","나눔고딕";}
+
+#header #gnb .gnb_q{position:absolute; top:4px; left:0;}
+#header #gnb .gnb_q li{padding-left:20px; margin-right:18px;}
+#header #gnb .gnb_q .q_red{background:url(../../wcom/img/zeus2014/main/ico_r.gif) 0 3px no-repeat;}
+#header #gnb .gnb_q .q_see{background:url(../../wcom/img/zeus2014/main/ico_s.gif) 0 3px no-repeat;}
+#header #gnb .gnb_q .q_wolf{background:url(../../wcom/img/zeus2014/main/ico_w.gif) 0 3px no-repeat;}
+#header #gnb .gnb_q .q_zeus{background:url(../../wcom/img/zeus2014/main/ico_z.gif) 0 3px no-repeat;}
+
+#header #gnb .switch{position:absolute; top:4px; left:0;}
+#header #gnb .switch > ul{}
+#header #gnb .switch > ul > li{padding-right:56px; height:20px; line-height:20px; color:#000; font-family:"Nanum Gothic","나눔고딕";}
+#header #gnb .switch > ul > li > a{color:#000;} 
+#header #gnb .switch > .switch_bg{display:block; position:absolute; top:0px; left:30px; width:40px; height:18px;  margin: 1px 0 0 1px; background:url(../../wcom/img/zeus2014/header/switch.svg) 0px 0px no-repeat; z-index:10;}
+#header #gnb .switch > .switch_bg > .switch_move{display:block; position:absolute; top:2px; width:18px; height:18px; background:url(../../wcom/img/zeus2014/header/switch.svg) 0px -50px no-repeat; z-index:20;}
+
+#header #lnb{display:block; position:relative; margin-top:40px; height:114px;}
+#header #lnb h1{position:absolute; left:220px; top:0px;}
+#header #lnb h1 img{width:140px;}
+#header #lnb h1 .icon_414{position:absolute; left:-20px; top:-5px; width:18px; height:26px}
+#header #lnb #srch{height:39px;}
+.srch_form{position:relative; margin-left:375px; width:425px; height:37px; border:1px solid #00a7bc; border-radius:3px;}
+.srch_form input{padding:8px 10px 9px; width:341px; height:20px; border:none; background:none; font-size:14px; font-family:'dotum'; font-weight:bold;}
+.srch_form .btn_srch{display:block; position:absolute; top:-1px; right:-1px; vertical-align:top; width:64px; height:39px; 
+	background:url(../../wcom/img/zeus2014/main/sp_main.png) 0px 0px no-repeat; border:0; text-indent:-9990em;
+	}
+.srch_form .btn_srch:hover, .srch_form .btn_srch:active, .srch_form .btn_srch:focus{background-position:-100px 0px;}
+.srch_sub .btn_clear,.srch_form .btn_clear{background: url(../../wcom/img/zeus2014/header/btn_dclose.png) no-repeat;  display: inline-block;  width: 15px;  height: 15px;  position: absolute;z-index: 10;  text-indent: -20000px;  background-size: 10px;display:none;padding: 11px 0px;background-position-y: 12px;}
+.srch_sub .btn_clear{ top: 0px;  right: 3px;   padding: 9px 0px;}
+
+#header #nav{display:block; position:relative; margin-top:35px; height:36px;}
+#header #nav .nav_list{display:block; zoom:1; height:36px;}
+#header #nav .nav_list:after{clear:both; display:block; content:""}
+#header #nav .nav_list li{display:block; position:relative; float:left;}
+#header #nav .nav_list li.bar{width:1px; height:36px; background:url(../../wcom/img/zeus2014/header/sp_navicon.png) 0 -138px no-repeat}
+#header.sub2 #nav .nav_list li a{padding:0px 16px; height:36px; line-height:36px}
+
+.nav_list li a{color:#000;display:block; position:relative; padding:0px 18px; height:36px; font:15px/36px "Nanum Gothic"; font-weight:bold; /*background:url(../../wcom/img/zeus2014/main/sp_nav.png) no-repeat; text-indent:-9999em;*/}
+
+.nav_list li a:hover, .nav_list li a:focus, .nav_list li a:active, .nav_list li a.active{color:#00b7ce;}
+
+#header #nav .nav_list li .menu12{ background:url(../../wcom/img/zeus2014/header/sp_navicon.png) 0 -138px no-repeat;}
+/*
+.nav_list li .menu1{background-position:center 0px;}
+.nav_list li .menu1:hover, .nav_list li .menu1:focus, .nav_list li .menu1:active, .nav_list li .menu1.active{background-position:center -50px;}
+.nav_list li .menu2{background-position:center -100px;}
+.nav_list li .menu2:hover, .nav_list li .menu2:focus, .nav_list li .menu2:active, .nav_list li .menu2.active{background-position:center -150px;}
+.nav_list li .menu3{background-position:center -200px;}
+.nav_list li .menu3:hover, .nav_list li .menu3:focus, .nav_list li .menu3:active, .nav_list li .menu3.active{background-position:center -250px;}
+.nav_list li .menu4{background-position:center -300px;}
+.nav_list li .menu4:hover, .nav_list li .menu4:focus, .nav_list li .menu4:active, .nav_list li .menu4.active{background-position:center -350px;}
+.nav_list li .menu5{background-position:center -400px;}
+.nav_list li .menu5:hover, .nav_list li .menu5:focus, .nav_list li .menu5:active, .nav_list li .menu5.active{background-position:center -450px;}
+.nav_list li .menu6{background-position:center -500px;}
+.nav_list li .menu6:hover, .nav_list li .menu6:focus, .nav_list li .menu6:active, .nav_list li .menu6.active{background-position:center -550px;}
+.nav_list li .menu7{background-position:center -600px;}
+.nav_list li .menu7:hover, .nav_list li .menu7:focus, .nav_list li .menu7:active, .nav_list li .menu7.active{background-position:center -650px;}
+.nav_list li .menu8{background-position:center -700px;}
+.nav_list li .menu8:hover, .nav_list li .menu8:focus, .nav_list li .menu8:active, .nav_list li .menu8.active{background-position:center -750px;}
+.nav_list li .menu9{background-position:center -800px;}
+.nav_list li .menu9:hover, .nav_list li .menu9:focus, .nav_list li .menu9:active, .nav_list li .menu9.active{background-position:center -850px;}
+.nav_list li .menu10{background-position:center -900px;}
+.nav_list li .menu10:hover, .nav_list li .menu10:focus, .nav_list li .menu10:active, .nav_list li .menu10.active{background-position:center -950px;}
+.nav_list li .nav_beta{position:absolute; top:-6px; left:10px;}
+.nav_list li .menu11{width:36px; background-position:center -1000px;}
+.nav_list li .menu11:hover, .nav_list li .menu11:focus, .nav_list li .menu11:active, .nav_list li .menu11.active{background-position:center -1050px;}
+.nav_list li .menu12{width:63px; background-position:center -1100px;}
+.nav_list li .menu12:hover, .nav_list li .menu12:focus, .nav_list li .menu12:active, .nav_list li .menu12.active{background-position:center -1150px;}
+*/
+.nav_list li .nav_beta{position:absolute; top:-6px; left:10px;}
+
+/*
+.nav_list li .nav_layer{position:absolute; top:33px; left:50%; margin-left:-33px; width:68px; height:122px; background:#fff; border:1px solid #cfcfcf; border-top:none; z-index:200;}
+.nav_list li .nav_layer li{width:100%; height:29px; border-top:1px solid #cfcfcf;}
+.nav_list li .nav_layer li a{display:block; padding:0px 0px 0px 28px !important; height:30px; line-height:30px; background:url(../../wcom/img/zeus2014/header/sp_navicon.png) no-repeat;}
+.nav_list li .nav_layer li .menu8_1{background-position:6px -189px;}
+.nav_list li .nav_layer li .menu8_2{background-position:6px -50px;}
+.nav_list li .nav_layer li .menu8_3{background-position:6px -2px;}
+.nav_list li .nav_layer li .menu8_4{background-position:6px -98px;}
+*/
+
+.nav_list li .nav_layer{position:absolute; top:52px; right:8px; width:249px; padding:12px 0 0 0;margin-left:-33px; border:2px solid #e2e2e2;z-index:200;
+ background:#fff url(../../wcom/img/zeus2014/header/img_more.png) no-repeat 13px 15px; }
+.nav_list li .nav_layer:after{clear:both; display:block; content:"";}
+.nav_list li .nav_layer ul{width:54px; float:right; margin:0 15px 10px 0; border-left:1px solid #dcdee0; }
+.nav_list li .nav_layer ul li{display:block; width:68px;}
+.nav_list li .nav_layer .nav_layer_foot{position:relative; clear:both; width:100%; padding:4px 0; height:14px; background:#f4f5f7;}
+.nav_list li .nav_layer .nav_layer_foot a{margin:0; padding:0;}
+.nav_list li .nav_layer .nav_layer_foot .btn_view{display:block; position:absolute; right:25px; height:14px; line-height:14px; padding:0 0 0 8px; background:url(../../wcom/img/zeus2014/header/bul_more_arr.png) no-repeat 0 50%; font-size:11px;}
+.nav_list li .nav_layer .nav_layer_foot .btn_more_close{display:block; position:absolute; right:4px; top:4px;}
+.nav_list li .nav_layer .nav_layer_foot .btn_more_close img{vertical-align:top}
+
+#header #nav .nav_list li .nav_layer .nav_layer_foot{position:relative; clear:both; width:100%; padding:4px 0; height:14px; background:#f4f5f7;}
+#header #nav .nav_list li .nav_layer .nav_layer_foot a{margin:0; padding:0;}
+#header #nav .nav_list li .nav_layer .nav_layer_foot .btn_view{display:block; position:absolute; right:25px; height:14px; line-height:14px; padding:0 0 0 8px; background:url(../../wcom/img/zeus2014/header/bul_more_arr.png) no-repeat 0 50%; font-size:11px;}
+#header #nav .nav_list li .nav_layer .nav_layer_foot .btn_more_close{display:block; position:absolute; right:4px; top:4px;}
+#header #nav .nav_list li .nav_layer .nav_layer_foot .btn_more_close img{vertical-align:top}
+
+.etc_nav{display:block; position:absolute; top:5px; right:5px;}
+.etc_nav:after{clear:both; display:block; content:""}
+.etc_nav li{float:left;}
+.etc_nav li a{display:block; height:26px; background:url(../../wcom/img/zeus2014/main/sp_main.png) no-repeat;}
+.etc_nav li .reserve{width:91px; background-position:0px -100px;}
+.etc_nav li .clinic{margin-left:20px; width:82px; background-position:-100px -100px;}
+/* end_header_main */
+
+
+
+/*header_sub*/
+#header_sub{position:relative; width:990px; margin:0 auto; zoom:1;}
+#header_sub:after{clear:both; display:block; content:""}
+
+#header_sub #gnb{display:block; position:relative; padding-top:5px; height:28px;}
+#header_sub #gnb .zeusnav{float:left;}
+#header_sub #gnb .zeusnav li{float:left;}
+#header_sub #gnb .zeusnav li a{display:block; margin-left:5px; padding-left:6px; line-height:33px; font-size:11px; color:#777; background:url(../../wcom/img/zeus2014/main/bullet_line.gif) 0px 11px no-repeat;}
+#header_sub #gnb .zeusnav li a:hover, #header #gnb .zeusnav li a:focus, #header #gnb .zeusnav li a:active{color:#00b7ce;}
+#header_sub #gnb .zeusnav li a.first{margin:0; background:none;}
+#header_sub #gnb .tm{float:right;}
+#header_sub #gnb .tm li{position:relative; float:left;}
+#header_sub #gnb .tm li a{display:inline-block; height:20px; line-height:20px; color:#777; font-family:"Nanum Gothic","나눔고딕";}
+#header_sub #gnb .tm li .app{position:absolute; top:0px; left:0px; padding-left:25px; background:url(../../wcom/img/zeus2014/main/sp_main.png) -450px 5px no-repeat;}
+#header_sub #gnb .tm li .login{margin:1px 0px 0px 12px; padding:0px 15px; height:18px; line-height:18px; background:#00b7ce; border-radius:20px; color:#fff; font-weight:bold;}
+#header_sub #gnb .tm li .join{margin-left:12px; padding-left:11px; background:url(../../wcom/img/zeus2014/main/bullet_line.gif) 0px 6px no-repeat;}
+#header_sub #gnb .tm li .admin{margin-left:12px; padding-left:11px; background:url(../../wcom/img/zeus2014/main/bullet_line.gif) 0px 6px no-repeat;}
+#header_sub #gnb .tm li .greet{display:inline-block; line-height:20px; font-family:"Nanum Gothic","나눔고딕";}
+
+#header_sub #gnb .tm li .allmenu{display:inline-block; vertical-align:top; margin:2px 9px 0px 13px; width:16px; height:16px; background:url(../../wcom/img/zeus2014/header/sp_common.png) 0px -100px no-repeat; text-indent:-9999em;}
+#header_sub #gnb .tm li .allmenu:hover, #header_sub #gnb .tm li .allmenu:focus, #header_sub #gnb .tm li .allmenu:active, #header_sub #gnb .tm li .allmenu:active{background-position:-50px -100px;}
+#header_sub #gnb .tm li .layer_menu{display:block; position:absolute; top:38px; right:0px; padding:10px 0px; width:240px; border:1px solid #d4d4d4; background:#f4f4f4; z-index:200;}
+#header_sub #gnb .tm li .layer_menu:after{display:block; clear:both; content:"";}
+#header_sub #gnb .tm li .layer_menu ul{float:left; width:33%; background:url(../../wcom/img/zeus2014/header/bg_layermenu.gif) left top repeat-y;}
+#header_sub #gnb .tm li .layer_menu ul.first{width:34%; background:none;}
+#header_sub #gnb .tm li .layer_menu ul:after{clear:both; display:block; content:""}
+#header_sub #gnb .tm li .layer_menu ul li{width:100%; height:25px;}
+#header_sub #gnb .tm li .layer_menu ul li a{display:block; text-align:center; line-height:25px;}
+#header_sub #gnb .tm li .layer_menu ul li a:hover, #header_sub #gnb .tm li .layer_menu ul li a:focus, #header_sub #gnb .tm li .layer_menu ul li a:active{text-decoration:underline;}
+#header_sub #gnb .tm li .layer_menu .layer_triangle{display:block; position:absolute; top:-6px; right:10px; width:12px; height:6px; background:url(../../wcom/img/zeus2014/header/sp_common.png) -100px -100px no-repeat;}
+
+#header_sub #lnb{display:block; position:relative; margin:20px 0px; height:34px; font-size:0px; text-align:center;}
+#header_sub #lnb h1{position:relative; display:inline-block; vertical-align:top; float:left;}
+#header_sub #lnb h1.ifmarket{padding-right:33px;}
+#header_sub #lnb h1 img{vertical-align:middle; padding-top:5px; padding-right:15px;}
+#header_sub #lnb h1 img.zeuslogo{padding-right:10px; height:24px;}
+#header_sub #lnb h1 img.beta{position:absolute; top:2px; right:0px; width:26px; height:8px;}
+#header_sub #lnb .guide{position:absolute; right:0px;}
+#header_sub #lnb #srch{float:left;}
+.srch_sub{display:inline-block; position:relative; vertical-align:top; width:300px; height:32px; border:1px solid #00a7bc; border-radius:3px;}
+.srch_sub input{float:left; padding:7px 10px 7px; width:280px; height:18px; border:none; background:none; font-size:14px; font-family:'dotum'; font-weight:bold;}
+.srch_sub .btn_srch{display:block; position:absolute; top:-1px; right:-1px; vertical-align:top; width:51px; height:34px; 
+	background:url(../../wcom/img/zeus2014/public/sp_common.png) 0px 0px no-repeat; border:0; text-indent:-9990em;
+	}
+/*.srch_sub .btn_totalsrch{display:block; position:absolute; top:-1px; right:-60px; vertical-align:top; width:56px; height:34px; 
+	background:url(../../wcom/img/zeus2014/public/sp_common.png) -100px 0px no-repeat; border:0; text-indent:-9990em;
+	}*/
+.srch_sub .btn_totalsrch{	position: absolute;  right: -66px;  top: -1px;  width: 60px;  height: 32px;  line-height: 33px;  display: block;  background: #fff;  font-size: 12px;  text-align: center;  color: #929292;  border: 1px solid #bfc1c3;  border-radius: 2px;}
+.srch_sub .btn_dsrch{display:block; position:absolute; top:-1px; right:-60px; vertical-align:top; width:56px; height:34px; 
+	background:url(../../wcom/img/zeus2014/public/sp_common.png) -200px 0px no-repeat; border:0; text-indent:-9990em;
+	}
+.srch_sub .btn_dsrch2{position: absolute;  right: -64px;  top: -1px; padding:0; width: 60px;  height: 34px;  line-height: 34px;  display: block;  background: #fff;  font-size: 12px;  text-align: center;  color: #929292;  border: 1px solid #bfc1c3;  border-radius: 2px;}
+
+#nav_sub{display:block; position:relative; height:36px; text-align:center; font-size:0px;}
+#nav_sub .nav_list{display:block; zoom:1;}
+#nav_sub .nav_list:after{clear:both; display:block; content:""}
+#nav_sub .nav_list li{display:inline-block;}
+#nav_sub .nav_list li .navmenu{display:block; position:relative; padding:0px 80px; height:36px; /*background:url(../../wcom/img/zeus2014/public/sp_nav_sub.png) no-repeat; text-indent:-9999em;*/}
+#nav_sub .nav_list.type2 li .navmenu{padding:0px 40px;}
+/*
+#nav_sub .nav_list li .menu1{width:56px; background-position:center 0px;}
+#nav_sub .nav_list li .menu1:hover, #nav_sub .nav_list li .menu1:focus, #nav_sub .nav_list li .menu1:active, #nav_sub .nav_list li .menu1.active{background-position:center -50px;}
+#nav_sub .nav_list li .menu2{width:56px; background-position:center -100px;}
+#nav_sub .nav_list li .menu2:hover, #nav_sub .nav_list li .menu2:focus, #nav_sub .nav_list li .menu2:active, #nav_sub .nav_list li .menu2.active{background-position:center -150px;}
+#nav_sub .nav_list li .menu3{width:56px; background-position:center -200px;}
+#nav_sub .nav_list li .menu3:hover, #nav_sub .nav_list li .menu3:focus, #nav_sub .nav_list li .menu3:active, #nav_sub .nav_list li .menu3.active{background-position:center -250px;}
+#nav_sub .nav_list li .menu4{width:56px; background-position:center -300px;}
+#nav_sub .nav_list li .menu4:hover, #nav_sub .nav_list li .menu4:focus, #nav_sub .nav_list li .menu4:active, #nav_sub .nav_list li .menu4.active{background-position:center -350px;}
+#nav_sub .nav_list li .menu5{width:56px; background-position:center -400px;}
+#nav_sub .nav_list li .menu5:hover, #nav_sub .nav_list li .menu5:focus, #nav_sub .nav_list li .menu5:active, #nav_sub .nav_list li .menu5.active{background-position:center -450px;}
+#nav_sub .nav_list li .menu6{width:56px; background-position:center -500px;}
+#nav_sub .nav_list li .menu6:hover, #nav_sub .nav_list li .menu6:focus, #nav_sub .nav_list li .menu6:active, #nav_sub .nav_list li .menu6.active{background-position:center -550px;}
+#nav_sub .nav_list li .menu7{width:56px; background-position:center -600px;}
+#nav_sub .nav_list li .menu7:hover, #nav_sub .nav_list li .menu7:focus, #nav_sub .nav_list li .menu7:active, #nav_sub .nav_list li .menu7.active{background-position:center -650px;}
+#nav_sub .nav_list li .menu8{width:56px; background-position:center -700px;}
+#nav_sub .nav_list li .menu8:hover, #nav_sub .nav_list li .menu8:focus, #nav_sub .nav_list li .menu8:active, #nav_sub .nav_list li .menu8.active{background-position:center -750px;}
+#nav_sub .nav_list li .menu9{width:56px; background-position:center -800px;}
+#nav_sub .nav_list li .menu9:hover, #nav_sub .nav_list li .menu9:focus, #nav_sub .nav_list li .menu9:active, #nav_sub .nav_list li .menu9.active{background-position:center -850px;}
+#nav_sub .nav_list li .menu10{width:56px; background-position:center -900px;}
+#nav_sub .nav_list li .menu10:hover, #nav_sub .nav_list li .menu10:focus, #nav_sub .nav_list li .menu10:active, #nav_sub .nav_list li .menu10.active{background-position:center -950px;}
+#nav_sub .nav_list li .menu11{width:56px; background-position:center -1000px;}
+#nav_sub .nav_list li .menu11:hover, #nav_sub .nav_list li .menu11:focus, #nav_sub .nav_list li .menu11:active, #nav_sub .nav_list li .menu11.active{background-position:center -1050px;}
+#nav_sub .nav_list li .menu12{width:56px; background-position:center -1100px;}
+#nav_sub .nav_list li .menu12:hover, #nav_sub .nav_list li .menu12:focus, #nav_sub .nav_list li .menu12:active, #nav_sub .nav_list li .menu12.active{background-position:center -1150px;}
+
+#nav_sub .nav_list li .menu13{width:56px; background-position:center -1200px;}
+#nav_sub .nav_list li .menu13:hover, #nav_sub .nav_list li .menu13:focus, #nav_sub .nav_list li .menu13:active, #nav_sub .nav_list li .menu13.active{background-position:center -1250px;}
+#nav_sub .nav_list li .menu14{width:56px; background-position:center -1300px;}
+#nav_sub .nav_list li .menu14:hover, #nav_sub .nav_list li .menu14:focus, #nav_sub .nav_list li .menu14:active, #nav_sub .nav_list li .menu14.active{background-position:center -1350px;}
+#nav_sub .nav_list li .menu15{width:56px; background-position:center -1400px;}
+#nav_sub .nav_list li .menu15:hover, #nav_sub .nav_list li .menu15:focus, #nav_sub .nav_list li .menu15:active, #nav_sub .nav_list li .menu15.active{background-position:center -1450px;}
+#nav_sub .nav_list li .menu16{width:56px; background-position:center -1500px;}
+#nav_sub .nav_list li .menu16:hover, #nav_sub .nav_list li .menu16:focus, #nav_sub .nav_list li .menu16:active, #nav_sub .nav_list li .menu16.active{background-position:center -1550px;}
+#nav_sub .nav_list li .menu17{width:56px; background-position:center -1600px;}
+#nav_sub .nav_list li .menu17:hover, #nav_sub .nav_list li .menu17:focus, #nav_sub .nav_list li .menu17:active, #nav_sub .nav_list li .menu17.active{background-position:center -1650px;}
+#nav_sub .nav_list li .menu18{width:56px; background-position:center -1700px;}
+#nav_sub .nav_list li .menu18:hover, #nav_sub .nav_list li .menu18:focus, #nav_sub .nav_list li .menu18:active, #nav_sub .nav_list li .menu18.active{background-position:center -1750px;}
+#nav_sub .nav_list li .menu19{width:56px; background-position:center -1800px;}
+#nav_sub .nav_list li .menu19:hover, #nav_sub .nav_list li .menu19:focus, #nav_sub .nav_list li .menu19:active, #nav_sub .nav_list li .menu19.active{background-position:center -1850px;}
+*/
+
+
+/*알뜰마당 펼쳐지는 메뉴*/
+.nav_position{position:absolute; top:39px; left:0px; width:988px; height:167px; z-index:100}
+
+.nav_depth2{display:block; padding:0px; width:988px; height:167px; background:#fff url(../../wcom/img/zeus2014/public/nav_market.jpg); border:1px solid #d4d5d6; border-top:none; z-index:1001;}
+.nav_depth2:after{clear:both; display:block; content:""}	
+.nav_depth2 li{float:left;}
+.nav_depth2 li a{display:block; margin:0px 5px; height:159px !important; padding:0px !important; background:none !important; text-indent:-9999em;}
+.market01 .nav_depth2{background-position:0px 0px;}
+.market02 .nav_depth2{background-position:0px -180px;}
+.market03 .nav_depth2{background-position:0px -360px;}
+.market01 .nav_depth2 li a{width:237px !important;}
+.market02 .nav_depth2 li a{width:237px !important;}
+.market03 .nav_depth2 li a{width:237px !important;}
+.nav_position .btn_close{position:absolute; right:0; top:auto; bottom:5px; padding:5px; margin:0; width:21px !important; height:21px !important; background:none !important; text-indent:0}
+.nav_position .btn_close img{width:13px; height:13px;}
+
+#footer_wrap{position:relative; width:100%; height:auto;}
+#footer{position:relative; width:1024px; height:auto; margin:0 auto; padding:16px 0 30px; border-top:2px solid #717e8c; color:#8d9198;}
+#footer.sub{width:990px;}
+#footer.sub2{width:934px;}
+#footer a:hover, #footer a:focus, #footer a:active{color:#0082c0;}
+#footer .stats{position:absolute; top:16px; right:10px;}
+#footer .stats ul li{float:left; margin-left:20px; line-height:16px; font-family:'Nanum Gothic'; font-size:11px; color:#00b5cc;}
+#footer .stats ul li span{display:inline-block; padding-right:10px; height:15px; background:url(../../wcom/img/zeus2014/main/sp_main.png) no-repeat; text-indent:-9999em;}
+#footer .stats ul li .today{width:60px; background-position:-300px -100px;}
+#footer .stats ul li .total{width:33px; background-position:-400px -100px;}
+
+#footer .policy{width:auto; margin:0 0 10px 0; padding-left:10px}
+#footer .policy:after{clear:both; display:block; content:""}
+#footer .policy ul{}
+#footer .policy li{float:left; margin-left:10px; padding-left:10px; background:url(../../wcom/img/zeus2014/main/bullet_line.gif) 0px 4px no-repeat;}
+#footer .policy ul li.first{padding-left:0; margin-left:0; background:none}
+#footer .policy li a{color:#8d9198; font-weight: bold;}
+#footer address{margin:0 0 4px 0;  padding-left:10px; font-style:normal}
+#footer address p{height:16px; line-height:16px;}
+#footer address .phonenum{display:inline-block; margin-left:10px; padding-left:18px; color:#00b7ce !important; background:url(../../wcom/img/zeus2014/public/footer_phone.png) left top no-repeat;}
+#footer .logo{position:absolute; top:42px; right:0px;}
+#footer .logo a{margin:0 8px}
+#footer .btn_quick{display:block; position:absolute; right:-59px; width:39px; height:39px; background:url(../../wcom/img/zeus2014/public/sp_common.png) no-repeat;}
+#footer .btn_quick.down{top: -1280px; background-position:-200px -100px;}
+#footer .btn_quick.top{top:-61px; background-position:-250px -100px;}
+
+
+
+.pagenav{display:block;position:relative; width:100%;padding:20px 0px 20px 0px; text-align:center; }
+.pagenav *{vertical-align:middle}
+.pagenav a{display:inline-block;line-height:20px; height:20px; padding:0px 6px 0px 10px; background:url(../../wcom/img/zeus2014/content/reserv/sp_bul.png) no-repeat 0px -50px;}
+.pagenav a:hover, .pagenav a:focus, .pagenav a:active{color:#000}
+.pagenav .first{background:none;}
+.pagenav .active, .pagenav .active:hover, .pagenav .active:focus, .pagenav .active:active{color:#f8641d; text-decoration:underline}
+.pagenav .arrow{padding:0; width:20px; height:20px; background:url(../../wcom/img/zeus2014/btn/sp_btn.png) no-repeat; overflow:hidden;}
+.pagenav .prev{background-position:0 -241px}
+.pagenav .prev2{background-position:-60px -241px}
+.pagenav .next{background-position:0 -271px}
+.pagenav .next2{background-position:-60px -271px}
+
+.pagenav .prev:hover, .pagenav .prev:focus, .pagenav .prev:active{background-position:-30px -241px}
+.pagenav .prev2:hover, .pagenav .prev2:focus, .pagenav .prev2:active{background-position:-90px -241px}
+.pagenav .next:hover, .pagenav .next:focus, .pagenav .next:active{background-position:-30px -271px}
+.pagenav .next2:hover, .pagenav .next2:focus, .pagenav .next2:active{background-position:-90px -271px}
+
+.pagenav_bul{display:block; position:relative; text-align:center; zoom:1}
+.pagenav_bul:after{clear:both; display:block; content:""}
+.pagenav_bul a{display:block; float:left; margin:0 0 0 4px; width:15px; height:5px; background:url(../../wcom/img/zeus2014/btn/sp_btn.png) no-repeat 0 -321px; text-indent:-9999em; overflow:hidden}
+.pagenav_bul a.active, .pagenav_bul a:hover, .pagenav_bul a:focus, .pagenav_bul a:active{background-position: -22px -321px}
+.pagenav_bul a.prev, .pagenav_bul a.next{width:9px;}
+.pagenav_bul a.prev{background-position:-44px -300px; margin-right:6px;}
+.pagenav_bul a.next{background-position:-63px -300px; margin-left:6px;}
+
+
+.detail_search_box { position: absolute;display: none;top: 41px;left: 150px;margin: 0 auto;border: 1px solid #82858e;width: 467px;background: #fff;font-size: 12px;z-index: 9999;text-align: left;}
+.detail_search_box button {  border:0; margin:0; padding:0; background:none; }
+.detail_search_box .title { position:relative; background:#f5f5f5; border-bottom:1px solid #e0e0e0; height:39px; line-height:39px}
+.detail_search_box .title h2 { font-size:14px; padding-left:10px; padding-top:2px; font-weight:bold; color:#4c5365; }
+.detail_search_box .title .btn_close { position:absolute; right:10px; top:10px; display:block; cursor:pointer}
+.detail_search_box .content { position:relative; padding:10px 12px; }
+.detail_search_box .content .sub_title { color:#505050; font-weight:bold; padding-right:10px; }
+.detail_search_box .content .guide { position:absolute; left:66px; }
+.detail_search_box .content .base { position:relative; padding-bottom:15px; border-bottom:1px dotted #b0b0b0}
+
+.detail_search_box .content .base input[name=detailKwd] { display:inline-block; height:22px; width:365px; border:1px solid #c6cbd2;padding-left: 6px; }
+.detail_search_box .content .base input[name=orSearch] { display:inline-block; margin-left:66px; position: relative;top: 2px;}
+.detail_search_box .content .base .orSearchLabel { display:inline-block; color:#666666; margin-top:5px; margin-left:-3px; font-size:11px}
+.detail_search_box .content .optional { position:relative; padding: 15px 0; border-bottom:1px dotted #b0b0b0}
+.detail_search_box .content .optional ul { margin-top:20px; }
+.detail_search_box .content .optional ul li { padding-top:10px; }
+.detail_search_box .content .optional ul li span { position:absolute; }
+.detail_search_box .content .optional ul li span.nfec{  position: relative;  margin-left: 95px;}
+.detail_search_box .content .optional ul li input { position:relative; margin-left:95px; border:1px solid #c6cbd2; height:20px; width:330px; padding-left: 6px;}
+.detail_search_box .content .optional ul li input.side{margin-left:0px}
+.detail_search_box .content .optional ul li select{ position:relative;border:1px solid #c6cbd2; height: 22px;  top: 1px;}
+.detail_search_box .content .optional ul li select.first{margin-left:95px;}
+
+.detail_search_box .content .optional ul li .silder{width:180px;position:absolute;bottom:23px;right:4px;height: 9px;border-radius: 0px; }
+.detail_search_box .content .optional ul li .silder a{width: 6px;border-radius:0px;}
+
+.detail_search_box .buttons { position:relative; height:35px; text-align:center; }
+.detail_search_box .buttons button{ position:relative; width: 75px;height: 26px; text-align:center; font-size: 12px;cursor: pointer;display: inline-block;
+border-radius: 3px;
+-moz-border-radius:3px;
+-webkit-border-radius:3px;}
+.detail_search_box .buttons .search {top: 0px;background: #449FD3;color: #FFFFFF;border: 1px solid #1579A7;margin-right: 3px;}
+.detail_search_box .buttons .reset {top: 0px;background: #fff;color: #929292;border: 1px solid #bfc1c3;margin-left: 3px;}
+
+
+
+.nfec_search_box { position: absolute;display: none;top: 41px;left: 150px;margin: 0 auto;border: 1px solid #82858e;width: 402px;background: #fff;font-size: 12px;z-index: 9999;text-align: left;}
+.nfec_search_box button {  border:0; margin:0; padding:0; background:none; }
+.nfec_search_box .content { position:relative; padding:10px 12px; }
+.nfec_search_box .content .base { position:relative;}
+.nfec_search_box .content .base input { position:relative; margin-left:115px; border:1px solid #c6cbd2; height:20px; width:360px; padding-left: 6px;}
+.nfec_search_box .content .base input.side{margin-left:0px}
+.nfec_search_box .content .base select{ position:relative;border:1px solid #c6cbd2; height: 22px;  top: 1px;}
+
+.nfec_search_box .buttons { position:absolute;top:11px;right:10px; height:35px; text-align:center; }
+.nfec_search_box .buttons button{ position:relative; width: 50px;height: 22px; text-align:center; font-size: 12px;cursor: pointer;display: inline-block;
+border-radius: 3px;
+-moz-border-radius:3px;
+-webkit-border-radius:3px;}
+.nfec_search_box .buttons .search {top: 0px;background: #449FD3;color: #FFFFFF;border: 1px solid #1579A7;}
+.nfec_search_box .buttons .close {top: 0px;background: #fff;color: #929292;border: 1px solid #bfc1c3;}
+
+
+.header_info{position:absolute; right:0; top:5px; font-size:12px;}
+.header_info:after{clear:both; display:block; content:"";}
+.header_info .tit{float:left; margin:0 5px 0 0; height:25px; line-height:25px; font-weight:bold; color:#4d9cd7;}
+.header_info ul{float:left;}
+.header_info ul li{float:left; padding-left:20px; margin-right:8px; height:25px; line-height:25px;}
+.header_info ul li a{height:25px; line-height:25px;}
+.header_info ul li.men{background:url(../../wcom/img/zeus2014//header/ico_men.png) no-repeat 0 50%;}
+.header_info ul li.mail{background:url(../../wcom/img/zeus2014/header/ico_mail.png) no-repeat 0 50%;}
+.header_info ul li.phone{margin-right:0; background:url(../../wcom/img/zeus2014/header/ico_phone.png) no-repeat 0 50%;}
+.header_info .btn_qna{float:left; margin-left:8px;}
+

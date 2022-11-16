@@ -1,0 +1,105 @@
+@charset "utf-8";
+
+
+
+/* 장비예약 오버레이 */
+.quick_clinic_overlay { display:none; position:absolute; left:0px; top:0px; width:100%; height:100%; background:#000; opacity: .50;filter:Alpha(Opacity=50); z-index:4001; }
+/* 장비예약 오버레이 // */
+
+/* 장비예약 레이어 */
+.quick_clinic { display:none; position:absolute; top:107px; left:50%; margin-left:-330px; padding:20px 34px 20px 34px; width:620px; height:710px; z-index:4002; background:#fff;border:2px solid #999; }
+
+/* 장비예약 상단 타이틀 및 버튼 */
+.quick_clinic .header { position:relative; height:52px; vertical-align:bottom; }
+.quick_clinic .header h2 { float:left; margin-top:6px; font-family:'NanumGothic'; font-size:24px; color:#373737; }
+
+.quick_clinic .header .control { float:right; }
+.quick_clinic .header .control button { border:0; margin:0; padding:0; background:none; }
+.quick_clinic .header .control button img { }
+.quick_clinic .header .control button.reset { height:29px; }
+.quick_clinic .header .control button.close { width:33px; height:29px; }
+/* 장비예약 상단 타이틀 및 버튼 // */
+
+/* 장비예약 선택 요소 공용 css */
+.quick_clinic .step_list { position:relative; width:620px; height:650px; overflow:hidden; }
+
+.quick_clinic .step_list .cnc_head{display:block; position:relative; height:28px;}
+
+.quick_clinic .step_list .cnc_head .location{display:block; position:relative; width:auto; }
+.quick_clinic .step_list .cnc_head .location ul{display:block; position:relative; zoom:1}
+.quick_clinic .step_list .cnc_head .location ul:after{clear:both; display:block; content:""}
+.quick_clinic .step_list .cnc_head .location li{display:block; float:left; padding-left:12px; margin-left:6px; background:url(../../wcom/img/zeus2014/common/sp_bul.png) no-repeat 0 -617px}
+.quick_clinic .step_list .cnc_head .location li.first{padding-left:15px; margin-left:0; background-position:0 -656px}
+.quick_clinic .step_list .cnc_head .location li a{display:block; }
+
+.quick_clinic .step_list .cnc_head .location li.home{padding-left:0; margin-left:0; background:none}
+.quick_clinic .step_list .cnc_head .location li.home a{width:9px; height:9px; padding:4px; background:url(../../wcom/img/zeus2014/common/sp_bul.png) no-repeat 4px -818px; text-indent:-9999em; overflow:hidden}
+
+.quick_clinic .step_list .h3_box{display:block; position:relative; border-bottom:1px solid #aaa}
+.quick_clinic .step_list .h3_box .bluetitle{border-bottom:0; margin:0 !important; height:23px !important;}
+.quick_clinic .step_list .h3_box .bluetitle{display:block; height:30px; line-height:15px; padding-top:10px; /*padding-left:15px;*/ margin:0px; font-family:'NanumGothic'; font-size:16px; font-weight:bold; color:#0082c0; /*background:url(../../wcom/img/zeus2014/common/sp_bul.png) no-repeat 0 -415px;*/}
+.quick_clinic .step_list .h3_box .btn_group{position:absolute; right:0; top:0;}
+
+.quick_clinic .step_list .mentor_list{display:block; position:relative; width:100%; zoom:1}
+.quick_clinic .step_list .mentor_list:after{clear:both; display:block; content:""}
+.quick_clinic .step_list .mentor_list li{width:33.3333%; float:left; padding:10px 0; border-top:1px solid #e0e0e0}
+.quick_clinic .step_list .mentor_list li:nth-child(1),.mentor_list li:nth-child(2),.mentor_list li:nth-child(3){border-top:0;}
+.quick_clinic .step_list .mentor_list dl{display:block; position:relative; padding:5px; height:96px;}
+.quick_clinic .step_list .mentor_list dt{padding:4px 0 0 100px; margin:0 0 5px; font-weight:bold}
+.quick_clinic .step_list .mentor_list dd.thumb{display:block; position:absolute; top:0; left:0; width:94px; height:106px; background:url(../../wcom/img/zeus2014/content/clinic/bg_frame.png) no-repeat 0 0}
+.quick_clinic .step_list .mentor_list dd.thumb img{position:absolute; left:7px; top:8px; width:80px; height:90px;}
+.quick_clinic .step_list .mentor_list dd.agency{padding:0 0 0 100px; color:#747474; font-size:11px}
+.quick_clinic .step_list .mentor_list dd.answer{display:block; position:absolute; left:100px; bottom:5px; height:22px;line-height:22px;}
+.quick_clinic .step_list .mentor_list dd.answer img{float:left}
+.quick_clinic .step_list .mentor_list dd.answer .num{margin:0 4px 0 5px; color:red}
+.quick_clinic .step_list .mentor_list .no_list{width:100%; padding:40px 0; text-align:center}
+.quick_clinic .step_list .mentor_list .no_list .btn_request{display:block; margin:10px auto 0; width:108px; height:35px; line-height:35px; font-family:'NanumGothic'; color:#fff; text-align:center; background:url(../../wcom/img/zeus2014/btn/sp_btn.png) no-repeat -400px -80px}
+
+.quick_clinic .step_list .peoplebox{display:block; position:relative; margin-bottom:10px; border:1px solid #d9d9d9; zoom:1; *padding-bottom:15px;}
+.quick_clinic .step_list .peoplebox dl dt{display:block; height:38px; line-height:38px; padding:0px 15px; background:#fafafa; border-bottom:1px solid #e2e2e2}
+.quick_clinic .step_list .peoplebox dl dt strong{font-size:16px; color:#0082C0;}
+.quick_clinic .step_list .peoplebox dl dd{padding:10px;}
+.quick_clinic .step_list .peoplebox dl dd:after{display:block; clear:both; content:"";}
+.quick_clinic .step_list .peoplebox .peo_face{float:left; width:132px; height:146px; text-align:center; background:url(../../wcom/img/zeus2014/content/clinic/shadow_face.png) center bottom no-repeat;}
+.quick_clinic .step_list .peoplebox .peo_pro{float:left; width:446px; margin:0px 10px 0px 10px;}
+.quick_clinic .step_list .peoplebox .peo_career{float:left; width:480px;}
+.quick_clinic .step_list .peoplebox dl dd ul li{padding-left:8px; line-height:23px; background:url(../../wcom/img/zeus2014/common/sp_bul.png) no-repeat 0 -27px;}
+.quick_clinic .step_list .peoplebox .peo_interest{float:left; width:480px; margin-left:392px;}
+.quick_clinic .step_list .peoplebox .peo_tit{display:block; height:20px; margin-bottom:5px; border-bottom:1px dashed #ddd;}
+
+.quick_clinic .step_list .reserv_bott{padding:17px 0px 25px 0px; text-align: center;}
+.quick_clinic .step_list .reserv_bott p{padding:0px 0px 17px 30px;}
+.quick_clinic .step_list .reserv_bott p strong{color:#0082c0;}
+.quick_clinic .step_list .reserv_bott button{margin:auto;}
+
+.quick_clinic .step_list .btn_ask{display:block; width:108px; height:36px; line-height:36px; text-align:center; color:#fff; font-size:14px; background:url(../../wcom/img/zeus2014/btn/sp_btn.png) no-repeat -400px -350px;}
+.quick_clinic .step_list .btn_ask.active, .btn_ask:hover, .btn_ask:focus, .btn_ask:active{color:#fff8bb;}
+
+.quick_clinic .step_list .writearea .bluetitle{display:block; height:30px; line-height:15px; padding-top:10px; /*padding-left:15px;*/ margin:0px; font-family:'NanumGothic'; font-size:16px; font-weight:bold; color:#0082c0; /*background:url(../../wcom/img/zeus2014/common/sp_bul.png) no-repeat 0 -415px;*/}
+
+.quick_clinic .step_list .writearea .tbl_type01{width:100%; border-top:1px solid #0082c0;}
+.quick_clinic .step_list .writearea .tbl_type01.type1{border-top:0;}
+.quick_clinic .step_list .writearea .tbl_type01.type2{border-top:1px solid #7f7f7f}
+.quick_clinic .step_list .writearea .tbl_type01 th,td{border-bottom:1px solid #e2e2e2;}
+.quick_clinic .step_list .writearea .tbl_type01 th{position:relative; padding:15px 0px 15px 40px; vertical-align:top; text-align:left; color:#474747; background:#fafafa;}
+.quick_clinic .step_list .writearea .tbl_type01 .mustbe{position:absolute; top:21px; left:30px; width:6px; height:4px; text-indent:-9999px; background:url(../../wcom/img/zeus2014/common/mustbe.gif) no-repeat;}
+.quick_clinic .step_list .writearea .tbl_type01 td{padding:15px 15px;}
+.quick_clinic .step_list .writearea .tbl_type01 td.ptn_guide{padding:0px 0px 0px 40px; border-bottom:1px solid #bbb;}
+.quick_clinic .step_list .writearea .tbl_type01 input[type="text"],select{border:1px solid #939393; height:22px;}
+.quick_clinic .step_list .writearea .tbl_type01 input[type="radio"]{border:none; vertical-align:middle;}
+.quick_clinic .step_list .writearea .tbl_type01 input[type="checkbox"]{border:none; vertical-align:middle;}
+.quick_clinic .step_list .writearea .tbl_type01 textarea{border:1px solid #939393;}
+.quick_clinic .step_list .writearea .tbl_type01 .input_full{width:100%;}
+.quick_clinic .step_list .writearea .tbl_type01 input.mt3{margin-top:3px;}
+.quick_clinic .step_list .writearea .tbl_type01 .guide_long{display:inline-block; padding-left:20px; margin-top:5px; font-size:11px; background:url(../../wcom/img/zeus2014/common/sp_bul.png) no-repeat 0 -698px;}
+.quick_clinic .step_list .writearea .tbl_type01 .btn_overlap{width:69px; height:22px; margin-left:10px; background:#898989; border:1px solid #5b5b5b; font-size:11px; color:#fff;}
+.quick_clinic .step_list .writearea .tbl_type01 .explain{display:block; margin-top:5px; font-size:11px;}
+
+/* 시계 */
+.clinic_time{display:block; position:absolute; left:270px; top:510px; color:#fff; text-align:left}
+.clinic_time .number_box { position:relative; display:inline-block; float:left; margin:0; width:12px; height:16px; overflow:hidden; }
+.clinic_time .number_box strong{ position:relative; width:12px; height:16px; line-height:16px; overflow:hidden; background:url(/wcom/img/mentor/clinic_time_num.png) no-repeat 0 0;}
+.clinic_time .number_box strong span{display:inline-block; text-indent:-999px; overflow:hidden; }
+.clinic_time .number_box strong.num_x {display:inline-block; position:absolute; width:12px; height:260px; line-height:16px; overflow:hidden; background:url(/wcom/img/mentor/clinic_time_num.png) no-repeat 0 0}
+.clinic_time .number_box strong.num_x span{display:inline-block; text-indent:-999px; overflow:hidden}
+.clinic_time .number_box.ampm{display:inline-block; width:17px;margin:5px 5px 0 0;}

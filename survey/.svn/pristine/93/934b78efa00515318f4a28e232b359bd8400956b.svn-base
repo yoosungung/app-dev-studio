@@ -1,0 +1,166 @@
+@charset "utf-8"; 
+/* Jeong, Chan Myeong | http://naradesign.net/ */
+
+/* Button Common */
+.button,
+.button *{ position:relative; margin:0; padding:0; display:-moz-inline-stack; display:inline-block; text-decoration:none !important; border:0; font-size:12px; font-family:Tahoma, Sans-serif; white-space:nowrap; background:url(/wcom/img/btn/button.gif) no-repeat; vertical-align:top; overflow:visible; color:#333;}
+.button { margin-right:4px;}
+.button *{ left:4px; cursor:pointer; _cursor:hand;}
+
+/* Button Size = medium | large | xLarge | small */
+.button.medium, .button.medium *{ height:24px; line-height:24px;}
+.button.large, .button.large *{ height:30px; line-height:30px;}
+.button.xLarge, .button.xLarge *{ height:36px; line-height:36px;}
+.button.small, .button.small *{ height:19px; line-height:19px;}
+.button.search, .button.search *{ height:24px; line-height:24px; color:white; font-weight:bold; }
+.button.add, .button.add *{ height:24px; line-height:24px; color:white; font-weight:bold; }
+.button.blue, .button.blue *{ height:31px; line-height:31px; color:white; font-weight:bold; }
+.button.gray, .button.gray *{ height:31px; line-height:31px; color:white; font-weight:bold; }
+.button.inline_gray, .button.inline_gray *{ height:27px; line-height:27px; color:#6f6f6f; font-weight:bold; }
+.button.medium { background-position:left 0;}
+.button.large { background-position:left -30px;}
+.button.xLarge { background-position:left -65px;}
+.button.small { background-position:left -106px;}
+.button.search { background:url(/wcom/img/btn/btn_sch_blue.gif) no-repeat left top; }
+.button.add { background:url(/wcom/img/btn/btn_sch_blue.gif) no-repeat left top; }
+.button.blue { background:url(/wcom/img/btn/btn_blue.gif) no-repeat left top; }
+.button.gray { background:url(/wcom/img/btn/btn_gray.gif) no-repeat left top; }
+.button.inline_gray { background:url(/wcom/img/btn/btn_light_gray.gif) no-repeat left top; }
+.button.medium *{ padding:0 10px 0 6px; font-size:12px; background-position:right top;}
+.button.large *{ padding:0 10px 0 6px; font-size:16px; background-position:right -30px;}
+.button.xLarge *{ padding:0 10px 0 6px; font-size:20px; background-position:right -65px;}
+.button.small *{ padding:0 6px 0 2px; font-size:11px; background-position:right -106px;}
+.button.search *{ padding:0 6px 0 2px; background:url(/wcom/img/btn/btn_sch_blue.gif) no-repeat right top; width:60px; text-align:center; }
+.button.add *{ padding:0 6px 0 2px; background:url(/wcom/img/btn/btn_sch_blue.gif) no-repeat right top; width:60px; text-align:center; }
+.button.blue *{ padding:0 6px 0 2px; background:url(/wcom/img/btn/btn_blue.gif) no-repeat right top; width:72px; text-align:center; }
+.button.gray *{ padding:0 6px 0 2px; background:url(/wcom/img/btn/btn_gray.gif) no-repeat right top; width:72px; text-align:center; }
+.button.inline_gray *{ padding:0 10px 0 2px; background:url(/wcom/img/btn/btn_light_gray.gif) no-repeat right top; width:72px; text-align:center; }
+
+/* Button Hover */
+.button *:hover,
+.button *:active,
+.button *:focus{ color:#ddebfe;}
+
+/* Button Strong */
+.button.strong *{ font-weight:bold !important;}
+
+/* Button Icon Variation */
+.button.icon *{ padding-left:20px;}
+.button.small.icon *{ padding-left:16px;}
+.button.icon span{ width:20px; margin-right:-20px; padding:0 !important;}
+.button.medium .check{ background-position:4px -150px;}
+.button.large .check{ background-position:4px -146px;}
+.button.xLarge .check{ background-position:5px -144px;}
+.button.small .check{ background-position:3px -153px;}
+.button.medium .add{ background-position:-16px -150px;}
+.button.large .add{ background-position:-14px -146px;}
+.button.xLarge .add{ background-position:-14px -144px;}
+.button.small .add{ background-position:-18px -153px;}
+.button.medium .delete{ background-position:-34px -150px;}
+.button.large .delete{ background-position:-34px -146px;}
+.button.xLarge .delete{ background-position:-34px -144px;}
+.button.small .delete{ background-position:-37px -153px;}
+.button.medium .calendar{ background-position:-56px -150px;}
+.button.large .calendar{ background-position:-56px -146px;}
+.button.xLarge .calendar{ background-position:-56px -144px;}
+.button.small .calendar{ background-position:-59px -153px;}
+.button.medium .refresh{ background-position:-76px -150px;}
+.button.large .refresh{ background-position:-76px -146px;}
+.button.xLarge .refresh{ background-position:-76px -144px;}
+.button.small .refresh{ background-position:-79px -153px;}
+
+
+
+
+
+/* 회원가입 버튼 */
+a.btn_gray{display:inline-block; line-height:28px; height:28px; text-align:center;  background:#6f6f6f; color:#fff; border:1px solid #6f6f6f; vertical-align:middle;}
+a.btn_gray:hover, a.btn_gray:focus{background:#4d94df; border:1px solid #3477d2; }
+a.btn_type{display:inline-block; line-height:28px; height:28px; text-align:center;  background:#dfdfdf; color:#6f6f6f; border:1px solid #cacaca; vertical-align:top;}
+a.btn_type:hover, a.btn_type:focus{ color:#fff;background:#4d94df; border:1px solid #3477d2; }
+a.btn_blue{display:inline-block; line-height:28px; height:28px; text-align:center;  background:#3377be; color:#fff; border:1px solid #205e9f; vertical-align:middle;}
+a.btn_blue:hover, a.btn_blue:focus{background:#205e9f; border:1px solid #174e88; }
+
+a.btn_gray_small{display:inline-block; padding:3px 5px 0 5px; background:#6f6f6f; color:#333; border:1px solid #c1bfbf; border-radius:4px; 
+font-family:돋음; font-weight:normal; font-size:12px; vertical-align:middle;
+background-image:
+ -webkit-gradient(linear, left top, left bottom, color-stop(0.01, rgb(255,255,255)),color-stop(0.77, rgb(248,248,248)));
+ background-image:-moz-linear-gradient(center top , rgb(255,255,255),rgb(247,247,247));
+ Filter: progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#ffffff, endColorstr=#f8f8f8);
+ }
+a.btn_gray_small:hover, a.btn_gray_small:focus{ border:1px solid #6f6f6f;
+background-image:
+ -webkit-gradient(linear, left top, left bottom, color-stop(0.01, rgb(248,248,248)),color-stop(0.77, rgb(255,255,255)));
+ background-image:-moz-linear-gradient(center top , rgb(247,247,247),rgb(255,255,255));
+ Filter: progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#f8f8f8, endColorstr=#ffffff);
+ }
+
+button.btn_gray{display:inline-block; line-height:28px; height:28px; text-align:center; background:#6f6f6f; color:#fff; border:1px solid #6f6f6f; vertical-align:middle; font-size:0.9em;}
+button.btn_gray:hover, button.btn_gray:focus{background:#4d94df; border:1px solid #3477d2; }
+button.btn_gray2{display:inline-block; line-height:23px; height:23px; text-align:center; background:#6f6f6f; color:#fff; border:1px solid #6f6f6f; vertical-align:middle; font-size:0.9em;}
+button.btn_gray2:hover, button.btn_gray2:focus{background:#4d94df; border:1px solid #3477d2; }
+button.btn_type{display:inline-block;line-height:28px; height:28px;text-align:center;  background:#dfdfdf; color:#6f6f6f; border:1px solid #cacaca; vertical-align:middle; font-size:0.9em;}
+button.btn_type_small{display:inline-block;line-height:24px; height:24px;text-align:center;  background:#dfdfdf; color:#6f6f6f; border:1px solid #cacaca; vertical-align:middle; font-size:0.9em;}
+button.btn_type:hover, button.btn_type:focus{ color:#fff;background:#4d94df; border:1px solid #3477d2; }
+button.btn_type_small:hover, button.btn_type_small:focus{ color:#fff;background:#4d94df; border:1px solid #3477d2; }
+button.btn_blue{display:inline-block;line-height:28px; height:28px; text-align:center; background:#3377be; color:#fff; border:1px solid #205e9f; vertical-align:middle; font-size:0.9em;}
+button.btn_blue:hover, button.btn_blue:focus{background:#205e9f; border:1px solid #174e88; }
+button.btn_white{display:inline-block; padding:0 4px; background:#fff; color:#4c4c4c; border:1px solid #e5e5e5; vertical-align:middle; font-size:0.8em; font-family:Verdana, Geneva, sans-serif;}
+button.btn_white:hover, button.btn_white:focus{background:#ff4e00; border:1px solid #ff3600; color:#fff; }
+
+button.btn_search_small{display:inline-block; padding:0 8px; height:21px; background:#4791de; border:1px solid #426ca6; color:#fff; font-size:11px; font-weight:bold;  cursor:pointer; vertical-align:top;}
+/*button[type="submit"]{border:none;}*/
+
+
+/* 글자수에 따른 넓이 */
+.byte2{width:62px;}
+.byte3{width:74px;}
+.byte4{width:86px;}
+.byte5{width:98px;}
+.byte6{width:110px;}
+
+/* 버튼 파란 화살표 */
+.blue_arrow{display:inline-block; width:3px; height:5px; margin:3px 0 0 3px; background:url(/wcom/img/btn/btn_bg_arr.png) no-repeat 0 0; vertical-align:top;}
+
+/* cafe btn */
+.btn_pack, .btn_pack *{display:inline-block; overflow:visible; position:relative; margin:0; padding:0; border:0; background:url(/wcom/img/btn/btn_back.png) no-repeat; font-size:12px; color:#333; text-decoration:none; !important; vertical-align:top; white-space:nowrap}
+.btn_pack{}
+.btn_pack *{left:4px; cursor:pointer; _cursor:hand;}
+.btn_pack.white{height:25px; line-height:25px; background-position:left 0}
+.btn_pack.white *{height:25px; line-height:25px; padding:0 10px 0 6px; background-position:right 0}
+.btn_pack.wide.white{height:25px; line-height:25px; background-position:left 0}
+.btn_pack.wide.white *{height:25px; line-height:25px; padding:0 20px 0 16px; background-position:right 0}
+.btn_pack.big.white{margin-left:4px; height:49px; line-height:49px; background-position:left -99px}
+.btn_pack.big.white *{height:49px; line-height:49px; padding:0 20px 0 16px; background-position:right -99px}
+
+.btn_pack.gray{height:25px; line-height:25px; background-position:left -33px}
+.btn_pack.gray *{height:25px; line-height:25px; color:#fff; padding:0 10px 0 6px; background-position:right -33px}
+.btn_pack.blue{height:25px; line-height:25px; background-position:left -66px}
+.btn_pack.blue *{height:25px; line-height:25px; color:#fff; padding:0 10px 0 6px; background-position:right -66px}
+.btn_pack.blue_search{height:21px; line-height:21px; background-position:left -232px}
+.btn_pack.blue_search *{height:21px; line-height:21px; color:#fff; padding:0 10px 0 6px; background-position:right -232px}
+.btn_pack.medium{height:35px; line-height:35px; background-position:left -189px}
+.btn_pack.medium *{height:35px; line-height:35px; vertical-align:middle; color:#707070; padding:0 10px 0 6px; background-position:right -189px;}
+.btn_pack.medium .count{padding-left:30px; margin-left:10px; color:#1c95d4; background:url(/wcom/img/icon/icon_recommend.gif) no-repeat 0 10px;}
+.btn_pack.blue_line{height:25px; line-height:25px; background-position:left -156px}
+.btn_pack.blue_line *{height:25px; line-height:25px; color:#1c95d4; padding:0 10px 0 6px; background-position:right -156px}
+.btn_pack.cm_search{height:32px; line-height:32px; background-position:left -263px}
+.btn_pack.cm_search *{height:32px; line-height:32px; color:#fff; padding:0 19px 0 16px; background-position:right -263px; font-weight:bold}
+
+.btn_pack.white *:hover, .btn_pack.white *:focus, .btn_pack.white *:active{color:#14a3d9}
+.btn_pack.gray *:hover, .btn_pack.gray *:focus, .btn_pack.gray *:active{color:#d9d9d9}
+.btn_pack.blue *:hover, .btn_pack.blue *:focus, .btn_pack.blue *:active{color:#c0ebff}
+.btn_pack.blue_line *:hover, .btn_pack.blue_line *:focus, .btn_pack.blue_line *:active{color:#0b6cb0}
+
+.btn_pack.white .icon_re{display:inline-block; width:20px; margin-right:-20px; background:url(/wcom/img/icon/icon_re.gif) no-repeat 6px 8px;}
+.btn_pack.white .icon_report{width:20px; margin-right:-20px; background:url(/wcom/img/icon/icon_report_gray.gif) no-repeat 4px 8px;}
+.btn_pack.white .icon_recommend{width:20px; margin-right:-20px; background:url(/wcom/img/icon/icon_recommend.gif) no-repeat -2px 6px;}
+.btn_pack .report_num{ vertical-align:middle;background:none; padding:0; margin:0; color:#333}
+.btn_pack .report_num strong{ vertical-align:middle;padding:0 2px; left:auto; margin:0;color:#fc4d21; background:none;}
+.btn_pack .report_num:hover, .btn_pack .report_num:active, .btn_pack .report_num:focus{color:#333}
+.btn_pack .report_num:hover strong, .btn_pack .report_num:active strong, .btn_pack .report_num:focus strong{color:#fc4d21}
+
+.btn_pack.white .icon_list{display:inline-block; width:20px; margin-right:-20px; background:url(/wcom/img/icon/icon_list.gif) no-repeat 6px 6px;}
+.btn_pack.white .icon_modify{width:20px; margin-right:-20px; background:url(/wcom/img/icon/icon_modify.gif) no-repeat 6px 6px;}
+.btn_pack.white .icon_garbage{width:20px; margin-right:-20px; background:url(/wcom/img/icon/icon_garbage.gif) no-repeat 6px 6px;}
+

@@ -1,0 +1,86 @@
+package kr.ac.jj.shared.infrastructure.framework.core.support.scheduling;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.quartz.Job;
+import org.quartz.JobDetail;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.quartz.Trigger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.ac.jj.shared.infrastructure.framework.config.FrameworkConfigProperties;
+import kr.ac.jj.shared.infrastructure.framework.core.foundation.exception.BaseException;
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.interceptor.BaseJobInterceptor;
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.model.JobDetailTrigger;
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.model.SchedulerJobConfig;
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.util.BaseJobSchedulerUtil;
+
+public abstract class BaseJob implements Job {
+
+    private static final Logger log = LoggerFactory.getLogger(BaseJob.class);
+
+    private @Autowired FrameworkConfigProperties config;
+
+    @Override
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+        JobDetail jobDetail = context.getJobDetail();
+        Trigger trigger = context.getTrigger();
+        JobDetailTrigger jobDetailTrigger = new JobDetailTrigger(jobDetail, trigger);
+        int triggerNo = jobDetailTrigger.getTriggerNo();
+
+        if (triggerNo != 0 && !config.getScheduler().getEnable()) {
+            return;
+        }
+
+        String scheduleKey = jobDetail.getKey().getName();
+        SchedulerJobConfig jobConfig = new SchedulerJobConfig(scheduleKey);
+
+        if (triggerNo != 0 && !jobConfig.isEnable()) {
+            return;
+        }
+
+        if (triggerNo != 0 && !jobConfig.isHoldingJobContinuouslyExecute()) {
+            String scheduledFireTime = DateFormatUtils.format(context.getScheduledFireTime(), "yyyyMMdd-HHmmss");
+            String fireTime = DateFormatUtils.format(context.getFireTime(), "yyyyMMdd-HHmmss");
+
+            if (!scheduledFireTime.equals(fireTime)) {
+                return;
+            }
+        }
+
+        BaseJobInterceptor jobInterceptor = BaseJobSchedulerUtil.getAnyJobInterceptor();
+        String executeId = null;
+
+        try {
+
+            try {
+                executeId = jobInterceptor.executeJobBefore(jobConfig, jobDetailTrigger, context);
+            } catch (BaseException e) {
+                log.error(e.getMessage(), e);
+            }
+
+            this.executeJob(jobConfig, jobDetailTrigger, context);
+
+            try {
+                jobInterceptor.executeJobSuccess(executeId, jobConfig, jobDetailTrigger, context);
+            } catch (BaseException e) {
+                log.error(e.getMessage(), e);
+            }
+
+        } catch (BaseException e) {
+            try {
+                jobInterceptor.executeJobFailure(executeId, jobConfig, jobDetailTrigger, context, e);
+            } catch (BaseException e2) {
+                log.error(e.getMessage(), e2);
+            }
+
+            throw e;
+        }
+    }
+
+    public abstract void executeJob(SchedulerJobConfig jobConfig, JobDetailTrigger jobDetailTrigger,
+            JobExecutionContext context);
+
+}

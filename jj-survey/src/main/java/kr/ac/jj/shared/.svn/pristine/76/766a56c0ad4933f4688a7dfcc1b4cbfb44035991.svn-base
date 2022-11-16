@@ -1,0 +1,106 @@
+package kr.ac.jj.shared.application.admin.appmanage.deptmanage.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.application.admin.appmanage.deptmanage.mapper.DepartmentManageMapper;
+import kr.ac.jj.shared.application.admin.appmanage.deptmanage.model.DepartmentManageModel;
+import kr.ac.jj.shared.domain.main.mapper.com.dept.TbComDeptMapper;
+import kr.ac.jj.shared.domain.main.mapper.com.dept.author.TbComDeptAuthorMapper;
+import kr.ac.jj.shared.domain.main.mapper.com.dept.author.TbComDeptAuthorToAuthorMapper;
+import kr.ac.jj.shared.domain.main.model.com.dept.TbComDept;
+import kr.ac.jj.shared.domain.main.model.com.dept.author.TbComDeptAuthor;
+import kr.ac.jj.shared.domain.main.model.com.dept.author.TbComDeptAuthorToAuthor;
+
+/**
+ * 부서 관리 Service
+ */
+@Service
+public class DepartmentManageServiceImpl {
+
+    private @Autowired DepartmentManageMapper departmentManageMapper;
+    private @Autowired TbComDeptMapper tbComDeptMapper;
+    private @Autowired TbComDeptAuthorMapper tbComDeptAuthorMapper;
+    private @Autowired TbComDeptAuthorToAuthorMapper tbComDeptAuthorToAuthorMapper;
+
+    /**
+     * 트리 조회
+     *
+     * @return
+     */
+    public List<Map<String, Object>> readTree() {
+        return departmentManageMapper.selectTree();
+    }
+
+    /**
+     * 조회
+     *
+     * @param deptId
+     * @return
+     */
+    public DepartmentManageModel read(String deptId) {
+        DepartmentManageModel model = new DepartmentManageModel();
+
+        TbComDept tbComDept = tbComDeptMapper.select(deptId);
+
+        model.setTbComDept(tbComDept);
+        model.setTbComDeptAuthorToAuthorList(tbComDeptAuthorToAuthorMapper.selectListByDeptId(deptId));
+
+        return model;
+    }
+
+    /**
+     * 수정
+     *
+     * @param model
+     */
+    public void update(DepartmentManageModel model) {
+        TbComDept tbComDept = model.getTbComDept();
+        List<TbComDeptAuthorToAuthor> tbComDeptAuthorToAuthorList = model.getTbComDeptAuthorToAuthorList();
+        String deptId = tbComDept.getDeptId();
+
+        this.updateAuthorList(deptId, tbComDeptAuthorToAuthorList);
+    }
+
+    /**
+     * 권한 목록 저장
+     *
+     * @param deptId
+     * @param tbComDeptAuthorToAuthorList
+     */
+    private void updateAuthorList(String deptId, List<TbComDeptAuthorToAuthor> tbComDeptAuthorToAuthorList) {
+        tbComDeptAuthorMapper.deleteListByDeptId(deptId);
+
+        for (TbComDeptAuthorToAuthor tbComDeptAuthorToAuthor : tbComDeptAuthorToAuthorList) {
+            if (BooleanUtils.isTrue(tbComDeptAuthorToAuthor.getDeptAuthorYn())) {
+                TbComDeptAuthor tbComDeptAuthor = new TbComDeptAuthor();
+                tbComDeptAuthor.setDeptId(deptId);
+                tbComDeptAuthor.setAuthorId(tbComDeptAuthorToAuthor.getAuthorId());
+                tbComDeptAuthorMapper.insert(tbComDeptAuthor);
+            }
+        }
+    }
+
+    /**
+     * 생성/수정
+     *
+     * @param tbComDept
+     * @return
+     */
+    public String createOrUpdate(TbComDept tbComDept) {
+        if (StringUtils.isEmpty(tbComDept.getDeptId())) {
+            tbComDept.newId();
+            tbComDeptMapper.insert(tbComDept);
+        } else {
+            tbComDeptMapper.update(tbComDept);
+        }
+
+        return tbComDept.getDeptId();
+    }
+
+}

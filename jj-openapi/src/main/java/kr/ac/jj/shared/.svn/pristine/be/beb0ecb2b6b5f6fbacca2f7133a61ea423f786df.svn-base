@@ -1,0 +1,28 @@
+package kr.ac.jj.shared.application.admin.appmanage.deptmanage.model;
+
+import kr.ac.jj.shared.domain.main.model.com.dept.TbComDept;
+
+/**
+ * 부서 관리 Model
+ */
+public class DeptManageModel {
+
+    private TbComDept tbComDept;
+
+    public boolean isEditable() {
+        if (this.tbComDept == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public TbComDept getTbComDept() {
+        return this.tbComDept;
+    }
+
+    public void setTbComDept(TbComDept tbComDept) {
+        this.tbComDept = tbComDept;
+    }
+
+}

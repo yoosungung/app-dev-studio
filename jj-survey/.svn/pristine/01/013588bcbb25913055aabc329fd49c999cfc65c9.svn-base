@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 설문_설문지 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.survey.qestnr.TbSurveyQestnrEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.survey.qestnr.TbSurveyQestnr">
+        <![CDATA[
+            SELECT TSQ.SURVEY_QESTNR_ID
+                 , TSQ.SURVEY_DEFINITION_ID
+                 , TSQ.SURVEY_REALM_ID
+                 , TSR.SURVEY_REALM_NM
+                 , TSQ.CNRS_YN
+                 , TSQ.QESTNR_GDCC
+                 , TSQ.QESTNR_ENDC
+                 , TSQ.QESTNR_SKN_WEB
+                 , TSQ.QESTNR_SKN_MOBILE
+                 , TSQ.QESTNR_FONT_NM
+                 , TSQ.QESTNR_FONT_MG
+                 , TSQ.QESTNR_FONT_COLOR
+            FROM   TB_SURVEY_QESTNR TSQ
+                   INNER JOIN TB_SURVEY_REALM TSR ON TSQ.SURVEY_REALM_ID = TSR.SURVEY_REALM_ID
+            WHERE  TSQ.SURVEY_QESTNR_ID = #{surveyQestnrId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SURVEY_QESTNR (
+                   SURVEY_QESTNR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SURVEY_DEFINITION_ID
+                 , SURVEY_REALM_ID
+                 , CNRS_YN
+                 , QESTNR_GDCC
+                 , QESTNR_ENDC
+                 , QESTNR_SKN_WEB
+                 , QESTNR_SKN_MOBILE
+                 , QESTNR_FONT_NM
+                 , QESTNR_FONT_MG
+                 , QESTNR_FONT_COLOR
+            ) VALUES (
+                   #{tbSurveyQestnr.surveyQestnrId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbSurveyQestnr.surveyDefinitionId}
+                 , #{tbSurveyQestnr.surveyRealmId}
+                 , #{tbSurveyQestnr.cnrsYn}
+                 , #{tbSurveyQestnr.qestnrGdcc}
+                 , #{tbSurveyQestnr.qestnrEndc}
+                 , #{tbSurveyQestnr.qestnrSknWeb}
+                 , #{tbSurveyQestnr.qestnrSknMobile}
+                 , #{tbSurveyQestnr.qestnrFontNm}
+                 , #{tbSurveyQestnr.qestnrFontMg}
+                 , #{tbSurveyQestnr.qestnrFontColor}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SURVEY_QESTNR SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , SURVEY_DEFINITION_ID             = #{tbSurveyQestnr.surveyDefinitionId}
+                 , SURVEY_REALM_ID                  = #{tbSurveyQestnr.surveyRealmId}
+                 , CNRS_YN                          = #{tbSurveyQestnr.cnrsYn}
+                 , QESTNR_GDCC                      = #{tbSurveyQestnr.qestnrGdcc}
+                 , QESTNR_ENDC                      = #{tbSurveyQestnr.qestnrEndc}
+                 , QESTNR_SKN_WEB                   = #{tbSurveyQestnr.qestnrSknWeb}
+                 , QESTNR_SKN_MOBILE                = #{tbSurveyQestnr.qestnrSknMobile}
+                 , QESTNR_FONT_NM                   = #{tbSurveyQestnr.qestnrFontNm}
+                 , QESTNR_FONT_MG                   = #{tbSurveyQestnr.qestnrFontMg}
+                 , QESTNR_FONT_COLOR                = #{tbSurveyQestnr.qestnrFontColor}
+            WHERE  SURVEY_QESTNR_ID = #{tbSurveyQestnr.surveyQestnrId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SURVEY_QESTNR
+            WHERE  SURVEY_QESTNR_ID = #{surveyQestnrId}
+        ]]>
+    </delete>
+
+</mapper>

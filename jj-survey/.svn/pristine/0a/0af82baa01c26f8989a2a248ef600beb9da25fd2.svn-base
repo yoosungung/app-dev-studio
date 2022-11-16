@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 메인 Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.application.main.mapper.MainMapper">
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+        SELECT SD.NAME
+             , CONCAT_WS('', DATE_FORMAT(SD.START_DT, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(SD.END_DT, '%Y-%m-%d')) AS PD_DT
+             , TSQP.EMAIL_SHRTEN_URL AS SHRTEN_URL
+             , IFNULL(S.STATUS, 'N') AS SURVEY_STATUS
+             , FN_CODE_NAME('SURVEY_STATUS', IFNULL(S.STATUS, 'N'), #{$var.userLocale}, #{$var.defaultLocale}, NULL) AS SURVEY_STATUS_NM
+          FROM TB_SURVEY_QESTNR_PERSON TSQP
+               INNER JOIN TB_SURVEY_QESTNR TSQ ON TSQP.SURVEY_QESTNR_ID = TSQ.SURVEY_QESTNR_ID
+               INNER JOIN SURVEY_DEFINITION SD ON TSQ.SURVEY_DEFINITION_ID = SD.ID
+               LEFT JOIN SURVEY S ON S.ID = TSQP.SURVEY_ID
+         WHERE TSQ.SNDNG_YN = '1'
+           AND TSQP.PERSON_ID = #{$var.loginUser.personId}
+           AND TSQP.EMAIL_SHRTEN_URL IS NOT NULL
+        ]]>
+    </select>
+</mapper>

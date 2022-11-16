@@ -1,0 +1,456 @@
+var CommonUtil = {};
+
+(function() {
+    axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+    axios.defaults.headers.common[$('meta[name="X-CSRF-Header-Name"]').attr("content")] = $('meta[name="X-CSRF-Token"]').attr("content");
+})();
+
+CommonUtil.contextPath = (function() {
+    return $('meta[name="X-Context-Path"]').attr("content");
+})();
+
+CommonUtil.axios = function(option) {
+    var _axios = axios.create({
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+
+    if (option === undefined || option.progressBar === undefined || option.progressBar) {
+        if (window.loadProgressBar != null) {
+            loadProgressBar({ showSpinner: true }, _axios);
+        }
+    }
+
+    if (option && option.original) {
+        return _axios;
+    }
+
+    return {
+        get: function(url, config) {
+            if (config === undefined) {
+                config = {};
+            }
+
+            if (config.data === undefined) {
+                config.data = null;
+            }
+
+            return _axios.get(getContextUrl(url), config);
+        },
+        post: function(url, data, config) {
+            return _axios.post(getContextUrl(url), data, config);
+        },
+        put: function(url, data, config) {
+            if (config === undefined) {
+                config = {};
+            }
+
+            if (config.headers === undefined) {
+                config.headers = {};
+            }
+
+            config.headers["X-HTTP-Method-Override"] = "PUT";
+
+            return _axios.post(getContextUrl(url), data, config);
+        },
+        delete: function(url, config) {
+            if (config === undefined) {
+                config = {};
+            }
+
+            if (config.headers === undefined) {
+                config.headers = {};
+            }
+
+            config.headers["X-HTTP-Method-Override"] = "DELETE";
+
+            return _axios.post(getContextUrl(url), config.data, config);
+        }
+    };
+
+    function getContextUrl(url) {
+        if (url.substr(0, 1) === "/") {
+            return CommonUtil.contextPath + url;
+        }
+
+        if (url == null || url === "") {
+            url = window.location.pathname;
+        }
+
+        return url;
+    }
+};
+
+CommonUtil.initModel = function(model) {
+    for (var key in model) {
+        var type = $.type(model[key]);
+
+        if (type === "array") {
+            model[key] = [];
+        } else if (type === "object") {
+            model[key] = {};
+        } else {
+            model[key] = null;
+        }
+    }
+};
+
+CommonUtil.initValid = function(group) {
+    if (CommonUtil.validators == null) {
+        return;
+    }
+
+    if (group == null) {
+        for (var group in CommonUtil.validators) {
+            init(group);
+        }
+    } else {
+        init(group);
+    }
+
+    function init(group) {
+        if (CommonUtil.validators[group] == null) {
+            return;
+        }
+
+        for (var i = 0; i < CommonUtil.validators[group].length; i++) {
+            CommonUtil.validators[group][i].initValid();
+        }
+    }
+};
+
+CommonUtil.addValid = function(vue) {
+    if (CommonUtil.validators == null) {
+        CommonUtil.validators = {};
+    }
+
+    var groups;
+
+    if (vue.groups == null) {
+        groups = ["_ALL_"];
+    } else {
+        groups = vue.groups.split(",");
+    }
+
+    for (var i = 0; i < groups.length; i++) {
+        var group = $.trim(groups[i]);
+
+        if (CommonUtil.validators[group] == null) {
+            CommonUtil.validators[group] = [];
+        }
+
+        CommonUtil.validators[group].push(vue);
+    }
+};
+
+CommonUtil.removeValid = function(vue) {
+    if (CommonUtil.validators == null) {
+        return;
+    }
+
+    for (var group in CommonUtil.validators) {
+        for (var i = CommonUtil.validators[group].length - 1; i >= 0; i--) {
+            if (CommonUtil.validators[group][i] === vue) {
+                CommonUtil.validators[group].splice(i, 1);
+            }
+        }
+    }
+};
+
+CommonUtil.checkValid = function(group) {
+    if (CommonUtil.validators == null) {
+        return true;
+    }
+
+    var invalidCount = 0;
+
+    if (group == null) {
+        for (var group in CommonUtil.validators) {
+            invalidCount += check(group);
+        }
+    } else {
+        invalidCount += check(group);
+    }
+
+    return invalidCount === 0;
+
+    function check(group) {
+        if (CommonUtil.validators[group] == null) {
+            return 0;
+        }
+
+        var invalidCount = 0;
+
+        for (var i = 0; i < CommonUtil.validators[group].length; i++) {
+            if (CommonUtil.validators[group][i].checkValid() != true) {
+                invalidCount++;
+            }
+        }
+
+        return invalidCount;
+    }
+};
+
+CommonUtil.showAxiosError = function(error) {
+    if (!error.response) {
+        window.alert(error);
+        return;
+    }
+
+    var invalidSession = false;
+    var invalidToken = false;
+    var message;
+
+    if (!error.response) {
+        message = error;
+    } else {
+        invalidSession = (error.response.headers["x-invalid-session"] === "true");
+        invalidToken = (error.response.headers["x-invalid-token"] === "true");
+
+        if (invalidSession) {
+            message = "오랫동안 사용하지 않아 로그아웃 되었습니다.";
+        } else if (invalidToken) {
+            message = "유효하지 않은 접근정보입니다.";
+        } else {
+            message = error.response.data.message;
+        }
+    }
+
+    window.alert(message);
+
+    if (invalidSession || invalidToken) {
+        window.location.reload();
+    }
+};
+
+CommonUtil.copyObjectValues = function(source, target) {
+    if (source == null || target == null) {
+        return;
+    }
+
+    for (var key in source) {
+        target[key] = source[key];
+    }
+};
+
+CommonUtil.toDate = function(value) {
+    if (value == null) {
+        return;
+    }
+
+    var type = $.type(value);
+
+    if (type === "date") {
+        return value;
+    }
+
+    if (type === "number") {
+        return new Date(value);
+    }
+
+    if (type === "string") {
+        if (value.length === 10) {
+            var delimiter = value.substr(4, 1);
+
+            return new Date(moment(value, "YYYY" + delimiter + "MM" + delimiter + "DD"));
+        }
+
+        if (value.length === 8) {
+            return new Date(moment(value, "YYYYMMDD"));
+        }
+    }
+};
+
+CommonUtil.setJobType = function(data, jobType) {
+    if ($.type(data) === "array") {
+        for (var i = 0; i < data.length; i++) {
+            data[i]._JOB_TYPE = jobType;
+        }
+    } else {
+        data._JOB_TYPE = jobType;
+    }
+
+    return data;
+};
+
+CommonUtil.getSortedList = function(data, sortColumnName) {
+    return data.sort(function(a, b) {
+        var aValue = a[sortColumnName];
+        var bValue = b[sortColumnName];
+
+        if (aValue != null && bValue != null) {
+            return Number(aValue) - Number(bValue);
+        }
+
+        return 0;
+    });
+};
+
+CommonUtil.getFilteredList = function(data, sortColumnName) {
+    var result;
+
+    if (sortColumnName == null) {
+        result = data;
+    } else {
+        for (var i = 0; i < data.length; i++) {
+            if (data[i]._JOB_TYPE == "D") {
+                data[i][sortColumnName] = 0;
+            }
+        }
+
+        result = CommonUtil.getSortedList(data, sortColumnName);
+    }
+
+    return result.filter(function(rowData) {
+        return rowData._JOB_TYPE != "D";
+    });
+};
+
+CommonUtil.formatter = {
+    date: function(value, format) {
+        var date = CommonUtil.toDate(value);
+
+        if (date != null) {
+            return moment(date).format(format || "YYYY-MM-DD");
+        }
+    },
+    time: function(value, format) {
+        var date = CommonUtil.toDate(value);
+
+        if (date != null) {
+            return moment(date).format(format || "HH:mm:ss");
+        }
+    },
+    datetime: function(value, format) {
+        var date = CommonUtil.toDate(value);
+
+        if (date != null) {
+            return moment(date).format(format || "YYYY-MM-DD HH:mm:ss");
+        }
+    }
+};
+
+CommonUtil.validator = {
+    "required": function(value) {
+        var valid;
+
+        if (value == null) {
+            valid = false;
+        } else if ($.type(value) === "array") {
+            for (var i = 0; i < value.length; i++) {
+                if (value[i]._JOB_TYPE != "D") {
+                    valid = true;
+                    break;
+                }
+            }
+        } else {
+            valid = (value != "");
+        }
+
+        if (valid !== true) {
+            return "필수 항목입니다.";
+        }
+    },
+    "number": function(value) {
+        if (value == null || (value + "").length === 0) {
+            return;
+        }
+
+        if (isNaN(value) === true) {
+            return "숫자 형식이 올바르지 않습니다.";
+        }
+    },
+    "email": function(value) {
+        if (value == null || (value + "").length === 0) {
+            return;
+        }
+
+        var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+        if (regExp.test(value) !== true) {
+            return "이메일주소 형식이 올바르지 않습니다.";
+        }
+    },
+    "phone": function(value) {
+        if (value == null || (value + "").length === 0) {
+            return;
+        }
+
+        var regExp = /^\d{2,3}-\d{3,4}-\d{4}$/;
+
+        if (regExp.test(value) !== true) {
+            return "전화번호가 올바르지 않습니다. 하이픈(-)을 포함한 숫자만 입력하세요.";
+        }
+    },
+    "cell-phone": function(value) {
+        if (value == null || (value + "").length === 0) {
+            return;
+        }
+
+        var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+
+        if (regExp.test(value) !== true) {
+            return "휴대폰번호가 올바르지 않습니다. 하이픈(-)을 포함한 숫자만 입력하세요.";
+        }
+    },
+    _unknown: function(value) {
+        return "값 유효성을 확인할 수 없습니다.";
+    }
+};
+
+CommonUtil.loadCodeData = function(requestCodeList, callback, update) {
+    if (CommonUtil.loadCodeData.loadedCodeDataMap == null) {
+        CommonUtil.loadCodeData.loadedCodeDataMap = {};
+    }
+
+    var result = {};
+
+    if (update !== true) {
+        for (var i = requestCodeList.length - 1; i >= 0; i--) {
+            var key = requestCodeList[i].key;
+
+            if (CommonUtil.loadCodeData.loadedCodeDataMap[key] != null) {
+                result[key] = CommonUtil.loadCodeData.loadedCodeDataMap[key];
+                requestCodeList.splice(i, 1);
+            }
+        }
+    }
+
+    if (requestCodeList.length == 0) {
+        if (callback != null) {
+            callback(result);
+        }
+
+        return;
+    }
+
+    CommonUtil.axios()
+    .post("/common/codedata/CodeData", requestCodeList)
+    .then(function(response) {
+        for (var key in response.data) {
+            CommonUtil.loadCodeData.loadedCodeDataMap[key] = response.data[key];
+            result[key] = response.data[key];
+        }
+
+        if (callback != null) {
+            callback(result);
+        }
+    })["catch"](function(error) {
+        CommonUtil.showAxiosError(error);
+    });
+};
+
+CommonUtil.updateCodeData = function(requestCodeList, callback) {
+    if (requestCodeList == null) {
+        requestCodeList = [];
+
+        if (CommonUtil.loadCodeData.loadedCodeDataMap != null) {
+            for (var key in CommonUtil.loadCodeData.loadedCodeDataMap) {
+                requestCodeList.push({ "key": key });
+            }
+        }
+    }
+
+    CommonUtil.loadCodeData(requestCodeList, callback, true);
+};

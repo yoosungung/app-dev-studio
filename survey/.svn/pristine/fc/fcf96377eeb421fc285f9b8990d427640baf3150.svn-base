@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="page-body"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"  
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/2015/table" 
+	version="2.0">
+	
+	<jsp:directive.page contentType="text/html;charset=UTF-8"/>
+	<jsp:output omit-xml-declaration="yes"/>
+	
+	<script type="text/javascript">
+		
+		$(function() {
+			$('.userIds').on('click', function() {
+				
+				var surveyId = $('#surveyId').val();
+				var userId = $(this).val();
+				
+				if($(this).is(':checked')) {
+					$.ajax({
+						type: 'post',
+						url: 'users',
+						data: {surveyId: surveyId, userId: userId}
+					}).done(function(data) {
+						if(data.fail != null) {
+							alert(data.fail);
+							$('input[type=checkbox]').each(function() {
+								if($(this).val() == userId) {
+									$(this).attr('checked', false);
+								}
+							})
+						}
+					});	
+				}
+				else {
+					$.ajax({
+						type: 'post',
+						url: 'users',
+						data: {surveyId: surveyId, userId: userId, _method: 'delete'}
+					});
+				}
+			});
+		});
+	
+		function addAllUsers(opt) {
+			
+			if(confirm('해당 설문에 사용자를 전체등록 하시겠습니까?')) {
+				var surveyId = $('#surveyId').val();
+				$.ajax({
+					type: 'post',
+					url: 'users',
+					data: {surveyId: surveyId, userId: 'all'}
+				}).done(function(data) {
+					alert(data.count+'명의 사용자가 추가되었습니다.')
+					if(data.count > 0) {
+						$('#usersForm').submit();
+					}
+				});
+			}
+		}
+		
+		function delAllUsers(opt) {
+			
+			if(confirm('해당 설문의 사용자를 전체삭제 하시겠습니까?')) {
+				var surveyId = $('#surveyId').val();
+				$.ajax({
+					type: 'post',
+					url: 'users',
+					data: {surveyId: surveyId, userId: 'all', _method: 'delete'}
+				}).done(function(data) {
+					alert(data+'명의 사용자가 삭제되었습니다.')
+					if(data > 0) {
+						$('#usersForm').submit();
+					}
+				});
+			}
+		}
+		
+		function changeLogin(id) {
+			if(confirm('선택한 사용자로 로그인 하시겠습니까?')) {
+				location.href = '${pageContext.request.contextPath}/mng/users/' + id + '?change';
+			}
+		}
+	</script>
+	
+	<spring:url var="formAction" value="/mng/users"/>
+	
+	<div class="widget">
+		<div class="widget-header header-large bordered-bottom bordered-blueberry">
+			<span class="widget-caption" style="font-size: 16px; margin-top: 8px;">사용자 목록</span>
+			<div class="widget-buttons">
+				<form id="usersForm" action="${formAction}" class="no-padding no-margin">
+					<input type="hidden" name="sort" value="${cmd.sort}" />
+					<input type="hidden" name="sortOrder" value="${cmd.sortOrder}" />
+					<select name="surveyId" id="surveyId" onchange="form.submit();">
+						<option value="">:: 사용자를 매핑할 설문을 선택하세요. ::</option>
+						<c:forEach var="survey" items="${surveyDefinitions}">
+							<c:if test="${!survey.isPublic}">
+								<c:choose>
+									<c:when test="${cmd.surveyId == survey.id}">
+										<option value="${survey.id}" selected="selected">${survey.name}</option>		
+									</c:when>
+									<c:otherwise>
+										<option value="${survey.id}">${survey.name}</option>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
+						</c:forEach>
+					</select>
+				</form>
+			</div>
+		</div>
+		
+		<div class="widget-body">
+			<table:search cmd="${cmd}" formAction="${formAction}" pageSizes="10,20,30,50">
+				<div class="btn-group">
+					<button type="button" class="btn btn-default ${empty cmd.surveyId ? 'disabled' : ''}" onclick="addAllUsers();">전체등록</button>
+					<button type="button" class="btn btn-default ${empty cmd.surveyId ? 'disabled' : ''}" onclick="delAllUsers();">전체삭제</button>
+				</div>
+			</table:search>
+			
+			<table:table cmd="${cmd}"			
+				colWidths="60,150,150,150,250,null,150,150,70"
+				colNames="번호,아이디,성명,권한,이메일,기관명,가입일,로그인,선택"
+				colSorts="null,userId,userNm,grade,email,organNm,joinDt,null,null">
+				
+				<c:forEach var="user" items="${cmd.pageList}" varStatus="status">
+					<tr>
+						<td class="text-center">${cmd.firstElementOnPage + status.index}</td>
+						<td class="text-center">${user.userId}</td>
+						<td class="text-center">${user.userNm}</td>
+						<td class="text-center">${user.grade}</td>
+						<td>${user.email}</td>
+						<td>${user.organNm}</td>
+						<td class="text-center"><spring:eval expression="user.joinDt" /></td>
+						<td class="text-center">
+							<a href="javascript:changeLogin('${user.userId}')" class="btn btn-xs edit">로그인</a>
+						</td>
+						<td class="text-center">
+							<div class="checkbox no-margin">
+								<label>
+									<c:choose>
+										<c:when test="${empty cmd.surveyId}">
+											<input type="checkbox" name="userIds" value="${user.userId}" class="userIds colored-success disabled" disabled="disabled" />
+										</c:when>
+										<c:otherwise>
+											<c:choose>
+												<c:when test="${cmd.surveyId == user.surveyDefinitionId}">
+													<input type="checkbox" name="userIds" value="${user.userId}" class="userIds colored-success" checked="checked"/>
+												</c:when>
+												<c:otherwise>
+													<input type="checkbox" name="userIds" value="${user.userId}" class="userIds colored-success"/> 
+												</c:otherwise> 
+											</c:choose>
+										</c:otherwise>
+									</c:choose>
+									<span class="text"><!----></span>
+								</label>
+							</div>
+						</td>
+					</tr>
+				</c:forEach>
+			</table:table>
+			<table:page cmd="${cmd}" />
+		</div>
+	</div>
+
+</div>	
+

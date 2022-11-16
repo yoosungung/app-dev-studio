@@ -1,0 +1,59 @@
+package kr.ac.jj.shared.application.admin.appmanage.hrmanage.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import kr.ac.jj.shared.application.admin.appmanage.hrmanage.service.HumanResourceManageServiceNoTxImpl;
+
+/**
+ * 인사정보 관리 Controller
+ */
+@Controller
+public class HumanResourceManageController {
+
+    private @Autowired HumanResourceManageServiceNoTxImpl humanResourceManageServiceNoTx;
+
+    private boolean working;
+    private boolean scheuled;
+
+    public void createOrUpdateAll() {
+        if (this.working) {
+            this.scheuled = true;
+            return;
+        }
+
+        this.scheuled = false;
+
+        try {
+            this.working = true;
+
+            humanResourceManageServiceNoTx.createOrUpdateDutyList();
+            humanResourceManageServiceNoTx.createOrUpdatePersonList();
+            humanResourceManageServiceNoTx.deleteUserList();
+
+            humanResourceManageServiceNoTx.createOrUpdateDeptList();
+        } finally {
+            this.working = false;
+        }
+    }
+
+    public void createOrUpdateOne(String userId) {
+        if (this.working) {
+            return;
+        }
+
+        try {
+            this.working = true;
+
+            humanResourceManageServiceNoTx.createOrUpdateDutyList();
+            humanResourceManageServiceNoTx.createOrUpdatePersonList(userId);
+        } finally {
+            this.working = false;
+
+            if (this.scheuled) {
+                this.createOrUpdateAll();
+            }
+        }
+    }
+
+}

@@ -1,0 +1,20 @@
+package kr.ac.jj.shared.domain.main.mapper.com.dept;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+
+/**
+ * 공통 - 부서 Mapper
+ */
+@SharedMainSqlMapper
+public interface TbComDeptMapper extends TbComDeptEntityMapper {
+
+    /**
+     * DPET_ID 조회 - DEPT_CODE로
+     *
+     * @param deptCode
+     * @return
+     */
+    public String selectDeptIdBydeptCode(@Param("deptCode") String deptCode);
+}

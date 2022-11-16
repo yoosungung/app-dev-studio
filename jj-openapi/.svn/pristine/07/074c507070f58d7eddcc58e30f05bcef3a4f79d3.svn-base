@@ -1,0 +1,57 @@
+package kr.ac.jj.openapi.application.openapi.apilist.handler;
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ibatis.session.ResultContext;
+
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.handler.DataResultHandler;
+import kr.ac.jj.shared.infrastructure.framework.web.context.request.RequestContextUtil;
+
+public class ApiHandler extends DataResultHandler{
+
+    private ApiDataWriter apiDataWriter;
+
+    private boolean success;
+
+    public ApiHandler(String name, String dataType) {
+        if ("xml".equals(dataType)){
+            this.apiDataWriter = new ApiDataWriterToXml();
+        }else {
+            this.apiDataWriter = new ApiDataWriterToJson();
+        }
+        this.apiDataWriter.setKey(name);
+    }
+
+    @Override
+    public void handleStart() {
+        this.apiDataWriter.writeStart();
+    }
+
+    @Override
+    public void handleResult(ResultContext<? extends Map<String, Object>> resultContext) {
+        Map<String, Object> resultObject = resultContext.getResultObject();
+
+        this.apiDataWriter.writeRowData(resultObject);
+    }
+
+    @Override
+    public void handleSuccess() {
+        this.success = true;
+    }
+
+    public void handleFailure() {
+        HttpServletResponse response = RequestContextUtil.getResponse();
+
+        if (response != null) {
+            response.reset();
+        }
+    }
+
+    @Override
+    public void handleFinally() {
+        this.apiDataWriter.writeEnd(this.success);
+    }
+
+}

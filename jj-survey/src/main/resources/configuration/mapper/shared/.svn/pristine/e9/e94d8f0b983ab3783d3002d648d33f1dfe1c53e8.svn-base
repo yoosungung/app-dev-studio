@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 게시판 - 일반(답변형) Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.bbs.gnrl.TbBbsGnrlMapper">
+
+    <!-- 조회수 증가 -->
+    <update id="updateRdcnt">
+        <![CDATA[
+            UPDATE TB_BBS_GNRL SET
+                   RDCNT = RDCNT + 1
+            WHERE  BBSCTT_ID = #{bbscttId}
+        ]]>
+    </update>
+
+</mapper>

@@ -1,0 +1,2906 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+api 관리 Mapper
+ -->
+<mapper namespace="person">
+
+    <!-- test002 -->
+    <select id="test002" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT TCP.PERSON_ID
+                 , TCP.EMPL_NO
+                 , TCP.EMAIL_ADRES
+                 , TCP.WRITNG_PSN_ID
+                 , TCP.WRITNG_DT
+                 , TCP.CHANGE_PSN_ID
+                 , TCP.CHANGE_DT
+                 , TCP.KOREAN_NM
+                 , TCP.ENGL_NM
+                 , TCP.CHCRT_NM
+                 , TCP.DEPT_ID
+                 , TCP.HFFC_STTUS
+                 , TCP.ECNY_DE
+                 , TCP.RETIRE_DE
+                 , TCP.OFCPS_NM
+                 , TCP.CLSF_NM
+                 , TCP.RSPOFC_NM
+                 , TCP.TLPHON_NO
+                 , TCP.ATCH_FILE_ID
+                 , TCP.RM
+                 , TCD.DEPT_NM
+            FROM   TB_COM_PERSON TCP
+                   LEFT JOIN TB_COM_DEPT TCD ON TCD.DEPT_ID = TCP.DEPT_ID
+            WHERE  1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='koreanNm != null and koreanNm != ""'>
+            <![CDATA[
+            AND TCP.KOREAN_NM = #{koreanNm}
+            ]]>
+        </if>
+
+    </select>
+
+    <!-- test001 -->
+    <select id="test001" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DAEHAK_NAME
+                 , HAKBU_NAME
+                 , HAKGWA_NAME
+                 , HAKG_YEAR
+                 , S_POINT
+                 , U_POINT
+                 , P_POINT
+                 , E_POINT
+                 , R_POINT
+                 , TOTAL_POINT
+            FROM DM_ON_SUPER DOS
+           WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='daehakName != null and daehakName != ""'>
+            <![CDATA[
+            AND DOS.DAEHAK_NAME = #{daehakName}
+            ]]>
+        </if>
+
+        <!-- 검색어 -->
+        <if test='hakbuName != null and hakbuName != ""'>
+            <![CDATA[
+            AND DOS.HAKBU_NAME = #{hakbuName}
+            ]]>
+        </if>
+
+        <!-- 검색어 -->
+        <if test='hakgwaName != null and hakgwaName != ""'>
+            <![CDATA[
+            AND DOS.HAKGWA_NAME = #{hakgwaName}
+            ]]>
+        </if>
+    </select>
+
+
+    <!-- dwonsupergwamok -->
+    <select id="dwonsupergwamok" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DOSG.COMP_HAKYY
+                , DOSG.COMP_HAKGI
+                , DOSG.HAKBUN
+                , DOSG.HAKJ_IRUM
+                , DOSG.DAEHAK_NAME
+                , DOSG.HAKBU_NAME
+                , DOSG.GWAMOK_CODE
+                , DOSG.GWAMOK_BUNBAN
+                , DOSG.SUNG_YEAR
+                , DOSG.SUNG_PUNGJUM
+                , DOSG.SUNG_WHAN_JUMSU
+                , DOSG.SUNG_HAKJUM
+                , DOSG.SUNG_JISU
+                , DOSG.COMP_YN
+                , DOSG.COMP_AUTH_DATE
+                , DOSG.S_POINT
+                , DOSG.U_POINT
+                , DOSG.P_POINT
+                , DOSG.E_POINT
+                , DOSG.R_POINT
+                , DOSG.TOTAL_POINT
+            FROM DW_ON_SUPER_GWAMOK DOSG
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='compHakyy != null and compHakyy != ""'>
+            <![CDATA[
+            AND DOSG.COMP_HAKYY = #{compHakyy}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='compHakgi != null and compHakgi != ""'>
+            <![CDATA[
+            AND DOSG.COMP_HAKGI = #{compHakgi}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbun != null and hakbun != ""'>
+            <![CDATA[
+            AND DOSG.HAKBUN = #{hakbun}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjIrum != null and hakjIrum != ""'>
+            <![CDATA[
+            AND DOSG.HAKJ_IRUM = #{hakjIrum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='daehakName != null and daehakName != ""'>
+            <![CDATA[
+            AND DOSG.DAEHAK_NAME = #{daehakName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbuName != null and hakbuName != ""'>
+            <![CDATA[
+            AND DOSG.HAKBU_NAME = #{hakbuName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='gwamokCode != null and gwamokCode != ""'>
+            <![CDATA[
+            AND DOSG.GWAMOK_CODE = #{gwamokCode}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='gwamokBunban != null and gwamokBunban != ""'>
+            <![CDATA[
+            AND DOSG.GWAMOK_BUNBAN = #{gwamokBunban}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sungYear != null and sungYear != ""'>
+            <![CDATA[
+            AND DOSG.SUNG_YEAR = #{sungYear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sungPungjum != null and sungPungjum != ""'>
+            <![CDATA[
+            AND DOSG.SUNG_PUNGJUM = #{sungPungjum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sungWhanJumsu != null and sungWhanJumsu != ""'>
+            <![CDATA[
+            AND DOSG.SUNG_WHAN_JUMSU = #{sungWhanJumsu}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sungHakjum != null and sungHakjum != ""'>
+            <![CDATA[
+            AND DOSG.SUNG_HAKJUM = #{sungHakjum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sungJisu != null and sungJisu != ""'>
+            <![CDATA[
+            AND DOSG.SUNG_JISU = #{sungJisu}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='compYn != null and compYn != ""'>
+            <![CDATA[
+            AND DOSG.COMP_YN = #{compYn}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='compAuthDate != null and compAuthDate != ""'>
+            <![CDATA[
+            AND DOSG.COMP_AUTH_DATE = #{compAuthDate}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sPoint != null and sPoint != ""'>
+            <![CDATA[
+            AND DOSG.S_POINT = #{sPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='uPoint != null and uPoint != ""'>
+            <![CDATA[
+            AND DOSG.U_POINT = #{uPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='pPoint != null and pPoint != ""'>
+            <![CDATA[
+            AND DOSG.P_POINT = #{pPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='ePoint != null and ePoint != ""'>
+            <![CDATA[
+            AND DOSG.E_POINT = #{ePoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='rPoint != null and rPoint != ""'>
+            <![CDATA[
+            AND DOSG.R_POINT = #{rPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='totalPoint != null and totalPoint != ""'>
+            <![CDATA[
+            AND DOSG.TOTAL_POINT = #{totalPoint}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+
+    <!-- dwonduty -->
+    <select id="dwonduty" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DOD.DAEHAK_NAME
+                , DOD.HAKBU_NAME
+                , DOD.HAKBUN
+                , DOD.HAKJ_IRUM
+                , DOD.HAKG_YEAR
+                , DOD.JOLUP_GBN_NAME
+                , DOD.L00000001
+                , DOD.L00000002
+                , DOD.L00000003
+                , DOD.L00000004
+                , DOD.L00000005
+                , DOD.L00000006
+                , DOD.L00000007
+                , DOD.L00000008
+                , DOD.L00000009
+                , DOD.L00000010
+                , DOD.L00000011
+                , DOD.L00000012
+                , DOD.L00000013
+                , DOD.L00000014
+                , DOD.L00000015
+                , DOD.L00000016
+                , DOD.L00000017
+                , DOD.L00000018
+                , DOD.L00000019
+                , DOD.L00000020
+                , DOD.COMP_TOTAL
+                , DOD.GWAMOK_CNT
+            FROM DW_ON_DUTY DOD
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='daehakName != null and daehakName != ""'>
+            <![CDATA[
+            AND DOD.DAEHAK_NAME = #{daehakName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbuName != null and hakbuName != ""'>
+            <![CDATA[
+            AND DOD.HAKBU_NAME = #{hakbuName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbun != null and hakbun != ""'>
+            <![CDATA[
+            AND DOD.HAKBUN = #{hakbun}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjIrum != null and hakjIrum != ""'>
+            <![CDATA[
+            AND DOD.HAKJ_IRUM = #{hakjIrum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakgYear != null and hakgYear != ""'>
+            <![CDATA[
+            AND DOD.HAKG_YEAR = #{hakgYear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='jolupGbnName != null and jolupGbnName != ""'>
+            <![CDATA[
+            AND DOD.JOLUP_GBN_NAME = #{jolupGbnName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000001 != null and l00000001 != ""'>
+            <![CDATA[
+            AND DOD.L00000001 = #{l00000001}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000002 != null and l00000002 != ""'>
+            <![CDATA[
+            AND DOD.L00000002 = #{l00000002}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000003 != null and l00000003 != ""'>
+            <![CDATA[
+            AND DOD.L00000003 = #{l00000003}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000004 != null and l00000004 != ""'>
+            <![CDATA[
+            AND DOD.L00000004 = #{l00000004}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000005 != null and l00000005 != ""'>
+            <![CDATA[
+            AND DOD.L00000005 = #{l00000005}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000006 != null and l00000006 != ""'>
+            <![CDATA[
+            AND DOD.L00000006 = #{l00000006}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000007 != null and l00000007 != ""'>
+            <![CDATA[
+            AND DOD.L00000007 = #{l00000007}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000008 != null and l00000008 != ""'>
+            <![CDATA[
+            AND DOD.L00000008 = #{l00000008}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000009 != null and l00000009 != ""'>
+            <![CDATA[
+            AND DOD.L00000009 = #{l00000009}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000010 != null and l00000010 != ""'>
+            <![CDATA[
+            AND DOD.L00000010 = #{l00000010}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000011 != null and l00000011 != ""'>
+            <![CDATA[
+            AND DOD.L00000011 = #{l00000011}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000012 != null and l00000012 != ""'>
+            <![CDATA[
+            AND DOD.L00000012 = #{l00000012}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000013 != null and l00000013 != ""'>
+            <![CDATA[
+            AND DOD.L00000013 = #{l00000013}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000014 != null and l00000014 != ""'>
+            <![CDATA[
+            AND DOD.L00000014 = #{l00000014}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000015 != null and l00000015 != ""'>
+            <![CDATA[
+            AND DOD.L00000015 = #{l00000015}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000016 != null and l00000016 != ""'>
+            <![CDATA[
+            AND DOD.L00000016 = #{l00000016}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000017 != null and l00000017 != ""'>
+            <![CDATA[
+            AND DOD.L00000017 = #{l00000017}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000018 != null and l00000018 != ""'>
+            <![CDATA[
+            AND DOD.L00000018 = #{l00000018}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000019 != null and l00000019 != ""'>
+            <![CDATA[
+            AND DOD.L00000019 = #{l00000019}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000020 != null and l00000020 != ""'>
+            <![CDATA[
+            AND DOD.L00000020 = #{l00000020}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='compTotal != null and compTotal != ""'>
+            <![CDATA[
+            AND DOD.COMP_TOTAL = #{compTotal}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='gwamokCnt != null and gwamokCnt != ""'>
+            <![CDATA[
+            AND DOD.GWAMOK_CNT = #{gwamokCnt}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+
+    <!-- dwonsuper -->
+    <select id="dwonsuper" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DOS.HAKBUN
+                , DOS.HAKJ_IRUM
+                , DOS.DAEHAK_NAME
+                , DOS.HAKBU_NAME
+                , DOS.HAKGWA_NAME
+                , DOS.HAKG_YEAR
+                , DOS.S_POINT
+                , DOS.U_POINT
+                , DOS.P_POINT
+                , DOS.E_POINT
+                , DOS.R_POINT
+                , DOS.TOTAL_POINT
+                , DOS.GWAMOK_CNT
+            FROM DW_ON_SUPER DOS
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='hakbun != null and hakbun != ""'>
+            <![CDATA[
+            AND DOS.HAKBUN = #{hakbun}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjIrum != null and hakjIrum != ""'>
+            <![CDATA[
+            AND DOS.HAKJ_IRUM = #{hakjIrum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='daehakName != null and daehakName != ""'>
+            <![CDATA[
+            AND DOS.DAEHAK_NAME = #{daehakName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbuName != null and hakbuName != ""'>
+            <![CDATA[
+            AND DOS.HAKBU_NAME = #{hakbuName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakgwaName != null and hakgwaName != ""'>
+            <![CDATA[
+            AND DOS.HAKGWA_NAME = #{hakgwaName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakgYear != null and hakgYear != ""'>
+            <![CDATA[
+            AND DOS.HAKG_YEAR = #{hakgYear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sPoint != null and sPoint != ""'>
+            <![CDATA[
+            AND DOS.S_POINT = #{sPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='uPoint != null and uPoint != ""'>
+            <![CDATA[
+            AND DOS.U_POINT = #{uPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='pPoint != null and pPoint != ""'>
+            <![CDATA[
+            AND DOS.P_POINT = #{pPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='ePoint != null and ePoint != ""'>
+            <![CDATA[
+            AND DOS.E_POINT = #{ePoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='rPoint != null and rPoint != ""'>
+            <![CDATA[
+            AND DOS.R_POINT = #{rPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='totalPoint != null and totalPoint != ""'>
+            <![CDATA[
+            AND DOS.TOTAL_POINT = #{totalPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='gwamokCnt != null and gwamokCnt != ""'>
+            <![CDATA[
+            AND DOS.GWAMOK_CNT = #{gwamokCnt}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+    <!-- dwonsuper2 -->
+    <select id="dwonsuper2" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DOS2.HAKBUN
+                , DOS2.HAKJ_IRUM
+                , DOS2.DAEHAK_NAME
+                , DOS2.HAKBU_NAME
+                , DOS2.HAKG_YEAR
+                , DOS2.S_POINT
+                , DOS2.U_POINT
+                , DOS2.P_POINT
+                , DOS2.E_POINT
+                , DOS2.R_POINT
+                , DOS2.TOTAL_POINT
+                , DOS2.GWAKMOK_CNT
+            FROM DW_ON_SUPER2 DOS2
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='hakbun != null and hakbun != ""'>
+            <![CDATA[
+            AND DOS2.HAKBUN = #{hakbun}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjIrum != null and hakjIrum != ""'>
+            <![CDATA[
+            AND DOS2.HAKJ_IRUM = #{hakjIrum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='daehakName != null and daehakName != ""'>
+            <![CDATA[
+            AND DOS2.DAEHAK_NAME = #{daehakName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbuName != null and hakbuName != ""'>
+            <![CDATA[
+            AND DOS2.HAKBU_NAME = #{hakbuName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakgYear != null and hakgYear != ""'>
+            <![CDATA[
+            AND DOS2.HAKG_YEAR = #{hakgYear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sPoint != null and sPoint != ""'>
+            <![CDATA[
+            AND DOS2.S_POINT = #{sPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='uPoint != null and uPoint != ""'>
+            <![CDATA[
+            AND DOS2.U_POINT = #{uPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='pPoint != null and pPoint != ""'>
+            <![CDATA[
+            AND DOS2.P_POINT = #{pPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='ePoint != null and ePoint != ""'>
+            <![CDATA[
+            AND DOS2.E_POINT = #{ePoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='rPoint != null and rPoint != ""'>
+            <![CDATA[
+            AND DOS2.R_POINT = #{rPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='totalPoint != null and totalPoint != ""'>
+            <![CDATA[
+            AND DOS2.TOTAL_POINT = #{totalPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='gwakmokCnt != null and gwakmokCnt != ""'>
+            <![CDATA[
+            AND DOS2.GWAKMOK_CNT = #{gwakmokCnt}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+    <!-- dwonduty2 -->
+    <select id="dwonduty2" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DOD2.DAEHAK_NAME
+                , DOD2.HAKBU_NAME
+                , DOD2.HAKBUN
+                , DOD2.HAKJ_IRUM
+                , DOD2.HAKG_YEAR
+                , DOD2.JOLUP_GBN_NAME
+                , DOD2.L00000001
+                , DOD2.L00000002
+                , DOD2.L00000003
+                , DOD2.L00000004
+                , DOD2.L00000005
+                , DOD2.L00000006
+                , DOD2.L00000007
+                , DOD2.L00000008
+                , DOD2.L00000009
+                , DOD2.L00000010
+                , DOD2.L00000011
+                , DOD2.L00000012
+                , DOD2.L00000013
+                , DOD2.L00000014
+                , DOD2.L00000015
+                , DOD2.L00000016
+                , DOD2.L00000017
+                , DOD2.L00000018
+                , DOD2.L00000019
+                , DOD2.L00000020
+                , DOD2.COMP_TOTAL
+                , DOD2.GWAMOK_CNT
+            FROM DW_ON_DUTY2 DOD2
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='daehakName != null and daehakName != ""'>
+            <![CDATA[
+            AND DOD2.DAEHAK_NAME = #{daehakName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbuName != null and hakbuName != ""'>
+            <![CDATA[
+            AND DOD2.HAKBU_NAME = #{hakbuName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbun != null and hakbun != ""'>
+            <![CDATA[
+            AND DOD2.HAKBUN = #{hakbun}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjIrum != null and hakjIrum != ""'>
+            <![CDATA[
+            AND DOD2.HAKJ_IRUM = #{hakjIrum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakgYear != null and hakgYear != ""'>
+            <![CDATA[
+            AND DOD2.HAKG_YEAR = #{hakgYear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='jolupGbnName != null and jolupGbnName != ""'>
+            <![CDATA[
+            AND DOD2.JOLUP_GBN_NAME = #{jolupGbnName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000001 != null and l00000001 != ""'>
+            <![CDATA[
+            AND DOD2.L00000001 = #{l00000001}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000002 != null and l00000002 != ""'>
+            <![CDATA[
+            AND DOD2.L00000002 = #{l00000002}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000003 != null and l00000003 != ""'>
+            <![CDATA[
+            AND DOD2.L00000003 = #{l00000003}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000004 != null and l00000004 != ""'>
+            <![CDATA[
+            AND DOD2.L00000004 = #{l00000004}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000005 != null and l00000005 != ""'>
+            <![CDATA[
+            AND DOD2.L00000005 = #{l00000005}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000006 != null and l00000006 != ""'>
+            <![CDATA[
+            AND DOD2.L00000006 = #{l00000006}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000007 != null and l00000007 != ""'>
+            <![CDATA[
+            AND DOD2.L00000007 = #{l00000007}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000008 != null and l00000008 != ""'>
+            <![CDATA[
+            AND DOD2.L00000008 = #{l00000008}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000009 != null and l00000009 != ""'>
+            <![CDATA[
+            AND DOD2.L00000009 = #{l00000009}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000010 != null and l00000010 != ""'>
+            <![CDATA[
+            AND DOD2.L00000010 = #{l00000010}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000011 != null and l00000011 != ""'>
+            <![CDATA[
+            AND DOD2.L00000011 = #{l00000011}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000012 != null and l00000012 != ""'>
+            <![CDATA[
+            AND DOD2.L00000012 = #{l00000012}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000013 != null and l00000013 != ""'>
+            <![CDATA[
+            AND DOD2.L00000013 = #{l00000013}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000014 != null and l00000014 != ""'>
+            <![CDATA[
+            AND DOD2.L00000014 = #{l00000014}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000015 != null and l00000015 != ""'>
+            <![CDATA[
+            AND DOD2.L00000015 = #{l00000015}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000016 != null and l00000016 != ""'>
+            <![CDATA[
+            AND DOD2.L00000016 = #{l00000016}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000017 != null and l00000017 != ""'>
+            <![CDATA[
+            AND DOD2.L00000017 = #{l00000017}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000018 != null and l00000018 != ""'>
+            <![CDATA[
+            AND DOD2.L00000018 = #{l00000018}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000019 != null and l00000019 != ""'>
+            <![CDATA[
+            AND DOD2.L00000019 = #{l00000019}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000020 != null and l00000020 != ""'>
+            <![CDATA[
+            AND DOD2.L00000020 = #{l00000020}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='compTotal != null and compTotal != ""'>
+            <![CDATA[
+            AND DOD2.COMP_TOTAL = #{compTotal}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='gwamokCnt != null and gwamokCnt != ""'>
+            <![CDATA[
+            AND DOD2.GWAMOK_CNT = #{gwamokCnt}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+
+    <!-- dwonduty3 -->
+    <select id="dwonduty3" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DOD3.DAEHAK_NAME
+                , DOD3.HAKBU_NAME
+                , DOD3.HAKBUN
+                , DOD3.HAKJ_IRUM
+                , DOD3.HAKG_YEAR
+                , DOD3.JOLUP_GBN_NAME
+                , DOD3.L00000001
+                , DOD3.L00000002
+                , DOD3.L00000003
+                , DOD3.L00000004
+                , DOD3.L00000005
+                , DOD3.L00000006
+                , DOD3.L00000007
+                , DOD3.L00000008
+                , DOD3.L00000009
+                , DOD3.L00000010
+                , DOD3.L00000011
+                , DOD3.L00000012
+                , DOD3.L00000013
+                , DOD3.L00000014
+                , DOD3.L00000015
+                , DOD3.L00000016
+                , DOD3.L00000017
+                , DOD3.L00000018
+                , DOD3.L00000019
+                , DOD3.L00000020
+                , DOD3.COMP_TOTAL
+                , DOD3.GWAMOK_CNT
+            FROM DW_ON_DUTY3 DOD3
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='daehakName != null and daehakName != ""'>
+            <![CDATA[
+            AND DOD3.DAEHAK_NAME = #{daehakName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbuName != null and hakbuName != ""'>
+            <![CDATA[
+            AND DOD3.HAKBU_NAME = #{hakbuName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbun != null and hakbun != ""'>
+            <![CDATA[
+            AND DOD3.HAKBUN = #{hakbun}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjIrum != null and hakjIrum != ""'>
+            <![CDATA[
+            AND DOD3.HAKJ_IRUM = #{hakjIrum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakgYear != null and hakgYear != ""'>
+            <![CDATA[
+            AND DOD3.HAKG_YEAR = #{hakgYear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='jolupGbnName != null and jolupGbnName != ""'>
+            <![CDATA[
+            AND DOD3.JOLUP_GBN_NAME = #{jolupGbnName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000001 != null and l00000001 != ""'>
+            <![CDATA[
+            AND DOD3.L00000001 = #{l00000001}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000002 != null and l00000002 != ""'>
+            <![CDATA[
+            AND DOD3.L00000002 = #{l00000002}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000003 != null and l00000003 != ""'>
+            <![CDATA[
+            AND DOD3.L00000003 = #{l00000003}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000004 != null and l00000004 != ""'>
+            <![CDATA[
+            AND DOD3.L00000004 = #{l00000004}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000005 != null and l00000005 != ""'>
+            <![CDATA[
+            AND DOD3.L00000005 = #{l00000005}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000006 != null and l00000006 != ""'>
+            <![CDATA[
+            AND DOD3.L00000006 = #{l00000006}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000007 != null and l00000007 != ""'>
+            <![CDATA[
+            AND DOD3.L00000007 = #{l00000007}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000008 != null and l00000008 != ""'>
+            <![CDATA[
+            AND DOD3.L00000008 = #{l00000008}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000009 != null and l00000009 != ""'>
+            <![CDATA[
+            AND DOD3.L00000009 = #{l00000009}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000010 != null and l00000010 != ""'>
+            <![CDATA[
+            AND DOD3.L00000010 = #{l00000010}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000011 != null and l00000011 != ""'>
+            <![CDATA[
+            AND DOD3.L00000011 = #{l00000011}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000012 != null and l00000012 != ""'>
+            <![CDATA[
+            AND DOD3.L00000012 = #{l00000012}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000013 != null and l00000013 != ""'>
+            <![CDATA[
+            AND DOD3.L00000013 = #{l00000013}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000014 != null and l00000014 != ""'>
+            <![CDATA[
+            AND DOD3.L00000014 = #{l00000014}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000015 != null and l00000015 != ""'>
+            <![CDATA[
+            AND DOD3.L00000015 = #{l00000015}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000016 != null and l00000016 != ""'>
+            <![CDATA[
+            AND DOD3.L00000016 = #{l00000016}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000017 != null and l00000017 != ""'>
+            <![CDATA[
+            AND DOD3.L00000017 = #{l00000017}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000018 != null and l00000018 != ""'>
+            <![CDATA[
+            AND DOD3.L00000018 = #{l00000018}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000019 != null and l00000019 != ""'>
+            <![CDATA[
+            AND DOD3.L00000019 = #{l00000019}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='l00000020 != null and l00000020 != ""'>
+            <![CDATA[
+            AND DOD3.L00000020 = #{l00000020}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='compTotal != null and compTotal != ""'>
+            <![CDATA[
+            AND DOD3.COMP_TOTAL = #{compTotal}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='gwamokCnt != null and gwamokCnt != ""'>
+            <![CDATA[
+            AND DOD3.GWAMOK_CNT = #{gwamokCnt}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+
+    <!-- dwonsuper3 -->
+    <select id="dwonsuper3" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DOS3.HAKBUN
+                , DOS3.HAKJ_IRUM
+                , DOS3.DAEHAK_NAME
+                , DOS3.HAKBU_NAME
+                , DOS3.HAKG_YEAR
+                , DOS3.S_POINT
+                , DOS3.U_POINT
+                , DOS3.P_POINT
+                , DOS3.E_POINT
+                , DOS3.R_POINT
+                , DOS3.TOTAL_POINT
+                , DOS3.GWAKMOK_CNT
+            FROM DW_ON_SUPER3 DOS3
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='hakbun != null and hakbun != ""'>
+            <![CDATA[
+            AND DOS3.HAKBUN = #{hakbun}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjIrum != null and hakjIrum != ""'>
+            <![CDATA[
+            AND DOS3.HAKJ_IRUM = #{hakjIrum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='daehakName != null and daehakName != ""'>
+            <![CDATA[
+            AND DOS3.DAEHAK_NAME = #{daehakName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbuName != null and hakbuName != ""'>
+            <![CDATA[
+            AND DOS3.HAKBU_NAME = #{hakbuName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakgYear != null and hakgYear != ""'>
+            <![CDATA[
+            AND DOS3.HAKG_YEAR = #{hakgYear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sPoint != null and sPoint != ""'>
+            <![CDATA[
+            AND DOS3.S_POINT = #{sPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='uPoint != null and uPoint != ""'>
+            <![CDATA[
+            AND DOS3.U_POINT = #{uPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='pPoint != null and pPoint != ""'>
+            <![CDATA[
+            AND DOS3.P_POINT = #{pPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='ePoint != null and ePoint != ""'>
+            <![CDATA[
+            AND DOS3.E_POINT = #{ePoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='rPoint != null and rPoint != ""'>
+            <![CDATA[
+            AND DOS3.R_POINT = #{rPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='totalPoint != null and totalPoint != ""'>
+            <![CDATA[
+            AND DOS3.TOTAL_POINT = #{totalPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='gwakmokCnt != null and gwakmokCnt != ""'>
+            <![CDATA[
+            AND DOS3.GWAKMOK_CNT = #{gwakmokCnt}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+
+    <!-- dwonlife -->
+    <select id="dwonlife" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DOL.DAEHAK_NAME
+                , DOL.HAKBU_NAME
+                , DOL.HAKBUN
+                , DOL.HAKJ_IRUM
+                , DOL.LARGE_NAME
+                , DOL.MIDDLE_NAME
+                , DOL.CODE_FNAME
+                , DOL.LIFE_POINT
+                , DOL.LIFE_UNITPOINT
+                , DOL.LIFE_CONTENT
+                , DOL.LISE_NAME
+                , DOL.LIFE_WORKDATE
+                , DOL.LIFE_SEQ
+                , DOL.LIFE_POINTTYPE
+                , DOL.LIFE_FROMDATE
+                , DOL.LIFE_SCHOLARSHIP
+                , DOL.LIFE_SCHOLAR_YEAR
+                , DOL.LIFE_SCHOLAR_HAKGI
+            FROM DW_JJ.DW_ON_LIFE DOL
+         WHERE 1 = 1
+        ]]>
+
+
+        <!-- 검색어 -->
+        <if test='daehakName != null and daehakName != ""'>
+            <![CDATA[
+            AND DOL.DAEHAK_NAME = #{daehakName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbuName != null and hakbuName != ""'>
+            <![CDATA[
+            AND DOL.HAKBU_NAME = #{hakbuName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbun != null and hakbun != ""'>
+            <![CDATA[
+            AND DOL.HAKBUN = #{hakbun}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjIrum != null and hakjIrum != ""'>
+            <![CDATA[
+            AND DOL.HAKJ_IRUM = #{hakjIrum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='largeName != null and largeName != ""'>
+            <![CDATA[
+            AND DOL.LARGE_NAME = #{largeName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='middleName != null and middleName != ""'>
+            <![CDATA[
+            AND DOL.MIDDLE_NAME = #{middleName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='codeFname != null and codeFname != ""'>
+            <![CDATA[
+            AND DOL.CODE_FNAME = #{codeFname}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='lifePoint != null and lifePoint != ""'>
+            <![CDATA[
+            AND DOL.LIFE_POINT = #{lifePoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='lifeUnitpoint != null and lifeUnitpoint != ""'>
+            <![CDATA[
+            AND DOL.LIFE_UNITPOINT = #{lifeUnitpoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='lifeContent != null and lifeContent != ""'>
+            <![CDATA[
+            AND DOL.LIFE_CONTENT = #{lifeContent}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='liseName != null and liseName != ""'>
+            <![CDATA[
+            AND DOL.LISE_NAME = #{liseName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='lifeWorkdate != null and lifeWorkdate != ""'>
+            <![CDATA[
+            AND DOL.LIFE_WORKDATE = #{lifeWorkdate}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='lifeSeq != null and lifeSeq != ""'>
+            <![CDATA[
+            AND DOL.LIFE_SEQ = #{lifeSeq}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='lifePointtype != null and lifePointtype != ""'>
+            <![CDATA[
+            AND DOL.LIFE_POINTTYPE = #{lifePointtype}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='life != null and life != ""'>
+            <![CDATA[
+            AND DOL.LIFE_ = #{life}
+            ]]>
+         </if>
+
+    </select>
+
+
+
+    <!-- dwoncomp -->
+    <select id="dwoncomp" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DOC.DAEHAK_NAME
+                , DOC.HAKBU_NAME
+                , DOC.HAKBUN
+                , DOC.HAKJ_IRUM
+                , DOC.CODE_LARGE
+                , DOC.CODE_MIDDLE
+                , DOC.CODE_CODE
+                , DOC.CODE_FNAME
+                , DOC.CODE_SNAME
+                , DOC.CODE_POINT_TYPE
+                , DOC.CODE_UNIT
+                , DOC.COMP_NAME
+                , DOC.COMP_ABBR
+                , DOC.COMP_HAKYY
+                , DOC.COMP_HAKGI
+                , DOC.COMP_CODE
+                , DOC.GWAMOK_CODE
+                , DOC.COMP_POINT
+                , DOC.INPUT_DT
+            FROM DW_ON_COMP DOC
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='daehakName != null and daehakName != ""'>
+            <![CDATA[
+            AND DOC.DAEHAK_NAME = #{daehakName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbuName != null and hakbuName != ""'>
+            <![CDATA[
+            AND DOC.HAKBU_NAME = #{hakbuName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbun != null and hakbun != ""'>
+            <![CDATA[
+            AND DOC.HAKBUN = #{hakbun}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjIrum != null and hakjIrum != ""'>
+            <![CDATA[
+            AND DOC.HAKJ_IRUM = #{hakjIrum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='codeLarge != null and codeLarge != ""'>
+            <![CDATA[
+            AND DOC.CODE_LARGE = #{codeLarge}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='codeMiddle != null and codeMiddle != ""'>
+            <![CDATA[
+            AND DOC.CODE_MIDDLE = #{codeMiddle}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='codeCode != null and codeCode != ""'>
+            <![CDATA[
+            AND DOC.CODE_CODE = #{codeCode}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='codeFname != null and codeFname != ""'>
+            <![CDATA[
+            AND DOC.CODE_FNAME = #{codeFname}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='codeSname != null and codeSname != ""'>
+            <![CDATA[
+            AND DOC.CODE_SNAME = #{codeSname}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='codePointType != null and codePointType != ""'>
+            <![CDATA[
+            AND DOC.CODE_POINT_TYPE = #{codePointType}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='codeUnit != null and codeUnit != ""'>
+            <![CDATA[
+            AND DOC.CODE_UNIT = #{codeUnit}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='compName != null and compName != ""'>
+            <![CDATA[
+            AND DOC.COMP_NAME = #{compName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='compAbbr != null and compAbbr != ""'>
+            <![CDATA[
+            AND DOC.COMP_ABBR = #{compAbbr}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='compHakyy != null and compHakyy != ""'>
+            <![CDATA[
+            AND DOC.COMP_HAKYY = #{compHakyy}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='compHakgi != null and compHakgi != ""'>
+            <![CDATA[
+            AND DOC.COMP_HAKGI = #{compHakgi}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='compCode != null and compCode != ""'>
+            <![CDATA[
+            AND DOC.COMP_CODE = #{compCode}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='gwamokCode != null and gwamokCode != ""'>
+            <![CDATA[
+            AND DOC.GWAMOK_CODE = #{gwamokCode}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='compPoint != null and compPoint != ""'>
+            <![CDATA[
+            AND DOC.COMP_POINT = #{compPoint}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='inputDt != null and inputDt != ""'>
+            <![CDATA[
+            AND DOC.INPUT_DT = #{inputDt}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+
+    <!-- dwongoal -->
+    <select id="dwongoal" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DOG.DAEHAK_NAME
+                , DOG.HAKBU_NAME
+                , DOG.HAKGWA_NAME
+                , DOG.HAKBUN
+                , DOG.HAKJ_IRUM
+                , DOG.CONT_GUBN
+                , DOG.CONT_SEQNO
+                , DOG.CONT_CODE
+                , DOG.DATA_GUBN
+                , DOG.CONT_GUBN_NAME
+                , DOG.COMPANY_NAME
+                , DOG.BUSINESS_GROUP
+                , DOG.AREA
+                , DOG.HAKG_YEAR
+                , DOG.JOLUP_GBN
+                , DOG.JOLUP_GBN_NAME
+                , DOG.INPUT_DT
+            FROM DW_ON_GOAL DOG
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='daehakName != null and daehakName != ""'>
+            <![CDATA[
+            AND DOG.DAEHAK_NAME = #{daehakName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbuName != null and hakbuName != ""'>
+            <![CDATA[
+            AND DOG.HAKBU_NAME = #{hakbuName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakgwaName != null and hakgwaName != ""'>
+            <![CDATA[
+            AND DOG.HAKGWA_NAME = #{hakgwaName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbun != null and hakbun != ""'>
+            <![CDATA[
+            AND DOG.HAKBUN = #{hakbun}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjIrum != null and hakjIrum != ""'>
+            <![CDATA[
+            AND DOG.HAKJ_IRUM = #{hakjIrum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='contGubn != null and contGubn != ""'>
+            <![CDATA[
+            AND DOG.CONT_GUBN = #{contGubn}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='contSeqno != null and contSeqno != ""'>
+            <![CDATA[
+            AND DOG.CONT_SEQNO = #{contSeqno}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='contCode != null and contCode != ""'>
+            <![CDATA[
+            AND DOG.CONT_CODE = #{contCode}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='dataGubn != null and dataGubn != ""'>
+            <![CDATA[
+            AND DOG.DATA_GUBN = #{dataGubn}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='contGubnName != null and contGubnName != ""'>
+            <![CDATA[
+            AND DOG.CONT_GUBN_NAME = #{contGubnName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='companyName != null and companyName != ""'>
+            <![CDATA[
+            AND DOG.COMPANY_NAME = #{companyName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='businessGroup != null and businessGroup != ""'>
+            <![CDATA[
+            AND DOG.BUSINESS_GROUP = #{businessGroup}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='area != null and area != ""'>
+            <![CDATA[
+            AND DOG.AREA = #{area}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakgYear != null and hakgYear != ""'>
+            <![CDATA[
+            AND DOG.HAKG_YEAR = #{hakgYear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='jolupGbn != null and jolupGbn != ""'>
+            <![CDATA[
+            AND DOG.JOLUP_GBN = #{jolupGbn}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='jolupGbnName != null and jolupGbnName != ""'>
+            <![CDATA[
+            AND DOG.JOLUP_GBN_NAME = #{jolupGbnName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='inputDt != null and inputDt != ""'>
+            <![CDATA[
+            AND DOG.INPUT_DT = #{inputDt}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+
+    <!-- dwcyberlogpath -->
+    <select id="dwcyberlogpath" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DCLP.DAEHAK_NAME
+                , DCLP.HAKBU_NAME
+                , DCLP.HAKGWA_NAME
+                , DCLP.ORIGIN
+                , DCLP.L_YEAR
+                , DCLP.L_MONTH
+                , DCLP.L_DAY
+                , DCLP.ACCESS_CNT
+            FROM DW_CYBER_LOG_PATH DCLP
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='daehakName != null and daehakName != ""'>
+            <![CDATA[
+            AND DCLP.DAEHAK_NAME = #{daehakName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbuName != null and hakbuName != ""'>
+            <![CDATA[
+            AND DCLP.HAKBU_NAME = #{hakbuName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakgwaName != null and hakgwaName != ""'>
+            <![CDATA[
+            AND DCLP.HAKGWA_NAME = #{hakgwaName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='origin != null and origin != ""'>
+            <![CDATA[
+            AND DCLP.ORIGIN = #{origin}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='lYear != null and lYear != ""'>
+            <![CDATA[
+            AND DCLP.L_YEAR = #{lYear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='lMonth != null and lMonth != ""'>
+            <![CDATA[
+            AND DCLP.L_MONTH = #{lMonth}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='lDay != null and lDay != ""'>
+            <![CDATA[
+            AND DCLP.L_DAY = #{lDay}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='accessCnt != null and accessCnt != ""'>
+            <![CDATA[
+            AND DCLP.ACCESS_CNT = #{accessCnt}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+
+    <!-- dwcyberlogcont -->
+    <select id="dwcyberlogcont" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DCLC.DAEHAK_NAME
+                , DCLC.HAKBU_NAME
+                , DCLC.HAKGWA_NAME
+                , DCLC.COURSENAME
+                , DCLC.L_YEAR
+                , DCLC.L_MONTH
+                , DCLC.L_DAY
+                , DCLC.ACCESS_CNT
+            FROM DW_CYBER_LOG_CONT DCLC
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='daehakName != null and daehakName != ""'>
+            <![CDATA[
+            AND DCLC.DAEHAK_NAME = #{daehakName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbuName != null and hakbuName != ""'>
+            <![CDATA[
+            AND DCLC.HAKBU_NAME = #{hakbuName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakgwaName != null and hakgwaName != ""'>
+            <![CDATA[
+            AND DCLC.HAKGWA_NAME = #{hakgwaName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='coursename != null and coursename != ""'>
+            <![CDATA[
+            AND DCLC.COURSENAME = #{coursename}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='lYear != null and lYear != ""'>
+            <![CDATA[
+            AND DCLC.L_YEAR = #{lYear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='lMonth != null and lMonth != ""'>
+            <![CDATA[
+            AND DCLC.L_MONTH = #{lMonth}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='lDay != null and lDay != ""'>
+            <![CDATA[
+            AND DCLC.L_DAY = #{lDay}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='accessCnt != null and accessCnt != ""'>
+            <![CDATA[
+            AND DCLC.ACCESS_CNT = #{accessCnt}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+
+    <!-- dwcyberlogindi -->
+    <select id="dwcyberlogindi" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DCLI.DAEHAK_NAME
+                , DCLI.HAKBU_NAME
+                , DCLI.HAKGWA_NAME
+                , DCLI.HAK_YEAR
+                , DCLI.COURSENAME
+                , DCLI.L_YEAR
+                , DCLI.L_MONTH
+                , DCLI.L_DAY
+                , DCLI.ACCESS_CNT
+            FROM DW_CYBER_LOG_INDI DCLI
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='daehakName != null and daehakName != ""'>
+            <![CDATA[
+            AND DCLI.DAEHAK_NAME = #{daehakName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbuName != null and hakbuName != ""'>
+            <![CDATA[
+            AND DCLI.HAKBU_NAME = #{hakbuName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakgwaName != null and hakgwaName != ""'>
+            <![CDATA[
+            AND DCLI.HAKGWA_NAME = #{hakgwaName}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakYear != null and hakYear != ""'>
+            <![CDATA[
+            AND DCLI.HAK_YEAR = #{hakYear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='coursename != null and coursename != ""'>
+            <![CDATA[
+            AND DCLI.COURSENAME = #{coursename}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='lYear != null and lYear != ""'>
+            <![CDATA[
+            AND DCLI.L_YEAR = #{lYear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='lMonth != null and lMonth != ""'>
+            <![CDATA[
+            AND DCLI.L_MONTH = #{lMonth}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='lDay != null and lDay != ""'>
+            <![CDATA[
+            AND DCLI.L_DAY = #{lDay}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='accessCnt != null and accessCnt != ""'>
+            <![CDATA[
+            AND DCLI.ACCESS_CNT = #{accessCnt}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+
+    <!-- dwcybertrackresult -->
+    <select id="dwcybertrackresult" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DCTR.ID
+                , DCTR.USERID
+                , DCTR.HAKBUN
+                , DCTR.COUSENAME
+                , DCTR.VODNAME
+                , DCTR.TRACKYEAR
+                , DCTR.SEMESTER_CODE
+                , DCTR.DEPT_CODE_01
+                , DCTR.DEPT_CODE_01_NAME
+                , DCTR.DEPT_CODE_02
+                , DCTR.DEPT_CODE_02_NAME
+                , DCTR.CIRRICULUM
+                , DCTR.PROGRESS
+                , DCTR.PROGRESS_TIME
+                , DCTR.TIMEFIRST
+                , DCTR.TIMELAST
+                , DCTR.TIMEFIRST_D
+                , DCTR.TIMELAST_D
+                , DCTR.ATTEMPTS
+            FROM DW_CYBER_TRACK_RESULT DCTR
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='id != null and id != ""'>
+            <![CDATA[
+            AND DCTR.ID = #{id}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='userid != null and userid != ""'>
+            <![CDATA[
+            AND DCTR.USERID = #{userid}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakbun != null and hakbun != ""'>
+            <![CDATA[
+            AND DCTR.HAKBUN = #{hakbun}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='cousename != null and cousename != ""'>
+            <![CDATA[
+            AND DCTR.COUSENAME = #{cousename}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='vodname != null and vodname != ""'>
+            <![CDATA[
+            AND DCTR.VODNAME = #{vodname}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='trackyear != null and trackyear != ""'>
+            <![CDATA[
+            AND DCTR.TRACKYEAR = #{trackyear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='semesterCode != null and semesterCode != ""'>
+            <![CDATA[
+            AND DCTR.SEMESTER_CODE = #{semesterCode}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='deptCode01 != null and deptCode01 != ""'>
+            <![CDATA[
+            AND DCTR.DEPT_CODE_01 = #{deptCode01}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='deptCode01Name != null and deptCode01Name != ""'>
+            <![CDATA[
+            AND DCTR.DEPT_CODE_01_NAME = #{deptCode01Name}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='deptCode02 != null and deptCode02 != ""'>
+            <![CDATA[
+            AND DCTR.DEPT_CODE_02 = #{deptCode02}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='deptCode02Name != null and deptCode02Name != ""'>
+            <![CDATA[
+            AND DCTR.DEPT_CODE_02_NAME = #{deptCode02Name}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='cirriculum != null and cirriculum != ""'>
+            <![CDATA[
+            AND DCTR.CIRRICULUM = #{cirriculum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='progress != null and progress != ""'>
+            <![CDATA[
+            AND DCTR.PROGRESS = #{progress}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='progressTime != null and progressTime != ""'>
+            <![CDATA[
+            AND DCTR.PROGRESS_TIME = #{progressTime}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='timefirst != null and timefirst != ""'>
+            <![CDATA[
+            AND DCTR.TIMEFIRST = #{timefirst}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='timelast != null and timelast != ""'>
+            <![CDATA[
+            AND DCTR.TIMELAST = #{timelast}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='timefirstD != null and timefirstD != ""'>
+            <![CDATA[
+            AND DCTR.TIMEFIRST_D = #{timefirstD}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='timelastD != null and timelastD != ""'>
+            <![CDATA[
+            AND DCTR.TIMELAST_D = #{timelastD}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='attempts != null and attempts != ""'>
+            <![CDATA[
+            AND DCTR.ATTEMPTS = #{attempts}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+
+    <!-- dmcybertrackresult2 -->
+    <select id="dmcybertrackresult2" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DCTR2.TRACKYEAR
+                , DCTR2.TRACKMONTH
+                , DCTR2.CIRRICULUM
+                , DCTR2.TOTAL_PROGRESS
+                , DCTR2.TOTAL_ATTEMPS
+            FROM DM_CYBER_TRACK_RESULT2 DCTR2
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='trackyear != null and trackyear != ""'>
+            <![CDATA[
+            AND DCTR2.TRACKYEAR = #{trackyear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='trackmonth != null and trackmonth != ""'>
+            <![CDATA[
+            AND DCTR2.TRACKMONTH = #{trackmonth}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='cirriculum != null and cirriculum != ""'>
+            <![CDATA[
+            AND DCTR2.CIRRICULUM = #{cirriculum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='totalProgress != null and totalProgress != ""'>
+            <![CDATA[
+            AND DCTR2.TOTAL_PROGRESS = #{totalProgress}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='totalAttemps != null and totalAttemps != ""'>
+            <![CDATA[
+            AND DCTR2.TOTAL_ATTEMPS = #{totalAttemps}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+
+    <!-- dmcybertrackresult3 -->
+    <select id="dmcybertrackresult3" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DCTR3.TRACKYEAR
+                , DCTR3.TRACKMONTH
+                , DCTR3.COUSENAME
+                , DCTR3.VODNAME
+                , DCTR3.TOTAL_PROGRESS
+                , DCTR3.TOTAL_ATTEMPS
+            FROM DM_CYBER_TRACK_RESULT3 DCTR3
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='trackyear != null and trackyear != ""'>
+            <![CDATA[
+            AND DCTR3.TRACKYEAR = #{trackyear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='trackmonth != null and trackmonth != ""'>
+            <![CDATA[
+            AND DCTR3.TRACKMONTH = #{trackmonth}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='cousename != null and cousename != ""'>
+            <![CDATA[
+            AND DCTR3.COUSENAME = #{cousename}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='vodname != null and vodname != ""'>
+            <![CDATA[
+            AND DCTR3.VODNAME = #{vodname}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='totalProgress != null and totalProgress != ""'>
+            <![CDATA[
+            AND DCTR3.TOTAL_PROGRESS = #{totalProgress}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='totalAttemps != null and totalAttemps != ""'>
+            <![CDATA[
+            AND DCTR3.TOTAL_ATTEMPS = #{totalAttemps}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+
+    <!-- dmcybertrackresult4 -->
+    <select id="dmcybertrackresult4" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DCTR4.TRACKYEAR
+                , DCTR4.TRACKMONTH
+                , DCTR4.DEPT_CODE_01_NAME
+                , DCTR4.DEPT_CODE_02_NAME
+                , DCTR4.COUSENAME
+                , DCTR4.VODNAME
+                , DCTR4.TOTAL_PROGRESS
+                , DCTR4.TOTAL_ATTEMPS
+            FROM DM_CYBER_TRACK_RESULT4 DCTR4
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='trackyear != null and trackyear != ""'>
+            <![CDATA[
+            AND DCTR4.TRACKYEAR = #{trackyear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='trackmonth != null and trackmonth != ""'>
+            <![CDATA[
+            AND DCTR4.TRACKMONTH = #{trackmonth}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='deptCode01Name != null and deptCode01Name != ""'>
+            <![CDATA[
+            AND DCTR4.DEPT_CODE_01_NAME = #{deptCode01Name}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='deptCode02Name != null and deptCode02Name != ""'>
+            <![CDATA[
+            AND DCTR4.DEPT_CODE_02_NAME = #{deptCode02Name}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='cousename != null and cousename != ""'>
+            <![CDATA[
+            AND DCTR4.COUSENAME = #{cousename}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='vodname != null and vodname != ""'>
+            <![CDATA[
+            AND DCTR4.VODNAME = #{vodname}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='totalProgress != null and totalProgress != ""'>
+            <![CDATA[
+            AND DCTR4.TOTAL_PROGRESS = #{totalProgress}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='totalAttemps != null and totalAttemps != ""'>
+            <![CDATA[
+            AND DCTR4.TOTAL_ATTEMPS = #{totalAttemps}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+
+    <!-- dwstudentscore -->
+    <select id="dwstudentscore" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DSS.STD_UNIT
+                , DSS.STD_YY
+                , DSS.STD_HAKGI
+                , DSS.SUTR_DAEHAK_NM
+                , DSS.SUTR_HAKBU_NM
+                , DSS.SUTR_YY
+                , DSS.SUTR_HAKGI
+                , DSS.SUTR_YEAR
+                , DSS.HAKJ_HAKBUN
+                , DSS.HAKJ_IRUM
+                , DSS.HAKJ_SEX
+                , DSS.SUTR_SIN_HAKJUM
+                , DSS.SUTR_CHE_HAKJUM
+                , DSS.SUTR_SIL_AVE
+                , DSS.SUTR_PYONG_TOT
+                , DSS.SUTR_PYONG_AVEF
+                , DSS.SUTR_PYONG_AVE
+            FROM DW_STUDENT_SCORE DSS
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='stdUnit != null and stdUnit != ""'>
+            <![CDATA[
+            AND DSS.STD_UNIT = #{stdUnit}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='stdYy != null and stdYy != ""'>
+            <![CDATA[
+            AND DSS.STD_YY = #{stdYy}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='stdHakgi != null and stdHakgi != ""'>
+            <![CDATA[
+            AND DSS.STD_HAKGI = #{stdHakgi}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrDaehakNm != null and sutrDaehakNm != ""'>
+            <![CDATA[
+            AND DSS.SUTR_DAEHAK_NM = #{sutrDaehakNm}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrHakbuNm != null and sutrHakbuNm != ""'>
+            <![CDATA[
+            AND DSS.SUTR_HAKBU_NM = #{sutrHakbuNm}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrYy != null and sutrYy != ""'>
+            <![CDATA[
+            AND DSS.SUTR_YY = #{sutrYy}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrHakgi != null and sutrHakgi != ""'>
+            <![CDATA[
+            AND DSS.SUTR_HAKGI = #{sutrHakgi}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrYear != null and sutrYear != ""'>
+            <![CDATA[
+            AND DSS.SUTR_YEAR = #{sutrYear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjHakbun != null and hakjHakbun != ""'>
+            <![CDATA[
+            AND DSS.HAKJ_HAKBUN = #{hakjHakbun}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjIrum != null and hakjIrum != ""'>
+            <![CDATA[
+            AND DSS.HAKJ_IRUM = #{hakjIrum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjSex != null and hakjSex != ""'>
+            <![CDATA[
+            AND DSS.HAKJ_SEX = #{hakjSex}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrSinHakjum != null and sutrSinHakjum != ""'>
+            <![CDATA[
+            AND DSS.SUTR_SIN_HAKJUM = #{sutrSinHakjum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrCheHakjum != null and sutrCheHakjum != ""'>
+            <![CDATA[
+            AND DSS.SUTR_CHE_HAKJUM = #{sutrCheHakjum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrSilAve != null and sutrSilAve != ""'>
+            <![CDATA[
+            AND DSS.SUTR_SIL_AVE = #{sutrSilAve}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrPyongTot != null and sutrPyongTot != ""'>
+            <![CDATA[
+            AND DSS.SUTR_PYONG_TOT = #{sutrPyongTot}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrPyongAvef != null and sutrPyongAvef != ""'>
+            <![CDATA[
+            AND DSS.SUTR_PYONG_AVEF = #{sutrPyongAvef}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrPyongAve != null and sutrPyongAve != ""'>
+            <![CDATA[
+            AND DSS.SUTR_PYONG_AVE = #{sutrPyongAve}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+
+    <!-- dwstudentscoreyear -->
+    <select id="dwstudentscoreyear" resultType="kr.ac.jj.openapi.application.openapi.apilist.model.row">
+        <![CDATA[
+            SELECT DSSY.STD_UNIT
+                , DSSY.STD_YY
+                , DSSY.STD_HAKGI
+                , DSSY.SUTR_DAEHAK_NM
+                , DSSY.SUTR_HAKBU_NM
+                , DSSY.SUTR_YY
+                , DSSY.SUTR_HAKGI
+                , DSSY.SUTR_YEAR
+                , DSSY.HAKJ_HAKBUN
+                , DSSY.HAKJ_IRUM
+                , DSSY.HAKJ_SEX
+                , DSSY.SUTR_SIN_HAKJUM
+                , DSSY.SUTR_CHE_HAKJUM
+                , DSSY.SUTR_SIL_AVE
+                , DSSY.SUTR_PYONG_TOT
+                , DSSY.SUTR_PYONG_AVEF
+                , DSSY.SUTR_PYONG_AVE
+            FROM DW_STUDENT_SCORE_YEAR DSSY
+         WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='stdUnit != null and stdUnit != ""'>
+            <![CDATA[
+            AND DSSY.STD_UNIT = #{stdUnit}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='stdYy != null and stdYy != ""'>
+            <![CDATA[
+            AND DSSY.STD_YY = #{stdYy}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='stdHakgi != null and stdHakgi != ""'>
+            <![CDATA[
+            AND DSSY.STD_HAKGI = #{stdHakgi}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrDaehakNm != null and sutrDaehakNm != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_DAEHAK_NM = #{sutrDaehakNm}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrHakbuNm != null and sutrHakbuNm != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_HAKBU_NM = #{sutrHakbuNm}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrYy != null and sutrYy != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_YY = #{sutrYy}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrHakgi != null and sutrHakgi != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_HAKGI = #{sutrHakgi}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrYear != null and sutrYear != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_YEAR = #{sutrYear}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjHakbun != null and hakjHakbun != ""'>
+            <![CDATA[
+            AND DSSY.HAKJ_HAKBUN = #{hakjHakbun}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjIrum != null and hakjIrum != ""'>
+            <![CDATA[
+            AND DSSY.HAKJ_IRUM = #{hakjIrum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='hakjSex != null and hakjSex != ""'>
+            <![CDATA[
+            AND DSSY.HAKJ_SEX = #{hakjSex}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrSinHakjum != null and sutrSinHakjum != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_SIN_HAKJUM = #{sutrSinHakjum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrCheHakjum != null and sutrCheHakjum != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_CHE_HAKJUM = #{sutrCheHakjum}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrSilAve != null and sutrSilAve != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_SIL_AVE = #{sutrSilAve}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrPyongTot != null and sutrPyongTot != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_PYONG_TOT = #{sutrPyongTot}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrPyongAvef != null and sutrPyongAvef != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_PYONG_AVEF = #{sutrPyongAvef}
+            ]]>
+         </if>
+
+
+        <!-- 검색어 -->
+        <if test='sutrPyongAve != null and sutrPyongAve != ""'>
+            <![CDATA[
+            AND DSSY.SUTR_PYONG_AVE = #{sutrPyongAve}
+            ]]>
+         </if>
+
+
+    </select>
+
+
+</mapper>

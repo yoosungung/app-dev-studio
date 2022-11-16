@@ -1,0 +1,51 @@
+package kr.ac.jj.openapi.application.openapi.apilist.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.openapi.application.openapi.apilist.handler.ApiHandler;
+import kr.ac.jj.openapi.application.openapi.servicemanage.model.ServiceManageModel;
+import kr.ac.jj.openapi.domain.main.model.api.svc.mapng.TbApiSvcMapng;
+
+/**
+ * api 리스트 Service
+ */
+@Service
+public class ApiListServiceImpl  {
+
+    private @Autowired @Qualifier("sqlSession.api") SqlSession sqlSession;
+    /**
+     * api 테스트
+     *
+     * @param caterogy
+     * @param name
+     * @param model
+     * @param ApiHandler
+     * @return
+     */
+    public void apiTest(String category, String name, ServiceManageModel model) {
+        List<TbApiSvcMapng> tbApiSvcMapngList = model.getTbApiSvcMapngList();
+
+        Map<String, Object> apiInfo = new HashMap<String, Object>();
+
+        String dataFormat = null;
+
+        for (TbApiSvcMapng tbApiSvcMapng : tbApiSvcMapngList) {
+            apiInfo.put(tbApiSvcMapng.getVriabl(), tbApiSvcMapng.getInputVal());
+            if("dataFormat".equals(tbApiSvcMapng.getVriabl())) {
+                dataFormat = tbApiSvcMapng.getInputVal() == null ? "json" : tbApiSvcMapng.getInputVal();
+            }
+        }
+
+        ApiHandler apiHandler = new ApiHandler(name, dataFormat);
+
+        sqlSession.select(category + "." + name, apiInfo, apiHandler);
+    }
+
+}

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+    <!-- 설문조사 목록 -->
+    <definition extends="default" name="settings/surveyDefinitions/list" template="/WEB-INF/layouts/jd/bootstrap.jspx">
+        <put-attribute name="activeTab" value="survey_list" cascade="true"/>
+        <put-attribute name="pagemode" value="list" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/surveyDefinitions/list.jspx"/>
+        <put-attribute name="menu" value="/WEB-INF/views/jd/settings/surveyDefinitions/menu.jspx"/>
+    </definition>
+
+    <!-- 설문조사 생성 -->
+    <definition extends="default" name="settings/surveyDefinitions/create" template="/WEB-INF/layouts/jd/bootstrap.jspx">
+        <put-attribute name="activeTab" value="survey_create" cascade="true"/>
+        <put-attribute name="pagemode" value="create" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/surveyDefinitions/create.jspx"/>
+        <put-attribute name="menu" value="/WEB-INF/views/jd/settings/surveyDefinitions/menu.jspx"/>
+    </definition>
+
+    <!-- 설문조사 조회 -->
+    <definition extends="default" name="settings/surveyDefinitions/show" template="/WEB-INF/layouts/jd/bootstrap.jspx">
+        <put-attribute name="activeTab" value="survey_list" cascade="true"/>
+        <put-attribute name="pagemode" value="show" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/surveyDefinitions/show.jspx"/>
+        <put-attribute name="menu" value="/WEB-INF/views/jd/settings/surveyDefinitions/menu.jspx"/>
+    </definition>
+
+    <!-- 설문조사 업로드 -->
+    <definition extends="default" name="settings/surveyDefinitions/upload" template="/WEB-INF/layouts/jd/bootstrap.jspx">
+        <put-attribute name="activeTab" value="survey_create" cascade="true"/>
+        <put-attribute name="pagemode" value="import"  cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/surveyDefinitions/upload.jspx"/>
+        <put-attribute name="menu" value="/WEB-INF/views/jd/settings/surveyDefinitions/menu.jspx"/>
+    </definition>
+
+    <!-- 설문조사 변경 -->
+    <definition extends="preview" name="settings/surveyDefinitions/update" template="/WEB-INF/layouts/jd/bootstrap-blank.jspx">
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/surveyDefinitions/update.jspx"/>
+    </definition>
+
+    <!-- 설문조사 처리완료 -->
+    <definition extends="preview" name="settings/surveyDefinitions/saved">
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/surveyDefinitions/saved.jspx"/>
+    </definition>
+
+    <!-- 설문조사 대표이미지 설정 -->
+    <definition extends="preview" name="settings/surveyDefinitions/logo" template="/WEB-INF/layouts/jd/bootstrap-blank.jspx">
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/surveyDefinitions/logo.jspx"/>
+    </definition>
+
+
+
+    <definition extends="default" name="settings/surveyDefinitions/importtemplate">
+        <put-attribute name="activeTab" value="settings"  cascade="true"/>
+        <put-attribute name="pagemode" value="importtemplate"  cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/surveyDefinitions/importtemplate.jspx"/>
+        <put-attribute name="menu" value="/WEB-INF/views/jd/settings/surveyDefinitions/menu.jspx"/>
+    </definition>
+    <definition extends="default" name="settings/surveyDefinitions/browsetemplate">
+        <put-attribute name="activeTab" value="settings"  cascade="true"/>
+        <put-attribute name="pagemode" value="browsetemplate"  cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/surveyDefinitions/browsetemplate.jspx"/>
+        <put-attribute name="menu" value="/WEB-INF/views/jd/settings/surveyDefinitions/menu.jspx"/>
+    </definition>
+    <definition extends="preview" name="settings/surveyDefinitions/savetemplate">
+    <put-attribute name="pagemode" value="savetemplate"  cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/surveyDefinitions/savetemplate.jspx"/>
+    </definition>
+
+
+
+</tiles-definitions>

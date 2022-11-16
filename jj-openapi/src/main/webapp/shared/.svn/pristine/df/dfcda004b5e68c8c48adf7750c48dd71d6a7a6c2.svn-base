@@ -1,0 +1,162 @@
+function MenuManageViewService(vue) {
+
+    /**
+     * 트리 조회
+     */
+    this.readTree = function() {
+        var args = arguments;
+
+        CommonUtil.axios()
+        .post("readTree", "MAIN")
+        .then(function(response) {
+            response.data.splice(0, 0, vue.tbSysMenuRoot);
+
+            vue.treeData = response.data;
+
+            if (args.length > 0) {
+                vue.service.read(args[0]);
+            }
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+    /**
+     * 조회 - 생성용
+     */
+    this.readForCreate = function(upperMenuId, callback) {
+        vue.menuId = null;
+        vue.upperMenuId = upperMenuId;
+
+        CommonUtil.initModel(vue.model);
+        CommonUtil.initValid();
+
+        CommonUtil.axios()
+        .get("?upperMenuId=" + (vue.upperMenuId == null ? "" : vue.upperMenuId))
+        .then(function(response) {
+            vue.model = response.data;
+
+            if (vue.model.tbSysMenu.menuKnd == null) {
+                vue.model.tbSysMenu.menuKnd = vues.list.tbSysMenuRoot.menuKnd;
+            }
+
+            if (vue.model.tbSysMenu.upperMenuId == null) {
+                vue.model.tbSysMenu.upperMenuNm = vues.list.tbSysMenuRoot.menuNm;
+            }
+
+            if (callback != null) {
+                callback(vue.model);
+            }
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+    /**
+     * 조회
+     */
+    this.read = function(menuId, callback) {
+        vue.menuId = menuId;
+
+        CommonUtil.initModel(vue.model);
+        CommonUtil.initValid();
+
+        if (vue.menuId == null) {
+            vue.model.tbSysMenu = vue.tbSysMenuRoot;
+
+            if (callback != null) {
+                callback(vue.model);
+            }
+
+            return;
+        }
+
+        CommonUtil.axios()
+        .get(vue.menuId)
+        .then(function(response) {
+            vue.model = response.data;
+
+            if (vue.model.tbSysMenu.upperMenuId == null) {
+                vue.model.tbSysMenu.upperMenuNm = vues.list.tbSysMenuRoot.menuNm;
+            }
+
+            if (vue.menuId != null) {
+                vues.list.$refs.menuTree.updateItemData(vue.model.tbSysMenu);
+            }
+
+            if (callback != null) {
+                callback(vue.model);
+            }
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+    /**
+     * 저장
+     */
+    this.update = function(callback) {
+        if (!CommonUtil.checkValid()) {
+            return;
+        }
+
+        if (!confirm("저장하시겠습니까?")) {
+            return;
+        }
+
+        CommonUtil.axios()
+        [vue.menuId == null ? "post" : "put"](vue.menuId, vue.model)
+        .then(function(response) {
+            alert("저장되었습니다.");
+
+            vues.list.service.readTree(vue.menuId);
+
+            $(vue.$el).dialog("close");
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+    /**
+     * 삭제
+     */
+    this.delete = function() {
+        if (!confirm("정말로 삭제하시겠습니까?")) {
+            return;
+        }
+
+        CommonUtil.axios()
+        ["delete"](vue.menuId)
+        .then(function(response) {
+            alert("삭제되었습니다.");
+
+            vues.list.service.readTree(vue.model.tbSysMenu.upperMenuId);
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+    /**
+     * 메뉴 순서 목록 저장
+     */
+    this.updateMenuOrdrList = function(tbSysMenuList) {
+        if (tbSysMenuList == null) {
+            return;
+        }
+
+        CommonUtil.axios()
+        .put("updateMenuOrdrList", tbSysMenuList)
+        .then(function(response) {
+            vues.list.service.readTree();
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 공통 - 메일 수신 Message
+ -->
+<properties>
+
+    <!-- 수신 유형 -->
+    <entry key="domain.main.tbComEmailRecptn.recptnTy.TO"><![CDATA[TO]]></entry>
+    <entry key="domain.main.tbComEmailRecptn.recptnTy.CC"><![CDATA[CC]]></entry>
+    <entry key="domain.main.tbComEmailRecptn.recptnTy.BCC"><![CDATA[BCC]]></entry>
+
+</properties>

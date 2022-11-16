@@ -1,0 +1,46 @@
+package kr.ac.jj.openapi.application.main.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.openapi.application.main.mapper.MainMapper;
+import kr.ac.jj.shared.application.bbs.faq.mapper.BbsFaqMapper;
+import kr.ac.jj.shared.application.bbs.gnrl.mapper.BbsGeneralMapper;
+import kr.ac.jj.shared.application.bbs.notice.mapper.BbsNoticeMapper;
+import kr.ac.jj.shared.infrastructure.grid.handler.GridDataResultHandler;
+import kr.ac.jj.shared.infrastructure.grid.model.GridRequest;
+
+/**
+ * 메인 Service
+ */
+@Service
+public class MainServiceImpl {
+
+    private @Autowired MainMapper mainMapper;
+    private @Autowired BbsGeneralMapper qnaMapper;
+    private @Autowired BbsNoticeMapper noticeMapper;
+    private @Autowired BbsFaqMapper faqMapper;
+
+    public List<Map<String, Object>> readQnaList(GridRequest gridRequest) {
+        GridDataResultHandler resultHandler = new GridDataResultHandler(gridRequest);
+        qnaMapper.selectList("QNA", resultHandler, gridRequest.getPaging(), gridRequest.getSearch());
+
+        return resultHandler.getResultList();
+    }
+
+    public List<Map<String, Object>> readNoticeList() {
+
+        return null;
+    }
+
+    public List<Map<String, Object>> readFaqList(GridRequest gridRequest) {
+        GridDataResultHandler resultHandler = new GridDataResultHandler(gridRequest);
+        faqMapper.selectList(resultHandler, gridRequest.getPaging(), gridRequest.getSearch());
+
+        return resultHandler.getResultList();
+    }
+
+}

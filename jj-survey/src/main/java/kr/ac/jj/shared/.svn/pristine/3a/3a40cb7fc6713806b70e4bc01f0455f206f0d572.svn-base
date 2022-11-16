@@ -1,0 +1,20 @@
+package kr.ac.jj.shared.domain.main.mapper.bbs.notice;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+
+/**
+ * 게시판 - 공지사항 Mapper
+ */
+@SharedMainSqlMapper
+public interface TbBbsNoticeMapper extends TbBbsNoticeEntityMapper {
+
+    /**
+     * 조회수 증가
+     *
+     * @param bbscttId
+     */
+    public void updateRdcnt(@Param("bbscttId") String bbscttId);
+
+}

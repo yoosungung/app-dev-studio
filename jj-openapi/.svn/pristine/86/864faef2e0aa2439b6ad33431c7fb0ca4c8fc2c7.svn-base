@@ -1,0 +1,29 @@
+package kr.ac.jj.openapi.application.openapi.apilist.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.ac.jj.openapi.config.DataSourceMapperConfig.MainSqlMapper;
+
+/**
+ * api 리스트 Mapper
+ */
+@MainSqlMapper
+public class ApiListMapper {
+
+    private @Autowired SqlSession sqlSession;
+
+    /**
+     * api 테스트
+     *
+     * @param map
+     * @return
+     */
+    public List<Map<String, Object>> apiTest(String url, Map<String, Object> apiInfo){
+        return sqlSession.selectList("apiTest." + url, apiInfo);
+    }
+
+}

@@ -1,0 +1,153 @@
+package kr.ac.jj.shared.application.admin.logmanage.emaillog.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.application.admin.logmanage.emaillog.mapper.EmailLogManageMapper;
+import kr.ac.jj.shared.application.admin.logmanage.emaillog.model.EmailLogManageModel;
+import kr.ac.jj.shared.application.common.email.model.BaseEmail;
+import kr.ac.jj.shared.application.common.email.service.EmailServiceImpl;
+import kr.ac.jj.shared.application.common.file.service.FileServiceImpl;
+import kr.ac.jj.shared.domain.main.mapper.com.email.TbComEmailMapper;
+import kr.ac.jj.shared.domain.main.mapper.com.email.atchfile.TbComEmailAtchFileMapper;
+import kr.ac.jj.shared.domain.main.mapper.com.email.recptn.TbComEmailRecptnMapper;
+import kr.ac.jj.shared.domain.main.mapper.com.email.sndng.TbComEmailSndngMapper;
+import kr.ac.jj.shared.domain.main.model.com.email.TbComEmail;
+import kr.ac.jj.shared.domain.main.model.com.email.atchfile.TbComEmailAtchFile;
+import kr.ac.jj.shared.domain.main.model.com.email.sndng.TbComEmailSndng;
+import kr.ac.jj.shared.domain.main.model.com.file.TbComFile;
+import kr.ac.jj.shared.infrastructure.grid.handler.GridDataResultHandler;
+import kr.ac.jj.shared.infrastructure.grid.model.GridRequest;
+import kr.ac.jj.shared.infrastructure.template.util.FreeMarkerTemplateProcessor;
+
+/**
+ * 이메일 로그 관리 Service
+ */
+@Service
+public class EmailLogManageServiceImpl {
+
+    private @Autowired EmailLogManageMapper emailLogManageMapper;
+    private @Autowired TbComEmailMapper tbComEmailMapper;
+    private @Autowired TbComEmailRecptnMapper tbComEmailRecptnMapper;
+    private @Autowired TbComEmailAtchFileMapper tbComEmailAtchFileMapper;
+    private @Autowired TbComEmailSndngMapper tbComEmailSndngMapper;
+    private @Autowired EmailServiceImpl emailService;
+    private @Autowired FileServiceImpl fileService;
+
+    /**
+     * 목록 조회
+     *
+     * @param gridRequest
+     * @return
+     */
+    public List<Map<String, Object>> readList(GridRequest gridRequest) {
+        GridDataResultHandler resultHandler = new GridDataResultHandler(gridRequest);
+
+        emailLogManageMapper.selectList(resultHandler, gridRequest.getPaging(), gridRequest.getSearch());
+
+        return resultHandler.getResultList();
+    }
+
+    /**
+     * 조회
+     *
+     * @param emailId
+     * @return
+     */
+    public EmailLogManageModel read(String emailId) {
+        EmailLogManageModel model = new EmailLogManageModel();
+
+        model.setTbComEmail(tbComEmailMapper.select(emailId));
+        model.setTbComEmailRecptnList(tbComEmailRecptnMapper.selectListByEmailId(emailId));
+        model.setTbComEmailAtchFileList(tbComEmailAtchFileMapper.selectListByEmailId(emailId));
+        model.setTbComEmailSndngList(tbComEmailSndngMapper.selectListByEmailId(emailId));
+
+        return model;
+    }
+
+    /**
+     * 파일 조회
+     *
+     * @param emailAtchFileId
+     * @return
+     */
+    public TbComEmailAtchFile readFile(String emailAtchFileId) {
+        return tbComEmailAtchFileMapper.select(emailAtchFileId);
+    }
+
+    /**
+     * 생성
+     *
+     * @param model
+     * @return
+     */
+    public String create(EmailLogManageModel model) {
+        BaseEmail email = new BaseEmail();
+        email.setTbComEmail(this.processTemplateCn(model.getTbComEmail()));
+        email.setTbComEmailRecptnList(model.getTbComEmailRecptnList());
+        email.setTbComEmailAtchFileList(model.toTbComEmailAtchFileList());
+        email.setTbComEmailSndng(new TbComEmailSndng());
+
+        String emailId = emailService.create(email);
+
+        List<TbComFile> atchFileList = model.getAtchFileList();
+
+        fileService.updateList(emailId, atchFileList);
+
+        return emailId;
+    }
+
+    /**
+     * 발송
+     *
+     * @param model
+     */
+    public void send(EmailLogManageModel model) {
+        BaseEmail email = new BaseEmail();
+        email.setTbComEmail(this.processTemplateCn(model.getTbComEmail()));
+        email.setTbComEmailRecptnList(model.getTbComEmailRecptnList());
+        email.setTbComEmailAtchFileList(model.toTbComEmailAtchFileList());
+
+        emailService.send(email);
+    }
+
+    /**
+     * 메일 내용 템플릿 적용
+     *
+     * @param tbComEmail
+     * @return
+     */
+    private TbComEmail processTemplateCn(TbComEmail tbComEmail) {
+        FreeMarkerTemplateProcessor fmtp = new FreeMarkerTemplateProcessor();
+        fmtp.setModel("bodyContents", tbComEmail.getEmailCn());
+        fmtp.processTemplateIntoString("/common/email/DefaultEmail.html");
+        tbComEmail.setEmailCn(fmtp.getProcessResult());
+
+        return tbComEmail;
+    }
+
+    /**
+     * 삭제
+     *
+     * @param emailId
+     */
+    public void delete(String emailId) {
+        tbComEmailSndngMapper.deleteListByEmailId(emailId);
+        tbComEmailAtchFileMapper.deleteListByEmailId(emailId);
+        tbComEmailRecptnMapper.deleteListByEmailId(emailId);
+        tbComEmailMapper.delete(emailId);
+    }
+
+    /**
+     * 발송 생성
+     *
+     * @param emailId
+     */
+    public void createSend(String emailId) {
+        emailService.createSend(emailId);
+    }
+
+}

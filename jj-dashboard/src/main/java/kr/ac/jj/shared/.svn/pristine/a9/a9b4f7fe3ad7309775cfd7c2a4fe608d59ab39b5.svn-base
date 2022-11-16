@@ -1,0 +1,146 @@
+package kr.ac.jj.shared.application.admin.appmanage.deptmanage.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.ResultContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.application.admin.appmanage.deptmanage.mapper.DepartmentManageDwMapper;
+import kr.ac.jj.shared.application.admin.appmanage.deptmanage.mapper.DepartmentManageMapper;
+import kr.ac.jj.shared.domain.main.mapper.com.dept.TbComDeptMapper;
+import kr.ac.jj.shared.domain.main.mapper.com.person.TbComPersonMapper;
+import kr.ac.jj.shared.domain.main.model.com.dept.TbComDept;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.handler.DataResultHandler;
+
+/**
+ * 부서 관리 Service
+ */
+@Service
+public class DepartmentManageServiceNoTxImpl {
+
+    private @Autowired DepartmentManageDwMapper departmentManageDwMapper;
+    private @Autowired DepartmentManageServiceImpl departmentManageService;
+    private @Autowired DepartmentManageMapper departmentManageMapper;
+    private @Autowired TbComDeptMapper tbComDeptMapper;
+    private @Autowired TbComPersonMapper tbComPersonMapper;
+
+    /**
+     * 부서 관리 스케쥴
+     */
+    public void readList() {
+        // 부서 I/F (대학 임직원)
+        departmentManageDwMapper.selectDeptList(new DataResultHandler<Map<String, Object>>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends Map<String, Object>> resultContext) {
+                departmentManageService.updateFromDw(resultContext.getResultObject());
+            }
+
+        });
+
+        // 대학 임직원 UPPER_DEPT_ID, DEPT_LEVEL 수정
+        List<TbComDept> deptList = departmentManageMapper.selectDeptTreeList();
+
+        if (!deptList.isEmpty()) {
+            for (TbComDept tbComDept : deptList) {
+                tbComDept.setUseYn(true);
+                tbComDeptMapper.update(tbComDept);
+            }
+        }
+
+        // 학과 생성 Lv1 (뿌리)
+        TbComDept tbComDept = new TbComDept();
+
+        String deptId = tbComDeptMapper.selectDeptIdBydeptCode("00", 1);
+        tbComDept.setDeptCode("00");
+        tbComDept.setDeptLevel(1);
+        tbComDept.setDeptNm("전주대학교");
+        tbComDept.setUseYn(true);
+
+        if (StringUtils.isEmpty(deptId)) {
+            tbComDept.newId();
+            tbComDeptMapper.insert(tbComDept);
+        } else {
+            tbComDept.setDeptId(deptId);
+            tbComDeptMapper.update(tbComDept);
+        }
+
+        // 학과 생성 (TB_COM_PERSON 기반) Lv2 (UNIV)
+        List<TbComDept> univList = departmentManageMapper.selectUnivLv2List();
+
+        if (!univList.isEmpty()) {
+            for (TbComDept univ : univList) {
+                deptId = tbComDeptMapper.selectDeptIdBydeptCode(univ.getDeptCode(), 2);
+                univ.setUseYn(true);
+
+                if (StringUtils.isEmpty(deptId)) {
+                    univ.newId();
+                    tbComDeptMapper.insert(univ);
+                } else {
+                    univ.setDeptId(deptId);
+                    tbComDeptMapper.update(univ);
+                }
+            }
+        }
+
+        // 학과 생성 (TB_COM_PERSON 기반) Lv3 (UNDEG)
+        List<TbComDept> undegList = departmentManageMapper.selectUnivLv3List();
+
+        if (!undegList.isEmpty()) {
+            for (TbComDept undeg : undegList) {
+                deptId = tbComDeptMapper.selectDeptIdBydeptCode(undeg.getDeptCode(), 3);
+                undeg.setUseYn(true);
+
+                if (StringUtils.isEmpty(deptId)) {
+                    undeg.newId();
+                    tbComDeptMapper.insert(undeg);
+                } else {
+                    undeg.setDeptId(deptId);
+                    tbComDeptMapper.update(undeg);
+                }
+            }
+        }
+
+        // 학과 생성 (TB_COM_PERSON 기반) Lv4
+        List<TbComDept> subjctList = departmentManageMapper.selectUnivLv4List();
+
+        if (!subjctList.isEmpty()) {
+            for (TbComDept subjct : subjctList) {
+                deptId = tbComDeptMapper.selectDeptIdBydeptCode(subjct.getDeptCode(), 4);
+                subjct.setUseYn(true);
+
+                if (StringUtils.isEmpty(deptId)) {
+                    subjct.newId();
+                    tbComDeptMapper.insert(subjct);
+                } else {
+                    subjct.setDeptId(deptId);
+                    tbComDeptMapper.update(subjct);
+                }
+            }
+        }
+
+        // 학과명 I/F
+        List<Map<String, Object>> univCodeList = departmentManageDwMapper.selectUnivList();
+
+        if (!univCodeList.isEmpty()) {
+            for (Map<String, Object> univCode : univCodeList) {
+                tbComDeptMapper.updateDeptNm(univCode);
+
+            }
+        }
+
+        // TB_COM_PERSON 부서 코드 부서 ID로 변환
+        List<Map<String, Object>> deptCodeLevelList = tbComDeptMapper.selectDeptCodeLevelList();
+
+        if (!deptCodeLevelList.isEmpty()) {
+            for (Map<String, Object> deptCodeLevel : deptCodeLevelList) {
+                tbComPersonMapper.updateDeptId(deptCodeLevel);
+            }
+        }
+
+    }
+
+}

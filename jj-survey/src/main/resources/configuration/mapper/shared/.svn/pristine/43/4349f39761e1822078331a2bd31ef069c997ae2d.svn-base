@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 사람 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.person.TbComPersonEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.com.person.TbComPerson">
+        <![CDATA[
+            SELECT TCP.PERSON_ID
+                 , TCP.EMPL_NO
+                 , TCP.EMAIL_ADRES
+                 , TCP.WRITNG_PSN_ID
+                 , TCP.WRITNG_DT
+                 , TCP.CHANGE_PSN_ID
+                 , TCP.CHANGE_DT
+                 , TCP.KOREAN_NM
+                 , TCP.ENGL_NM
+                 , TCP.CHCRT_NM
+                 , TCP.DEPT_ID
+                 , TCP.UNIV
+                 , TCP.UNDEG
+                 , TCP.SUBJCT
+                 , TCP.HFFC_STTUS
+                 , TCP.ECNY_DE
+                 , TCP.RETIRE_DE
+                 , TCP.OFCPS_NM
+                 , TCP.CLSF_NM
+                 , TCP.RSPOFC_NM
+                 , TCP.TLPHON_NO
+                 , TCP.ATCH_FILE_ID
+                 , TCP.RM
+                 , TCD.DEPT_NM
+            FROM   TB_COM_PERSON TCP
+                   LEFT JOIN TB_COM_DEPT TCD ON TCD.DEPT_ID = TCP.DEPT_ID
+            WHERE  TCP.PERSON_ID = #{personId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_COM_PERSON (
+                   PERSON_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , EMPL_NO
+                 , EMAIL_ADRES
+                 , WRITNG_PSN_ID
+                 , WRITNG_DT
+                 , KOREAN_NM
+                 , ENGL_NM
+                 , CHCRT_NM
+                 , DEPT_ID
+                 , UNIV
+                 , UNDEG
+                 , SUBJCT
+                 , HFFC_STTUS
+                 , ECNY_DE
+                 , RETIRE_DE
+                 , OFCPS_NM
+                 , CLSF_NM
+                 , RSPOFC_NM
+                 , TLPHON_NO
+                 , ATCH_FILE_ID
+                 , RM
+            ) VALUES (
+                   #{tbComPerson.personId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbComPerson.emplNo}
+                 , #{tbComPerson.emailAdres}
+                 , #{tbComPerson.writngPsnId}
+                 , #{tbComPerson.writngDt}
+                 , #{tbComPerson.koreanNm}
+                 , #{tbComPerson.englNm}
+                 , #{tbComPerson.chcrtNm}
+                 , #{tbComPerson.deptId}
+                 , #{tbComPerson.univ}
+                 , #{tbComPerson.undeg}
+                 , #{tbComPerson.subjct}
+                 , #{tbComPerson.hffcSttus}
+                 , #{tbComPerson.ecnyDe}
+                 , #{tbComPerson.retireDe}
+                 , #{tbComPerson.ofcpsNm}
+                 , #{tbComPerson.clsfNm}
+                 , #{tbComPerson.rspofcNm}
+                 , #{tbComPerson.tlphonNo}
+                 , #{tbComPerson.atchFileId}
+                 , #{tbComPerson.rm}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_COM_PERSON SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , EMPL_NO                          = #{tbComPerson.emplNo}
+                 , EMAIL_ADRES                      = #{tbComPerson.emailAdres}
+                 , CHANGE_PSN_ID                    = #{tbComPerson.changePsnId}
+                 , CHANGE_DT                        = #{tbComPerson.changeDt}
+                 , KOREAN_NM                        = #{tbComPerson.koreanNm}
+                 , ENGL_NM                          = #{tbComPerson.englNm}
+                 , CHCRT_NM                         = #{tbComPerson.chcrtNm}
+                 , DEPT_ID                          = #{tbComPerson.deptId}
+                 , UNIV                             = #{tbComPerson.univ}
+                 , UNDEG                            = #{tbComPerson.undeg}
+                 , SUBJCT                           = #{tbComPerson.subjct}
+                 , HFFC_STTUS                       = #{tbComPerson.hffcSttus}
+                 , ECNY_DE                          = #{tbComPerson.ecnyDe}
+                 , RETIRE_DE                        = #{tbComPerson.retireDe}
+                 , OFCPS_NM                         = #{tbComPerson.ofcpsNm}
+                 , CLSF_NM                          = #{tbComPerson.clsfNm}
+                 , RSPOFC_NM                        = #{tbComPerson.rspofcNm}
+                 , TLPHON_NO                        = #{tbComPerson.tlphonNo}
+                 , ATCH_FILE_ID                     = #{tbComPerson.atchFileId}
+                 , RM                               = #{tbComPerson.rm}
+            WHERE  PERSON_ID = #{tbComPerson.personId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_PERSON
+            WHERE  PERSON_ID = #{personId}
+        ]]>
+    </delete>
+
+</mapper>

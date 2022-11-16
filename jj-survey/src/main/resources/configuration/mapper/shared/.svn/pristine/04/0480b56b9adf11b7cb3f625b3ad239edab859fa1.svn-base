@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 부서 관리 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.admin.appmanage.deptmanage.mapper.DeptManageMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TCD.DEPT_ID
+                 , TCD.UPPER_DEPT_ID
+                 , TCD.DEPT_LEVEL
+                 , TCD.DEPT_CODE
+                 , TCD.DEPT_NM
+                 , TCD.USE_YN
+            FROM   TB_COM_DEPT TCD
+        ]]>
+    </select>
+
+</mapper>

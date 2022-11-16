@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="page-body" 
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+	xmlns:spring="http://www.springframework.org/tags"
+	version="2.0">
+	
+	<jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    
+	<script type="text/javascript" >
+	    if (top === self) { 
+			window.close(); 
+		}
+		else {
+			var selfUrl = unescape(parent.window.location.pathname);
+		   	parent.location.reload(true);
+			parent.window.location.replace(selfUrl);
+			parent.window.location.href = selfUrl; 
+		}
+	</script>
+
+    <div class="flash flash-success">
+    	사용자는 성공적으로 저장 되었습니다. 제발 이 창을 닫고 사용자 창으로 다시 이동 및 페이지를 새로 고칩니다.
+	</div>
+</div>	
+
+
+
+
+
+
+
+

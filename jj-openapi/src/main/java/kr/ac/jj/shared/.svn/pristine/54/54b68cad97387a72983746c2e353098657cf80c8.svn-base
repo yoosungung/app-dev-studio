@@ -1,0 +1,48 @@
+package kr.ac.jj.shared.infrastructure.logging.service;
+
+import java.util.Date;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.config.props.SharedConfigProperties;
+import kr.ac.jj.shared.domain.main.model.sys.log.query.TbSysLogQuery;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.logging.StatementLoggingService;
+import kr.ac.jj.shared.infrastructure.logging.util.LoggingUtil;
+
+@Service
+public class StatementLoggingServiceImpl implements StatementLoggingService {
+
+    private @Autowired SharedConfigProperties sharedConfig;
+    private @Autowired LoggingServiceImpl loggingService;
+
+    @Override
+    public void createLog(String id, String sql, String parameter) {
+        if (sharedConfig == null || !sharedConfig.getLog().getQuery().isEnable()) {
+            return;
+        }
+
+        if ("sub".equals(LoggingUtil.getLoggingType()) || LoggingUtil.getTbSysLog() == null) {
+            return;
+        }
+
+        TbSysLogQuery tbSysLogQuery = new TbSysLogQuery();
+        tbSysLogQuery.setQueryDt(new Date());
+        tbSysLogQuery.setQueryId(id);
+        tbSysLogQuery.setQuerySntenc(sql);
+        tbSysLogQuery.setQueryParamtr(parameter);
+        tbSysLogQuery.setQuerySntencCmplt(MDC.get("log.jdbc.sql"));
+
+        if (StringUtils.isNotEmpty(MDC.get("log.jdbc.execTime"))) {
+            tbSysLogQuery.setExecutTime(Long.parseLong(MDC.get("log.jdbc.execTime"), 10));
+        }
+
+        MDC.remove("log.jdbc.sql");
+        MDC.remove("log.jdbc.execTime");
+
+        loggingService.createQuery(tbSysLogQuery);
+    }
+
+}

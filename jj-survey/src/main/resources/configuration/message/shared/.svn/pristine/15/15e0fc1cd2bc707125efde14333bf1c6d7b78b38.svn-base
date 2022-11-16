@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 인터페이스 - 코드 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbIntrfcCode.codeTy"><![CDATA[코드 유형]]></entry>
+    <entry key="domain.main.tbIntrfcCode.codeValue"><![CDATA[코드 값]]></entry>
+    <entry key="domain.main.tbIntrfcCode.codeNm"><![CDATA[코드 이름]]></entry>
+    <entry key="domain.main.tbIntrfcCode.codeIndictYn"><![CDATA[코드 표시 여부(Y/N)]]></entry>
+
+</properties>

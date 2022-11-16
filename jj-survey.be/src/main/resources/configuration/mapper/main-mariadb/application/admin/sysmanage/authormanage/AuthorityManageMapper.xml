@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 권한 관리 Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.application.admin.sysmanage.authormanage.mapper.AuthorityManageMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.survey.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TSA.AUTHOR_ID
+                 , TSA.AUTHOR_CODE
+                 , TSA.AUTHOR_NM_TITLE
+                 , FN_TITLE(TSA.AUTHOR_NM_TITLE, #{$var.userLocale}, #{$var.defaultLocale}, NULL) AS AUTHOR_NM
+                 , (SELECT COUNT(1) FROM TB_SYS_MENU_AUTHOR SMA WHERE SMA.AUTHOR_ID = TSA.AUTHOR_ID) AS AUTHOR_MENU_CNT
+                 , (SELECT COUNT(1) FROM TB_SYS_RESRCE_AUTHOR SRA WHERE SRA.AUTHOR_ID = TSA.AUTHOR_ID) AS AUTHOR_RESRCE_CNT
+                 , (SELECT COUNT(1) FROM TB_SYS_USER_AUTHOR SUA WHERE SUA.AUTHOR_ID = TSA.AUTHOR_ID) AS AUTHOR_USER_CNT
+                 , TSA.SORT_ORDR
+                 , ${$var.getCodeData("/common/useYn", "TSA.USE_YN", "TSA.USE_YN")} AS USE_YN_NM
+                 , TSA.USER_AUTHOR_YN
+            FROM   TB_SYS_AUTHOR TSA
+            WHERE  1 = 1
+        ]]>
+
+        <!-- 권한 코드 -->
+        <if test='search != null and search.authorCode != null and search.authorCode != ""'>
+            <![CDATA[
+            AND    TSA.AUTHOR_CODE = #{search.authorCode}
+            ]]>
+        </if>
+
+        <!-- 권한 이름 -->
+        <if test='search != null and search.authorNm != null and search.authorNm != ""'>
+            <![CDATA[
+            AND    UPPER(FN_TITLE(TSA.AUTHOR_NM_TITLE, #{$var.userLocale}, #{$var.defaultLocale}, NULL)) LIKE '%' + UPPER(#{search.authorNm}) + '%'
+            ]]>
+        </if>
+
+        <!-- 권한 설명 -->
+        <if test='search != null and search.authorDc != null and search.authorDc != ""'>
+            <![CDATA[
+            AND    UPPER(TSA.AUTHOR_DC) LIKE '%' + UPPER(#{search.authorDc}) + '%'
+            ]]>
+        </if>
+
+        <![CDATA[
+            ORDER BY SORT_ORDR
+        ]]>
+    </select>
+
+</mapper>

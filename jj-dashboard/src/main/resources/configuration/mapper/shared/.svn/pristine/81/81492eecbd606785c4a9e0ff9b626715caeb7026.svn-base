@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 메뉴 관리 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.admin.sysmanage.menumanage.mapper.MenuManageMapper">
+
+    <!-- 트리 조회 -->
+    <select id="selectTree" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TSM.MENU_ID
+                 , TSM.UPPER_MENU_ID
+                 , TSM.MENU_LEVEL
+                 , TSM.MENU_NM
+                 , TSM.MENU_PATH
+                 , TSM.MENU_ORDR
+                 , (SELECT CASE WHEN COUNT(1) > 0 THEN 'FOLDER' ELSE 'FILE' END
+                    FROM   TB_SYS_MENU TSM2
+                    WHERE  TSM2.UPPER_MENU_ID = TSM.MENU_ID
+                   ) AS NODE_TYPE_NM
+            FROM   TB_SYS_MENU TSM
+            WHERE  TSM.MENU_KND = #{menuKnd}
+            ORDER BY TSM.MENU_LEVEL, TSM.MENU_ORDR
+        ]]>
+    </select>
+
+    <!-- 트리 조회 - 상위 메뉴 선택용 -->
+    <select id="selectTreeForUpperMenuSelect" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TSM.MENU_ID
+                 , TSM.UPPER_MENU_ID
+                 , TSM.MENU_LEVEL
+                 , TSM.MENU_NM
+                 , TSM.MENU_PATH
+                 , TSM.MENU_ORDR
+                 , (SELECT CASE WHEN COUNT(1) > 0 THEN 'FOLDER' ELSE 'FILE' END
+                    FROM   TB_SYS_MENU TSM2
+                    WHERE  TSM2.UPPER_MENU_ID = TSM.MENU_ID
+                   ) AS NODE_TYPE_NM
+            FROM   TB_SYS_MENU TSM
+            WHERE  TSM.MENU_KND = #{menuKnd}
+            AND    TSM.MENU_LEVEL <= #{maxLevel}
+            ORDER BY TSM.MENU_LEVEL, TSM.MENU_ORDR
+        ]]>
+    </select>
+
+    <!-- 하위 메뉴 갯수 조회 -->
+    <select id="selectChildMenuCount" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT COUNT(*) AS CO
+            FROM   TB_SYS_MENU TSM
+        ]]>
+
+        <choose>
+        <when test='upperMenuId == null or upperMenuId == ""'>
+            <![CDATA[
+            WHERE  TSM.UPPER_MENU_ID IS NULL
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+            WHERE  TSM.UPPER_MENU_ID = #{upperMenuId}
+            ]]>
+        </otherwise>
+        </choose>
+    </select>
+
+</mapper>

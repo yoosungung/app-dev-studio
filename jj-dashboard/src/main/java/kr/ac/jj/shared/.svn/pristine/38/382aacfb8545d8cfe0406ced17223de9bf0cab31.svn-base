@@ -1,0 +1,74 @@
+package kr.ac.jj.shared.application.common.sms.model;
+
+import java.util.Date;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
+
+import kr.ac.jj.shared.domain.main.model.com.sms.TbComSms;
+import kr.ac.jj.shared.infrastructure.framework.core.support.sequence.BaseSequence;
+
+/**
+ * 문자메시지 Model
+ */
+public class BaseSms {
+
+    private static final BaseSequence keySeq = new BaseSequence(0, 9999999, true);
+
+    private TbComSms tbComSms;
+
+    public TbComSms getTbComSms() {
+        if (this.tbComSms == null) {
+            this.initTbComSms(new TbComSms());
+        }
+
+        return this.tbComSms;
+    }
+
+    public void setTbComSms(TbComSms tbComSms) {
+        this.tbComSms = tbComSms;
+    }
+
+    public void initTbComSms(TbComSms tbComSms) {
+        this.setTbComSms(tbComSms);
+
+        Long timestamp = Long.parseLong(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"), 10);
+        String timeStr = StringUtils.leftPad(Long.toString(timestamp, 36).toUpperCase(), 9, '0');
+        String uidStr = StringUtils.leftPad(Long.toString(keySeq.getNextValue(), 36).toUpperCase(), 5, '0');
+
+        this.tbComSms.setTranStatus("1"); // 메시지 상태(1) : 1로 고정
+        this.tbComSms.setTranDate(new Date()); // 메시지 전송시간(YYYY-mm-dd HH:ii:ss)
+        this.tbComSms.setTranEtc2("SV" + timeStr + uidStr); // 타 시스템 유일키(구분키)
+        this.tbComSms.setTranEtc4(-9L);
+        this.tbComSms.setTranType(0); // 0: SMS (디폴트), 6: LMS
+    }
+
+    public void setDeptCode(String deptCode) {
+        this.getTbComSms().setDeptCode(deptCode);
+    }
+
+    public void setTranPhone(String tranPhone) {
+        this.getTbComSms().setTranPhone(tranPhone);
+    }
+
+    public void setTranCallback(String tranCallback) {
+        this.getTbComSms().setTranCallback(tranCallback);
+    }
+
+    public void setTranMsg(String tranMsg) {
+        this.getTbComSms().setTranMsg(tranMsg);
+    }
+
+    public void setTranEtc1(String tranEtc1) {
+        this.getTbComSms().setTranEtc1(tranEtc1);
+    }
+
+    public void setTranEtc3(String tranEtc3) {
+        this.getTbComSms().setTranEtc3(tranEtc3);
+    }
+
+    public void setTranType(Integer tranType) {
+        this.getTbComSms().setTranType(tranType);
+    }
+
+}

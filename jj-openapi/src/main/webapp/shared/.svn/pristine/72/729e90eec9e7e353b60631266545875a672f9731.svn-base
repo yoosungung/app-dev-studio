@@ -1,0 +1,276 @@
+@charset "utf-8";
+
+[v-cloak] {
+    visibility: hidden;
+}
+
+.valid-message {
+    color: red;
+}
+
+div.table {
+    display: table;
+}
+
+div.table.fixed {
+    table-layout: fixed;
+}
+
+div.table>div {
+    display: table-cell;
+}
+
+div
+.table
+.space
+>
+div
+:not
+(
+:first-child
+
+)
+{
+padding-left
+:
+
+3
+px
+;
+
+
+}
+button {
+    white-space: nowrap;
+}
+
+h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="text"].fill, input[type="password"].fill, textarea.fill {
+    width: calc(100% - 10px);
+}
+
+input[type="number"].fill, input[type="number"].fill {
+    width: calc(100% - 4px);
+}
+
+.full, .fill {
+    width: 100%;
+}
+
+.page-space {
+    margin-top: 10px;
+}
+
+.grid .title-bar {
+    display: table;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.grid .title-bar>div {
+    display: table-cell;
+}
+
+.grid .title-bar>div:last-child {
+    text-align: right;
+}
+
+.grid table.list thead th .sort {
+    padding-right: 2px;
+}
+
+.grid table.list thead th .sort::before {
+    content: '↕';
+    color: gray;
+}
+
+.grid table.list thead th .sort.asc::before {
+    content: '↑';
+    color: red;
+}
+
+.grid table.list thead th .sort.desc::before {
+    content: '↓';
+    color: red;
+}
+
+.grid .paging {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+table.form th.required {
+    position: relative;
+}
+
+table.form th.required::after {
+    content: '*';
+    color: red;
+    position: absolute;
+    right: 1px;
+}
+
+table.list th.required::after {
+    content: '*';
+    color: red;
+    margin-left: 1px;
+}
+
+.overflow {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: box;
+    max-height: 400px;
+    overflow: hidden;
+    vertical-align: top;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 20
+}
+
+.tal {
+    text-align: left;
+}
+
+.tac {
+    text-align: center;
+}
+
+.tar {
+    text-align: right;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.icon-date {
+    display: inline-block;
+    background: url(images/icon-date.png) no-repeat center center;
+    background-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+
+#footer {
+    width: 100%;
+    border-top: solid 1px #d5d5d5;
+    background: #fff;
+    height: 60px;
+    box-sizing: border-box;
+    padding: 15px;
+    font-size: 11px;
+    color: #666;
+    line-height: 1.0;
+    letter-spacing: 0;
+    margin-top: 40px;
+    text-align:left;
+}
+
+#footer ul {
+    display: block;
+    width: 1295px;
+    margin: 0 auto;
+}
+
+#footer li {
+    display: block;
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+#footer .boldtx {
+    font-weight: 600;
+    color: #333;
+}
+
+#footer .bar {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    padding: 0 3px;
+    color: #ccc;
+    text-align: center;
+}
+
+.ck.ck-content {
+    min-height: 150px;
+    margin: 0px !important;
+    padding: 3% !important;
+}
+
+.ck.ck-content ul li {
+    margin-left: 3% !important;
+    list-style: square !important;
+}
+
+.ck.ck-content ol{
+    margin-left: 3% !important;
+    list-style: unset !important;
+}
+
+.ck.ck-content ol li {
+    margin-left: 3% !important;
+    list-style: unset !important;
+}
+
+.editorcontent {
+    padding:none !important;
+/*     margin:auto !important; */
+}
+
+.editorcontent ol li {
+    margin-left:5%;
+    list-style: unset !important;
+}
+
+.editorcontent ul li {
+    margin-left:5%;
+    list-style: disc !important;
+}
+
+.editorcontent ul ul li {
+    margin-left:5%;
+    list-style: circle !important;
+}
+
+.editorcontent ul ul ul li {
+    /*     margin-left:5%!important; */
+    margin-left:5%;
+    list-style: square !important;
+}
+
+.editprop{
+    margin: auto !important;
+}
+
+
+.textbold {
+    /*     color:orange; */
+    color: black;
+    font-weight: bold;
+}
+
+.textlightblue {
+    color: hsl(233, 100%, 60%);
+}
+
+@font-face {
+    font-family: 'Nanumgothic';
+}

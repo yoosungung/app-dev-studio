@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 게시판 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.com.bbs.TbComBbsEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.com.bbs.TbComBbs">
+        <![CDATA[
+            SELECT TCB.BBS_ID
+                 , TCB.BBS_CODE
+                 , TCB.BBS_NM_TITLE
+                 , TCB.BBS_DC
+                 , TCB.ATCH_FILE_POLICY
+                 , TCB.ANSWER_POSBL_YN
+                 , TCB.RDCNT_INDICT_YN
+                 , TCB.NOTICE_BBS_YN
+                 , TCB.EDITR_APPLC_YN
+            FROM   TB_COM_BBS TCB
+            WHERE  TCB.BBS_ID = #{bbsId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_COM_BBS (
+                   BBS_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , BBS_CODE
+                 , BBS_NM_TITLE
+                 , BBS_DC
+                 , ATCH_FILE_POLICY
+                 , ANSWER_POSBL_YN
+                 , RDCNT_INDICT_YN
+                 , NOTICE_BBS_YN
+                 , EDITR_APPLC_YN
+            ) VALUES (
+                   #{tbComBbs.bbsId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbComBbs.bbsCode}
+                 , #{tbComBbs.bbsNmTitle}
+                 , #{tbComBbs.bbsDc}
+                 , #{tbComBbs.atchFilePolicy}
+                 , #{tbComBbs.answerPosblYn}
+                 , #{tbComBbs.rdcntIndictYn}
+                 , #{tbComBbs.noticeBbsYn}
+                 , #{tbComBbs.editrApplcYn}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_COM_BBS SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , BBS_CODE                         = #{tbComBbs.bbsCode}
+                 , BBS_NM_TITLE                     = #{tbComBbs.bbsNmTitle}
+                 , BBS_DC                           = #{tbComBbs.bbsDc}
+                 , ATCH_FILE_POLICY                 = #{tbComBbs.atchFilePolicy}
+                 , ANSWER_POSBL_YN                  = #{tbComBbs.answerPosblYn}
+                 , RDCNT_INDICT_YN                  = #{tbComBbs.rdcntIndictYn}
+                 , NOTICE_BBS_YN                    = #{tbComBbs.noticeBbsYn}
+                 , EDITR_APPLC_YN                   = #{tbComBbs.editrApplcYn}
+            WHERE  BBS_ID = #{tbComBbs.bbsId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_BBS
+            WHERE  BBS_ID = #{bbsId}
+        ]]>
+    </delete>
+
+</mapper>

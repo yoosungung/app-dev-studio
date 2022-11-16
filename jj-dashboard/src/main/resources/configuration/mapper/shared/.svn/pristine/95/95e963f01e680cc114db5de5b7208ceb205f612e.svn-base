@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 부서 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.dept.TbComDeptMapper">
+
+    <!-- DEPT_ID 조회 - DEPT_CODE + DEPT_LEVEL -->
+    <select id="selectDeptIdBydeptCode" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TCD.DEPT_ID
+            FROM   TB_COM_DEPT TCD
+            WHERE  TCD.DEPT_CODE = #{deptCode}
+            AND    CASE WHEN LENGTH(#{deptCode}) = 9 THEN 1
+                        ELSE TCD.DEPT_LEVEL
+                    END = #{deptLevel}
+        ]]>
+    </select>
+
+    <!-- 학과명 수정 -->
+    <update id="updateDeptNm">
+        <![CDATA[
+            UPDATE TB_COM_DEPT SET
+                   DEPT_NM                          = #{deptName}
+            WHERE  DEPT_CODE = #{deptCode}
+              AND  DEPT_LEVEL = #{deptLevel}
+        ]]>
+    </update>
+
+    <!-- 부서 코드 레벨 조회 -->
+    <select id="selectDeptCodeLevelList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+        SELECT DEPT_ID
+             , DEPT_CODE
+             , DEPT_LEVEL
+          FROM TB_COM_DEPT TCD
+        ]]>
+    </select>
+
+    <!-- 트리 목록 조회 -->
+    <select id="selectTreeList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TCD.DEPT_ID
+                 , TCD.UPPER_DEPT_ID
+                 , TCD.DEPT_CODE
+                 , TCD.DEPT_NM
+            FROM   TB_COM_DEPT TCD
+            ORDER BY TCD.DEPT_LEVEL, TCD.DEPT_NM
+        ]]>
+    </select>
+
+</mapper>

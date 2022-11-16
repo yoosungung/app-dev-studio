@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+    <entry key="admin.logmgt.errorlog.title.list"><![CDATA[에러 목록]]></entry>
+    <entry key="admin.logmgt.errorlog.title.detail"><![CDATA[에러 상세]]></entry>
+
+    <entry key="admin.logmgt.errorlog.label.userLoginNm"><![CDATA[사용자 로그인이름]]></entry>
+    <entry key="admin.logmgt.errorlog.label.userPersonNm"><![CDATA[사용자 이름]]></entry>
+
+</properties>

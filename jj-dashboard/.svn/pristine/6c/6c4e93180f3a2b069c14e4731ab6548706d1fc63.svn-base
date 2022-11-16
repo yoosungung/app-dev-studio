@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 출신 지역 분포 Mapper -->
+<mapper namespace="kr.ac.jj.dashboard.application.spread.mapper.SpreadMapper">
+
+    <!-- 출신 지역 분포 컬럼 목록 조회 -->
+    <select id="readJunhyungNameList" resultType="java.lang.String">
+        <![CDATA[
+            select distinct IPSY_GUBUN_TYPE
+            from   (select case when DIHM.IPSY_GUBUN_NAME like '정시%' then '정시'
+                                when DIHM.IPSY_GUBUN_NAME like '추가%' then '추가'
+                                else DIHM.IPSY_GUBUN_NAME
+                           end as IPSY_GUBUN_TYPE
+                    from DW_IPSY_HIGHSCOOL_MAT DIHM
+                   ) A
+        ]]>
+    </select>
+
+    <!-- 출신 지역 분포 리스트 조회 -->
+    <select id="readList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            WITH TBL AS (
+                SELECT IPSY_HIGH_LOCATION_DO_SUMMARY AS location
+                        , IPSY_HIGH_LOCATION_SIGUNGU_SUMMARY AS location_si
+        ]]>
+
+        <foreach collection="junhyungNameList" item="junhyungName" separator=" " index="index">
+            <![CDATA[
+                        , SUM(CASE IPSY_GUBUN_TYPE WHEN #{junhyungName} THEN CNT ELSE 0 END) AS cnt_${index + 1}
+            ]]>
+        </foreach>
+
+        <![CDATA[
+                        , SUM(CNT) AS CNT_ALL
+                        FROM ( SELECT   CASE WHEN IPSY_HIGH_LOCATION_DO = '전북' THEN IPSY_HIGH_LOCATION_SIGUNGU ELSE NULL END ipsy_high_location_sigungu_summary
+                                      , IPSY_GUBUN_TYPE
+                                      , CASE WHEN IPSY_HIGH_LOCATION_DO IS NULL OR IPSY_HIGH_LOCATION_DO = '기타' THEN '기타지역' ELSE IPSY_HIGH_LOCATION_DO END AS ipsy_high_location_do_summary
+                                      , COUNT(*) cnt
+                               FROM    (select case when DIHM.IPSY_GUBUN_NAME like '정시%' then '정시'
+                                                    when DIHM.IPSY_GUBUN_NAME like '추가%' then '추가'
+                                                    else DIHM.IPSY_GUBUN_NAME
+                                               end as IPSY_GUBUN_TYPE
+                                             , DIHM.*
+                                        from DW_IPSY_HIGHSCOOL_MAT DIHM
+                               WHERE IPSY_YY BETWEEN DATE_FORMAT(NOW(), '%Y')-4 AND DATE_FORMAT(NOW(), '%Y')
+        ]]>
+                        <if test="search.yearData != null and search.yearData != ''">
+                            AND IPSY_YY = #{search.yearData}
+                        </if>
+                        <if test="search.hapgyuk != null and search.hapgyuk != ''">
+                            AND (IPSY_HAPGYUK_YN = #{search.hapgyuk} OR ('Y' != #{search.hapgyuk} AND IPSY_HAPGYUK_YN NOT IN ('Y') ))
+                        </if>
+        <![CDATA[
+                                       ) A
+                               GROUP BY IPSY_GUBUN_NAME, IPSY_HIGH_LOCATION_DO, IPSY_HIGH_LOCATION_SIGUNGU
+                        ) T
+                        WHERE IPSY_HIGH_LOCATION_DO_SUMMARY != '기타지역'
+                        GROUP BY IPSY_HIGH_LOCATION_DO_SUMMARY, IPSY_HIGH_LOCATION_SIGUNGU_SUMMARY
+                        ORDER BY CASE IPSY_HIGH_LOCATION_DO_SUMMARY WHEN '전북' THEN 1 ELSE 2 END, IPSY_HIGH_LOCATION_DO_SUMMARY
+                )
+                SELECT 1 AS 'type', t.location
+                    , cnt_all
+                    , ROUND(CNT_ALL/C_ALL*100,1)*10 AS cnt_all_rate
+        ]]>
+
+        <foreach collection="junhyungNameList" item="junhyungName" separator=" " index="index">
+            <![CDATA[
+                    , cnt_${index + 1}
+                    , IFNULL(ROUND(cnt_${index + 1}/C_${index + 1}*100,1)*10,0) AS cnt_${index + 1}_rate
+            ]]>
+        </foreach>
+
+        <![CDATA[
+                FROM (
+                    SELECT *
+                    , (SELECT SUM(CNT_ALL) FROM TBL) C_ALL
+        ]]>
+
+        <foreach collection="junhyungNameList" item="junhyungName" separator=" " index="index">
+            <![CDATA[
+                    , (SELECT SUM(cnt_${index + 1}) FROM TBL) c_${index + 1}
+            ]]>
+        </foreach>
+
+        <![CDATA[
+                    FROM TBL
+                    GROUP BY LOCATION
+                ) T
+                UNION ALL
+                SELECT 2 AS 'type', LEFT(LOCATION_SI,2) location_si
+                    , cnt_all
+                    , IFNULL(ROUND(CNT_ALL/C_ALL*100,1)*10,0) AS cnt_all_rate
+        ]]>
+
+        <foreach collection="junhyungNameList" item="junhyungName" separator=" " index="index">
+            <![CDATA[
+                    , cnt_${index + 1}
+                    , IFNULL(ROUND(cnt_${index + 1}/C_${index + 1}*100,1)*10,0) AS cnt_${index + 1}_rate
+            ]]>
+        </foreach>
+
+        <![CDATA[
+                FROM (
+                    SELECT *
+                    , (SELECT SUM(CNT_ALL) FROM TBL) C_ALL
+        ]]>
+
+        <foreach collection="junhyungNameList" item="junhyungName" separator=" " index="index">
+            <![CDATA[
+                    , (SELECT SUM(cnt_${index + 1}) FROM TBL) C_${index + 1}
+            ]]>
+        </foreach>
+
+        <![CDATA[
+                    FROM TBL
+                    WHERE LOCATION = '전북'
+                    GROUP BY LOCATION_SI
+                ) T
+        ]]>
+    </select>
+</mapper>

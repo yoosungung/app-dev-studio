@@ -1,0 +1,125 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/layouts/shared/include/PageHeader.jspf" %>
+
+<div id="create" style="display: none;">
+    <div class="pageContents">
+        <table class="form">
+            <colgroup>
+                <col width="120px">
+                <col width="">
+                <col width="120px">
+                <col width="">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>메일 제목</th>
+                    <td colspan="3">
+                        <ui-input type="text" v-model="model.tbComEmail.emailSj" v-bind:max-byte="2000" v-bind:byte-indicator="false" auto-focus></ui-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>발송자 메일주소</th>
+                    <td>
+                        <ui-input type="text" v-model="model.tbComEmail.senderEmailAdres" v-bind:max-byte="200" v-bind:byte-indicator="false"></ui-input>
+                        <ui-valid-checker v-bind:value="model.tbComEmail.senderEmailAdres" check="required"></ui-valid-checker>
+                    </td>
+                    <th>발송자 이름</th>
+                    <td>
+                        <ui-input type="text" v-model="model.tbComEmail.senderNm" v-bind:max-byte="100" v-bind:byte-indicator="false"></ui-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>수신자</th>
+                    <td colspan="3">
+                        <div class="tal">
+                            <ui-list-button-append v-bind:data="model.tbComEmailRecptnList"
+                                v-bind:new-row-data="{ recptnTy: 'TO' }"
+                                id-column-name="emailRecptnId"
+                            ></ui-list-button-append>
+                            <ui-list-button-delete v-bind:data="model.tbComEmailRecptnList"
+                            ></ui-list-button-delete>
+                        </div>
+                        <table class="list">
+                            <thead>
+                                <tr>
+                                    <th width="30px">
+                                        <ui-checkbox-head v-bind:data="model.tbComEmailRecptnList"></ui-checkbox-head>
+                                    </th>
+                                    <th width="70px">수신유형</th>
+                                    <th width="">수신자 메일주소</th>
+                                    <th width="">수신자 이름</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="row in model.tbComEmailRecptnList" v-bind:key="row.emailRecptnId">
+                                    <td class="tac">
+                                        <ui-checkbox-row v-bind:data="row"></ui-checkbox-row>
+                                    </td>
+                                    <td class="tal">
+                                        <ui-select v-model="row.recptnTy" code-data="/domain.main.tbComEmailRecptn/recptnTy"></ui-select>
+                                        <ui-valid-checker v-bind:value="row.recptnTy" check="required"></ui-valid-checker>
+                                    </td>
+                                    <td class="tal">
+                                        <ui-input type="text" v-model="row.rcverEmailAdres" v-bind:max-byte="200" v-bind:byte-indicator="false"></ui-input>
+                                        <ui-valid-checker v-bind:value="row.rcverEmailAdres" check="required"></ui-valid-checker>
+                                    </td>
+                                    <td class="tal">
+                                        <ui-input type="text" v-model="row.rcverNm" v-bind:max-byte="100" v-bind:byte-indicator="false"></ui-input>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <ui-valid-checker v-bind:value="model.tbComEmailRecptnList" check="required"></ui-valid-checker>
+                    </td>
+                </tr>
+                <tr>
+                    <th>메일 내용</th>
+                    <td colspan="3">
+                        <ui-textarea v-model="model.tbComEmail.emailCn" rows="5" style="height: 250px;"></ui-textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-space tar">
+            <ui-button class="page" v-on:click="service['create']('create');">저장</ui-button>
+            <ui-button class="page" v-on:click="service['create']('send');">직접 발송</ui-button>
+            <ui-button class="list" v-on:click="closePopup();">닫기</ui-button>
+        </div>
+    </div>
+</div>
+
+<script>
+vues.create = new Vue({
+    el: '#create',
+    data: {
+        model: {
+            tbComEmail: {},
+            tbComEmailRecptnList: [{ _JOB_TYPE: "C", recptnTy: "TO" }]
+        }
+    },
+    computed: {
+        service: function() {
+            return new EmailLogManageViewService(this);
+        },
+        formatter: function() {
+            return CommonUtil.formatter;
+        }
+    },
+    methods: {
+        // 초기화
+        init: function() {
+            $(this.$el).dialog({
+                title: "발송 테스트",
+                modal: true,
+                width: 900,
+                height: 600
+            });
+        },
+        // 닫기
+        closePopup: function() {
+            $(this.$el).dialog("close");
+        }
+    }
+});
+</script>

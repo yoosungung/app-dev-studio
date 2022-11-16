@@ -1,0 +1,150 @@
+package kr.ac.jj.shared.application.admin.sysmanage.codemanage.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.application.admin.sysmanage.codemanage.mapper.CodeManageMapper;
+import kr.ac.jj.shared.application.admin.sysmanage.codemanage.model.CodeManageModel;
+import kr.ac.jj.shared.domain.main.mapper.sys.code.group.TbSysCodeGroupMapper;
+import kr.ac.jj.shared.domain.main.mapper.sys.code.value.TbSysCodeValueMapper;
+import kr.ac.jj.shared.domain.main.model.sys.code.group.TbSysCodeGroup;
+import kr.ac.jj.shared.domain.main.model.sys.code.value.TbSysCodeValue;
+import kr.ac.jj.shared.infrastructure.framework.core.foundation.exception.BizException;
+import kr.ac.jj.shared.infrastructure.framework.core.support.collection.DataJobTypes;
+import kr.ac.jj.shared.infrastructure.framework.web.context.support.MessageUtil;
+import kr.ac.jj.shared.infrastructure.grid.handler.GridDataResultHandler;
+import kr.ac.jj.shared.infrastructure.grid.model.GridRequest;
+
+/**
+ * 코드 관리 Service
+ */
+@Service
+public class CodeManageServiceImpl {
+
+    private @Autowired CodeManageMapper codeManageMapper;
+    private @Autowired TbSysCodeGroupMapper tbSysCodeGroupMapper;
+    private @Autowired TbSysCodeValueMapper tbSysCodeValueMapper;
+
+    /**
+     * 목록 조회
+     *
+     * @param gridRequest
+     * @return
+     */
+    public List<Map<String, Object>> readList(GridRequest gridRequest) {
+        GridDataResultHandler resultHandler = new GridDataResultHandler(gridRequest);
+
+        codeManageMapper.selectList(resultHandler, gridRequest.getPaging(), gridRequest.getSearch());
+
+        return resultHandler.getResultList();
+    }
+
+    /**
+     * 조회 - 생성용
+     *
+     * @return
+     */
+    public CodeManageModel read() {
+        CodeManageModel model = new CodeManageModel();
+
+        TbSysCodeGroup tbSysCodeGroup = new TbSysCodeGroup();
+        tbSysCodeGroup.setUseYn(true);
+
+        model.setTbSysCodeGroup(tbSysCodeGroup);
+        model.setTbSysCodeValueList(new ArrayList<TbSysCodeValue>());
+
+        return model;
+    }
+
+    /**
+     * 조회
+     *
+     * @param codeGroupId
+     * @return
+     */
+    public CodeManageModel read(String codeGroupId) {
+        CodeManageModel model = new CodeManageModel();
+
+        TbSysCodeGroup tbSysCodeGroup = tbSysCodeGroupMapper.select(codeGroupId);
+
+        model.setTbSysCodeGroup(tbSysCodeGroup);
+        model.setTbSysCodeValueList(tbSysCodeValueMapper.selectListByCodeGroupId(codeGroupId));
+
+        return model;
+    }
+
+    /**
+     * 생성
+     *
+     * @param model
+     * @return
+     */
+    public String create(CodeManageModel model) {
+        TbSysCodeGroup tbSysCodeGroup = model.getTbSysCodeGroup().newId();
+        List<TbSysCodeValue> tbSysCodeValueList = model.getTbSysCodeValueList();
+
+        if (tbSysCodeGroupMapper.insert(tbSysCodeGroup) == 0) {
+            if (codeManageMapper.selectCodeGroup(tbSysCodeGroup) > 0) {
+                throw new BizException(MessageUtil.getMessage("admin.sysmanage.codemanage.message.duplicatedCodeGroup",
+                        "중복된 코드그룹 \"{0}\" 입니다.", new String[] { tbSysCodeGroup.getCodeGroup() }));
+            }
+            throw new BizException(MessageUtil.getMessage("admin.sysmanage.codemanage.message.codeGroupCreateNotAvail",
+                    "코드그룹 \"{0}\" 을 생성할 수가 없습니다."));
+        }
+
+        for (TbSysCodeValue tbSysCodeValue : tbSysCodeValueList) {
+            tbSysCodeValue.setCodeGroupId(tbSysCodeGroup.getCodeGroupId());
+            tbSysCodeValueMapper.insert(tbSysCodeValue.newId());
+        }
+
+        return tbSysCodeGroup.getCodeGroupId();
+    }
+
+    /**
+     * 수정
+     *
+     * @param model
+     */
+    public void update(CodeManageModel model) {
+        if (!this.read(model.getTbSysCodeGroup().getCodeGroupId()).isEditable()) {
+            throw new BizException(MessageUtil.getMessage("common.message.notAvail.update", "수정할 수 없는 데이터입니다."));
+        }
+
+        TbSysCodeGroup tbSysCodeGroup = model.getTbSysCodeGroup();
+        List<TbSysCodeValue> tbSysCodeValueList = model.getTbSysCodeValueList();
+
+        tbSysCodeGroupMapper.update(tbSysCodeGroup);
+
+        for (TbSysCodeValue tbSysCodeValue : tbSysCodeValueList) {
+            DataJobTypes jobType = tbSysCodeValue.get_JOB_TYPES();
+
+            if (jobType == DataJobTypes.CREATE) {
+                tbSysCodeValue.setCodeGroupId(tbSysCodeGroup.getCodeGroupId());
+                tbSysCodeValueMapper.insert(tbSysCodeValue.newId());
+            } else if (jobType == DataJobTypes.UPDATE) {
+                tbSysCodeValueMapper.update(tbSysCodeValue);
+            } else if (jobType == DataJobTypes.DELETE) {
+                tbSysCodeValueMapper.delete(tbSysCodeValue.getCodeValueId());
+            }
+        }
+    }
+
+    /**
+     * 삭제
+     *
+     * @param codeGroupId
+     */
+    public void delete(String codeGroupId) {
+        if (!this.read(codeGroupId).isEditable()) {
+            throw new BizException(MessageUtil.getMessage("common.message.notAvail.delete", "삭제할 수 없는 데이터입니다."));
+        }
+
+        tbSysCodeValueMapper.deleteListByCodeGroupId(codeGroupId);
+        tbSysCodeGroupMapper.delete(codeGroupId);
+    }
+
+}

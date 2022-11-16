@@ -1,0 +1,16 @@
+package kr.ac.jj.survey.domain.main.model.sys.resrce;
+
+import kr.ac.jj.survey.infrastructure.idgen.util.IdGenerationUtil;
+
+/**
+ * 시스템 - 리소스
+ */
+public class TbSysResrce extends TbSysResrceEntity {
+    private static final long serialVersionUID = 6990274603128101717L;
+
+    public TbSysResrce newId() {
+        this.setResrceId(IdGenerationUtil.createUid("TB_SYS_RESRCE"));
+
+        return this;
+    }
+}

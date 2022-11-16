@@ -1,0 +1,35 @@
+package kr.ac.jj.shared.application.admin.appmanage.personmanage.service;
+
+import java.util.Map;
+
+import org.apache.ibatis.session.ResultContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.application.admin.appmanage.personmanage.mapper.PersonManageDwMapper;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.handler.DataResultHandler;
+
+/**
+ * 사람 관리 Service
+ */
+@Service
+public class PersonManageServiceNoTxImpl {
+
+    private @Autowired PersonManageDwMapper personManageDwMapper;
+    private @Autowired PersonManageServiceImpl personManageService;
+
+    /**
+     * 목록 조회
+     */
+    public void readList() {
+        personManageDwMapper.selectList(new DataResultHandler<Map<String, Object>>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends Map<String, Object>> resultContext) {
+                personManageService.updateFromDw(resultContext.getResultObject());
+            }
+
+        });
+    }
+
+}

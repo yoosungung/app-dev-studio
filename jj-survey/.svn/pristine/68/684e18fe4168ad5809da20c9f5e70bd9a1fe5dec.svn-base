@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>[전주대학교] ${jdSurveyDefinition.name?default("")}</title>
+  </head>
+  <body style="font-family:'Noto Sans KR',sans-serif;font-weight:200;font-size:17px;color:#333;letter-spacing:-0.5px;-webkit-text-size-adjust:none;-moz-text-size-adjust:none;-ms-text-size-adjust:none;">
+    <div style="width: 1024px; margin: 0 auto; clear: both; position: relative;">
+      <div style="margin: 5% 0 1% 2%;"><img src="http://www.jj.ac.kr/www/_res/img/survey-logo.png" alt="전주대학교"></div>
+      <div style="width: 90%; border: 5px solid #0078ad; border-bottom:none; margin-left: 2%; padding: 1% 3%;">
+           <p style="font-size: 1.5em; font-weight: 400; line-height: 1.9em; word-break: keep-all;">
+           안녕하세요!<br>
+           전주대학교 <strong>${registDeptNm?default("")}</strong>입니다.<br>
+           [<strong>${jdSurveyDefinition.purpose?default("")}</strong>]으로 다음과 같이 설문조사를 진행하고 있습니다.<br>
+           바쁘시더라도 잠시 시간을 내주셔서 귀중한 의견을 주시면 대단히 감사하겠습니다.
+         </p><br>
+
+         <table cellspacing="0" style="width:90%; border-top:3px solid #0078ad; font-weight:200; font-size:1.4em; color:#333; margin:auto;">
+          <colgroup>
+              <col width="20%">
+              <col width="80%">
+          </colgroup>
+          <tbody>
+            <tr>
+              <td scope="row" style="border-right:1px solid #dedede;border-bottom:1px solid #dedede;padding:6px 10px;background:#fafafa;text-align:center;">
+                설문명
+              </td>
+              <td style="border-bottom:1px solid #dedede;padding:6px 10px;">
+                ${jdSurveyDefinition.name?default("")}
+              </td>
+            </tr>
+              <tr>
+                <td scope="row" style="border-right:1px solid #dedede;border-bottom:1px solid #dedede;padding:6px 10px;background:#fafafa;text-align:center;">
+                  응답기간
+                </td>
+                <td style="border-bottom:1px solid #dedede;padding:6px 10px;">
+                  ${startDate?default("")}.(${startDay?default("")})~${endDate?default("")}.(${endDay?default("")}) 까지
+                </td>
+              </tr>
+          </tbody>
+         </table>
+
+            <div style="text-align:center; margin:8% auto;">
+            <a href="${urlLink}" target="_blank" title="설문 응답하기 새창열기" style="font-size: 1.3em; padding:10px 25px; border:1px solid #0078ad; border-radius: 6px; background:#0078ab; color:#fff; text-decoration: none;">
+              설문 응답하기<img src="http://www.jj.ac.kr/www/_res/img/btn-link.png" style="padding-left: 10px; vertical-align: -10%;"/>
+            </a>
+          </div>
+      </div>
+
+      <div style="background:#f3f3f3; margin:0 1% 0 2%; border: 5px solid #0078ad; border-top:none; padding:5px;">
+        <ul>
+          <li style="position: relative; font-weight: 200; font-size: 1.2em; color: #191919; line-height: 1.5em; list-style-type: none;">
+            (55069) 전라북도 전주시 완산구 천잠로 303 전주대학교
+          </li>
+          <li style="position: relative; font-weight: 200; font-size: 1.2em; color: #191919; line-height: 1.5em; list-style-type: none;">
+            TEL : <a href="tel:1577-7177" title="전화걸기" style="color: #191919; text-decoration: none;">+82-1577-7177</a> | FAX : +82-63-220-2464 | E-MAIL : <a href="mailto:webmaster@jj.ac.kr" title="메일보내기" style="color: #191919; text-decoration: none;">webmaster@jj.ac.kr</a>
+          </li>
+          <li style="position: relative; font-weight: 200; font-size: 1.2em; color: #191919; line-height: 1.5em; list-style-type: none;">
+            Copyrights (C)2020 Jeonju University. All Rights Reserved.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

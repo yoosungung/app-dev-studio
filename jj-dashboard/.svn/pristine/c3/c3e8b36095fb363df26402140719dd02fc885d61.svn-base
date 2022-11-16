@@ -1,0 +1,25 @@
+package kr.ac.jj.dashboard.application.dashboard.ipsy.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * 입학 분석 데이터 Controller
+ *
+ */
+@Controller
+@RequestMapping(path = "/dashboard/ipsy/Ipsy1")
+public class IpsyController {
+
+    /**
+     * 화면 (1/2)
+     *
+     * @return
+     */
+    @GetMapping
+    public String view() {
+        return "tiles2-common:/dashboard/ipsy/IpsyView";
+    }
+
+}

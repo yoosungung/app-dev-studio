@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 시스템 - 에러 로그 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbSysLogError.errorLogId"><![CDATA[에러 로그 ID]]></entry>
+    <entry key="domain.main.tbSysLogError.errorCode"><![CDATA[에러 코드]]></entry>
+    <entry key="domain.main.tbSysLogError.errorDt"><![CDATA[에러 일시]]></entry>
+    <entry key="domain.main.tbSysLogError.errorClass"><![CDATA[에러 클래스]]></entry>
+    <entry key="domain.main.tbSysLogError.errorMssage"><![CDATA[에러 메시지]]></entry>
+    <entry key="domain.main.tbSysLogError.errorStack"><![CDATA[에러 스택]]></entry>
+
+</properties>

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="page-body"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:table="urn:jsptagdir:/WEB-INF/tags/jd/2015/table"
+    xmlns:sec="http://www.springframework.org/security/tags"
+    version="2.0">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <style>
+        .tab7 ul li{width:50%;}
+    </style>
+
+    <script type="text/javascript">
+        <![CDATA[
+            var chart = {
+                    showBorder : '0',
+
+                    baseFont : 'Nanum Gothic',
+                    baseFontSize : '13',
+
+                    bgColor: '#ffffff',
+                    paletteColors: '#0075c2,#1aaf5d',
+                    borderAlpha: '20',
+                    showCanvasBorder: '0',
+                    usePlotGradientColor: '0',
+                    plotBorderAlpha: '10',
+
+                    showlegend: '0',
+
+                    valueFontColor: '#ffffff',
+
+                    xAxisLineColor: '#999999',
+
+                    showAlternateVGridColor: '0',
+                    showYAxisValues: '0',
+                    stack100Percent : '1'
+            };
+
+            var colors = ['#008ee4','#9b59b6','#6baa01','#e44a00','#f8bd19','#34495e','#1abc9c'];
+
+
+            $(function() {
+                chageTap(1);
+             })
+
+            function chageTap(idx) {
+                $('.tab7 ul li').each(function(i) {
+                    if((i+1) == idx) $(this).addClass("active");
+                    else $(this).removeClass("active");
+                });
+
+                $('#chartContainer').insertFusionCharts({
+                    type : 'stackedbar2d',
+                    dataFormat: 'json',
+                    width: 600,
+                    height: 300,
+                    dataSource: getData(idx)
+                });
+            }
+
+            function getData(order) {
+                var dataset = new Array();
+                var categories = new Array();
+                var category = new Array();
+                var data1 = new Array();
+                var data2 = new Array();
+
+                $.ajax({
+                    type: 'get',
+                    async: false,
+                    url: '${pageContext.request.contextPath}/pub/survey/status/${surveyDefinition.surveyDefinitionId}/'+order
+                }).done(function(data) {
+
+                    var total = 100;
+
+                    $(data).each(function(i) {
+                        category.push({label: this.name});
+                        data1.push({value: ((total-this.cnt) == 0 ? '': (total-this.cnt)), showValue : 0, color: '#BDBDBD', alpha:70});
+                        data2.push({value: this.cnt, color: colors[i]});
+
+                    });
+
+                    categories.push({'category': category});
+                    dataset.push({seriesname: '제출', data: data2});
+                    dataset.push({seriesname: '미제출', data: data1});
+                });
+                return {'chart':chart,'categories':categories,'dataset':dataset};
+            }
+
+            function surveyPopup(url, name) {
+
+                var top = (screen.height-550)/2;
+                var left = (screen.width-1100)/2;
+
+                window.open(url, name,'width=1100, height=550, top='+top+',left='+left);
+            }
+
+            function checkSurveyTarget(id) {
+                var flag = true;
+
+                $.ajax({
+                    type: 'post',
+                    async: false,
+                    url: '${pageContext.request.contextPath}/pub/survey/'+id,
+                }).done(function(data) {
+                    if(data == 0) {
+                        alert('조사대상자가 아닙니다.');
+                        flag = false;
+                    }
+                });
+                return flag;
+            }
+
+      ]]>
+    </script>
+
+    <!-- container -->
+       <div id="container">
+           <div class="section_wrap progress">
+               <!-- left_box -->
+               <div class="left_box">
+                <div class="tbl_area">
+                       <div class="tab7">
+                           <ul>
+                               <li>
+                                   <a onclick="chageTap(1);">기관유형별 제출현황</a>
+                               </li>
+                               <li>
+                                   <a onclick="chageTap(2);">지역별 제출현황</a>
+                               </li>
+                           </ul>
+                       </div>
+                       <div class="tbl_info">
+                           <div class="cont mb10">
+                            <div id="chartContainer"><!--  --></div>
+
+                           </div>
+                           <div class="cont">
+                               <h2 class="tit">title</h2>
+                               <div class="grath_box">
+                                   도식화 공간
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <!-- //left_box -->
+               <!-- right_box -->
+               <div class="right_box">
+                   <div class="list_box mb10">
+                       <ul>
+                           <li class="icon01">
+                               <sec:authorize access="!hasAnyRole('ROLE_ADMIN', 'ROLE_SURVEY_PARTICIPANT')">
+                                <a href="javascript:alert('로그인 후 이용 가능합니다.');">
+                                       <strong>조사작성</strong>
+                                       <p>대형연구시설 실태조사표를 작성하세요.</p>
+                                   </a>
+                            </sec:authorize>
+                            <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_SURVEY_PARTICIPANT')">
+                                <a href="javascript:surveyPopup('${pageContext.request.contextPath}/surveys/private/${surveyDefinition.surveyDefinitionId}?list', 'survey${surveyDefinition.surveyDefinitionId}');" onclick="return checkSurveyTarget(${survey.surveyDefinitionId});"><strong>조사작성</strong><p>대형연구시설 실태조사표를 작성하세요.</p></a>
+                            </sec:authorize>
+                            <c:if test="${surveyDefinition.status eq 'P' and surveyDefinition.realStatus eq 'S'}"><p class="end_resrch">조사를 작성하였습니다.</p></c:if>
+                               <c:if test="${surveyDefinition.status eq 'E'}"><p class="end_resrch">조사기간이 아닙니다.</p></c:if>
+                           </li>
+                           <li class="icon02">
+                               <sec:authorize access="!hasAnyRole('ROLE_ADMIN', 'ROLE_SURVEY_PARTICIPANT')">
+                                <a href="javascript:alert('로그인 후 이용 가능합니다.');">
+                                       <strong>대상확인</strong>
+                                       <p>대형시설  보유기관을 확인하세요.</p>
+                                   </a>
+                            </sec:authorize>
+                            <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_SURVEY_PARTICIPANT')">
+                                   <a href="${pageContext.request.contextPath}/pub/survey/targets/${surveyDefinition.departmentId}">
+                                       <strong>대상확인</strong>
+                                       <p>대형시설  보유기관을 확인하세요.</p>
+                                   </a>
+                            </sec:authorize>
+                           </li>
+                           <li class="icon03">
+                               <sec:authorize access="!hasAnyRole('ROLE_ADMIN', 'ROLE_SURVEY_PARTICIPANT')">
+                                <a href="javascript:alert('로그인 후 이용 가능합니다.');">
+                                       <strong>수정 조회</strong>
+                                       <p>제출기한 전까지 수정이 가능해요.</p>
+                                   </a>
+                            </sec:authorize>
+                            <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_SURVEY_PARTICIPANT')">
+                                <a href="javascript:surveyPopup('${pageContext.request.contextPath}/surveys/private/${surveyDefinition.surveyId}', 'survey${surveyDefinition.surveyDefinitionId}');" onclick="return checkSurveyTarget(${survey.surveyDefinitionId});"><strong>수정 조회</strong><p>제출기한 전까지 수정이 가능해요.</p></a>
+                            </sec:authorize>
+                               <c:if test="${surveyDefinition.status eq 'E'}"><p class="end_resrch">조사기간이 아닙니다.</p></c:if>
+                           </li>
+                           <li class="icon04">
+                               <sec:authorize access="!hasAnyRole('ROLE_ADMIN', 'ROLE_SURVEY_PARTICIPANT')">
+                                <a href="javascript:alert('로그인 후 이용 가능합니다.');">
+                                       <strong>조사결과</strong>
+                                       <p>전년도 결과를 확인하세요.</p>
+                                   </a>
+                            </sec:authorize>
+                               <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_SURVEY_PARTICIPANT')">
+                                <a href="">
+                                       <strong>조사결과</strong>
+                                       <p>전년도 결과를 확인하세요.</p>
+                                   </a>
+                            </sec:authorize>
+                           </li>
+                       </ul>
+                   </div>
+
+                   <div class="brn_box mb10">
+                       <a href="${pageContext.request.contextPath}/pub/survey/wolf?best"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/img_brn03.jpg" alt="" /></a>
+                   </div>
+
+                   <div class="data_box">
+                       <div class="tit_box">
+                           <h2 class="tit">실태조사 자료</h2>
+                           <div class="down_box">
+                               <a href="" class="btn_down">공문</a>
+                               <a href="" class="btn_down">계획서</a>
+                           </div>
+                       </div>
+                       <ul class="lst_data">
+                           <li class="edge">
+                               <a href="https://feel.nfec.go.kr/_prog/books/?mode=V&#38;cate=7&#38;mng_no=131&#38;site_dvs_cd=dc&#38;menu_dvs_cd=010102">
+                                   <dl>
+                                       <dt>국가연구시설장비 관리 표준지침</dt>
+                                       <dd class="thumb"><img src="https://feel.nfec.go.kr/upload/dc/books/books_imgm_0_1366092469.gif" alt="국가연구시설장비관리표준지침" /></dd>
+                                       <dd>2013년 3월 발행<br />75 page</dd>
+                                   </dl>
+                               </a>
+                           </li>
+                           <li>
+                               <a href="https://feel.nfec.go.kr/_prog/books/?mode=V&#38;cate=7&#38;mng_no=65&#38;site_dvs_cd=dc&#38;menu_dvs_cd=010102">
+                                   <dl>
+                                       <dt>알기쉬운 국가연구시설장비 관리 표준지침</dt>
+                                       <dd class="thumb"><img src="https://feel.nfec.go.kr/upload/dc/books/books_imgm_0_1361256269.jpg" alt="알기쉬운 국가연구시설장비 관리 표준지침" /></dd>
+                                       <dd>2012년 4월 발행<br />30 page</dd>
+                                   </dl>
+                               </a>
+                           </li>
+                       </ul>
+                   </div>
+               </div>
+               <!-- //right_box -->
+           </div>
+       </div>
+       <!-- end container -->
+</div>
+

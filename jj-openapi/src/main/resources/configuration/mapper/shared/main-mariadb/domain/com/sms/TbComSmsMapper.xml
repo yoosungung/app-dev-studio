@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 문자메시지 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.sms.TbComSmsMapper">
+
+    <!-- 결과 업데이트 대상 목록 조회 -->
+    <select id="selectForResultUpdateList" resultType="kr.ac.jj.shared.domain.main.model.com.sms.TbComSms">
+        <include refid="kr.ac.jj.shared.domain.main.mapper.com.sms.TbComSmsEntityMapper.baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TCS.TRAN_PR IS NOT NULL
+            AND    TCS.TRAN_REPORTDATE IS NULL
+            AND    TCS.TRAN_RSLT IS NULL
+            AND    IFNULL(TCS.UPDT_DT, TCS.CREAT_DT) >= #{limitDateTime}
+        ]]>
+    </select>
+
+    <!-- 발송 대상 목록 조회 -->
+    <select id="selectForSendList" resultType="kr.ac.jj.shared.domain.main.model.com.sms.TbComSms">
+        <include refid="kr.ac.jj.shared.domain.main.mapper.com.sms.TbComSmsEntityMapper.baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TCS.TRAN_PR IS NULL
+        ]]>
+    </select>
+
+    <!-- 수정 - TRAN_PR -->
+    <update id="updateTranPr">
+        <![CDATA[
+            UPDATE TB_COM_SMS SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , TRAN_PR                          = #{tranPr}
+            WHERE  SMS_ID = #{smsId}
+        ]]>
+    </update>
+
+    <!-- 수정 - 전송 결과 -->
+    <update id="updateResult">
+        <![CDATA[
+            UPDATE TB_COM_SMS SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , TRAN_REFKEY                      = #{tbComSms.tranRefkey}
+                 , TRAN_ID                          = #{tbComSms.tranId}
+                 , TRAN_STATUS                      = #{tbComSms.tranStatus}
+                 , TRAN_DATE                        = #{tbComSms.tranDate}
+                 , TRAN_RSLTDATE                    = #{tbComSms.tranRsltdate}
+                 , TRAN_REPORTDATE                  = #{tbComSms.tranReportdate}
+                 , TRAN_RSLT                        = #{tbComSms.tranRslt}
+                 , TRAN_NET                         = #{tbComSms.tranNet}
+            WHERE  SMS_ID = #{tbComSms.smsId}
+        ]]>
+    </update>
+
+    <!-- 수정 - 재발송 처리 -->
+    <update id="updateReSend">
+        <![CDATA[
+            UPDATE TB_COM_SMS SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , TRAN_PR                          = NULL
+                 , TRAN_REFKEY                      = NULL
+                 , TRAN_ID                          = NULL
+                 , TRAN_STATUS                      = '1'
+                 , TRAN_DATE                        = #{$var.systemDate}
+                 , TRAN_RSLTDATE                    = NULL
+                 , TRAN_REPORTDATE                  = NULL
+                 , TRAN_RSLT                        = NULL
+                 , TRAN_NET                         = NULL
+            WHERE  SMS_ID = #{smsId}
+        ]]>
+    </update>
+
+</mapper>

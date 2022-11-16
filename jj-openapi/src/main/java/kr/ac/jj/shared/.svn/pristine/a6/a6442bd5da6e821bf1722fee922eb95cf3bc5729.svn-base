@@ -1,0 +1,102 @@
+package kr.ac.jj.shared.infrastructure.framework.core.persistence.dao.helper;
+
+import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.sql.DataSource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class SqlHelperUtil {
+
+    private static final Logger log = LoggerFactory.getLogger(SqlHelperUtil.class);
+
+    private static SqlHelper defaultSqlHelper;
+    private static Set<SqlHelper> sqlHelperSet;
+
+    private static void initSqlHelperSet() {
+        if (sqlHelperSet != null) {
+            return;
+        }
+
+        defaultSqlHelper = new SqlHelperDefault();
+        sqlHelperSet = new HashSet<SqlHelper>();
+    }
+
+    public static void addSqlHelper(SqlHelper sqlHelper) {
+        initSqlHelperSet();
+
+        if (!sqlHelperSet.contains(sqlHelper)) {
+            sqlHelperSet.add(sqlHelper);
+        }
+    }
+
+    public static SqlHelper getSqlHelper(DataSource dataSource) {
+        Connection connection = null;
+        DatabaseMetaData metaData;
+
+        try {
+            connection = dataSource.getConnection();
+            metaData = connection.getMetaData();
+            log.debug("DatabaseMetaData.getDatabaseProductName() ==> {}", metaData.getDatabaseProductName());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (connection != null) {
+                try {
+                    if (!connection.isClosed()) {
+                        connection.close();
+                    }
+                } catch (SQLException e) {
+                    log.error("SQL Exception", e);
+                }
+            }
+        }
+
+        initSqlHelperSet();
+
+        for (SqlHelper sqlHelper : sqlHelperSet) {
+            if (sqlHelper.checkDatabaseMetaData(metaData)) {
+                return newSqlHelper(sqlHelper);
+            }
+        }
+
+        return newSqlHelper(defaultSqlHelper);
+    }
+
+    public static SqlHelper getSqlHelper(String databaseKind) {
+        initSqlHelperSet();
+
+        for (SqlHelper sqlHelper : sqlHelperSet) {
+            if (sqlHelper.checkDatabaseKind(databaseKind)) {
+                return newSqlHelper(sqlHelper);
+            }
+        }
+
+        return newSqlHelper(defaultSqlHelper);
+    }
+
+    private static SqlHelper newSqlHelper(SqlHelper sqlHelper) {
+        try {
+            return sqlHelper.getClass().getDeclaredConstructor().newInstance();
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (SecurityException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+}

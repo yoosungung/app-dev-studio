@@ -1,0 +1,47 @@
+package kr.ac.jj.shared.domain.main.model.com.bbsctt;
+
+import kr.ac.jj.shared.domain.main.model.com.file.TbComFileList;
+import kr.ac.jj.shared.infrastructure.idgen.util.IdGenerationUtil;
+
+/**
+ * 공통 - 게시글
+ */
+public class TbComBbsctt extends TbComBbscttEntity {
+
+    private static final long serialVersionUID = -2485886646002405649L;
+
+    private String writngPsnNm;
+    private String changePsnNm;
+    private TbComFileList atchFileList;
+
+    public TbComBbsctt newId() {
+        this.setBbscttId(IdGenerationUtil.createUid("TB_COM_BBSCTT"));
+
+        return this;
+    }
+
+    public String getWritngPsnNm() {
+        return this.writngPsnNm;
+    }
+
+    public void setWritngPsnNm(String writngPsnNm) {
+        this.writngPsnNm = writngPsnNm;
+    }
+
+    public String getChangePsnNm() {
+        return this.changePsnNm;
+    }
+
+    public void setChangePsnNm(String changePsnNm) {
+        this.changePsnNm = changePsnNm;
+    }
+
+    public TbComFileList getAtchFileList() {
+        return this.atchFileList;
+    }
+
+    public void setAtchFileList(TbComFileList atchFileList) {
+        this.atchFileList = atchFileList;
+    }
+
+}

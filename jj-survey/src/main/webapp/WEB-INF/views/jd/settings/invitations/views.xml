@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+    <definition extends="default" name="settings/invitations/upload">
+        <put-attribute name="activeTab" value="settings"  cascade="true"/>
+        <put-attribute name="pagemode" value="import"  cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/invitations/upload.jspx"/>
+        <put-attribute name="menu" value="/WEB-INF/views/jd/settings/invitations/menu.jspx"/>
+    </definition>
+
+
+       <definition extends="default" name="settings/invitations/invitations">
+        <put-attribute name="activeTab" value="settings"  cascade="true"/>
+        <put-attribute name="pagemode" value="list"  cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/jd/settings/invitations/invitations.jspx"/>
+        <put-attribute name="menu" value="/WEB-INF/views/jd/settings/invitations/menu.jspx"/>
+    </definition>
+
+
+</tiles-definitions>

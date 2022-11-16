@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 부서 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.dept.TbComDeptMapper">
+
+    <!-- DEPT_ID 조회 - DEPT_CODE로 -->
+    <select id="selectDeptIdBydeptCode" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TCD.DEPT_ID
+            FROM   TB_COM_DEPT TCD
+            WHERE  TCD.DEPT_CODE = #{deptCode}
+        ]]>
+    </select>
+
+</mapper>

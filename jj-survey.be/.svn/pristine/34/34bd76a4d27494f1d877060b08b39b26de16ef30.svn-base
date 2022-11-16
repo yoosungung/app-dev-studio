@@ -1,0 +1,106 @@
+package kr.ac.jj.survey.application.admin.sysmanage.menumanage.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import kr.ac.jj.survey.application.admin.sysmanage.menumanage.model.MenuManageModel;
+import kr.ac.jj.survey.application.admin.sysmanage.menumanage.service.MenuManageServiceImpl;
+import kr.ac.jj.survey.infrastructure.framework.core.support.collection.BaseMap;
+import kr.ac.jj.survey.infrastructure.framework.core.support.collection.BaseMapList;
+
+/**
+ * 메뉴 관리 RestController
+ */
+@RestController
+@RequestMapping(path = "/admin/sysmanage/menumanage/MenuManage", consumes = { MediaType.APPLICATION_JSON_VALUE })
+public class MenuManageRestController {
+    private @Autowired MenuManageServiceImpl menuManageService;
+
+    /**
+     * 트리 조회
+     *
+     * @param menuKnd
+     * @return
+     */
+    @PostMapping(path = "/readTree")
+    public List<Map<String, Object>> readTree(@RequestBody String menuKnd) {
+        return menuManageService.readTree(menuKnd);
+    }
+
+    /**
+     * 목록 조회
+     *
+     * @param search
+     * @return
+     */
+    @PostMapping(path = "/readList")
+    public List<Map<String, Object>> readList(@RequestBody BaseMap search) {
+        String menuKnd = (String) search.get("menuKnd");
+        String upperMenuId = (String) search.get("upperMenuId");
+
+        return menuManageService.readList(menuKnd, upperMenuId);
+    }
+
+    /**
+     * 목록 순서 저장
+     *
+     * @param ordrList
+     */
+    @PutMapping(path = "/updateOrdrList")
+    public void updateOrdrList(@RequestBody BaseMapList ordrList) {
+        menuManageService.updateOrdrList(ordrList);
+    }
+
+    /**
+     * 조회
+     *
+     * @param menuId
+     * @return
+     */
+    @GetMapping
+    public MenuManageModel read(@RequestParam(required = false) String menuId) {
+        return menuManageService.read(menuId);
+    }
+
+    /**
+     * 생성
+     *
+     * @param model
+     * @return
+     */
+    @PostMapping
+    public String create(@RequestBody MenuManageModel model) {
+        return menuManageService.create(model);
+    }
+
+    /**
+     * 수정
+     *
+     * @param model
+     */
+    @PutMapping
+    public void update(@RequestBody MenuManageModel model) {
+        menuManageService.update(model);
+    }
+
+    /**
+     * 삭제
+     *
+     * @param menuId
+     */
+    @DeleteMapping
+    public void delete(@RequestBody String menuId) {
+        menuManageService.delete(menuId);
+    }
+}

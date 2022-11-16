@@ -1,0 +1,143 @@
+package kr.ac.jj.shared.infrastructure.logging.util;
+
+import java.io.File;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
+import org.dizitart.no2.Document;
+import org.dizitart.no2.filters.Filters;
+import org.slf4j.MDC;
+
+import kr.ac.jj.shared.domain.main.model.sys.log.TbSysLog;
+import kr.ac.jj.shared.infrastructure.framework.core.support.context.ApplicationContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.core.support.uid.UidUtil;
+import kr.ac.jj.shared.infrastructure.framework.web.context.request.RequestContextUtil;
+import kr.ac.jj.shared.infrastructure.logging.collection.LoggingCollections;
+import kr.ac.jj.shared.infrastructure.util.BaseUtil;
+
+/**
+ * 로깅 Util
+ */
+public class LoggingUtil {
+
+    /**
+     * DB 파일 반환
+     *
+     * @return
+     */
+    public static File getDatabaseFile() {
+        return BaseUtil.getTempFile("logging.db");
+    }
+
+    /**
+     * 현재 요청 쓰레드의 로그 ID 반환
+     *
+     * @return
+     */
+    public static String getCurrentLogId() {
+        return getCurrentLogId(false);
+    }
+
+    /**
+     * 현재 요청 쓰레드의 로그 ID 반환(없으면 생성 후 반환)
+     *
+     * @param create
+     * @return
+     */
+    public static String getCurrentLogId(boolean create) {
+        HttpServletRequest request = RequestContextUtil.getRequest();
+
+        if (request == null) {
+            return null;
+        }
+
+        if (create && StringUtils.isEmpty((String) request.getAttribute("logging-logId"))) {
+            request.setAttribute("logging-logId", UidUtil.generateUid());
+        }
+
+        return (String) request.getAttribute("logging-logId");
+    }
+
+    /**
+     * 현재 요청 쓰레드의 신규 Document 생성 반환
+     *
+     * @param value
+     * @return
+     */
+    public static Document newCurrentDocument(Object value) {
+        if (StringUtils.isEmpty(LoggingUtil.getCurrentLogId())) {
+            return null;
+        }
+
+        Document document = Document.createDocument("logId", LoggingUtil.getCurrentLogId()).put("data", value);
+
+        return document;
+    }
+
+    /**
+     * 현재 요청 쓰레드의 로그 Document 반환
+     *
+     * @return
+     */
+    private static Document getCurrentTbSysLogDocument() {
+        LoggingCollections loggingCollections = ApplicationContextUtil.getBean(LoggingCollections.class);
+        Document document = loggingCollections.tbSysLog.find(Filters.eq("logId", LoggingUtil.getCurrentLogId()))
+                .firstOrDefault();
+
+        return document;
+    }
+
+    /**
+     * 현재 요청 쓰레드의 로그 객체 반환
+     *
+     * @return
+     */
+    public static TbSysLog getCurrentTbSysLog() {
+        Document currentTbSysLogDocument = getCurrentTbSysLogDocument();
+
+        if (currentTbSysLogDocument != null) {
+            return (TbSysLog) currentTbSysLogDocument.get("data");
+        }
+
+        return null;
+    }
+
+    /**
+     * 현재 요청 쓰레드의 로그 완료 처리
+     */
+    public static void setCurrentLogComplete() {
+        Document currentTbSysLogDocument = getCurrentTbSysLogDocument();
+
+        if (currentTbSysLogDocument != null) {
+            LoggingCollections loggingCollections = ApplicationContextUtil.getBean(LoggingCollections.class);
+            loggingCollections.tbSysLog.update(currentTbSysLogDocument.put("completed", true));
+        }
+    }
+
+    /**
+     * 로깅 타입 반환
+     *
+     * @return
+     */
+    public static String getLoggingType() {
+        return MDC.get("logging-type");
+    }
+
+    /**
+     * 로깅 타입 설정
+     *
+     * @param value
+     */
+    public static void setLoggingType(String value) {
+        MDC.put("logging-type", value);
+    }
+
+    /**
+     * 로깅 타입 제거
+     */
+    public static void removeLoggingType() {
+        MDC.remove("logging-type");
+    }
+
+}

@@ -1,0 +1,27 @@
+package kr.ac.jj.shared.application.admin.appmanage.hrmanage.model;
+
+/**
+ * 포탈 코드 마스터
+ */
+public class PortalCodeMaster {
+
+    private String codeCode;
+    private String codeFname;
+
+    public String getCodeCode() {
+        return this.codeCode;
+    }
+
+    public void setCodeCode(String codeCode) {
+        this.codeCode = codeCode;
+    }
+
+    public String getCodeFname() {
+        return this.codeFname;
+    }
+
+    public void setCodeFname(String codeFname) {
+        this.codeFname = codeFname;
+    }
+
+}

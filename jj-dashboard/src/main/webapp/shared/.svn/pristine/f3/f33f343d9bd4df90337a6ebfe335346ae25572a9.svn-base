@@ -1,0 +1,7 @@
+$(function() {
+	
+});
+
+function comma(strnum) {
+    return strnum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

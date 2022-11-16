@@ -1,0 +1,78 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/tiles/shared/include/PageHeader.jspf" %>
+
+<div id="list">
+    <div class="pageHeader">
+        사용자 목록
+        <div class="fr">
+            <ui-button class="search" v-on:click="service.readList(true);">조회</ui-button>
+        </div>
+    </div>
+
+    <div class="pageContents">
+        <table class="form" v-on:keyup.enter="service.readList(true);">
+            <colgroup>
+                <col width="120px">
+                <col width="">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>사용자명</th>
+                    <td>
+                        <input type="text" v-model="gridRequest.search.name">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="dataTbl">
+            <ui-grid-paging v-bind:request="gridRequest" v-bind:result="gridResult" v-bind:read-list="service.readList">
+                <table class="list">
+                    <thead>
+                        <tr>
+                            <th width="100px" column-name="emplNo" sort="ASC">교번</th>
+                            <th width="" column-name="koreanNm" sort="true">한글 이름</th>
+                            <th width="" column-name="ofcpsNm" sort="true">직위 이름</th>
+                            <th width="" column-name="emailAdres" sort="true">이메일 주소</th>
+                            <th width="" column-name="deptNm" sort="true">조직명</th>
+                        </tr>
+                    </thead>
+                    <tbody v-cloak>
+                        <tr v-for="row in gridResult.list" v-bind:key="row.personId">
+                            <td class="tac">{{ row.emplNo }}</td>
+                            <td class="tac">{{ row.koreanNm }}</td>
+                            <td class="tac">{{ row.ofcpsNm }}</td>
+                            <td class="tac">{{ row.emailAdres }}</td>
+                            <td class="tac">{{ row.deptNm }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ui-grid-paging>
+        </div>
+    </div>
+</div>
+
+<script>
+var vues = {};
+
+vues.list = new Vue({
+    el: '#list',
+    data: {
+        gridRequest: GridUtil.getRequestWithPaging({}),
+        gridResult: {}
+    },
+    computed: {
+        service: function() {
+            return new PersonManageViewService(this);
+        },
+        formatter: function() {
+            return CommonUtil.formatter;
+        }
+    },
+    mounted: function() {
+        this.service.readList();
+    },
+    methods: {
+    }
+});
+</script>

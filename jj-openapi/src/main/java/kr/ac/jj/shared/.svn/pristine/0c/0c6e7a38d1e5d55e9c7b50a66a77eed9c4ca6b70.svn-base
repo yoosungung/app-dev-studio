@@ -1,0 +1,24 @@
+package kr.ac.jj.shared.application.admin.sysmanage.authormanage.mapper;
+
+import java.util.List;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedSqlMapper;
+import kr.ac.jj.shared.domain.main.model.sys.rolehierarchy.TbSysRoleHierarchy;
+
+/**
+ * 권한 계층 관리 Mapper
+ */
+@SharedSqlMapper
+public interface AuthorityHierarchyManageMapper {
+
+    /**
+     * 목록 조회
+     */
+    public List<TbSysRoleHierarchy> selectList();
+
+    /**
+     * 목록 삭제
+     */
+    public int deleteList();
+
+}

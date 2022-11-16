@@ -1,0 +1,22 @@
+package kr.ac.jj.shared.domain.main.model;
+
+import kr.ac.jj.shared.infrastructure.framework.core.support.collection.BaseEntity;
+
+public class MainEntity extends BaseEntity {
+
+    private static final long serialVersionUID = -8620523699644126087L;
+
+    /*
+    public TbComFileList getTbComFileList(String fileGroupId) {
+        if (StringUtils.isEmpty(fileGroupId)) {
+            return null;
+        }
+
+        FileServiceImpl fileService = ApplicationContextUtil.getBean(FileServiceImpl.class);
+        TbComFileList tbComFileList = fileService.selectList(fileGroupId);
+
+        return tbComFileList;
+    }
+    */
+
+}

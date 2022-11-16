@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 입학 데이터 CodeData -->
+<mapper namespace="dashboard-codedata.entrance">
+
+    <!-- 단과대학 조회 -->
+    <select id="readDaehakList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT IPSY_DAEHAK AS CODE
+             , IPSY_DAEHAK AS NAME
+        FROM DW_IPSY_HIGHSCOOL_MAT
+        GROUP BY IPSY_DAEHAK
+        ORDER BY IPSY_DAEHAK
+    </select>
+
+    <!-- 학과 조회 -->
+    <select id="readHakkwa1nameList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT IPSY_HAKKWA1_NAME AS CODE
+             , IPSY_HAKKWA1_NAME AS NAME
+        FROM DW_IPSY_HIGHSCOOL_MAT
+        WHERE IPSY_DAEHAK = #{param1}
+        GROUP BY IPSY_HAKKWA1_NAME
+        ORDER BY IPSY_HAKKWA1_NAME
+    </select>
+
+    <!-- 입학 전형별 조회 -->
+    <select id="readJunhyungList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT DISTINCT CODE_CODE AS CODE, CODE_FNAME AS NAME
+        FROM DW_CODEMAST
+        WHERE CODE_TYPE=504
+        AND CODE_FNAME IS NOT NULL
+        ORDER BY CODE_FNAME
+    </select>
+
+    <!-- 5개 연도 조회 -->
+    <select id="readYear" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT year AS CODE, year as NAME
+        FROM (
+            SELECT DATE_FORMAT(NOW(),'%Y') as year
+            UNION SELECT DATE_FORMAT(NOW(),'%Y')-1
+            UNION SELECT DATE_FORMAT(NOW(),'%Y')-2
+            UNION SELECT DATE_FORMAT(NOW(),'%Y')-3
+            UNION SELECT DATE_FORMAT(NOW(),'%Y')-4
+        ) T
+    </select>
+
+    <!-- 유형 -->
+    <select id="applyKind" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT 'SUCCESS' as CODE, '합격' as NAME
+        UNION ALL
+        SELECT 'FAIL' as CODE, '불합격' as NAME
+    </select>
+
+</mapper>

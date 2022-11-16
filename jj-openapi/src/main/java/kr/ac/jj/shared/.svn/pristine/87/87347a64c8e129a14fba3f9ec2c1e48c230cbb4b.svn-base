@@ -1,0 +1,26 @@
+package kr.ac.jj.shared.config;
+
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import kr.ac.jj.shared.infrastructure.logging.filter.LoggingFilter;
+
+/**
+ * 로깅 Config
+ */
+@Configuration
+public class SharedLoggingConfig {
+
+    @Bean
+    public FilterRegistrationBean<LoggingFilter> loggingFilter() {
+        FilterRegistrationBean<LoggingFilter> registrationBean = new FilterRegistrationBean<LoggingFilter>(
+                new LoggingFilter());
+        registrationBean.setOrder(SecurityProperties.DEFAULT_FILTER_ORDER - 1);
+        registrationBean.addUrlPatterns("/*");
+
+        return registrationBean;
+    }
+
+}

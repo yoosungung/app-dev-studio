@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jd.survey.pub.mapper.SurveyCommentMapper">
+
+    <select id="getSurveyComment" parameterType="long" resultType="com.jd.survey.pub.domain.SurveyComment">
+        /* 설문조사 댓글 조회 */
+        SELECT id, user_id, comments, modify_dt, regist_dt, survey_definition_id
+        FROM survey_comment WHERE id = #{value}
+    </select>
+
+    <select id="getSurveyCommentsBySurveyDefinitionId" parameterType="long" resultType="com.jd.survey.pub.domain.SurveyComment">
+        /* 설문조사 댓글 목록 조회 */
+        SELECT A.id, A.user_id, A.comments, A.modify_dt, A.regist_dt, B.first_name AS userNm
+        FROM survey_comment A, survey_sec_user B
+        WHERE A.user_id = B.id AND A.survey_definition_id = #{value} ORDER BY A.regist_dt DESC
+    </select>
+
+    <insert id="addSurveyComment" parameterType="com.jd.survey.pub.domain.SurveyComment">
+        /* 설문조사 댓글 등록 */
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT COALESCE(MAX(id), 0) + 1 FROM survey_comment
+        </selectKey>
+        INSERT INTO survey_comment ( id, user_id, comments, regist_dt, survey_definition_id )
+        VALUES ( #{id}, #{userId}, #{comments}, SYSDATE, #{surveyDefinitionId} )
+    </insert>
+
+    <update id="modSurveyComment" parameterType="com.jd.survey.pub.domain.SurveyComment">
+        /* 설문조사 댓글 수정 */
+        UPDATE survey_comment SET comments = #{comments}, modify_dt = SYSDATE
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delSurveyComment" parameterType="long">
+        /* 설문조사 댓글 삭제 */
+        DELETE FROM survey_comment WHERE id = #{id}
+    </delete>
+
+</mapper>

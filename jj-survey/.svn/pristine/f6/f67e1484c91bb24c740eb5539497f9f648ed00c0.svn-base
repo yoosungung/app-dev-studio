@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 설문_공통문항 응답 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbSurveyCmmnRspns.cmmnRspnsId"><![CDATA[공통 응답 ID]]></entry>
+    <entry key="domain.main.tbSurveyCmmnRspns.surveyId"><![CDATA[설문 응답 ID]]></entry>
+    <entry key="domain.main.tbSurveyCmmnRspns.personId"><![CDATA[사람 ID]]></entry>
+    <entry key="domain.main.tbSurveyCmmnRspns.rspnsOdr"><![CDATA[응답 차수]]></entry>
+    <entry key="domain.main.tbSurveyCmmnRspns.sexdstn"><![CDATA[성별]]></entry>
+    <entry key="domain.main.tbSurveyCmmnRspns.area"><![CDATA[지역]]></entry>
+    <entry key="domain.main.tbSurveyCmmnRspns.grade"><![CDATA[학년]]></entry>
+    <entry key="domain.main.tbSurveyCmmnRspns.cghmy"><![CDATA[단과 대학]]></entry>
+    <entry key="domain.main.tbSurveyCmmnRspns.subjct"><![CDATA[학과]]></entry>
+    <entry key="domain.main.tbSurveyCmmnRspns.stsfdg01"><![CDATA[만족도 01]]></entry>
+    <entry key="domain.main.tbSurveyCmmnRspns.stsfdg02"><![CDATA[만족도 02]]></entry>
+    <entry key="domain.main.tbSurveyCmmnRspns.stsfdg03"><![CDATA[만족도 03]]></entry>
+
+</properties>

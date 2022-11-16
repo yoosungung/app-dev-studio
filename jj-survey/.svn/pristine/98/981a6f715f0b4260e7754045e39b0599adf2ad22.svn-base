@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="modal-content"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:field="urn:jsptagdir:/WEB-INF/tags/jd/form/fields"
+    xmlns:form="http://www.springframework.org/tags/form"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:section="urn:jsptagdir:/WEB-INF/tags/jd/form"
+    xmlns:spring="http://www.springframework.org/tags"
+    version="2.0">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <script type="text/javascript">
+        $(function() {
+            $('#questionForm').on('submit', function() {
+                if(confirm('수정 하시겠습니까?')) {
+                    return true;
+                }
+                return false;
+            });
+        });
+    </script>
+
+    <div class="modal-body" style="min-height: 700px;">
+        <div class="bootbox-body">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <spring:url value="/settings/questionRows" var="update_form_url" />
+                    <form:form id="questionForm" action="${update_form_url}" method="POST" modelAttribute="question" cssClass="form-horizontal" role="form">
+
+                        <form:hidden  path="id" />
+                        <form:hidden  path="order" />
+                        <form:hidden  path="page.id" />
+                        <form:hidden  path="type" />
+                        <form:hidden  path="questionText" />
+
+                        <div class="form-title"><spring:message code="${fn:toLowerCase(question.type)}_label" /> : ${question.questionText}</div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <table  id="optionsedit-table" cellpadding="0" cellspacing="0"  class="table table-hover table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" style="width:10%">순서</th>
+                                            <th class="text-center" style="width:90%">열 레이블</th>
+                                        </tr>
+                                    </thead>
+                                    <c:forEach items="${question.rowLabelsList}" var="option" varStatus="loop">
+                                        <tr>
+                                             <form:hidden path="rowLabelsList[${loop.index}].id" />
+                                             <form:hidden path="rowLabelsList[${loop.index}].question.id" />
+                                             <form:hidden path="rowLabelsList[${loop.index}].order" />
+                                            <td class="text-center"><c:out value="${loop.index + 1}" /></td>
+                                            <td>
+                                                <form:input path="rowLabelsList[${loop.index}].label" cssClass="form-control input-xs" maxlength="75"/>
+                                                <form:errors path="rowLabelsList[${loop.index}].label" />
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 text-center">
+                                <button type="submit" class="btn btn-palegreen" name="_proceed" id="_proceed" value="저장">저장</button>
+                            </div>
+                        </div>
+                    </form:form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

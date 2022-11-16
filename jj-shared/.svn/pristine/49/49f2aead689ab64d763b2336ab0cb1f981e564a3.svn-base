@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ 시스템 리소스 CodeData
+ -->
+<codeData namespace="domain.main.tbSysResrce">
+
+    <!-- 리소스 유형 -->
+    <group id="resrceTy">
+        <item code="URL" name="URL" />
+    </group>
+
+</codeData>

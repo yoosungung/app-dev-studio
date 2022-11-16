@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 설문_설문지 Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.survey.qestnr.TbSurveyQestnrMapper">
+
+    <!-- 조회 - SURVEY_DEFINITION_ID로 -->
+    <select id="selectBySurveyDefinitionId" resultType="kr.ac.jj.survey.domain.main.model.survey.qestnr.TbSurveyQestnr">
+        <include refid="kr.ac.jj.survey.domain.main.mapper.survey.qestnr.TbSurveyQestnrEntityMapper.baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TSQ.SURVEY_DEFINITION_ID = #{surveyDefinitionId}
+        ]]>
+    </select>
+
+    <!-- SURVEY_QESTNR_ID 조회 - SURVEY_ID로 -->
+    <select id="selectSurveyQestnrIdBySurveyId" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TSQ.SURVEY_QESTNR_ID
+            FROM   SURVEY S
+                   INNER JOIN SURVEY_DEFINITION SD ON SD.ID = S.SURVEY_DEFINITION_ID
+                   INNER JOIN TB_SURVEY_QESTNR TSQ ON TSQ.SURVEY_DEFINITION_ID = SD.ID
+            WHERE  S.ID = #{surveyId}
+        ]]>
+    </select>
+
+    <!-- 설문 발송 대상 목록 조회 -->
+    <select id="selectSurveySendTargetList" resultType="kr.ac.jj.survey.domain.main.model.survey.qestnr.TbSurveyQestnr">
+        <include refid="kr.ac.jj.survey.domain.main.mapper.survey.qestnr.TbSurveyQestnrEntityMapper.baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TSQ.SNDNG_YN = '1'
+            AND    EXISTS (
+                        SELECT 1
+                        FROM   TB_SURVEY_QESTNR_PERSON TSQP
+                        WHERE  TSQP.SURVEY_QESTNR_ID = TSQ.SURVEY_QESTNR_ID
+                        AND    TSQP.SNDNG_YN = '0'
+                   )
+        ]]>
+    </select>
+
+    <!-- 수정 - 발송 여부 -->
+    <update id="updateSndngYn">
+        <![CDATA[
+            UPDATE TB_SURVEY_QESTNR SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , SNDNG_YN                         = #{tbSurveyQestnr.sndngYn}
+                 , EMAIL_SNDNG_YN                   = #{tbSurveyQestnr.emailSndngYn}
+                 , SMS_SNDNG_YN                     = #{tbSurveyQestnr.smsSndngYn}
+            WHERE  SURVEY_QESTNR_ID = #{tbSurveyQestnr.surveyQestnrId}
+        ]]>
+    </update>
+
+</mapper>

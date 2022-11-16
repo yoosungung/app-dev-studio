@@ -1,0 +1,29 @@
+package kr.ac.jj.shared.domain.main.mapper.sys.user;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+
+/**
+ * 시스템 - 사용자 Mapper
+ */
+@SharedMainSqlMapper
+public interface TbSysUserMapper extends TbSysUserEntityMapper {
+
+    /**
+     * 수정 - 로그인 일시
+     *
+     * @param userId
+     * @return
+     */
+    public int updateLoginDt(@Param("userId") String userId);
+
+    /**
+     * USER_ID 조회 - PERSON_ID로
+     *
+     * @param personId
+     * @return
+     */
+    public String selectUserIdByPersonId(@Param("personId") String personId);
+
+}

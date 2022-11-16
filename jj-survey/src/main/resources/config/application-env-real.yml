@@ -1,0 +1,57 @@
+################################################################################
+# 실행환경 - 운영
+################################################################################
+spring:
+  profiles:
+    include:
+    - logging-file
+
+config:
+  shared:
+    datasources:
+      main:
+        hikari:
+          jdbc-url: "jdbc:mariadb://202.31.236.115:3306/jj_survey"
+          minimum-idle: 10
+          maximum-pool-size: 500
+    server-url: https://survey.jj.ac.kr
+    login:
+      admin:
+        ip-list:
+        - "202.31.235.17"
+        key: "581ruMI3930YtEq69q722eJk7TFC1Jzh25dTlb028O0GHPa172"
+        password: "g}6)~-24Q$59C$?(d({29317&@z&h'4r!~+)+w@,{$D3#8R~dT"
+    scheduler:
+      enable: true
+    email:
+      test-email-address:
+      onetime-send-count: 10
+      sender-name: JavaMailSender
+      sender-options:
+        java-mail:
+          session-properties:
+            "mail.smtp.host": 127.0.0.1
+            "mail.smtp.port": 25
+            "mail.smtp.starttls.enable": false
+            "mail.smtp.auth": false
+          smtp-auth-username: ""
+          smtp-auth-password: ""
+    sms:
+      sender-name: UmsSmsSender
+  survey:
+    datasources:
+      main-jpa:
+        hikari:
+          jdbc-url: "jdbc:mariadb://202.31.236.115:3306/jj_survey"
+          minimum-idle: 10
+          maximum-pool-size: 250
+        atomikos:
+          xa-properties:
+            url: "jdbc:mariadb://202.31.236.115:3306/jj_survey?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false&pinGlobalTxToPhysicalConnection=true"
+          max-pool-size: 250
+      umslink:
+        hikari:
+          driver-class-name: "com.mysql.cj.jdbc.Driver"
+          jdbc-url: "jdbc:mysql://202.31.240.47:3306/umslink?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul"
+          username: "umslink"
+          password: "#jjunivlink!!"

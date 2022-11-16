@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ 공통 - 직무 CodeData
+ -->
+<codeData namespace="domain.main.tbComDty">
+
+    <!-- 직무 구분 -->
+    <group id="dtySe">
+        <item code="OFCPS" name="직위" />
+    </group>
+
+</codeData>

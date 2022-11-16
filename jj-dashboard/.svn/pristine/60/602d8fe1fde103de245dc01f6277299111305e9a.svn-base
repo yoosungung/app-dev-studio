@@ -1,0 +1,5 @@
+package kr.ac.jj.dashboard.application.dashboard.ipsy.controller;
+
+public class IpsyHeaderController {
+
+}

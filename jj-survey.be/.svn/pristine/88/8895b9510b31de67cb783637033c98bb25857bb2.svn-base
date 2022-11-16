@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 사용자별 환경설정 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.sys.user.setup.TbSysUserSetupEntityMapper">
+
+    <!-- 목록 조회 - USER_ID(으)로 -->
+    <select id="selectListByUserId" resultType="kr.ac.jj.survey.domain.main.model.sys.user.setup.TbSysUserSetup">
+        <![CDATA[
+            SELECT TSUS.USER_ID
+                 , TSUS.SETUP_CODE
+                 , TSUS.SETUP_VALUE
+            FROM   TB_SYS_USER_SETUP TSUS
+            WHERE  TSUS.USER_ID = #{userId}
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.sys.user.setup.TbSysUserSetup">
+        <![CDATA[
+            SELECT TSUS.USER_ID
+                 , TSUS.SETUP_CODE
+                 , TSUS.SETUP_VALUE
+            FROM   TB_SYS_USER_SETUP TSUS
+            WHERE  TSUS.USER_ID = #{userId}
+            AND    TSUS.SETUP_CODE = #{setupCode}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SYS_USER_SETUP (
+                   USER_ID
+                 , SETUP_CODE
+                 , CREAT_DT
+                 , SETUP_VALUE
+            ) VALUES (
+                   #{tbSysUserSetup.userId}
+                 , #{tbSysUserSetup.setupCode}
+                 , #{$var.systemDate}
+                 , #{tbSysUserSetup.setupValue}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SYS_USER_SETUP SET
+                   UPDT_DT                          = #{$var.systemDate}
+                 , SETUP_VALUE                      = #{tbSysUserSetup.setupValue}
+            WHERE  USER_ID = #{tbSysUserSetup.userId}
+            AND    SETUP_CODE = #{setupCode}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_USER_SETUP
+            WHERE  USER_ID = #{userId}
+            AND    SETUP_CODE = #{setupCode}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - USER_ID(으)로 -->
+    <delete id="deleteListByUserId">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_USER_SETUP
+            WHERE  USER_ID = #{userId}
+            ORDER BY SETUP_CODE
+        ]]>
+    </delete>
+
+</mapper>

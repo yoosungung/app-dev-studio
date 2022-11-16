@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+    <entry key="common.label.list"><![CDATA[목록]]></entry>
+    <entry key="common.label.close"><![CDATA[닫기]]></entry>
+    <entry key="common.label.add"><![CDATA[추가]]></entry>
+    <entry key="common.label.regist"><![CDATA[등록]]></entry>
+    <entry key="common.label.write"><![CDATA[작성]]></entry>
+    <entry key="common.label.read"><![CDATA[조회]]></entry>
+    <entry key="common.label.create"><![CDATA[생성]]></entry>
+    <entry key="common.label.modify"><![CDATA[수정]]></entry>
+    <entry key="common.label.tempSave"><![CDATA[임시저장]]></entry>
+    <entry key="common.label.save"><![CDATA[저장]]></entry>
+    <entry key="common.label.delete"><![CDATA[삭제]]></entry>
+    <entry key="common.label.select"><![CDATA[선택]]></entry>
+    <entry key="common.label.confirm"><![CDATA[확인]]></entry>
+    <entry key="common.label.cancel"><![CDATA[취소]]></entry>
+    <entry key="common.label.sort"><![CDATA[정렬]]></entry>
+    <entry key="common.label.ordr"><![CDATA[순서]]></entry>
+    <entry key="common.label.sortOrdr"><![CDATA[정렬순서]]></entry>
+    <entry key="common.label.saveOrder"><![CDATA[순서 저장]]></entry>
+    <entry key="common.label.useYn"><![CDATA[사용 여부]]></entry>
+    <entry key="common.label.logout"><![CDATA[로그아웃]]></entry>
+    <entry key="common.label.name"><![CDATA[이름]]></entry>
+    <entry key="common.label.langCode"><![CDATA[언어코드]]></entry>
+    <entry key="common.label.search"><![CDATA[검색]]></entry>
+    <entry key="common.label.searchText"><![CDATA[검색어]]></entry>
+    <entry key="common.label.file"><![CDATA[파일]]></entry>
+    <entry key="common.label.attachFile"><![CDATA[첨부파일]]></entry>
+    <entry key="common.label.searchWord"><![CDATA[검색어]]></entry>
+    <entry key="common.label.preview"><![CDATA[미리보기]]></entry>
+    <entry key="common.label.reload"><![CDATA[새로고침]]></entry>
+    <entry key="common.label.config"><![CDATA[환경설정]]></entry>
+    <entry key="common.label.no"><![CDATA[No]]></entry>
+    <entry key="common.label.rn"><![CDATA[No]]></entry>
+    <entry key="common.label.section"><![CDATA[구분]]></entry>
+    <entry key="common.label.status"><![CDATA[상태]]></entry>
+    <entry key="common.label.moveUp"><![CDATA[위로]]></entry>
+    <entry key="common.label.moveDown"><![CDATA[아래로]]></entry>
+    <entry key="common.label.pdfView"><![CDATA[PDF 보기]]></entry>
+
+    <entry key="common.label.registPsn"><![CDATA[등록자]]></entry>
+    <entry key="common.label.registDe"><![CDATA[등록일자]]></entry>
+    <entry key="common.label.registDt"><![CDATA[등록일시]]></entry>
+    <entry key="common.label.writngPsn"><![CDATA[작성자]]></entry>
+    <entry key="common.label.writngDe"><![CDATA[작성일자]]></entry>
+    <entry key="common.label.writngDt"><![CDATA[작성일시]]></entry>
+    <entry key="common.label.changePsn"><![CDATA[수정자]]></entry>
+    <entry key="common.label.changeDe"><![CDATA[수정일자]]></entry>
+    <entry key="common.label.changeDt"><![CDATA[수정일시]]></entry>
+
+    <entry key="common.label.dept"><![CDATA[부서]]></entry>
+    <entry key="common.label.pd"><![CDATA[기간]]></entry>
+
+    <entry key="common.message.systemError"><![CDATA[시스템 에러가 발생했습니다.]]></entry>
+    <entry key="common.message.invalidToken"><![CDATA[유효하지 않은 접근정보입니다.]]></entry>
+    <entry key="common.message.save.confirm"><![CDATA[저장하시겠습니까?]]></entry>
+    <entry key="common.message.save.success"><![CDATA[저장되었습니다.]]></entry>
+    <entry key="common.message.delete.confirm"><![CDATA[정말로 삭제하시겠습니까?]]></entry>
+    <entry key="common.message.delete.success"><![CDATA[삭제되었습니다.]]></entry>
+    <entry key="common.message.selectItem.alert"><![CDATA[항목을 선택하세요.]]></entry>
+    <entry key="common.message.dselectMoreThanOne"><![CDATA[한개 이상 선택하세요.]]></entry>
+
+    <!-- CodeData -->
+    <entry key="common.codeData.firstName.all"><![CDATA[(전체)]]></entry>
+    <entry key="common.codeData.firstName.none"><![CDATA[(없음)]]></entry>
+    <entry key="common.codeData.firstName.sel"><![CDATA[(선택)]]></entry>
+    <entry key="common.codeData.firstName.select"><![CDATA[(선택하세요)]]></entry>
+
+    <!-- CodeData - 시스템 로케일 -->
+    <entry key="common.codeData.systemLocale.ko_KR"><![CDATA[한국 - 한국어]]></entry>
+    <entry key="common.codeData.systemLocale.en_US"><![CDATA[United States - English]]></entry>
+
+    <!-- CodeData - 예/아니오 -->
+    <entry key="common.codeData.yesNo.1"><![CDATA[예]]></entry>
+    <entry key="common.codeData.yesNo.0"><![CDATA[아니오]]></entry>
+
+    <!-- CodeData - 사용 여부 -->
+    <entry key="common.codeData.useYn.1"><![CDATA[사용]]></entry>
+    <entry key="common.codeData.useYn.0"><![CDATA[미사용]]></entry>
+
+    <!-- CodeData - 성공 여부 -->
+    <entry key="common.codeData.successYn.1"><![CDATA[성공]]></entry>
+    <entry key="common.codeData.successYn.0"><![CDATA[실패]]></entry>
+
+</properties>

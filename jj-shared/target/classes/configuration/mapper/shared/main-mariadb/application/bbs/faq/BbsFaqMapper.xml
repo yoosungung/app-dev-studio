@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 게시판(FAQ) Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.bbs.faq.mapper.BbsFaqMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TBF.BBSCTT_ID
+                 , TBF.BBSCTT_NO
+                 , TBF.BBSCTT_SJ
+                 , FN_PERSON_NAME(TBF.WRITNG_PSN_ID, #{$var.userLocale}) AS WRITNG_PSN_NM
+                 , TBF.WRITNG_DT
+                 , TBF.RDCNT
+            FROM   TB_BBS_FAQ TBF
+            WHERE  1 = 1
+        ]]>
+
+        <!-- 제목 -->
+        <if test='search != null and search.bbscttSj != null and search.bbscttSj != ""'>
+            <![CDATA[
+            AND    UPPER(TBF.BBSCTT_SJ) LIKE CONCAT_WS('', '%', UPPER(#{search.bbscttSj}), '%')
+            ]]>
+        </if>
+
+        <!-- 내용 -->
+        <if test='search != null and search.bbscttCn != null and search.bbscttCn != ""'>
+            <![CDATA[
+            AND    UPPER(TBF.BBSCTT_CN) LIKE CONCAT_WS('', '%', UPPER(#{search.bbscttCn}), '%')
+            ]]>
+        </if>
+    </select>
+
+</mapper>

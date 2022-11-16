@@ -1,0 +1,104 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/layouts/shared/include/PageHeader.jspf" %>
+
+
+<div class="pageContents">
+    <div id="graphDiv">
+        <div class="searchArea">
+            <table class="searchBox" v-on:keyup.enter="service.readList(true);">
+                <colgroup>
+                    <col width="7%">
+                    <col width="25%">
+                    <col width="7%">
+                    <col width="25%">
+                    <col width="7%">
+                    <col width="25%">
+                </colgroup>
+                <tr>
+                    <th>대학</th>
+                    <td>
+                        <ui-select v-model="search.daehakName" code-data="supercompetence.readDaehakCode" first-name="전체"></ui-select>
+                    </td>
+
+                    <th>학과</th>
+                    <td>
+                        <ui-select v-model="search.hakbuName" v-bind:code-data="hakbuCodeData" first-name="전체"></ui-select>
+                    </td>
+
+                    <th>기준학년</th>
+                    <td>
+                        <ui-select v-model="search.hakgYear" v-bind:code-data="yearData" first-name="전체"></ui-select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="gridArea"></div>
+
+        <div style="float:left">
+            <ui-graph id="dataGraph" v-bind:search="search"></ui-graph>
+            <ui-graph id="avgGraph" v-bind:search="search"></ui-graph>
+        </div>
+    </div>
+</div>
+
+<script>
+
+Vue.component('ui-graph', {
+    props: {
+        id: {
+            type: String
+        },
+        search: {
+            type: Object
+        }
+    },
+    computed: {
+        service: function() {
+            return new SuperCompetenceViewService(this);
+        },
+        key: function() {
+            return this.search.daehakName + "-" + this.search.hakbuName + "-" + this.search.hakgYear;
+        }
+    },
+    template: ' \
+        <div v-bind:id="id" v-bind:key="key" style="width:700px;height:700px;float:left;"></div> \
+    ',
+    mounted: function() {
+        this.drawGraph();
+    },
+    updated: function() {
+        this.drawGraph();
+    },
+    methods: {
+        drawGraph: function() {
+            this.service.drawGraph[this.id](this.search);
+        }
+    }
+});
+
+vues.graph = new Vue({
+    el: '#graphDiv',
+    data: {
+        search : {
+            daehakName : "",
+            hakbuName : "",
+            hakgYear : ""
+        }
+    },
+    computed: {
+        service: function() {
+            return new SuperCompetenceViewService(this);
+        },
+        formatter: function() {
+            return CommonUtil.formatter;
+        },
+        hakbuCodeData: function() {
+            return "supercompetence.readHakbuCode," + this.search.daehakName;
+        },
+        yearData: function() {
+            return "supercompetence.readYearCode," + this.search.daehakName + "," + this.search.hakbuName;
+        }
+    }
+});
+</script>

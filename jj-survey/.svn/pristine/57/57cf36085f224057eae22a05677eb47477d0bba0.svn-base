@@ -1,0 +1,17 @@
+gridStyleSheet=/themes/styles/grid.css
+main_css=/themes/styles/standard.css
+menu_css=/themes/styles/menu.css
+fancybox_css=/themes/styles/fancybox.css
+jquery_css=/themes/styles/jquery-ui.css
+awesome_css=/themes/styles/font-awesome.min.css
+style_login_css=/themes/styles/style-login.css
+
+jquery_js=/themes/js/jquery-1.8.3.js
+formee_js=/themes/js/formee.js
+jquery_ui_js=/themes/js/jquery-ui-1.9.2.js
+jquery_fancybox_js=/themes/js/jquery.fancybox.js
+jquery_rating=/themes/js/jquery.rating.js
+tiny_mce_js=/themes/js/tiny_mce.js
+tipsy_js=/themes/js/jquery.tipsy.js
+
+tiny_mce_init_js=/themes/js/tiny_mce_init.js

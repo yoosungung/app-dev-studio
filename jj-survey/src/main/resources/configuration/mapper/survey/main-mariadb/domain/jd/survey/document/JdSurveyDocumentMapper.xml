@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.jd.survey.document.JdSurveyDocumentMapper">
+
+    <!-- 목록 삭제 - SURVEY_DEFINITION_ID(으)로 -->
+    <delete id="deleteListBySurveyDefinitionId">
+        <![CDATA[
+            DELETE
+            FROM   SURVEY_DOCUMENT
+            WHERE  SURVEY_ID IN (
+                        SELECT S.ID
+                        FROM   SURVEY S
+                        WHERE  S.SURVEY_DEFINITION_ID = #{surveyDefinitionId}
+                   )
+        ]]>
+    </delete>
+
+</mapper>

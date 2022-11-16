@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 인터페이스 - 부서 - 사원 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbIntrfcDeptEmpl.deptCode1"><![CDATA[1차조직]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.deptNm1"><![CDATA[1차조직코드]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.deptCode2"><![CDATA[2차조직]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.deptNm2"><![CDATA[2차조직코드]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.deptCode3"><![CDATA[3차조직]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.deptNm3"><![CDATA[3차조직코드]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.deptSortOrdr"><![CDATA[부서내정렬순서]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.ofcpsId"><![CDATA[직위ID]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.ofcpsNm"><![CDATA[직위명]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.emplCode"><![CDATA[ID_식별자]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.loginNm"><![CDATA[사원번호_로그인ID]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.personNm"><![CDATA[사용자명]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.moblphonNo"><![CDATA[휴대전화번호]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.emailAdres"><![CDATA[email]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.univCode"><![CDATA[daehak]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.undegCode"><![CDATA[HAKBU]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.subjctCode"><![CDATA[hakkwa]]></entry>
+    <entry key="domain.main.tbIntrfcDeptEmpl.umsDeptId"><![CDATA[UMS_DEPT_ID]]></entry>
+
+</properties>

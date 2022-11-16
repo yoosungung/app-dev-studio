@@ -1,0 +1,11 @@
+################################################################################
+# OS - 리눅스
+################################################################################
+config:
+  shared:
+    logs-directory: /app/data/jj-openapi/logs
+    temp-directory: /app/data/jj-openapi/temp
+    file:
+      repository:
+        repositories:
+          repository1: /app/data/jj-openapi/files

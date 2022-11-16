@@ -1,0 +1,10 @@
+package kr.ac.jj.shared.domain.main.mapper.com.dty.author;
+
+import kr.ac.jj.shared.config.datasources.SharedDataSourceMainConfig.SharedMainSqlMapper;
+
+/**
+ * 공통 - 직무별 권한 Mapper
+ */
+@SharedMainSqlMapper
+public interface TbComDtyAuthorMapper extends TbComDtyAuthorEntityMapper {
+}

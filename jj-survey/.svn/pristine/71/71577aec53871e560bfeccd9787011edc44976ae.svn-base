@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.jd.survey.question.JdSurveyQuestionEntityMapper">
+
+    <!-- 목록 조회 - SURVEY_DEFINITION_PAGE_ID(으)로 -->
+    <select id="selectListBySurveyDefinitionPageId" resultType="kr.ac.jj.survey.domain.main.model.jd.survey.question.JdSurveyQuestion">
+        <![CDATA[
+            SELECT SQ.ID
+                 , SQ.TYPE
+                 , SQ.QUESTION_ORDER
+                 , SQ.QUESTION_TEXT
+                 , SQ.TIP
+                 , SQ.REQUIRED
+                 , SQ.DUPLICATE
+                 , SQ.DATA_SET_ID
+                 , SQ.ALLOW_OTHER_TEXT_BOX
+                 , SQ.DIRECTION
+                 , SQ.WIDTH
+                 , SQ.HEIGHT
+                 , SQ.DATE_MAXIMUM
+                 , SQ.DATE_MINIMUM
+                 , SQ.DECIMAL_MAXIMUM
+                 , SQ.DECIMAL_MINIMUM
+                 , SQ.INTEGER_MAXIMUM
+                 , SQ.INTEGER_MINIMUM
+                 , SQ.MULTIMEDIA_LINK
+                 , SQ.RANDOMIZE_OPTIONS
+                 , SQ.REGULAR_EXPRESSION
+                 , SQ.VISIBLE
+                 , SQ.SURVEY_DEFINITION_PAGE_ID
+                 , SQ.VERSION
+            FROM   SURVEY_QUESTION SQ
+            WHERE  SQ.SURVEY_DEFINITION_PAGE_ID = #{surveyDefinitionPageId}
+            ORDER BY SQ.QUESTION_ORDER
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.jd.survey.question.JdSurveyQuestion">
+        <![CDATA[
+            SELECT SQ.ID
+                 , SQ.TYPE
+                 , SQ.QUESTION_ORDER
+                 , SQ.QUESTION_TEXT
+                 , SQ.TIP
+                 , SQ.REQUIRED
+                 , SQ.DUPLICATE
+                 , SQ.DATA_SET_ID
+                 , SQ.ALLOW_OTHER_TEXT_BOX
+                 , SQ.DIRECTION
+                 , SQ.WIDTH
+                 , SQ.HEIGHT
+                 , SQ.DATE_MAXIMUM
+                 , SQ.DATE_MINIMUM
+                 , SQ.DECIMAL_MAXIMUM
+                 , SQ.DECIMAL_MINIMUM
+                 , SQ.INTEGER_MAXIMUM
+                 , SQ.INTEGER_MINIMUM
+                 , SQ.MULTIMEDIA_LINK
+                 , SQ.RANDOMIZE_OPTIONS
+                 , SQ.REGULAR_EXPRESSION
+                 , SQ.VISIBLE
+                 , SQ.SURVEY_DEFINITION_PAGE_ID
+                 , SQ.VERSION
+            FROM   SURVEY_QUESTION SQ
+            WHERE  SQ.ID = #{id}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="jdSurveyQuestion.id">
+        <![CDATA[
+            INSERT INTO SURVEY_QUESTION (
+                   ID
+                 , TYPE
+                 , QUESTION_ORDER
+                 , QUESTION_TEXT
+                 , TIP
+                 , REQUIRED
+                 , DUPLICATE
+                 , DATA_SET_ID
+                 , ALLOW_OTHER_TEXT_BOX
+                 , DIRECTION
+                 , WIDTH
+                 , HEIGHT
+                 , DATE_MAXIMUM
+                 , DATE_MINIMUM
+                 , DECIMAL_MAXIMUM
+                 , DECIMAL_MINIMUM
+                 , INTEGER_MAXIMUM
+                 , INTEGER_MINIMUM
+                 , MULTIMEDIA_LINK
+                 , RANDOMIZE_OPTIONS
+                 , REGULAR_EXPRESSION
+                 , VISIBLE
+                 , SURVEY_DEFINITION_PAGE_ID
+                 , VERSION
+            ) VALUES (
+                   #{jdSurveyQuestion.id}
+                 , #{jdSurveyQuestion.type}
+        ]]>
+
+        <choose>
+        <when test='jdSurveyQuestion.questionOrder == null'>
+            <![CDATA[
+                 , (SELECT IFNULL(MAX(A.QUESTION_ORDER), 0) + 1 FROM SURVEY_QUESTION A WHERE A.SURVEY_DEFINITION_PAGE_ID = #{jdSurveyQuestion.surveyDefinitionPageId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , #{jdSurveyQuestion.questionOrder}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , #{jdSurveyQuestion.questionText}
+                 , #{jdSurveyQuestion.tip}
+                 , #{jdSurveyQuestion.required}
+                 , #{jdSurveyQuestion.duplicate}
+                 , #{jdSurveyQuestion.dataSetId}
+                 , #{jdSurveyQuestion.allowOtherTextBox}
+                 , #{jdSurveyQuestion.direction}
+                 , #{jdSurveyQuestion.width}
+                 , #{jdSurveyQuestion.height}
+                 , #{jdSurveyQuestion.dateMaximum}
+                 , #{jdSurveyQuestion.dateMinimum}
+                 , #{jdSurveyQuestion.decimalMaximum}
+                 , #{jdSurveyQuestion.decimalMinimum}
+                 , #{jdSurveyQuestion.integerMaximum}
+                 , #{jdSurveyQuestion.integerMinimum}
+                 , #{jdSurveyQuestion.multimediaLink}
+                 , #{jdSurveyQuestion.randomizeOptions}
+                 , #{jdSurveyQuestion.regularExpression}
+                 , #{jdSurveyQuestion.visible}
+                 , #{jdSurveyQuestion.surveyDefinitionPageId}
+                 , #{jdSurveyQuestion.version}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE SURVEY_QUESTION SET
+                   TYPE                             = #{jdSurveyQuestion.type}
+        ]]>
+
+        <choose>
+        <when test='jdSurveyQuestion.questionOrder == null'>
+            <![CDATA[
+                 , QUESTION_ORDER                   = (SELECT IFNULL(MAX(A.QUESTION_ORDER), 0) + 1 FROM SURVEY_QUESTION A WHERE A.SURVEY_DEFINITION_PAGE_ID = #{jdSurveyQuestion.surveyDefinitionPageId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , QUESTION_ORDER                   = #{jdSurveyQuestion.questionOrder}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , QUESTION_TEXT                    = #{jdSurveyQuestion.questionText}
+                 , TIP                              = #{jdSurveyQuestion.tip}
+                 , REQUIRED                         = #{jdSurveyQuestion.required}
+                 , DUPLICATE                        = #{jdSurveyQuestion.duplicate}
+                 , DATA_SET_ID                      = #{jdSurveyQuestion.dataSetId}
+                 , ALLOW_OTHER_TEXT_BOX             = #{jdSurveyQuestion.allowOtherTextBox}
+                 , DIRECTION                        = #{jdSurveyQuestion.direction}
+                 , WIDTH                            = #{jdSurveyQuestion.width}
+                 , HEIGHT                           = #{jdSurveyQuestion.height}
+                 , DATE_MAXIMUM                     = #{jdSurveyQuestion.dateMaximum}
+                 , DATE_MINIMUM                     = #{jdSurveyQuestion.dateMinimum}
+                 , DECIMAL_MAXIMUM                  = #{jdSurveyQuestion.decimalMaximum}
+                 , DECIMAL_MINIMUM                  = #{jdSurveyQuestion.decimalMinimum}
+                 , INTEGER_MAXIMUM                  = #{jdSurveyQuestion.integerMaximum}
+                 , INTEGER_MINIMUM                  = #{jdSurveyQuestion.integerMinimum}
+                 , MULTIMEDIA_LINK                  = #{jdSurveyQuestion.multimediaLink}
+                 , RANDOMIZE_OPTIONS                = #{jdSurveyQuestion.randomizeOptions}
+                 , REGULAR_EXPRESSION               = #{jdSurveyQuestion.regularExpression}
+                 , VISIBLE                          = #{jdSurveyQuestion.visible}
+                 , SURVEY_DEFINITION_PAGE_ID        = #{jdSurveyQuestion.surveyDefinitionPageId}
+                 , VERSION                          = #{jdSurveyQuestion.version}
+            WHERE  ID = #{jdSurveyQuestion.id}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   SURVEY_QUESTION
+            WHERE  ID = #{id}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - SURVEY_DEFINITION_PAGE_ID(으)로 -->
+    <delete id="deleteListBySurveyDefinitionPageId">
+        <![CDATA[
+            DELETE
+            FROM   SURVEY_QUESTION
+            WHERE  SURVEY_DEFINITION_PAGE_ID = #{surveyDefinitionPageId}
+        ]]>
+    </delete>
+
+</mapper>

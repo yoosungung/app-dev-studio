@@ -1,0 +1,76 @@
+package kr.ac.jj.survey.application.surveys.service;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.application.common.user.model.LoginUser;
+import kr.ac.jj.shared.infrastructure.framework.web.context.session.SessionContextUtil;
+import kr.ac.jj.survey.application.surveys.model.PrivateSurveyIntroModel;
+import kr.ac.jj.survey.domain.main.mapper.survey.cmmnrspns.TbSurveyCmmnRspnsMapper;
+import kr.ac.jj.survey.domain.main.mapper.survey.qestnr.TbSurveyQestnrMapper;
+import kr.ac.jj.survey.domain.main.mapper.survey.qestnr.cmmn.TbSurveyQestnrCmmnMapper;
+import kr.ac.jj.survey.domain.main.model.survey.cmmnrspns.TbSurveyCmmnRspns;
+
+/**
+ * 비공개 설문 시작 Service
+ */
+@Service
+public class PrivateSurveyIntroServiceImpl {
+
+    private @Autowired TbSurveyCmmnRspnsMapper tbSurveyCmmnRspnsMapper;
+    private @Autowired TbSurveyQestnrMapper tbSurveyQestnrMapper;
+    private @Autowired TbSurveyQestnrCmmnMapper tbSurveyQestnrCmmnMapper;
+
+    /**
+     * 조회
+     *
+     * @param surveyId
+     * @return
+     */
+    public PrivateSurveyIntroModel read(Long surveyId) {
+        PrivateSurveyIntroModel model = new PrivateSurveyIntroModel();
+
+        String surveyQestnrId = tbSurveyQestnrMapper.selectSurveyQestnrIdBySurveyId(surveyId);
+
+        model.setTbSurveyQestnrCmmn(tbSurveyQestnrCmmnMapper.select(surveyQestnrId));
+
+        String cmmnRspnsId = tbSurveyCmmnRspnsMapper.selectCmmnRspnsIdBySurveyId(surveyId);
+
+        if (StringUtils.isEmpty(cmmnRspnsId)) {
+            LoginUser loginUser = SessionContextUtil.getLoginUser();
+
+            cmmnRspnsId = tbSurveyCmmnRspnsMapper.selectCmmnRspnsIdByMaxRspnsOdr(loginUser.getPersonId());
+        }
+
+        if (StringUtils.isEmpty(cmmnRspnsId)) {
+            TbSurveyCmmnRspns tbSurveyCmmnRspns = new TbSurveyCmmnRspns();
+            tbSurveyCmmnRspns.setSurveyId(surveyId);
+            model.setTbSurveyCmmnRspns(tbSurveyCmmnRspns);
+        } else {
+            model.setTbSurveyCmmnRspns(tbSurveyCmmnRspnsMapper.select(cmmnRspnsId));
+        }
+
+        return model;
+    }
+
+    /**
+     * 저장
+     *
+     * @param surveyId
+     * @param model
+     */
+    public void update(Long surveyId, PrivateSurveyIntroModel model) {
+        LoginUser loginUser = SessionContextUtil.getLoginUser();
+        TbSurveyCmmnRspns tbSurveyCmmnRspns = model.getTbSurveyCmmnRspns();
+
+        tbSurveyCmmnRspns.setSurveyId(surveyId);
+        tbSurveyCmmnRspns.setPersonId(loginUser.getPersonId());
+
+        if (tbSurveyCmmnRspnsMapper.update(tbSurveyCmmnRspns) == 0) {
+            tbSurveyCmmnRspns.newId();
+            tbSurveyCmmnRspnsMapper.insert(tbSurveyCmmnRspns);
+        }
+    }
+
+}

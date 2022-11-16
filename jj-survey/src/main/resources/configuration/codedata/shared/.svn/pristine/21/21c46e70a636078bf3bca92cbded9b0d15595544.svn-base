@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ 공통 - 메일 CodeData
+ -->
+<codeData namespace="domain.main.tbComEmailRecptn">
+
+    <!-- 수신 유형 -->
+    <group id="recptnTy">
+        <item code="TO" message="domain.main.tbComEmailRecptn.recptnTy.TO" name="TO" />
+        <item code="CC" message="domain.main.tbComEmailRecptn.recptnTy.CC" name="CC" />
+        <item code="BCC" message="domain.main.tbComEmailRecptn.recptnTy.BCC" name="BCC" />
+    </group>
+
+</codeData>

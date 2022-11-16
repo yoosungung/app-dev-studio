@@ -1,0 +1,48 @@
+package kr.ac.jj.shared.domain.main.model.com.email.sndng;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import kr.ac.jj.shared.infrastructure.framework.core.foundation.exception.BaseException;
+import kr.ac.jj.shared.infrastructure.framework.web.support.codedata.CodeDataUtil;
+import kr.ac.jj.shared.infrastructure.idgen.util.IdGenerationUtil;
+
+/**
+ * 공통 메일 발송
+ */
+public class TbComEmailSndng extends TbComEmailSndngEntity {
+
+    private static final long serialVersionUID = 7577420053786542183L;
+
+    public enum SndngSttus {
+        READY, // 대기중
+        WORKING, // 발송중
+        SUCCESS, // 발송성공
+        FAILURE, // 발송실패
+    }
+
+    public TbComEmailSndng() {
+        InetAddress inetAddress;
+
+        try {
+            inetAddress = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            throw new BaseException(e);
+        }
+
+        this.setSndngServerIp(inetAddress.getHostAddress());
+        this.setSndngSttus(SndngSttus.READY);
+    }
+
+    public TbComEmailSndng newId() {
+        this.setEmailSndngId(IdGenerationUtil.createUid("TB_COM_EMAIL_SNDNG"));
+
+        return this;
+    }
+
+    public String getSndngSttusNm() {
+        return CodeDataUtil.getCodeName("/common.email/emailSndngSttus", this.getSndngSttus().name(),
+                this.getSndngSttus().name());
+    }
+
+}

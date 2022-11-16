@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 서비스 가이드 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.openapi.domain.main.mapper.serviceguide.TbServiceGuideEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.openapi.domain.main.model.serviceguide.TbServiceGuide">
+        <![CDATA[
+            SELECT TSG.SERVICE_TITLE
+                 , TSG.SERVICE_CONTENT
+                 , TSG.CREATE_DT
+                 , TSG.CHANGE_DT
+                 , TSG.CREATE_PSN_ID
+                 , TSG.CHANGE_PSN_ID
+            FROM   TB_SERVICE_GUIDE TSG
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SERVICE_GUIDE (
+                   SERVICE_TITLE
+                 , SERVICE_CONTENT
+                 , CREATE_DT
+                 , CREATE_PSN_ID
+            ) VALUES (
+                   #{tbServiceGuide.serviceTitle}
+                 , #{tbServiceGuide.serviceContent}
+                 , #{$var.systemDate}
+                 , #{$var.loginUser.personId}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SERVICE_GUIDE SET
+                   SERVICE_TITLE                    = #{tbServiceGuide.serviceTitle}
+                 , SERVICE_CONTENT                  = #{tbServiceGuide.serviceContent}
+                 , CHANGE_DT                        = #{$var.systemDate}
+                 , CHANGE_PSN_ID                    = #{$var.loginUser.personId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SERVICE_GUIDE
+        ]]>
+    </delete>
+
+</mapper>

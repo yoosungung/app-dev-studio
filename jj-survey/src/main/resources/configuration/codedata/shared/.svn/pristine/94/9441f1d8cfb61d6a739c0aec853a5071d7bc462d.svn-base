@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ 이메일 CodeData
+ -->
+<codeData namespace="common.email">
+
+    <!-- 이메일 수신유형 -->
+    <group id="emailRecptnTy">
+        <item code="TO" message="email.codeData.emailRecptnTy.TO" name="TO" />
+        <item code="CC" message="email.codeData.emailRecptnTy.CC" name="CC" />
+        <item code="BCC" message="email.codeData.emailRecptnTy.BCC" name="BCC" />
+    </group>
+
+    <!-- 이메일 발송상태 -->
+    <group id="emailSndngSttus">
+        <item code="READY" message="email.codeData.emailSndngSttus.READY" name="대기중" />
+        <item code="WORKING" message="email.codeData.emailSndngSttus.WORKING" name="발송중" />
+        <item code="SUCCESS" message="email.codeData.emailSndngSttus.SUCCESS" name="발송성공" />
+        <item code="FAILURE" message="email.codeData.emailSndngSttus.FAILURE" name="발송실패" />
+    </group>
+
+</codeData>

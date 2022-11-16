@@ -1,0 +1,74 @@
+@charset "utf-8";
+/*common*/
+body, html {height:100%;}
+body, div, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button {margin:0; padding:0;}
+body{font-family:"굴림",Gulim,"돋움",dotum,"Arial",Apple SD Gothic Neo, AppleGhothic, Helvetica;  background:#262626; -webkit-text-size-adjust:none; min-height:400px; overflow:hidden;}
+table, table td, input, select, textarea{font-size:12px; font-family:"돋움", dotum, AppleGhothic;}
+ul, ol, li {list-style:none;}
+li {vertical-align:top; }
+fieldset,form, button {border:0; font-family:"굴림",Gulim,"돋움",dotum,"Arial",Apple SD Gothic Neo, AppleGhothic, Helvetica;}
+img, input {vertical-align:top; font-family:"굴림",Gulim,"돋움",dotum,"Arial",Apple SD Gothic Neo, AppleGhothic, Helvetica;}
+img{border:0;}
+hr, legend {display:none}
+em, address{font-style:normal}
+table {border-collapse:collapse;}
+textarea  {overflow:auto;  font-size:12px; color:#000; border:1px solid #d2d2d2; resize:none; font-family:"굴림",Gulim,"돋움",dotum,"Arial",Apple SD Gothic Neo, AppleGhothic, Helvetica;}
+a { color:#0000cc; text-decoration:none;}
+a:hover, a:active, a:focus {text-decoration:underline;}
+.top_bt {position:relative; height:50px; z-index:1000;}
+.top_bt a {overflow:hidden;}
+.top_bt a span {display:inline-block; width:1px; height:1px; overflow:hidden; left:-200px; top:-200px;}
+.top_bt .bt_result_list {position:absolute; top:12px; left:20px; display:inline-block; width:126px; height:27px; background:url(/wcom/img/schEngine/imageviewer/bt_result_list.gif) no-repeat 0 0;}
+.top_bt .bt_view_original {position:absolute; top:12px; right:20px; display:inline-block; width:116px; height:27px; background:url(/wcom/img/schEngine/imageviewer/bt_view_original.gif) no-repeat 0 0;}
+.bt_prev {display:block; position:absolute; width:80px; height:100%; left:0; z-index:1000;}
+.bt_prev span { display:inline-block; position:absolute; top:50%; left:38px; width:40px; height:40px; margin-top:-20px; background:url(/wcom/img/schEngine/imageviewer/arr_bt_ctr2.png) no-repeat 0 0; }
+.bt_next {display:block; position:absolute; width:80px; height:100%; right:0; z-index:1000;}
+.bt_next span {position:absolute; top:50%; right:38px; width:40px; height:40px; margin-top:-20px; background:url(/wcom/img/schEngine/imageviewer/arr_bt_ctr2.png) no-repeat -40px 0; z-index:1000;}
+.bt_prev:hover span, .bt_prev:active span {background-position:0 -40px;}
+.bt_next:hover span, .bt_next:active span {background-position:-40px -40px;}
+
+.sumbox {position:absolute; width:100%; height:134px; border-top:1px solid #1c1c1d; background:url(/wcom/img/schEngine/imageviewer/bg_bottom_sum.gif) repeat-x left bottom ;bottom: 0;}
+.sumbox .bt_sum_ctr{background:url(/wcom/img/schEngine/imageviewer/bt_sum_ctr.gif) no-repeat 0 0; width:40px; height:100px;}
+.sumbox .bt_sum_ctr span {display:inline-block; position:absolute; top:41px; left:16px; width:11px; height:18px;}
+.sumbox .bt_sum_prev { position:absolute; top:14px; left:20px;}
+.sumbox .bt_sum_prev span {background:url(/wcom/img/schEngine/imageviewer/bt_sum_ctr_in.gif) no-repeat 0 0;}
+.sumbox .bt_sum_prev:hover span, .sumbox .bt_sum_prev:active span{background-position:0 -18px;}
+.sumbox .bt_sum_next { position:absolute; top:14px; right:20px;}
+.sumbox .bt_sum_next span {background:url(/wcom/img/schEngine/imageviewer/bt_sum_ctr_in.gif) no-repeat -11px 0;}
+.sumbox .bt_sum_next:hover span, .sumbox .bt_sum_next:active span{background-position:-11px -18px;}
+
+.preview_box {position:relative; min-height:215px; overflow:hidden;}
+.preview_box .in_pos_box{}
+.preview_box ul {position:relative; width:640px; max-width:640px; min-width:283px; height:440px; max-height:440px; min-height:123px; margin:0 auto;}
+.preview_box li {display:none;}
+.preview_box li .bg{background:url(/wcom/img/schEngine/imageviewer/bg_prev_back.png); position:absolute; top:0; left:0; width:100%; height:100%; z-index:100; display:none;}
+.preview_box li a  {text-align:center; display:block; width:100%; height:100%; overflow:hidden;}
+.preview_box li a img { max-width:98%; max-height:100%; min-height:123px;  vertical-align:middle;}
+:root .preview_box li a img {max-width:100%;margin:auto}
+.preview_box li.selected {display:block; position:relative; width:100%; height:100%; min-height:123px; z-index:100; overflow:hidden;}
+.preview_box li.selected a {display:block; width:100%; height:100%; position:relative; min-height:123px;line-height:480px}
+.preview_box li.selected a .clone_img_left {position:absolute; top:0; left:-100%}
+.preview_box li.selected a .clone_img_right {position:absolute; top:0; right:-100%}
+.preview_box li a span.vm {display:inline-block; height:100%; width:1px; margin-left:-1px; vertical-align:middle;}
+.preview_box li.prev {display:block; position:absolute; top:12%; left:-25%; width:75%; height:75%; z-index:0;}
+.preview_box li.next {display:block; position:absolute; top:12%; right:-25%; width:75%; height:75%; z-index:0;}
+.preview_box li.prev .bg, .preview_box li.next .bg {display:block;}
+.data_info {text-align:center; line-height:16px; }
+.data_info dt {padding:17px 0 2px 0}
+.data_info dt a {color:#fff; font-size:13px; font-weight:bold;}
+.data_info dd a {color:#636366; font-size:12px;}
+.data_info dd.url {padding:6px 0 0 0;}
+.data_info dd.url a {color:#1b90ff;}
+
+.list_sum {position:relative; margin:14px 90px 0 90px; overflow:hidden; height:100px;}
+.list_sum ul {position:relative; height:100px; width:100%;}
+.list_sum li {float:left; position:relative; width:100px; height:100px; background:#121317; margin:0 5px;}
+.list_sum li a {display:inline-block; text-align:center; width:100px; height:100px; vertical-align:middle; font-size:0;}
+.list_sum li a span.vm {display:inline-block; height:100px; width:1px; margin-left:-1px; vertical-align:middle;}
+.list_sum li span.mask {position:absolute; top:0; left:0;}
+.list_sum li a:hover span.mask, .list_sum li a:active span.mask, .list_sum li a:focus span.mask{border:1px solid #48d3d6; width:98px; height:98px;}
+.list_sum li.selected a span.mask{border:2px solid #48d3d6; width:96px; height:96px;}
+.list_sum li a img {max-width:100%; max-height:100%; vertical-align:middle;}
+
+
+

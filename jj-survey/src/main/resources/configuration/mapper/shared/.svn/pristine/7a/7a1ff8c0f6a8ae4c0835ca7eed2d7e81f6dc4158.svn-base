@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 메뉴별 권한 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.menu.author.TbSysMenuAuthorEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.sys.menu.author.TbSysMenuAuthor">
+        <![CDATA[
+            SELECT TSMA.MENU_ID
+                 , TSMA.AUTHOR_ID
+            FROM   TB_SYS_MENU_AUTHOR TSMA
+            WHERE  TSMA.MENU_ID = #{menuId}
+            AND    TSMA.AUTHOR_ID = #{authorId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SYS_MENU_AUTHOR (
+                   MENU_ID
+                 , AUTHOR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+            ) VALUES (
+                   #{tbSysMenuAuthor.menuId}
+                 , #{tbSysMenuAuthor.authorId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SYS_MENU_AUTHOR SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+            WHERE  MENU_ID = #{tbSysMenuAuthor.menuId}
+            AND    AUTHOR_ID = #{tbSysMenuAuthor.authorId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_MENU_AUTHOR
+            WHERE  MENU_ID = #{menuId}
+            AND    AUTHOR_ID = #{authorId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - MENU_ID(으)로 -->
+    <delete id="deleteListByMenuId">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_MENU_AUTHOR
+            WHERE  MENU_ID = #{menuId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - AUTHOR_ID(으)로 -->
+    <delete id="deleteListByAuthorId">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_MENU_AUTHOR
+            WHERE  AUTHOR_ID = #{authorId}
+        ]]>
+    </delete>
+
+</mapper>

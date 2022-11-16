@@ -1,0 +1,238 @@
+@charset "utf-8";
+
+
+
+/* 장비예약 오버레이 */
+.quick_reserve_overlay { display:none; position:absolute; left:0px; top:0px; width:100%; height:100%; background:#000; opacity: .50;filter:Alpha(Opacity=50); z-index:4001; }
+/* 장비예약 오버레이 // */
+
+/* 장비예약 레이어 */
+.quick_reserve { display:none; position:absolute; top:107px; left:50%; margin-left:-463px; padding:20px 34px 20px 34px; width:857px; height:577px; z-index:1002; background:#fff;border:2px solid #999; }
+
+/* 장비예약 상단 타이틀 및 버튼 */
+.quick_reserve .header { position:relative; height:52px; vertical-align:bottom; }
+.quick_reserve .header h2 { float:left; margin-top:6px; font-family:'NanumGothic'; font-size:24px; color:#373737; }
+    /* 좌측 버튼 */
+.quick_reserve .header .tab { float:left; padding-left:50px; padding-right:20px; background:url(/wcom/img/quick/tab_bg.gif) 34px 0px no-repeat; }
+.quick_reserve .header .tab button { border:0; margin:0; padding:0; background:none; cursor:pointer; }
+.quick_reserve .header .tab button.eq_first_sch_btn { width:136px; height:35px; border:0; margin:0; padding:0; background:none; }
+.quick_reserve .header .tab button.org_first_sch_btn { padding-left:1px; width:136px; height:35px; border:0; margin:0; padding:0; background:none; }
+.quick_reserve .header .tab button.model_first_sch_btn { padding-left:1px; width:136px; height:35px; border:0; margin:0; padding:0; background:none; }
+    /* 우측 버튼 */
+.quick_reserve .header .control { float:right; }
+.quick_reserve .header .control button { border:0; margin:0; padding:0; background:none; }
+.quick_reserve .header .control button img { }
+.quick_reserve .header .control button.reset { width:101px; height:29px; }
+.quick_reserve .header .control button.close { width:33px; height:29px; margin-left:5px; }
+/* 장비예약 상단 타이틀 및 버튼 // */
+
+/* 장비예약 선택 요소 공용 css */
+.quick_reserve .step_list { position:relative; width:857px; height:525px; overflow:hidden; }
+.quick_reserve .step_slider { position:relative; width:1500px; height:525px; }
+.quick_reserve .step_data { position:absolute; width:213px; border-left:1px solid #e3e3e3; border-top:3px solid #a8a8a8; height:521px; }
+.quick_reserve .step_data .step_title { position:absolute; width:158px; height:49px; border-bottom:1px solid #e3e3e3; background-color:#f2f2f2; padding-left:55px; }
+.quick_reserve .step_data .step_title h3 { font-size:14px; color:#7f7f7f; padding-top:16px; }
+    /* 선택요소 Checkbox 숨기기 */
+.quick_reserve .step_data ul li span.code { position:absolute; width:1px; height:1px; overflow:hidden; left:-1px; }
+    /* 선택요소의 상단 안내글(필터 버튼) */
+.quick_reserve .step_data .step_guide { position:absolute; top:50px; width:213px; height:25px; border-bottom:1px solid #e3e3e3; padding-top:8px; }
+.quick_reserve .step_data .step_guide.text { background:url(/wcom/img/quick/proc_guide_icon.gif) 10px 14px no-repeat; padding-left:25px; width:188px; }
+.quick_reserve .step_data .step_guide ul { list-style:none; }
+.quick_reserve .step_data .step_guide ul li.filter { list-style:none; float:left; background:url(/wcom/img/quick/filter_guide.gif) left center no-repeat; margin:0; padding-left:3px; margin-left:3px; }
+.quick_reserve .step_data .step_guide ul li.filter.first { background:none; margin-left:14px; }
+.quick_reserve .step_data .step_guide ul li.filter.last button { font-size:11px; }
+.quick_reserve .step_data .step_guide ul li.filter.on button { color:#3e90ce; font-weight:bold; }
+.quick_reserve .step_data .step_guide ul li.filter button img.active_btn { display:none; }
+.quick_reserve .step_data .step_guide ul li.filter.on button img.active_btn { display:block; }
+.quick_reserve .step_data .step_guide ul li.filter button { width:30px; height:10px; overflow:hidden; border:0; margin:0; padding:0; background:none; color:#707070; }
+    /* 선택요소 목록 */
+.quick_reserve .step_data .item_list { position:relative; top:83px; padding:0 12px; height:438px; border-bottom:1px solid #e3e3e3; overflow-y:scroll; overflow-x:hidden; }
+.quick_reserve .step_data .item_list ul { list-style:none; }
+.quick_reserve .step_data .item_list ul li { list-style:none; font-weight:bold; font-size:13px; border-bottom:1px solid #ebebeb; color:#787777; width:172px; padding:5px 0 5px 0; }
+.quick_reserve .step_data .item_list ul li .name { cursor:pointer; cursor:hand; }
+.quick_reserve .step_data .item_list ul li label.name { cursor:pointer; cursor:hand; }
+.quick_reserve .step_data .item_list ul li .name .count { font-weight:normal; color:#787777; }
+.quick_reserve .step_data .item_list ul li.on, .quick_reserve .step_data .item_list ul li.on span.count { color:#3e90ce; }
+.quick_reserve .step_data .item_list ul li.on .model_select span.count {color:#787777}
+.quick_reserve .step_data .item_list ul li.on .organ_select span.count {color:#787777}
+.quick_reserve .step_data .item_list ul li li.on .name .count { font-weight:normal; color:#3e90ce; }
+.quick_reserve .step_data .item_list ul li.empty_row { color:#c4c4c4; }
+.quick_reserve .step_data .item_list ul li ul { display:none; padding-top:7px; }
+.quick_reserve .step_data .item_list ul li.on ul { display:block; }
+.quick_reserve .step_data .item_list ul li ul li { margin-left:5px; line-height:19px; font-weight:normal; font-size:12px; border-bottom:0px; border-top:1px solid #ebebeb; color:#a7a6a6; width:155px; padding:5px 5px; }
+.quick_reserve .step_data .item_list ul li ul li.on { color:#3e90ce; font-weight:bold; }
+
+.quick_reserve .eqCoreStep .item_list ul li.on { color:#3e90ce; font-weight:bold;}
+.quick_reserve .eqCoreStep .item_list ul li.on .name .count { font-weight:normal; color:#3e90ce; }
+/* 장비예약 선택 요소 공용 css // */
+
+/* 첫번째 위치 step (장비 선택 또는 기관선택) */
+.quick_reserve .step_data.step_01 { left:0; z-index:1050; }
+.quick_reserve .step_data.step_01 .step_title { background:url(/wcom/img/quick/proc_01.gif) left top no-repeat; background-color:#f2f2f2; }
+/* 두번째 위치 step (장비 선택 또는 모델선택) */
+.quick_reserve .step_data.step_02 { left:214px; z-index:1040; }
+.quick_reserve .step_data.step_02 .step_title { background:url(/wcom/img/quick/proc_02.gif) left top no-repeat; background-color:#f2f2f2; }
+/* 세번째 위치 step (모델선택 또는 기관 선택) */
+.quick_reserve .step_data.step_03 { left:428px; z-index:1030; }
+.quick_reserve .step_data.step_03 .step_title { background:url(/wcom/img/quick/proc_03.gif) left top no-repeat; background-color:#f2f2f2; }
+
+/* 장비간편보기 step */
+.quick_reserve .step_data.step_04 { left:642px; width:486px; z-index:1020; background:#3e3e3e; border-bottom:1px solid #e3e3e3; }
+.quick_reserve .step_data.step_04 .step_title {display:none;  height:49px; margin-top:-3px; width:215px; border-top:3px solid #487698; border-bottom:1px solid #3e90ce; background:#3e90ce; padding:0px; text-align:center; z-index:1029; }
+.quick_reserve .step_data.step_04 .step_title  h3 { font-weight:bold; font-size:14px; color:#fff; }
+
+/* 장비예약 Form step */
+.quick_reserve .step_data.step_05 { left:1129px; width:368px; height:521px; z-index:1010; border-left:1px solid #e3e3e3; border-right:1px solid #e3e3e3; border-bottom:1px solid #e3e3e3; }
+.quick_reserve .step_data.step_05 .step_title { background:url(/wcom/img/quick/proc_05.gif) left top no-repeat; background-color:#f2f2f2; width:313px; }
+
+
+/* 장비 선택요소 검색 목록 navigation */
+.quick_reserve .step_04 .eq_list { position:absolute; top:50px; width:215px; height:32px; padding-top:13px; list-style:none; overflow:hidden; background:#c2c2c2; text-align:center; z-index:1022; }
+.quick_reserve .step_04 .eq_list ul { position:relative; width:100%; list-style:none; }
+.quick_reserve .step_04 .eq_list ul li { display:inline; line-height:15px; width:15px; height:15px; text-align:center; margin:0px 2px; font-size:13px; cursor:pointer; }
+.quick_reserve .step_04 .eq_list ul li.before { }
+.quick_reserve .step_04 .eq_list ul li.next {}
+.quick_reserve .step_04 .eq_list ul li.on { background:url(/wcom/img/quick/selected_eq_bg.gif) left top no-repeat; color:white; }
+
+/* 장비 정보 보기 */
+.quick_reserve .step_04 .eq_view { position:relative; width:486px; height:522px; z-index:1021; }
+.quick_reserve .step_04 .eq_view .eq_message { display:none; width:147px; height:403px; background:url(/wcom/img/equip/tip_icon.png) 10px 22px no-repeat; padding:20px 20px 0 48px; background-color:#3e3e3e; color:#fff; font-size:14px; }
+.quick_reserve .step_04 .eq_view .eq_base {padding-left:22px; width:193px; height:418px; padding-bottom:10px; overflow-y:auto; overflow-x:hidden; z-index:1023; background:#3e3e3e; }
+.quick_reserve .step_04 .eq_view .eq_base ul { position:relative; list-style:none; width:168px; }
+.quick_reserve .step_04 .eq_view .eq_base ul li { position:relative; list-style:none; word-break:break-all; font-size:11px; color:#939393; }
+.quick_reserve .step_04 .eq_view .eq_base ul li label {font-size:12px; color:#cbcbcb; }
+.quick_reserve .step_04 .eq_view .eq_base ul li.frame { margin-top:17px; margin-bottom:10px; width:168px; height:134px; }
+.quick_reserve .step_04 .eq_view .eq_base ul li.rcom_score { font-size:12px; height:18px;  line-height:18px; vertical-align:middle; }
+.quick_reserve .step_04 .eq_view .eq_base ul li.rcom_score img { margin-right:4px; vertical-align:middle; }
+.quick_reserve .step_04 .eq_view .eq_base ul li.resv_cnt { position:absolute; right:0px; margin-top:-17px; }
+.quick_reserve .step_04 .eq_view .eq_base ul li.equip_nm { font-size:14px; color:#dedede; padding-top:14px; }
+.quick_reserve .step_04 .eq_view .eq_base ul li.manufacture { font-size:12px; color:#939393; padding-top:6px; border-bottom:1px solid #323232; padding-bottom:7px; }
+.quick_reserve .step_04 .eq_view .eq_base ul li.take_dt { border-top:2px solid #494949; padding-top:7px; }
+.quick_reserve .step_04 .eq_view .eq_base ul li.use_type { }
+.quick_reserve .step_04 .eq_view .eq_base ul li.model_nm {}
+.quick_reserve .step_04 .eq_view .eq_base ul li.use_price_intro { }
+
+    /* 검색 결과 보기 전의 상태 */
+.quick_reserve .step_04.not_navigation .eq_list { display:none; }
+.quick_reserve .step_04.not_navigation .eq_view .eq_message { display:block; z-index:1024; padding-top:22px; }
+.quick_reserve .step_04.not_navigation .eq_view .eq_base { margin-top:50px; height:399px; z-index:1023; }
+.quick_reserve .step_04.result_one .eq_list { display:none; }
+.quick_reserve .step_04.result_one .eq_view .eq_message { display:none; }
+.quick_reserve .step_04.result_one .eq_view .eq_base {height:463px; z-index:1023; }
+
+    /* 장비 정보 상세 보기 */
+.quick_reserve .step_04 .eq_view .eq_detail { padding:0 20px 20px 22px; overflow-y:auto; overflow-x:hidden; z-index:1022; }
+.quick_reserve .step_04 .eq_view .eq_detail ul { position:relative; list-style:none; }
+.quick_reserve .step_04 .eq_view .eq_detail ul li { position:relative; padding-top:20px; list-style:none; word-break:break-all; font-size:12px; color:#939393; }
+.quick_reserve .step_04 .eq_view .eq_detail ul li label { font-weight:bold; font-size:12px; color:#cbcbcb; display:block; margin-bottom:5px; }
+
+    /* 장비예약 보기시 장비 정보 상세 보기 */
+.quick_reserve .step_04 .eq_view.detail_view { overflow-x:hidden; overflow-y:auto; top:0px; height:520px; border-bottom:1px solid #e3e3e3; }
+.quick_reserve .step_04 .eq_view.detail_view .eq_base,
+.quick_reserve .step_04.result_one .eq_view.detail_view .eq_base { height:auto; margin-top:0px; width:auto; border-bottom:1px solid #323232; }
+.quick_reserve .step_04 .eq_view.detail_view .eq_base ul.picture_frame { display:inline-block; float:left; }
+.quick_reserve .step_04 .eq_view.detail_view .eq_base ul.data_list { display:inline-block; float:left; padding-left:20px; width:240px; }
+.quick_reserve .step_04 .eq_view.detail_view .eq_base ul li { }
+.quick_reserve .step_04 .eq_view.detail_view .eq_base ul li label { }
+.quick_reserve .step_04 .eq_view.detail_view .eq_base ul li.equip_nm { }
+.quick_reserve .step_04 .eq_view.detail_view .eq_base ul li.manufacture { border-bottom:0px; }
+.quick_reserve .step_04 .eq_view.detail_view .eq_base ul li.take_dt { border-top:0px; }
+.quick_reserve .step_04 .eq_view.detail_view .eq_detail { overflow:visible; height:auto; border-top:2px solid #494949; }
+
+    /* 장비 정보 하단 신청하기 버튼 */
+.quick_reserve .step_04 .reserve_btn { position:absolute; width:215px; height:49px; left:0; top:473px; background:#00b7ce; z-index:1028; }
+.quick_reserve .step_04 .reserve_btn button { border:0; margin:0; padding:0; background:0; color:white; font-size:17px; background:url(/wcom/img/zeus2014/common/proc_04.png) left top no-repeat; line-height:49px; height:49px; width:215px; padding-left:60px; font-weight:bold; text-align:left; }
+    /* 장비 정보 하단 전단계로 돌아가기 버튼 */
+.quick_reserve .step_04 .reserve_back_btn { display: none; position:absolute; width:75px; height:35px; left:10px; top:-40px; z-index:1029; }
+.quick_reserve .step_04 .reserve_back_btn button { border:0; margin:0; padding:0; background:0; font-size:12px; line-height:12px; }
+/* 장비 정보 보기 // */
+/* 장비 예약 Form ( sub.css 의 .request_area 오버라이딩 ) */
+.quick_reserve .step_05 .request_area { position:relative; width:338px; height:440px; top:50px; padding:15px; overflow-y:auto;  }
+.quick_reserve .step_05 .request_area fieldset { padding:0; }
+.quick_reserve .step_05 .request_area fieldset.request_user_infor table.ajax_form { width:100%; }
+
+.request_area { position:relative; padding:15px;  }
+.request_area h2 { position:relative; font-size:16px; color:#1c85ce; padding-top:4px; }
+.request_area fieldset { border:0px; margin:0px; padding:0px; padding-top:15px; }
+.request_area fieldset legend { position:absolute; left:-1px; top:-1px; width:1px; height:1px; overflow:hidden; border:0px; margin:0px; padding:0px; }
+.request_area fieldset.request_user_infor {}
+.request_area fieldset.request_user_infor table.ajax_form { position:relative; width:100%; border:none; border-collapse:collapse; border-top:1px solid #e5e5e5; }
+.request_area fieldset.request_user_infor table.ajax_form th { background:#f0faff; border-top:1px solid #d9d9d9; line-height:2em; vertical-align:top; padding-left:10px; width:65px; color:#838282; font-size:12px; font-weight:bold; text-align:left; }
+.request_area fieldset.request_user_infor table.ajax_form td { background:#f0faff; border-top:1px solid #d9d9d9; line-height:2em; vertical-align:bottom; color:#656565; font-size:12px; font-weight:bold; padding-right:10px; }
+.request_area fieldset.request_user_infor .input_guide { position:relative; text-align:right; color:#868686; font-size:11px; padding-bottom:8px; }
+.request_area fieldset.request_user_infor .input_guide strong{color:#ff3939; }
+.request_area fieldset.request_user_infor .required { font-size:12px; color:#f95e00;}
+
+.request_area fieldset.request_infor { border-bottom:1px solid #d9d9d9; }
+.request_area fieldset.request_infor table.ajax_form { position:relative; width:100%; border:none; border-collapse:collapse; }
+.request_area fieldset.request_infor table.ajax_form th { padding-left:10px; width:65px; color:#838282; font-size:12px; font-weight:bold; vertical-align:top; padding-top:10px; text-align:left; }
+.request_area fieldset.request_infor table.ajax_form td { color:#656565; font-size:12px; padding:4px 0; }
+.request_area fieldset.request_infor table.ajax_form td input { width:80px; height:28px; line-height:28px; font-size:14px; border:1px solid #e1e1e1; }
+.request_area fieldset.request_infor table.ajax_form td input.input_full { width:99%; }
+.request_area fieldset.request_infor table.ajax_form td textarea { ine-height:12px; font-size:14px; border:1px solid #e1e1e1; }
+.request_area fieldset.request_infor table.ajax_form td textarea.input_full { width:99%; }
+.request_area fieldset.request_infor table.ajax_form td .guide { position:relative; text-align:left; color:#898989; font-size:11px; display:block; padding-top:5px; }
+.request_area fieldset.request_infor table.ajax_form td .inline_guide { text-align:left; color:#898989; font-size:11px; }
+.request_area fieldset.request_infor table.ajax_form td .tip { position:relative; display:block; text-align:left; color:#898989; font-size:11px; background:url(/wcom/img/equip/tip_icon.png) left 6px no-repeat; padding-top:5px; padding-left:38px; }
+.request_area fieldset.request_infor table.ajax_form2 { position:relative; width:100%; border:none; border-collapse:collapse; }
+.request_area fieldset.request_infor table.ajax_form2 button{ width:69px; height:22px; margin-left:10px; background:#898989; border:1px solid #5b5b5b; font-size:11px; color:#fff;}
+.request_area fieldset.request_infor table.ajax_form2 th { padding-left:10px; width:65px; color:#838282; font-size:12px; font-weight:bold; vertical-align:top; padding-top:10px; text-align:left; }
+.request_area fieldset.request_infor table.ajax_form2 td { color:#656565; font-size:12px; padding:4px 0; }
+.request_area fieldset.request_infor table.ajax_form2 td input { width:80px; height:20px; line-height:20px; font-size:13px; border:1px solid #e1e1e1; }
+.request_area fieldset.request_infor table.ajax_form2 td select { width:60px; height:21px; line-height:20px; font-size:13px; border:1px solid #e1e1e1; }
+.request_area fieldset.request_infor table.ajax_form2 td input.input_full { width:99%; }
+.request_area fieldset.request_infor table.ajax_form2 td textarea { ine-height:12px; font-size:14px; border:1px solid #e1e1e1; }
+.request_area fieldset.request_infor table.ajax_form2 td textarea.input_full { width:99%; }
+.request_area fieldset.request_infor table.ajax_form2 td .guide { position:relative; text-align:left; color:#898989; font-size:11px; display:block; padding-top:5px; }
+.request_area fieldset.request_infor table.ajax_form2 td .inline_guide { text-align:left; color:#898989; font-size:11px; }
+.request_area fieldset.request_infor table.ajax_form2 td .tip { position:relative; display:block; text-align:left; color:#898989; font-size:11px; background:url(/wcom/img/equip/tip_icon.png) left 6px no-repeat; padding-top:5px; padding-left:38px; }
+.request_area fieldset.request_infor .required { font-size:12px; color:#f95e00; margin-left:-7px; }
+/* .request_area .request_guide { position:relative; padding-top:4px; background:url(/wcom/img/equip/guide_icon.gif) left 10px no-repeat; padding-left:15px; } */
+.request_area .request_guide{padding:15px 0px 0px 0px; }
+.request_area .request_guide p{padding:0px 8px 15px 8px;}
+.request_area .request_guide p strong{color:#0082c0;}
+.request_area .request_guide button{margin:auto;}
+.request_area .btn_ask { display:block; width:108px; height:36px; line-height:36px; text-align:center; color:#fff; font-size:14px; background:url(../../wcom/img/zeus2014/btn/sp_btn.png) no-repeat -400px -350px;}
+
+.detail_layer_pop{position:absolute;width:100%; display:block; left:10px; top:185px;background:#fff;}
+.detail_layer_pop2{position:absolute;width:100%; display:block; left:10px; top:290px;background:#fff;}
+.detail_layer_pop3{position:absolute;width:100%; display:block; left:10px; top:380px;background:#fff;}
+.detail_layer_content{display:none; position:absolute; left:298px; top:-15px; margin:0 0 0 -168px; padding:15px; width:300px; border:1px solid #606060;background:#fff; z-index:5002; text-align:center;font-family:NanumGothic;}
+.detail_layer_content.active{display:block;background:#fff;}
+.detail_layer_content h3{display:block;width:100%;line-height:1em; margin-bottom:5px; color:#2079b4;}
+.detail_layer_content .detail_layer_subTitle{display:block; margin-bottom:5px;font-size:10px;color:#444d5d; text-align:center;}
+.detail_layer_content .detail_layer_txt{font-size:10px; color:#8d8d8d;text-align:left;}
+.detail_layer_content .btn_close{position:absolute; top:0px; right:0px; width:19px; height:19px; left:auto; margin:5px 5px 0 0; padding:0px;}
+/* 장비예약 레이어 // */
+
+
+/* 장비활용중개소 오버레이 */
+.mediation_intro_overlay { display:none; position:absolute; left:0px; top:0px; width:100%; height:100%; background:#000; opacity: .50;filter:Alpha(Opacity=50); z-index:4001; }
+
+/* 장비활용중개소 레이어 */
+.mediation_intro { display:none; position:absolute; top:5px; left:50%; margin-left:-358px; padding:10px 14px 10px 14px; width:684px; height:870px; z-index:5000; background:#fff;border:2px solid #999; }
+
+/* 장비활용중개소 상단 타이틀 및 버튼 */
+.mediation_intro .header { position:relative; height:42px; vertical-align:bottom; }
+.mediation_intro .header h2 { float:left; margin-top:6px; font-family:'NanumGothic'; font-size:24px; color:#373737; }
+.mediation_intro .header .control { float:right; }
+.mediation_intro .header .control button { border:0; margin:0; padding:0; background:none; }
+.mediation_intro .header .control button img { }
+.mediation_intro .header .control button.reset { width:101px; height:29px; }
+.mediation_intro .header .control button.close { width:33px; height:29px; margin-left:5px; }
+
+
+/* 팝업공지 오버레이 */
+.notice_popup_overlay { display:none; position:absolute; left:0px; top:0px; width:100%; height:100%; background:#000; opacity: .50;filter:Alpha(Opacity=50); z-index:4001; }
+
+/* 팝업공지 레이어 */
+.notice_popup { display:none; position:absolute; top:-138px; margin-left:0px; padding:10px 10px 10px 10px; width:310px; height:169px; z-index:1002; background:#fff;border:2px solid #999; }
+
+/* 팝업공지 상단 타이틀 및 버튼 */
+.notice_popup .header { position:relative; height:52px; vertical-align:bottom; }
+.notice_popup .header h2 { float:left; margin-top:6px; font-family:'NanumGothic'; font-size:24px; color:#373737; }
+.notice_popup .header .control { float:right; }
+.notice_popup .header .control button { border:0; margin:0; padding:0; background:none; }
+.notice_popup .header .control button img { }
+.notice_popup .header .control button.reset { width:101px; height:29px; }
+.notice_popup .header .control button.close { width:33px; height:29px; margin-left:5px; }

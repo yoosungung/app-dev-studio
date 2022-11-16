@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jd.survey.zeus.mapper.ZeusUserMapper">
+	
+	<select id="getUserCount" parameterType="string" resultType="int">
+		/* 사용자 조회 건수*/
+		SELECT COUNT(*)
+		FROM tb_user A, tb_user_pw_hist B
+		WHERE A.user_id = B.user_id
+			AND A.secede_dt IS NULL
+			AND B.hist_seq = (SELECT MAX(hist_seq) FROM tb_user_pw_hist WHERE user_id = #{value} AND temp_pswd_yn = 'N')
+	</select>
+
+	<select id="getUser" parameterType="string" resultType="com.jd.survey.zeus.domain.ZeusUser">
+		/* 사용자 조회 */
+		SELECT A.user_id, A.kor_nm AS user_nm, A.email, B.pswd AS password, B.salt
+		FROM tb_user A, tb_user_pw_hist B
+		WHERE A.user_id = B.user_id
+			AND A.secede_dt IS NULL
+			AND B.hist_seq = (SELECT MAX(hist_seq) FROM tb_user_pw_hist WHERE user_id = #{value} AND temp_pswd_yn = 'N')
+	</select>
+	
+	<sql id="sqlSearchUser">
+		FROM tb_user A, tb_mem_organ B, tb_user_grade C
+		WHERE A.organ_cd = B.organ_cd
+		AND A.user_id = C.user_id
+		AND A.secede_confm_dt IS NULL
+		AND A.email IS NOT NULL
+		<if test="keywords != null">
+			AND (
+				UPPER(A.user_id) LIKE UPPER('%' || #{keywords} || '%')
+				OR UPPER(A.kor_nm) LIKE UPPER('%' || #{keywords} || '%')
+				OR UPPER(A.email) LIKE UPPER('%' || #{keywords} || '%')
+				OR UPPER(B.kor_nm) LIKE UPPER('%' || #{keywords} || '%')
+			)
+		</if>
+	</sql>
+	
+	<select id="searchUserCount" parameterType="com.jd.survey.zeus.web.cmd.ZeusUserCmd" resultType="int">
+		/* 사용자 검색건수  */
+		SELECT COUNT(*) <include refid="sqlSearchUser"/>
+	</select>
+	
+	<select id="searchUserList" parameterType="com.jd.survey.zeus.web.cmd.ZeusUserCmd" resultType="com.jd.survey.zeus.domain.ZeusUser">
+		/* 사용자 검색결과 */
+		<include refid="baseMapper.pagingPrefix"/>
+		SELECT A.user_id, A.kor_nm AS user_nm, A.email, A.join_dt, B.organ_cd, B.kor_nm AS organ_nm, C.grade_cd AS grade
+		<include refid="sqlSearchUser"/>
+		<include refid="baseMapper.sortCondition"/>
+		<include refid="baseMapper.pagingSurfix"/>
+	</select>
+	
+	<select id="getAllUserList" resultType="com.jd.survey.zeus.domain.ZeusUser">
+		/* 사용자전체 목록 조회 */
+		SELECT A.user_id, A.kor_nm AS user_nm, A.email, A.join_dt, B.organ_cd, B.kor_nm AS organ_nm, C.grade_cd AS grade
+		<include refid="sqlSearchUser"/>
+	</select>
+	
+</mapper>

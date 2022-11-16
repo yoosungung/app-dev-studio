@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 사람 관리 DW Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.admin.appmanage.personmanage.mapper.PersonManageDwMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+        SELECT EMPL_NO
+             , LOGIN_PASSWORD
+             , EMAIL_ADRES
+             , HFFC_STTUS
+             , KOREAN_NM
+             , TLPHON_NO
+             , UNIV
+             , UNDEG
+             , SUBJCT
+          FROM DW_PERSON DP
+        ]]>
+    </select>
+
+</mapper>

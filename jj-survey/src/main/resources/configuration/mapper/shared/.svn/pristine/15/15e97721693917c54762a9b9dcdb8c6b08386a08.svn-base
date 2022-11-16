@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 리소스 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.resrce.TbSysResrceMapper">
+
+    <!-- 조회 - MAX 정렬 순서 -->
+    <select id="selectMaxSortOrdr" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT NVL(MAX(TSR.SORT_ORDR), 0) AS MAX_SORT_ORDR
+            FROM   TB_SYS_RESRCE TSR
+        ]]>
+    </select>
+
+    <!-- 조회 - 정렬 순서 목록 -->
+    <select id="selectSortOrdrList" resultType="kr.ac.jj.shared.domain.main.model.sys.resrce.TbSysResrce">
+        <![CDATA[
+            SELECT TSR.RESRCE_ID
+                 , TSR.RESRCE_TY
+                 , TSR.RESRCE_PTTRN
+                 , TSR.SORT_ORDR
+                 , TSR.USE_YN
+            FROM   TB_SYS_RESRCE TSR
+            ORDER BY TSR.SORT_ORDR
+        ]]>
+    </select>
+
+    <!-- 수정 - 정렬 순서 -->
+    <update id="updateSortOrdr">
+        <![CDATA[
+            UPDATE TB_SYS_RESRCE SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , SORT_ORDR                        = #{tbSysResrce.sortOrdr}
+            WHERE  RESRCE_ID = #{tbSysResrce.resrceId}
+        ]]>
+    </update>
+
+</mapper>

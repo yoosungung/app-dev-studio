@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+	<!-- 설문조사 -->
+    <definition name="surveys/page" extends="default" template="/WEB-INF/layouts/bootstrap-blank.jspx">
+    	<put-attribute name="activeTab" value="surveys" cascade="true"/>
+    	<put-attribute name="pagemode" value="page" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/surveys/page.jspx"/>
+        <put-attribute name="menu" value="/WEB-INF/views/surveys/menu.jspx"/>
+    </definition>
+    
+    <!-- 설문조사 최종 승인 -->
+    <definition name="surveys/submit" extends="default" template="/WEB-INF/layouts/bootstrap-blank.jspx">
+    	<put-attribute name="activeTab" value="surveys" cascade="true"/>
+    	<put-attribute name="pagemode" value="submit" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/surveys/submit.jspx"/>
+        <put-attribute name="menu" value="/WEB-INF/views/surveys/menu.jspx"/>
+    </definition>
+    
+    <!-- 설문자별 설문조사 목록 -->
+    <definition name="surveys/entries" extends="default" template="/WEB-INF/layouts/bootstrap-surveys.jspx">
+    	<put-attribute name="activeTab" value="surveys" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/surveys/entries.jspx"/>
+    </definition>
+    
+    <!-- 설문조사 상세조회 -->
+    <definition name="surveys/survey" extends="default" template="/WEB-INF/layouts/bootstrap-blank.jspx">
+        <put-attribute name="activeTab" value="surveys" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/surveys/survey.jspx"/>
+    </definition>
+
+	<!-- 설문조사 전체목록 조회 -->
+    <definition name="surveys/surveys" extends="default" template="/WEB-INF/layouts/bootstrap-surveys.jspx">
+    	<put-attribute name="activeTab" value ="surveys" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/surveys/surveys.jspx"/>
+    </definition>
+    
+    <!-- 설문조사 종료 -->
+	<definition name="surveys/submitted" extends="default" template="/WEB-INF/layouts/bootstrap-error.jspx">
+    	<put-attribute name="activeTab" value ="surveys" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/surveys/submitted.jspx"/>
+    </definition>
+    
+    
+</tiles-definitions>

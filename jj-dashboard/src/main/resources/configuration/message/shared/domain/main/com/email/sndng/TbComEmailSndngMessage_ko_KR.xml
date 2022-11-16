@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 공통 - 메일 발송 Message
+ -->
+<properties>
+
+    <!-- 발송 상태 -->
+    <entry key="domain.main.tbComEmailSndng.sndngSttus.READY"><![CDATA[대기중]]></entry>
+    <entry key="domain.main.tbComEmailSndng.sndngSttus.WORKING"><![CDATA[발송중]]></entry>
+    <entry key="domain.main.tbComEmailSndng.sndngSttus.SUCCESS"><![CDATA[발송성공]]></entry>
+    <entry key="domain.main.tbComEmailSndng.sndngSttus.FAILURE"><![CDATA[발송실패]]></entry>
+
+</properties>

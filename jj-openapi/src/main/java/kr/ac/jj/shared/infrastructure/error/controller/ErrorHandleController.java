@@ -1,0 +1,164 @@
+package kr.ac.jj.shared.infrastructure.error.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
+
+import kr.ac.jj.shared.application.common.user.exception.InvalidSessionException;
+import kr.ac.jj.shared.config.props.SharedConfigProperties;
+import kr.ac.jj.shared.domain.main.model.sys.log.error.TbSysLogError;
+import kr.ac.jj.shared.infrastructure.error.model.ErrorHandleModel;
+import kr.ac.jj.shared.infrastructure.framework.core.support.context.ApplicationContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.web.context.request.RequestContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.web.context.support.MessageUtil;
+import kr.ac.jj.shared.infrastructure.framework.web.servlet.error.ServletErrorConfig;
+import kr.ac.jj.shared.infrastructure.framework.web.servlet.error.ServletErrorInfo;
+import kr.ac.jj.shared.infrastructure.logging.util.LoggingUtil;
+
+/**
+ * 에러 처리 Controller
+ */
+@Controller
+public class ErrorHandleController extends BasicErrorController {
+
+    private static final Logger log = LoggerFactory.getLogger(ErrorHandleController.class);
+
+    private @Autowired SharedConfigProperties sharedConfig;
+
+    private final ErrorAttributes errorAttributes;
+
+    public ErrorHandleController(ErrorAttributes errorAttributes, ServerProperties serverProperties,
+            List<ErrorViewResolver> errorViewResolvers) {
+        super(errorAttributes, serverProperties.getError(), errorViewResolvers);
+
+        this.errorAttributes = errorAttributes;
+    }
+
+    @Override
+    public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView errorHtml = super.errorHtml(request, response);
+        Map<String, Object> model = errorHtml.getModel();
+
+        this.createLog(request, model);
+
+        errorHtml.setViewName(sharedConfig.getError().getPage());
+
+        LoggingUtil.setCurrentLogComplete();
+
+        return errorHtml;
+    }
+
+    @Override
+    public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
+        ResponseEntity<Map<String, Object>> error = super.error(request);
+        Map<String, Object> body = error.getBody();
+
+        this.createLog(request, body);
+
+        LoggingUtil.setCurrentLogComplete();
+
+        return error;
+    }
+
+    private void createLog(HttpServletRequest request, Map<String, Object> model) {
+        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        ServletErrorConfig servletErrorConfig = ApplicationContextUtil.getConfigBean(ServletErrorConfig.class);
+        WebRequest webRequest = new ServletWebRequest(request);
+        Throwable throwable = this.errorAttributes.getError(webRequest);
+        ServletErrorInfo servletErrorInfo = null;
+
+        model.remove("trace");
+
+        model.put("status", request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE));
+
+        if (throwable != null) {
+            servletErrorInfo = servletErrorConfig.getServletErrorInfo(throwable.getClass());
+        }
+
+        if (servletErrorInfo == null || !servletErrorInfo.isVisible()) {
+            String systemErrorMessage = MessageUtil.getMessage("common.message.systemError", "시스템 에러가 발생했습니다.");
+
+            String displayMessage = MessageUtil.getMessage("common.message.errorStatusCode." + status,
+                    StringUtils.defaultIfEmpty(systemErrorMessage, "System Error."));
+
+            if (StringUtils.isNotEmpty(displayMessage)) {
+                model.put("message", displayMessage);
+            }
+        }
+
+        Throwable rootCause = ExceptionUtils.getRootCause(throwable);
+
+        if (servletErrorInfo != null && servletErrorInfo.isVisible() && throwable != null
+                && StringUtils.isEmpty((String) model.get("message"))) {
+            if (rootCause != null) {
+                model.put("message", rootCause.getMessage());
+            }
+        }
+
+        if (rootCause instanceof InvalidSessionException) {
+            HttpServletResponse response = RequestContextUtil.getResponse();
+
+            if (response != null) {
+                response.setHeader("X-Invalid-Session", Boolean.toString(true));
+            }
+        }
+
+        try {
+            this.createLog(request, throwable);
+        } catch (RuntimeException e) {
+            log.error(e.getMessage(), e);
+        }
+    }
+
+    private void createLog(HttpServletRequest request, Throwable throwable) {
+        Map<String, Object> errorAttributes = super.getErrorAttributes(request, ErrorAttributeOptions.defaults());
+
+        if (throwable != null && this.isLogWriteThrowable(throwable)) {
+            log.error(throwable.getMessage(), throwable);
+        }
+
+        if (throwable instanceof InvalidSessionException) {
+            return;
+        }
+
+        ErrorHandleModel errorHandleModel = new ErrorHandleModel(errorAttributes, throwable);
+
+        TbSysLogError tbSysLogError = new TbSysLogError();
+        tbSysLogError.resetErrorHandleModel(errorHandleModel);
+        tbSysLogError.insertQueue();
+    }
+
+    private boolean isLogWriteThrowable(Throwable throwable) {
+        if (throwable instanceof MissingServletRequestParameterException) {
+            return true;
+        }
+
+        if (throwable instanceof HttpMessageNotWritableException) {
+            return true;
+        }
+
+        return false;
+    }
+
+}

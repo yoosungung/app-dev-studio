@@ -1,0 +1,128 @@
+package kr.ac.jj.shared.application.admin.sysmanage.menumanage.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import kr.ac.jj.shared.application.admin.sysmanage.menumanage.model.MenuManageModel;
+import kr.ac.jj.shared.application.admin.sysmanage.menumanage.service.MenuManageServiceImpl;
+import kr.ac.jj.shared.domain.main.model.sys.menu.TbSysMenu;
+
+/**
+ * 메뉴 관리 RestController
+ */
+@RestController
+@RequestMapping(path = "/admin/sysmanage/menumanage/MenuManage", consumes = { MediaType.APPLICATION_JSON_VALUE })
+public class MenuManageRestController {
+
+    private @Autowired MenuManageServiceImpl menuManageService;
+
+    /**
+     * 트리 조회
+     *
+     * @param menuKnd
+     * @return
+     */
+    @GetMapping(path = "/readTree")
+    public List<Map<String, Object>> readTree(@RequestParam String menuKnd) {
+        return menuManageService.readTree(menuKnd);
+    }
+
+    /**
+     * 트리 조회 - 상위 메뉴 선택용
+     *
+     * @param menuKnd
+     * @param maxLevel
+     * @return
+     */
+    @GetMapping(path = "/readTreeForUpperMenuSelect")
+    public List<Map<String, Object>> readTreeForUpperMenuSelect(@RequestParam String menuKnd,
+            @RequestParam Integer maxLevel) {
+        return menuManageService.readTreeForUpperMenuSelect(menuKnd, maxLevel);
+    }
+
+    /**
+     * 메뉴 순서 목록 저장
+     *
+     * @param sortOrdrList
+     */
+    @PutMapping(path = "/updateMenuOrdrList")
+    public void updateMenuOrdrList(@RequestBody List<TbSysMenu> tbSysMenuList) {
+        menuManageService.updateMenuOrdrList(tbSysMenuList);
+    }
+
+    /**
+     * 조회 - 생성용
+     *
+     * @param upperMenuId
+     * @return
+     */
+    @GetMapping
+    public MenuManageModel getForCreate(@RequestParam String upperMenuId) {
+        return menuManageService.readForCreate(upperMenuId);
+    }
+
+    /**
+     * 조회
+     *
+     * @param menuId
+     * @return
+     */
+    @GetMapping(path = "/{menuId}")
+    public MenuManageModel get(@PathVariable String menuId) {
+        return menuManageService.read(menuId);
+    }
+
+    /**
+     * 생성
+     *
+     * @param model
+     * @return
+     */
+    @PostMapping
+    public String post(@RequestBody MenuManageModel model) {
+        return menuManageService.create(model);
+    }
+
+    /**
+     * 수정
+     *
+     * @param model
+     */
+    @PutMapping(path = "/{menuId}")
+    public void put(@RequestBody MenuManageModel model) {
+        menuManageService.update(model);
+    }
+
+    /**
+     * 수정 - 상위 메뉴
+     *
+     * @param tbSysMenu
+     */
+    @PutMapping(path = "/{menuId}", params = { "upperMenuId" })
+    public void put(@RequestBody TbSysMenu tbSysMenu) {
+        menuManageService.updateUpperMenu(tbSysMenu);
+    }
+
+    /**
+     * 삭제
+     *
+     * @param menuId
+     */
+    @DeleteMapping(path = "/{menuId}")
+    public void delete(@PathVariable String menuId) {
+        menuManageService.delete(menuId);
+    }
+
+}

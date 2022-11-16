@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ UI CodeData
+ -->
+<codeData namespace="common.ui">
+
+    <!-- 테마 -->
+    <group id="themes">
+        <item code="custom/base"                name="Base" />
+        <item code="basics/ui-lightness"        name="UI lightness" />
+        <item code="basics/ui-darkness"         name="UI darkness" />
+        <item code="basics/smoothness"          name="Smoothness" />
+        <item code="basics/start"               name="Start" />
+        <item code="basics/redmond"             name="Redmond" />
+        <item code="basics/sunny"               name="Sunny" />
+        <item code="basics/overcast"            name="Overcast" />
+        <item code="basics/le-frog"             name="Le Frog" />
+        <item code="custom/flick"               name="Flick" />
+        <item code="basics/pepper-grinder"      name="Pepper Grinder" />
+        <item code="basics/eggplant"            name="Eggplant" />
+        <item code="basics/dark-hive"           name="Dark Hive" />
+        <item code="basics/cupertino"           name="Cupertino" />
+        <item code="basics/south-street"        name="South Street" />
+        <item code="basics/blitzer"             name="Blitzer" />
+        <item code="basics/humanity"            name="Humanity" />
+        <item code="basics/hot-sneaks"          name="Hot Sneaks" />
+        <item code="basics/excite-bike"         name="Excite Bike" />
+        <item code="basics/vader"               name="Vader" />
+        <item code="basics/dot-luv"             name="Dot Luv" />
+        <item code="basics/mint-choc"           name="Mint Choc" />
+        <item code="basics/black-tie"           name="Black Tie" />
+        <item code="basics/trontastic"          name="Trontastic" />
+        <item code="basics/swanky-purse"        name="Swanky Purse" />
+    </group>
+
+</codeData>

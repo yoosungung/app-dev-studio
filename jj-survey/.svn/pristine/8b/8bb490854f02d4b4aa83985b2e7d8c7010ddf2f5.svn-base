@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 설문_설문지 - 사람(대상자) TO 사람 Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.survey.qestnr.person.TbSurveyQestnrPersonToPersonMapper">
+
+    <!-- 그리드 목록 조회 - SURVEY_QESTNR_ID(으)로 -->
+    <select id="selectGridListBySurveyQestnrId" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TSQP.SURVEY_PERSON_ID
+                 , TSQP.SURVEY_QESTNR_ID
+                 , TSQP.EMAIL_SURVEY_URL
+                 , TSQP.EMAIL_SHRTEN_URL
+                 , TSQP.SMS_SURVEY_URL
+                 , TSQP.SMS_SHRTEN_URL
+                 , TSQP.SURVEY_ID
+                 , TCP.*
+                 , S.STATUS AS SURVEY_STATUS
+                 , FN_CODE_NAME('SURVEY_STATUS', S.STATUS, #{$var.userLocale}, #{$var.defaultLocale}, NULL) AS SURVEY_STATUS_NM
+            FROM   TB_SURVEY_QESTNR_PERSON TSQP
+                   INNER JOIN (
+        ]]>
+        <include refid="kr.ac.jj.shared.domain.main.mapper.com.person.TbComPersonEntityMapper.baseSelectSql"></include>
+        <![CDATA[
+                   ) TCP ON TCP.PERSON_ID = TSQP.PERSON_ID
+                   LEFT JOIN SURVEY S ON TSQP.SURVEY_ID = S.ID
+            WHERE  TSQP.SURVEY_QESTNR_ID = #{search.surveyQestnrId}
+        ]]>
+
+        <!-- 사번 -->
+        <if test='search != null and search.emplNo != null and search.emplNo != ""'>
+            <![CDATA[
+            AND    UPPER(TCP.EMPL_NO) LIKE CONCAT_WS('', '%', UPPER(#{search.emplNo}), '%')
+            ]]>
+        </if>
+
+        <!-- 이름 -->
+        <if test='search != null and search.personNm != null and search.personNm != ""'>
+            <![CDATA[
+            AND    (UPPER(TCP.KOREAN_NM) LIKE CONCAT_WS('', '%', UPPER(#{search.personNm}), '%') OR
+                    UPPER(TCP.ENGL_NM) LIKE CONCAT_WS('', '%', UPPER(#{search.personNm}), '%') OR
+                    UPPER(TCP.CHCRT_NM) LIKE CONCAT_WS('', '%', UPPER(#{search.personNm}), '%')
+                   )
+            ]]>
+        </if>
+
+        <!-- 이메일 주소 -->
+        <if test='search != null and search.emailAdres != null and search.emailAdres != ""'>
+            <![CDATA[
+            AND    UPPER(TCP.EMAIL_ADRES) LIKE CONCAT_WS('', '%', UPPER(#{search.emailAdres}), '%')
+            ]]>
+        </if>
+
+        <!-- 조직명 -->
+        <if test='search != null and search.deptNm != null and search.deptNm != ""'>
+            <![CDATA[
+            AND    UPPER(TCD.DEPT_NM) LIKE CONCAT_WS('', '%', UPPER(#{search.deptNm}), '%')
+            ]]>
+        </if>
+    </select>
+
+    <!-- 설문 발송 대상 사람 목록 조회 -->
+    <sql id="tbSurveyQestnrPersonToPersonSelectSql">
+        <![CDATA[
+            SELECT TSQP.SURVEY_PERSON_ID
+                 , TSQP.SURVEY_QESTNR_ID
+                 , TSQP.EMAIL_SHRTEN_URL
+                 , TSQP.SMS_SHRTEN_URL
+                 , TSQP.SURVEY_ID
+                 , TCP.*
+                 , (SELECT CASE WHEN COUNT(*) = 0 THEN '0' ELSE '1' END
+                    FROM   TB_COM_PERSON_USER TCPU
+                           INNER JOIN TB_SYS_USER TSU ON TSU.USER_ID = TCPU.USER_ID
+                    WHERE  TCPU.PERSON_ID = TCP.PERSON_ID
+                    AND    TSU.USE_YN = '1'
+                   ) AS USER_YN
+            FROM   TB_SURVEY_QESTNR_PERSON TSQP
+                   INNER JOIN (
+        ]]>
+        <include refid="kr.ac.jj.shared.domain.main.mapper.com.person.TbComPersonEntityMapper.baseSelectSql"></include>
+        <![CDATA[
+                   ) TCP ON TCP.PERSON_ID = TSQP.PERSON_ID
+        ]]>
+    </sql>
+
+    <!-- 설문 발송 대상 사람 목록 조회 -->
+    <select id="selectSurveySendTargetPersonList" resultType="kr.ac.jj.survey.domain.main.model.survey.qestnr.person.TbSurveyQestnrPersonToPerson">
+        <include refid="tbSurveyQestnrPersonToPersonSelectSql"></include>
+        <![CDATA[
+            WHERE  TSQP.SURVEY_QESTNR_ID = #{surveyQestnrId}
+            AND    TSQP.SNDNG_YN = '0'
+        ]]>
+    </select>
+
+    <!-- 설문 미응답자 사람 목록 조회 -->
+    <select id="selectSurveySendTargetUnAnswered" resultType="kr.ac.jj.survey.domain.main.model.survey.qestnr.person.TbSurveyQestnrPersonToPerson">
+        <include refid="tbSurveyQestnrPersonToPersonSelectSql"></include>
+        <![CDATA[
+            WHERE  TSQP.SURVEY_QESTNR_ID = #{surveyQestnrId}
+            AND    NOT EXISTS (
+                        SELECT 1
+                        FROM   SURVEY S
+                        WHERE  S.ID = TSQP.SURVEY_ID
+                        AND    S.STATUS NOT IN ('S', 'D')
+                   )
+        ]]>
+    </select>
+
+    <!-- 발송 대상 사람 조회 -->
+    <select id="selectSurveySendTargetPerson" resultType="kr.ac.jj.survey.domain.main.model.survey.qestnr.person.TbSurveyQestnrPersonToPerson">
+        <include refid="tbSurveyQestnrPersonToPersonSelectSql"></include>
+        <![CDATA[
+            WHERE  TSQP.SURVEY_QESTNR_ID = #{surveyQestnrId}
+            AND    TSQP.SURVEY_PERSON_ID = #{surveyPersonId}
+        ]]>
+    </select>
+
+</mapper>

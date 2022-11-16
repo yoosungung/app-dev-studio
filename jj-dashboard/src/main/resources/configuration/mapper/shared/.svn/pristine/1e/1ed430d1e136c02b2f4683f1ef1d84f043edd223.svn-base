@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 코드데이터 Mapper
+ -->
+<mapper namespace="codedata.common">
+
+    <!-- 로그인 사용자 부서 ID -->
+    <select id="loginUserDeptId" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TCD.DEPT_ID AS CODE
+                 , TCD.DEPT_NM AS NAME
+            FROM   TB_COM_DEPT TCD
+                   INNER JOIN TB_COM_PERSON_DEPT TCPD ON TCPD.DEPT_ID = TCD.DEPT_ID
+            WHERE  TCPD.PERSON_ID = #{$var.loginUser.personId}
+            ORDER BY NAME
+        ]]>
+    </select>
+
+</mapper>

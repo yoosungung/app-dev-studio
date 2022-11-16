@@ -1,0 +1,23 @@
+package kr.ac.jj.shared.application.admin.appmanage.personmanage.scheduler.test;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import kr.ac.jj.shared.application.admin.appmanage.hrmanage.service.HumanResourceManageServiceNoTxImpl;
+
+@SpringBootTest
+public class HumanResourceManageSchedulerJobTest {
+
+    private @Autowired HumanResourceManageServiceNoTxImpl humanResourceManageServiceNoTx;
+
+    @Test
+    public void test() {
+        humanResourceManageServiceNoTx.createOrUpdateDutyList();
+        humanResourceManageServiceNoTx.createOrUpdatePersonList();
+        humanResourceManageServiceNoTx.deleteUserList();
+
+        humanResourceManageServiceNoTx.createOrUpdateDeptList();
+    }
+
+}

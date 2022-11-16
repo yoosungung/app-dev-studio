@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="modal-content"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:springform="http://www.springframework.org/tags/form"
+    xmlns:form="urn:jsptagdir:/WEB-INF/tags/jd/form"
+    xmlns:field="urn:jsptagdir:/WEB-INF/tags/jd/form/fields"
+    version="2.0">
+
+    <script type="text/javascript">
+
+        $(function() {
+
+            $('#questionText, #tip').summernote({
+                lang: 'ko-KR',
+                height: 100,
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['insert', ['picture']]
+                ],
+                onChange: function(contents, $editable) {
+                    $($editable.context).val(contents);
+                }
+            });
+
+            $('#questionForm').on('submit', function() {
+                if(this.questionText.value == '') {
+                    alert('질문을 입력하세요.');
+                    this.questionText.focus()
+                }
+                else if($('#duplicate_check').css('display') != "none" &amp;&amp; $('#duplicate').is(':checked') &amp;&amp; !$('#required').is(':checked')) {
+                    alert('중복검사로 사용할 경우 필수여부를 반드시 선택바랍니다.');
+                    this.required.focus();
+                }
+                else if($('#type').val() == 'DD' &amp;&amp; $('#dataSetId').val() == '') {
+                    alert('데이터집합을 선택하세요.');
+                    this.dataSetId.focus();
+                }
+                else if(confirm('질문을 추가 하시겠습니까?')) {
+                    return true;
+                }
+                return false;
+            });
+
+            $("#type").on("change", function() {
+                var selectedValue = $(this).val();
+
+                if(selectedValue == "BC" || selectedValue == "BCM") {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').hide("fast");
+                    $('#allow_other').hide("fast");
+                    $('#duplicate_check').hide("fast");
+                    $('#question_validation').hide("fast");
+                    $('#direction_id').hide("fast");
+                    $('#_integerMinimum_id').val("");
+                    $('#_integerMaximum_id').val("");
+                    $('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+                }
+                if(selectedValue == "BR" || selectedValue == "BRM") {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').hide("fast");
+                    $('#allow_other').hide("fast");
+                    $('#duplicate_check').hide("fast");
+                    $('#question_validation').hide("fast");
+                    $('#direction_id').hide("fast");
+                    $('#_integerMinimum_id').val("");
+                    $('#_integerMaximum_id').val("");
+                    $('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+                }
+                if(selectedValue == "ST" || selectedValue == "STM") {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').show("fast");
+                    $('#allow_other').hide("fast");
+                    $('#question_validation').show("fast");
+                    $('#integer_validation').show("fast");
+                    $('#string_validation').show("fast");
+                    $('#decimal_validation').hide("fast");
+                    $('#date_validation').hide("fast");
+                    $('#direction_id').hide("fast");
+                    //$('#_integerMinimum_id').val("");
+                    //$('#_integerMaximum_id').val("");
+                    //$('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+
+                    if(selectedValue == "ST") {
+                        $('#duplicate_check').show("fast");
+                    }
+                }
+                if(selectedValue == "LT") {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').show("fast");
+                    $('#allow_other').hide("fast");
+                    $('#duplicate_check').hide("fast");
+                    $('#question_validation').show("fast");
+                    $('#integer_validation').show("fast");
+                    $('#string_validation').show("fast");
+                    $('#decimal_validation').hide("fast");
+                    $('#date_validation').hide("fast");
+                    $('#direction_id').hide("fast");
+                    //$('#_integerMinimum_id').val("");
+                    //$('#_integerMaximum_id').val("");
+                    //$('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+                }
+                if(selectedValue == "HT") {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').show("fast");
+                    $('#allow_other').hide("fast");
+                    $('#duplicate_check').hide("fast");
+                    $('#question_validation').show("fast");
+                    $('#integer_validation').show("fast");
+                    $('#string_validation').show("fast");
+                    $('#decimal_validation').hide("fast");
+                    $('#date_validation').hide("fast");
+                    $('#direction_id').hide("fast");
+                    //$('#_integerMinimum_id').val("");
+                    //$('#_integerMaximum_id').val("");
+                    //$('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+                }
+                if(selectedValue == "IN" || selectedValue == "INM") {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').show("fast");
+                    $('#allow_other').hide("fast");
+                    $('#duplicate_check').hide("fast");
+                    $('#question_validation').show("fast");
+                    $('#integer_validation').show("fast");
+                    $('#string_validation').show("fast");
+                    $('#decimal_validation').hide("fast");
+                    $('#date_validation').hide("fast");
+                    $('#direction_id').hide("fast");
+                    //$('#_integerMinimum_id').val("");
+                    //$('#_integerMaximum_id').val("");
+                    $('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+                }
+                if(selectedValue == "CR"  || selectedValue == "CRM") {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').show("fast");
+                    $('#allow_other').hide("fast");
+                    $('#duplicate_check').hide("fast");
+                    $('#question_validation').show("fast");
+                    $('#integer_validation').hide("fast");
+                    $('#string_validation').hide("fast");
+                    $('#decimal_validation').show("fast");
+                    $('#date_validation').hide("fast");
+                    $('#direction_id').hide("fast");
+                    $('#_integerMinimum_id').val("");
+                    $('#_integerMaximum_id').val("");
+                    $('#_regularExpresion_id').val("");
+                    //$('#_decimalMinimum_id').val("");
+                    //$('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+                }
+                if(selectedValue == "NM" || selectedValue == "NMM") {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').show("fast");
+                    $('#allow_other').hide("fast");
+                    $('#duplicate_check').hide("fast");
+                    $('#question_validation').show("fast");
+                    $('#integer_validation').hide("fast");
+                    $('#string_validation').hide("fast");
+                    $('#decimal_validation').hide("fast");
+                    $('#date_validation').hide("fast");
+                    $('#question_validation').show("fast");
+                    $('#integer_validation').hide("fast");
+                    $('#string_validation').hide("fast");
+                    $('#decimal_validation').show("fast");
+                    $('#date_validation').hide("fast");
+                    $('#direction_id').hide("fast");
+                    $('#_integerMinimum_id').val("");
+                    $('#_integerMaximum_id').val("");
+                    $('#_regularExpresion_id').val("");
+                    //$('#_decimalMinimum_id').val("");
+                    //$('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+                }
+                if(selectedValue == "DT"  || selectedValue == "DTM") {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').show("fast");
+                    $('#allow_other').hide("fast");
+                    $('#duplicate_check').hide("fast");
+                    $('#question_validation').show("fast");
+                    $('#integer_validation').hide("fast");
+                    $('#string_validation').hide("fast");
+                    $('#decimal_validation').hide("fast");
+                    $('#date_validation').show("fast");
+                    $('#direction_id').hide("fast");
+                    $('#_integerMinimum_id').val("");
+                    $('#_integerMaximum_id').val("");
+                    $('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    //$('#_dateMinimum_id').val("");
+                    //$('#_dateMaximum_id').val("");
+                }
+                if(selectedValue == 'CPM') {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').show("fast");
+                    $('#allow_other').hide("fast");
+                    $('#duplicate_check').hide("fast");
+                    $('#question_validation').hide("fast");
+                    $('#integer_validation').hide("fast");
+                    $('#string_validation').hide("fast");
+                    $('#decimal_validation').hide("fast");
+                    $('#date_validation').hide("fast");
+                    $('#direction_id').hide("fast");
+                    $('#_integerMinimum_id').val("");
+                    $('#_integerMaximum_id').val("");
+                    $('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    //$('#_dateMinimum_id').val("");
+                    //$('#_dateMaximum_id').val("");
+                }
+                if(selectedValue == "SD") {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').show("fast");
+                    $('#allow_other').hide("fast");
+                    $('#duplicate_check').show("fast");
+                    $('#question_validation').hide("fast");
+                    $('#direction_id').hide("fast");
+                    $('#_integerMinimum_id').val("");
+                    $('#_integerMaximum_id').val("");
+                    $('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+                }
+                if(selectedValue == "MC") {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').show("fast");
+                    $('#allow_other').show("fast");
+                    $('#duplicate_check').hide("fast");
+                    $('#question_validation').hide("fast");
+                    $('#direction_id').show("fast");
+                    $('#_integerMinimum_id').val("");
+                    $('#_integerMaximum_id').val("");
+                    $('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+                }
+                if(selectedValue == "DD") {
+                    $('#datasets').show("fast");
+                    $('#mandatory').show("fast");
+                    $('#allow_other').hide("fast");
+                    $('#duplicate_check').show("fast");
+                    $('#question_validation').hide("fast");
+                    $('#direction_id').hide("fast");
+                    $('#_integerMinimum_id').val("");
+                    $('#_integerMaximum_id').val("");
+                    $('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+                }
+                if(selectedValue == "SR") {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').show("fast");
+                    $('#allow_other').show("fast");
+                    $('#duplicate_check').hide("fast");
+                    $('#question_validation').hide("fast");
+                    $('#direction_id').show("fast");
+                    $('#_integerMinimum_id').val("");
+                    $('#_integerMaximum_id').val("");
+                    $('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+                }
+                if(selectedValue == "IMG" || selectedValue == "VID") {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').hide("fast");
+                    $('#allow_other').hide("fast");
+                    $('#duplicate_check').hide("fast");
+                    $('#question_validation').hide("fast");
+                    $('#direction_id').hide("fast");
+                    $('#_integerMinimum_id').val("");
+                    $('#_integerMaximum_id').val("");
+                    $('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+                }
+                if(selectedValue == "FIL") {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').show("fast");
+                    $('#allow_other').hide("fast");
+                    $('#duplicate_check').hide("fast");
+                    $('#question_validation').hide("fast");
+                    $('#direction_id').hide("fast");
+                    $('#_integerMinimum_id').val("");
+                    $('#_integerMaximum_id').val("");
+                    $('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+                }
+                if(selectedValue == "SFR") {
+                    $('#datasets').hide("fast");
+                    $('#mandatory').show("fast");
+                    $('#allow_other').hide("fast");
+                    $('#duplicate_check').hide("fast");
+                    $('#question_validation').hide("fast");
+                    $('#direction_id').show("fast");
+                    $('#_integerMinimum_id').val("");
+                    $('#_integerMaximum_id').val("");
+                    $('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+                }
+                if (selectedValue == "STR") {
+                    $('#datasets').hide("fast");
+                    $('#allow_other').hide("fast");
+                    $('#duplicate_check').hide("fast");
+                    $('#question_validation').hide("fast");
+                    $('#mandatory').show("fast");
+                    $('#direction_id').hide("fast");
+                    $('#direction_id').hide("fast");
+                    $('#_integerMinimum_id').val("");
+                    $('#_integerMaximum_id').val("");
+                    $('#_regularExpresion_id').val("");
+                    $('#_decimalMinimum_id').val("");
+                    $('#_decimalMaximum_id').val("");
+                    $('#_dateMinimum_id').val("");
+                    $('#_dateMaximum_id').val("");
+                }
+            });
+
+            $('#type').trigger('change');
+        });
+    </script>
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <div class="modal-body" style="min-height: 700px;">
+        <div class="bootbox-body">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <form id="questionForm" action="${pageContext.request.contextPath}/settings/questions" method="POST" enctype="application/x-www-form-urlencoded" class="form-horizontal" role="form">
+
+                        <input id="page.id" name="page.id" type="hidden" value="${question.page.id}" />
+                        <input id="page.surveyDefinition.id" name="page.surveyDefinition.id" type="hidden" value="${question.page.surveyDefinition.id}" />
+                        <input id="page.surveyDefinition.name" name="page.surveyDefinition.name" type="hidden" value="${question.page.surveyDefinition.name}" />
+                        <input id="page.surveyDefinition.department.id" name="page.surveyDefinition.department.id" type="hidden" value="${question.page.surveyDefinition.department.id}" />
+                        <input id="page.surveyDefinition.department.name" name="page.surveyDefinition.department.name" type="hidden" value="${question.page.surveyDefinition.department.name}" />
+                        <input id="page.title" name="page.title" type="hidden" value="${question.page.title}" />
+
+                        <div class="form-group">
+                            <label for="order" class="col-sm-2 control-label no-padding-right"><i class="fa fa-check red"><!----></i> 질문순서</label>
+                            <div class="col-sm-10">
+                                <c:choose>
+                                    <!-- empty set -->
+                                    <c:when test="${size eq 0}">
+                                        <div id="_${fn:escapeXml(id)}_id">
+                                            <select id="order" name="order">
+                                                <option value="1">첫번째 위치</option>
+                                            </select>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <select id="order" name="order">
+                                            <c:forEach var="i" begin="1" end="${size + 1}" step="1" varStatus ="status">
+                                                <c:choose>
+                                                    <c:when test="${i eq  1}">
+                                                        <option value="${i}">첫번째 위치</option>
+                                                    </c:when>
+                                                    <c:when test="${i eq  (size + 1)}">
+                                                        <option value="${i}" selected="selected">마지막 위치</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${i}">${i}번째 위치</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+                                        </select>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="type" class="col-sm-2 control-label no-padding-right"><i class="fa fa-check red"><!----></i> 질문유형</label>
+                            <div class="col-sm-10">
+                                <select id="type" name="type">
+                                    <optgroup label=":: 표준 질문 ::">
+                                        <option value="BR">네, 아니오 선택 (드롭다운)</option>
+                                        <option value="ST">짧은 텍스트 입력</option>
+                                        <option value="LT">긴 텍스트 입력</option>
+                                        <option value="HT">거대한 텍스트 입력</option>
+                                        <option value="IN">정수 입력</option>
+                                        <option value="NM">10진수 입력</option>
+                                        <option value="CR">통화 입력</option>
+                                        <option value="DT">날짜 입력</option>
+                                        <option value="SD">단일 선택 (드롭다운)</option>
+                                        <option value="SR">단일 선택 (라디오버튼)</option>
+                                        <option value="MC">다중 선택 (체크박스)</option>
+                                        <option value="DD">데이터 집합 선택 (드롭다운)</option>
+                                    </optgroup>
+                                    <optgroup label=":: 행렬 질문 ::">
+                                        <option value="BRM">네, 아니오 선택 (드롭다운)</option>
+                                        <option value="STM">짧은 텍스트 입력</option>
+                                        <option value="INM">정수 입력</option>
+                                        <option value="NMM">10진수 입력</option>
+                                        <option value="CRM">통화 입력</option>
+                                        <option value="DTM">날짜 입력</option>
+                                        <option value="CPM">복합 입력</option>
+                                    </optgroup>
+                                    <optgroup label=":: 기타 질문 ::">
+                                        <option value="FIL">파일 업로드</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="direction_id" class="form-group">
+                            <label for="direction" class="col-sm-2 control-label no-padding-right"><i class="fa fa-check red"><!----></i> 출력방향</label>
+                            <div class="col-sm-10">
+                                <select id="direction" name="direction">
+                                    <option value="VERTICAL">행 (세로)</option>
+                                    <option value="HORIZONTAL">열 (가로)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="datasets" class="form-group">
+                            <label for="dataSetId" class="col-sm-2 control-label no-padding-right"><i class="fa fa-check red"><!----></i> 데이터집합</label>
+                            <div class="col-sm-10">
+                                <select id="dataSetId" name="dataSetId">
+                                    <option value="">:: 선택 ::</option>
+                                     <c:forEach items="${datasets}" var="dataset" varStatus="loop">
+                                         <c:choose>
+                                            <c:when test="${question.dataSetId eq dataset.id}">
+                                                 <option value="${dataset.id}" selected="selected" ><c:out value="${dataset.name}"/></option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                 <option value="${dataset.id}"><c:out value="${dataset.name}"/></option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </select>
+                                <span style="margin-left: 10px;" class="text-warning"><i class="fa-fw fa fa-warning"><!----></i> 사전에 정의된 데이터 집합을 선택하세요.</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="questionText" class="col-sm-2 control-label no-padding-right"><i class="fa fa-check red"><!----></i> 질문</label>
+                            <div class="col-sm-10">
+                                <textarea id="questionText" name="questionText"><!----></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tip" class="col-sm-2 control-label no-padding-right">팁</label>
+                            <div class="col-sm-10">
+                                <textarea id="tip" name="tip"><!----></textarea>
+                            </div>
+                        </div>
+                        <div id="mandatory" class="form-group">
+                            <label for="required" class="col-sm-2 control-label no-padding-right">필수여부</label>
+                            <div class="col-sm-10">
+                                <input type="hidden" name="_required" value="on" />
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="required" name="required" value="true" />
+                                        <span class="text">필수</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="duplicate_check" class="form-group">
+                            <label for="duplicate" class="col-sm-2 control-label no-padding-right">중복검사</label>
+                            <div class="col-sm-10">
+                                <input type="hidden" name="_duplicate" value="on" />
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="duplicate" name="duplicate" value="true" />
+                                        <span class="text">사용</span>
+                                    </label>
+                                    <span class="text-warning" style="margin-left: 10px;"><i class="fa-fw fa fa-warning"><!----></i> 설문이 비공개일 경우 로그인 계정으로 중복검사를 수행합니다.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="allow_other" class="form-group">
+                            <label for="allowOtherTextBox" class="col-sm-2 control-label no-padding-right">기타항목 추가</label>
+                            <div class="col-sm-10">
+                                <input type="hidden" name="_allowOtherTextBox" value="on" />
+                                  <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="allowOtherTextBox" name="allowOtherTextBox" value="true" />
+                                        <span class="text">기타 입력박스 추가</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="question_validation">
+                            <div class="form-title">유효성 검사</div>
+
+                            <div id="integer_validation" class="form-group">
+                                <label for="_integerMinimum_id" class="col-sm-2 control-label no-padding-right">정수범위</label>
+                                <div class="col-sm-10 form-inline">
+                                    <div class="form-group" style="margin: 0;">
+                                        <input type="text" class="form-control" id="_integerMinimum_id" name="integerMinimum" size="12" placeholder="최소값" />
+                                    </div>
+                                    ~
+                                    <div class="form-group" style="margin: 0;">
+                                        <input type="text" class="form-control" id="_integerMaximum_id" name="integerMaximum" size="12" placeholder="최대값" />
+                                    </div>
+                                    <span style="margin-left: 10px;" class="text-warning"><i class="fa-fw fa fa-warning"><!----></i> 입력값의 범위를 검증할 수 있습니다.</span>
+                                </div>
+                            </div>
+
+                            <div id="string_validation" class="form-group">
+                                <label for="_regularExpresion_id" class="col-sm-2 control-label no-padding-right">마스크</label>
+                                <div class="col-sm-10">
+                                    <select id="_regularExpresion_id" name="regularExpression" >
+                                        <option value="">:: 선택 ::</option>
+                                         <c:forEach items="${regularExpressions}" var="regularExpression" varStatus="loop">
+                                             <c:choose>
+                                                <c:when test="${question.regularExpression eq  regularExpression.regex}">
+                                                     <option value="${regularExpression.regex}" selected="true" ><c:out value="${regularExpression.name}"/></option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                     <option value="${regularExpression.regex}"><c:out value="${regularExpression.name}"/></option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                    <span style="margin-left: 10px;" class="text-warning"><i class="fa-fw fa fa-warning"><!----></i> 입력값의 형식을 검증할 수 있습니다.</span>
+                                </div>
+                            </div>
+
+                            <div id="decimal_validation" class="form-group">
+                                <label for="_decimalMinimum_id" class="col-sm-2 control-label no-padding-right">10진수범위</label>
+                                <div class="col-sm-10 form-inline">
+                                    <div class="form-group" style="margin: 0;">
+                                        <input type="text" class="form-control" id="_decimalMinimum_id" name="decimalMinimum" size="12" placeholder="최소값" />
+                                    </div>
+                                    ~
+                                    <div class="form-group" style="margin: 0;">
+                                        <input type="text" class="form-control" id="_decimalMaximum_id" name="decimalMaximum" size="12" placeholder="최대값" />
+                                    </div>
+                                    <span style="margin-left: 10px;" class="text-warning"><i class="fa-fw fa fa-warning"><!----></i> 입력값의 범위를 검증할 수 있습니다.</span>
+                                </div>
+                            </div>
+
+                            <div id="date_validation" class="form-group">
+                                <label for="_dateMinimum_id" class="col-sm-2 control-label no-padding-right">날짜범위</label>
+                                <div class="col-sm-10 form-inline">
+                                    <div class="form-group" style="margin: 0;">
+                                        <input type="text" class="form-control" id="_dateMinimum_id" name="dateMinimum" size="12" placeholder="최소값" />
+                                    </div>
+                                    ~
+                                    <div class="form-group" style="margin: 0;">
+                                        <input type="text" class="form-control" id="_dateMaximum_id" name="dateMaximum" size="12" placeholder="최대값" />
+                                    </div>
+                                    <span style="margin-left: 10px;" class="text-warning"><i class="fa-fw fa fa-warning"><!----></i> 입력값의 범위를 검증할 수 있습니다.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-palegreen" name="_proceed" id="_proceed" value="저장">질문 추가</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

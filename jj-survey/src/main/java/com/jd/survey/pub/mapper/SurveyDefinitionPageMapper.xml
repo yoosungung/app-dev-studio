@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jd.survey.pub.mapper.SurveyDefinitionPageMapper">
+
+    <select id="getSurveyDefinitionPageList" resultType="com.jd.survey.pub.domain.SurveyDefinitionPage">
+        /* 설문조사 페이지 설정 목록 */
+        SELECT survey_definition_id,        id AS surveyDefinitionPageId,    title,        instructions,        page_order,        page_logicjson,        randomize_questions
+        FROM survey_definition_page
+        WHERE survey_definition_id = #{surveyDefinitionId}
+    </select>
+
+</mapper>

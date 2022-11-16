@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 서비스 관리 Mapper
+ -->
+<mapper namespace="kr.ac.jj.openapi.application.openapi.servicestatus.mapper.ServiceStatusMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TAS.SVC_ID
+                 , TAS.REGIST_PSN_ID
+                 , TAS.REGIST_DT
+                 , TAS.SVC_NM
+                 , TAS.URL
+                 , TAS.DATA_FRMAT
+                 , TAS.OTHBC_TY
+                 , TAS.OTHBC_PD_BEGIN
+                 , TAS.OTHBC_PD_END
+                 , TAS.VALID_PD_BEGIN
+                 , TAS.VALID_PD_END
+                 , TAS.MANAGE_DEPT_NM
+                 , TAS.MANAGE_DEPT_TLPHON_NO
+                 , TAS.ATCH_FILE_ID
+                 , TAS.RM
+            FROM   TB_API_SVC TAS
+            WHERE 1 = 1
+        ]]>
+
+        <!-- 검색어 -->
+        <if test='search != null and search.searchText != null and search.searchText != ""'>
+            <![CDATA[
+            AND    (UPPER(TSCG.CODE_GROUP) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%') OR
+                    UPPER(TSCG.CODE_GROUP_NM) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%') OR
+                    UPPER(TSCG.CODE_GROUP_DC) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%') OR
+                    EXISTS (SELECT 1
+                            FROM   TB_SYS_CODE_VALUE T1
+                            WHERE  T1.CODE_GROUP_ID = TSCG.CODE_GROUP_ID
+                            AND    (UPPER(T1.CODE_VALUE) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%') OR
+                                    UPPER(T1.CODE_VALUE_NM) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%') OR
+                                    UPPER(T1.CODE_VALUE_DC) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%')
+                                   )
+                           )
+                   )
+            ]]>
+        </if>
+
+        <!-- 사용여부 -->
+        <if test='search != null and search.keySttus != null and search.keySttus != ""'>
+            <![CDATA[
+            AND    TASK.STTUS = #{search.keySttus}
+            ]]>
+        </if>
+
+    </select>
+
+</mapper>

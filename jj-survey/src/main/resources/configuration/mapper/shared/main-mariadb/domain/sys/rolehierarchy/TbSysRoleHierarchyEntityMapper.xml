@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 역할 계층 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.rolehierarchy.TbSysRoleHierarchyEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.sys.rolehierarchy.TbSysRoleHierarchy">
+        <![CDATA[
+            SELECT TSRH.ROLE_HIERARCHY_ID
+                 , TSRH.PARNTS_ROLE_CODE
+                 , TSRH.CHLDRN_ROLE_CODE
+                 , TSRH.SORT_ORDR
+            FROM   TB_SYS_ROLE_HIERARCHY TSRH
+            WHERE  TSRH.ROLE_HIERARCHY_ID = #{roleHierarchyId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SYS_ROLE_HIERARCHY (
+                   ROLE_HIERARCHY_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , PARNTS_ROLE_CODE
+                 , CHLDRN_ROLE_CODE
+                 , SORT_ORDR
+            ) VALUES (
+                   #{tbSysRoleHierarchy.roleHierarchyId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbSysRoleHierarchy.parntsRoleCode}
+                 , #{tbSysRoleHierarchy.chldrnRoleCode}
+        ]]>
+
+        <choose>
+        <when test='tbSysRoleHierarchy.sortOrdr == null'>
+            <![CDATA[
+                 , (SELECT NVL(MAX(A.SORT_ORDR), 0) + 1 FROM TB_SYS_ROLE_HIERARCHY A WHERE A.ROLE_HIERARCHY_ID = #{tbSysRoleHierarchy.roleHierarchyId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , #{tbSysRoleHierarchy.sortOrdr}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SYS_ROLE_HIERARCHY SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , PARNTS_ROLE_CODE                 = #{tbSysRoleHierarchy.parntsRoleCode}
+                 , CHLDRN_ROLE_CODE                 = #{tbSysRoleHierarchy.chldrnRoleCode}
+                 , SORT_ORDR                        = #{tbSysRoleHierarchy.sortOrdr}
+            WHERE  ROLE_HIERARCHY_ID = #{tbSysRoleHierarchy.roleHierarchyId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_ROLE_HIERARCHY
+            WHERE  ROLE_HIERARCHY_ID = #{roleHierarchyId}
+        ]]>
+    </delete>
+
+</mapper>

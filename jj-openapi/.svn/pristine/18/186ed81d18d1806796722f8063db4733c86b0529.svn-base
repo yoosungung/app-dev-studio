@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 오픈API_서비스_인자_매핑 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbApiSvcMapng.svcMapngId"><![CDATA[서비스매핑ID]]></entry>
+    <entry key="domain.main.tbApiSvcMapng.svcId"><![CDATA[서비스ID]]></entry>
+    <entry key="domain.main.tbApiSvcMapng.essntlYn"><![CDATA[필수여부]]></entry>
+    <entry key="domain.main.tbApiSvcMapng.mapngSe"><![CDATA[매핑구분]]></entry>
+    <entry key="domain.main.tbApiSvcMapng.vriablNm"><![CDATA[변수명]]></entry>
+    <entry key="domain.main.tbApiSvcMapng.vriabl"><![CDATA[변수]]></entry>
+    <entry key="domain.main.tbApiSvcMapng.dc"><![CDATA[설명]]></entry>
+
+</properties>

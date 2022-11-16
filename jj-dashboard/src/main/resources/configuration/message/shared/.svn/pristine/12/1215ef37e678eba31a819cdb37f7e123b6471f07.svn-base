@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 공통 - 사람별 부서 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbComPersonDept.personId"><![CDATA[]]></entry>
+    <entry key="domain.main.tbComPersonDept.deptId"><![CDATA[]]></entry>
+
+</properties>

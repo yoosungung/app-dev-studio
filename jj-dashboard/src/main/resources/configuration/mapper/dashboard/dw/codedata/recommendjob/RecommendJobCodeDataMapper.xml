@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 입학 데이터 CodeData -->
+<mapper namespace="dashboard-codedata.recommendjob">
+
+    <!-- 고등학교 조회 -->
+    <select id="readHakgwaList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT HAKGWA_NAME AS CODE
+             , HAKGWA_NAME AS NAME
+        FROM DW_WORKNET_WANTED_CON DWW
+        WHERE HAKGWA_NAME IS NOT NULL
+        GROUP BY HAKGWA_NAME
+        ORDER BY HAKGWA_NAME
+    </select>
+
+</mapper>

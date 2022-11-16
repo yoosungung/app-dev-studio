@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 공통 - 메일 첨부파일 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbComEmailAtchFile.emailAtchFileId"><![CDATA[메일 첨부파일 ID]]></entry>
+    <entry key="domain.main.tbComEmailAtchFile.emailId"><![CDATA[메일 ID]]></entry>
+    <entry key="domain.main.tbComEmailAtchFile.atchFileSn"><![CDATA[첨부파일 순번]]></entry>
+    <entry key="domain.main.tbComEmailAtchFile.filePath"><![CDATA[파일 경로]]></entry>
+    <entry key="domain.main.tbComEmailAtchFile.fileNm"><![CDATA[파일 이름]]></entry>
+
+</properties>

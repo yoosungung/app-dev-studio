@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="page-body ${surveyDefinition.surveyTheme}"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:form="http://www.springframework.org/tags/form"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:tiles="http://tiles.apache.org/tags-tiles"
+    version="2.0">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <style type="text/css">
+    @media (min-width: 768px) {
+        .form-inline .radio, .form-inline .checkbox {
+            margin-left: -13px;
+            margin-right: 18px;
+        }
+    }
+    </style>
+
+    <script type="text/javascript" src="${pageContext.request.contextPath}/shared/common/lib/bluebird/bluebird.min.js"><!----></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/shared/common/lib/vue/vue.js"><!----></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/shared/common/lib/axios/axios.js"><!----></script>
+
+    <script type="text/javascript" src="${pageContext.request.contextPath}/shared/common/util/CommonUtil.js"><!----></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/shared/common/util/TextUtil.js"><!----></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/shared/common/util/ValidationUtil.js"><!----></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/shared/common/vue/VueComponents.js"><!----></script>
+
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+            <div class="widget flat radius-bordered" style="margin: 0;">
+                <div class="widget-header bg-themeprimary text-center" style="height: 60px;">
+                    <span class="widget-caption" style="font-size: 22px; margin: 12px;">${survey.typeName}</span>
+                </div>
+            </div>
+            <div class="wizard">
+                <ul class="steps">
+                    <spring:url var="url" value="/${survey_base_path}/${survey.id}/0" />
+                    <li class="intro">
+                        <a href="${url}">
+                            <span class="step">0</span>설문시작<span class="chevron"><!----></span>
+                        </a>
+                    </li>
+                    <c:forEach items="${surveyPages}" var="page" varStatus="loop">
+                        <spring:url var="url" value="/${survey_base_path}/${survey.id}/${page.order}" />
+                        <li class="past">
+                            <a href="${url}" title="">
+                                <span class="step">${loop.count}</span><c:out value="${page.title}"/><span class="chevron"><!----></span>
+                            </a>
+                        </li>
+                    </c:forEach>
+                    <li class="active">
+                        <span class="step">${fn:length(surveyPages) + 1}</span>설문종료<span class="chevron"><!----></span>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="submit" class="step-content" style="padding: 20px;">
+
+                <div class="alert alert-warning fade in radius-bordered alert-shadowed">
+                    <i class="fa-fw fa fa-warning"><!----></i>
+                    <strong>설문종료</strong> : 입력된 데이터가 유효한지 확인 후 설문종료 버튼을 클릭바랍니다. 설문 종료시 설문을 수정할 수 없습니다.
+                </div>
+
+                <div class="step-pane active">
+                    <!-- Labels for Inputs and IDs so they are ADA Compliant  -->
+                    <spring:message code="question_number_label" var="questionNumLbl" htmlEscape="false"/>
+                    <spring:message code="question_option_text" var="optionText" htmlEscape="false"/>
+                    <spring:message code="page_number_label" var="pageNumb" htmlEscape="false"/>
+
+                    <div id="intro">
+                        <c:set var="commonQuestionNo" value="0" />
+                        <div id="commonQuestion">
+                            <div class="form-title">
+                                공통 문항
+                            </div>
+                            <c:if test="${tbSurveyQestnrCmmn.sexdstn}">
+                                <c:set var="commonQuestionNo" value="${commonQuestionNo + 1}" />
+                                <div class="row">
+                                    <div class="col-sm-1" style="width: 40px;">
+                                        <span class="badge badge-azure badge-square"><c:out value="${commonQuestionNo}" /></span>
+                                    </div>
+                                    <div class="col-sm-11" style="width: 95%;">
+                                        <div class="form-group">
+                                            <label for="questionAnswers0">
+                                                <p class="pull-left">성별</p>
+                                            </label>
+                                            <div class="form-inline">
+                                                <code><c:out value="${tbSurveyCmmnRspns.sexdstnNm}" /></code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${tbSurveyQestnrCmmn.area}">
+                                <c:set var="commonQuestionNo" value="${commonQuestionNo + 1}" />
+                                <div class="row">
+                                    <div class="col-sm-1" style="width: 40px;">
+                                        <span class="badge badge-azure badge-square"><c:out value="${commonQuestionNo}" /></span>
+                                    </div>
+                                    <div class="col-sm-11" style="width: 95%;">
+                                        <div class="form-group">
+                                            <label for="questionAnswers0">
+                                                <p class="pull-left">지역</p>
+                                            </label>
+                                            <div class="form-inline">
+                                                <code><c:out value="${tbSurveyCmmnRspns.areaNm}" /></code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${tbSurveyQestnrCmmn.grade}">
+                                <c:set var="commonQuestionNo" value="${commonQuestionNo + 1}" />
+                                <div class="row">
+                                    <div class="col-sm-1" style="width: 40px;">
+                                        <span class="badge badge-azure badge-square"><c:out value="${commonQuestionNo}" /></span>
+                                    </div>
+                                    <div class="col-sm-11" style="width: 95%;">
+                                        <div class="form-group">
+                                            <label for="questionAnswers0">
+                                                <p class="pull-left">학년</p>
+                                            </label>
+                                            <div class="form-inline">
+                                                <code><c:out value="${tbSurveyCmmnRspns.gradeNm}" /></code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${tbSurveyQestnrCmmn.cghmy}">
+                                <c:set var="commonQuestionNo" value="${commonQuestionNo + 1}" />
+                                <div class="row">
+                                    <div class="col-sm-1" style="width: 40px;">
+                                        <span class="badge badge-azure badge-square"><c:out value="${commonQuestionNo}" /></span>
+                                    </div>
+                                    <div class="col-sm-11" style="width: 95%;">
+                                        <div class="form-group">
+                                            <label for="questionAnswers0">
+                                                <p class="pull-left">소속 단과대학</p>
+                                            </label>
+                                            <div class="form-inline">
+                                                <code><c:out value="${tbSurveyCmmnRspns.cghmyNm}" /></code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${tbSurveyQestnrCmmn.subjct}">
+                                <c:set var="commonQuestionNo" value="${commonQuestionNo + 1}" />
+                                <div class="row">
+                                    <div class="col-sm-1" style="width: 40px;">
+                                        <span class="badge badge-azure badge-square"><c:out value="${commonQuestionNo}" /></span>
+                                    </div>
+                                    <div class="col-sm-11" style="width: 95%;">
+                                        <div class="form-group">
+                                            <label for="questionAnswers0">
+                                                <p class="pull-left">학과</p>
+                                            </label>
+                                            <div class="form-inline">
+                                                <code><c:out value="${tbSurveyCmmnRspns.subjct}" /></code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </div>
+
+                        <c:set var="satisfactionDegreeNo" value="0" />
+                        <div id="satisfactionDegree">
+                            <div class="form-title">
+                                만족도 조사
+                            </div>
+                            <c:if test="${tbSurveyQestnrCmmn.stsfdg01}">
+                                <c:set var="satisfactionDegreeNo" value="${satisfactionDegreeNo + 1}" />
+                                <div class="row">
+                                    <div class="col-sm-1" style="width: 40px;">
+                                        <span class="badge badge-azure badge-square"><c:out value="${satisfactionDegreeNo}" /></span>
+                                    </div>
+                                    <div class="col-sm-11" style="width: 95%;">
+                                        <div class="form-group">
+                                            <label for="questionAnswers0">
+                                                <p class="pull-left">전주대학교에 전반적으로 만족하십니까?</p>
+                                            </label>
+                                            <div class="form-inline">
+                                                <code><c:out value="${tbSurveyCmmnRspns.stsfdg01Nm}" /></code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${tbSurveyQestnrCmmn.stsfdg02}">
+                                <c:set var="satisfactionDegreeNo" value="${satisfactionDegreeNo + 1}" />
+                                <div class="row">
+                                    <div class="col-sm-1" style="width: 40px;">
+                                        <span class="badge badge-azure badge-square"><c:out value="${satisfactionDegreeNo}" /></span>
+                                    </div>
+                                    <div class="col-sm-11" style="width: 95%;">
+                                        <div class="form-group">
+                                            <label for="questionAnswers0">
+                                                <p class="pull-left">전주대학교의 교육에 대해 만족하십니까?</p>
+                                            </label>
+                                            <div class="form-inline">
+                                                <code><c:out value="${tbSurveyCmmnRspns.stsfdg02Nm}" /></code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${tbSurveyQestnrCmmn.stsfdg03}">
+                                <c:set var="satisfactionDegreeNo" value="${satisfactionDegreeNo + 1}" />
+                                <div class="row">
+                                    <div class="col-sm-1" style="width: 40px;">
+                                        <span class="badge badge-azure badge-square"><c:out value="${satisfactionDegreeNo}" /></span>
+                                    </div>
+                                    <div class="col-sm-11" style="width: 95%;">
+                                        <div class="form-group">
+                                            <label for="questionAnswers0">
+                                                <p class="pull-left">전주대학교의 교육환경에 대해 만족하십니까?</p>
+                                            </label>
+                                            <div class="form-inline">
+                                                <code><c:out value="${tbSurveyCmmnRspns.stsfdg03Nm}" /></code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </div>
+                    </div>
+
+                    <c:forEach items="${surveyPages}" var="page" varStatus="loop">
+                        <c:set value="${pageNumb} ${loop.index+1}, ${questionNumLbl}" var="QuestionAndPageNumb"/>
+                        <div class="form-title">
+                            <span class="survey-page-no">${loop.count}. </span>${page.title}
+                        </div>
+                        <c:forEach items="${page.questionAnswers}" var="questionAnswer" varStatus="loop2">
+
+                            <div class="row">
+                                <div class="col-sm-1" style="width: 40px;">
+                                    <span class="badge badge-azure badge-square">${questionAnswer.order}</span>
+                                </div>
+                                <div class="col-sm-11" style="width: 95%;">
+                                    <div class="form-group">
+                                        <label for="questionAnswers${loop.index}">
+                                            <p class="pull-left">${questionAnswer.question.questionLabel}</p>
+                                            <c:if test="${questionAnswer.question.required}">
+                                                <span class="pull-left red" style="margin-left: 5px;">*</span>
+                                            </c:if>
+                                        </label>
+
+                                        <c:choose>
+                                            <!-- BR    'Yes No DropDown'-->
+                                            <c:when test='${questionAnswer.question.type.code == "BR"}'>
+                                                <div class="form-inline">
+                                                    <code><c:out value="${questionAnswer.booleanAnswerValue}"/></code>
+                                                </div>
+                                            </c:when>
+
+                                            <!--
+                                                ST 'Short Text Input'
+                                                LT 'Long Text Input'
+                                                HT 'Huge Text Input'
+                                                IN 'Integer Input'
+                                                CR 'Currency Input'
+                                                NM 'Numeric Input'
+                                                DT 'Date Input'
+                                            -->
+                                            <c:when test='${
+                                                questionAnswer.question.type.code == "ST" ||
+                                                questionAnswer.question.type.code == "LT" ||
+                                                questionAnswer.question.type.code == "HT" ||
+                                                questionAnswer.question.type.code == "IN" ||
+                                                questionAnswer.question.type.code == "CR" ||
+                                                questionAnswer.question.type.code == "NM" ||
+                                                questionAnswer.question.type.code == "DT"
+                                            }'>
+                                                <div class="form-inline">
+                                                    <code><c:out value="${questionAnswer.stringAnswerValue}"/></code>
+                                                </div>
+                                            </c:when>
+
+                                            <!-- SD 'Single choice Drop Down'-->
+                                            <c:when test='${questionAnswer.question.type.code == "SD"}'>
+                                                <div class="form-inline">
+                                                    <select name="questionAnswer.stringAnswerValue" class="form-control">
+                                                        <option value="" disabled="disabled">:: 선택 ::</option>
+                                                        <c:forEach items="${questionAnswer.question.options}" var="option" varStatus="loop2">
+                                                            <c:if test="${option.value eq  questionAnswer.stringAnswerValue}">
+                                                                <option value="${option.value}" selected="true" disabled="disabled"><c:out value="${option.text}"/></option>
+                                                            </c:if>
+                                                            <c:if test="${option.value ne questionAnswer.stringAnswerValue}">
+                                                                <option value="${option.value}" disabled="disabled"><c:out value="${option.text}"/></option>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                            </c:when>
+
+                                            <!-- SR 'Single Radio Choice'-->
+                                            <c:when test='${questionAnswer.question.type.code == "SR"}'>
+
+                                                <c:choose>
+                                                    <!-- 수평 -->
+                                                    <c:when test='${questionAnswer.question.direction == "HORIZONTAL"}'>
+                                                        <div class="form-inline">
+                                                            <div class="radio">
+                                                                <label>
+                                                                    <c:forEach items="${questionAnswer.question.options}" var="option" varStatus="loop2">
+                                                                        <c:if test="${questionAnswer.stringAnswerValue eq option.value}">
+                                                                            <input type="radio" name="questionAnswers[${loop.index}].stringAnswerValue[${loop2}]" value="${option.value}" checked="true" class="form-control" disabled="true" />
+                                                                            <span class="text"><code><c:out value="${option.text}"/></code></span>
+                                                                        </c:if>
+                                                                        <c:if test="${questionAnswer.stringAnswerValue ne option.value}">
+                                                                            <input type="radio" name="questionAnswers[${loop.index}].stringAnswerValue[${loop2}]" value="${option.value}" disabled="true" class="form-control" />
+                                                                            <span class="text"><c:out value="${option.text}"/></span>
+                                                                        </c:if>
+                                                                        <c:set var="otherOptionNumb" value="${loop2.index+1}" />
+                                                                    </c:forEach>
+                                                                </label>
+                                                            </div>
+                                                            <c:if test="${questionAnswer.question.allowOtherTextBox}">
+                                                                기타 : <input type="text" name="questionAnswers[${loop.index}].otherStringAnswerValue" value="${questionAnswer.otherStringAnswerValue}" maxlength="50" class="form-control input-sm" disabled="disabled" />
+                                                            </c:if>
+                                                        </div>
+                                                    </c:when>
+                                                    <!-- 수직 -->
+                                                    <c:otherwise>
+                                                        <c:forEach items="${questionAnswer.question.options}" var="option" varStatus="loop2">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <c:if test="${questionAnswer.stringAnswerValue eq option.value}">
+                                                                        <input type="radio" value="${option.value}" class="checkbox" checked="true" disabled="true" />
+                                                                        <span class="text"><code><c:out value="${option.text}"/></code></span>
+                                                                    </c:if>
+                                                                    <c:if test="${questionAnswer.stringAnswerValue ne option.value}">
+                                                                        <input type="radio"  value="${option.value}" class="checkbox" disabled="true" />
+                                                                        <span class="text"><c:out value="${option.text}"/></span>
+                                                                    </c:if>
+                                                                </label>
+                                                            </div>
+                                                            <c:set var="otherOptionNumb" value="${loop2.index+1}" />
+                                                        </c:forEach>
+                                                        <c:if test="${questionAnswer.question.allowOtherTextBox}">
+                                                            <p class="form-inline">
+                                                                기타 : <input type="text" name="questionAnswers[${loop.index}].otherStringAnswerValue" value="${questionAnswer.otherStringAnswerValue}" maxlength="50" disabled="true" class="form-control input-sm" />
+                                                            </p>
+                                                        </c:if>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:when>
+
+                                            <!-- MC 'Multiple Choice Checkboxes'-->
+                                            <c:when test='${questionAnswer.question.type.code == "MC"}'>
+                                                <c:choose>
+                                                    <!-- 수평 -->
+                                                    <c:when test='${questionAnswer.question.direction == "HORIZONTAL"}'>
+                                                        <div class="form-inline">
+                                                            <c:forEach items="${questionAnswer.question.options}" var="option" varStatus="loop2">
+                                                                <c:set var="found" value="false" />
+                                                                <div class="checkbox">
+                                                                    <label>
+                                                                        <c:forEach items="${questionAnswer.integerAnswerValuesArray}" var="answer" varStatus="loop3">
+                                                                            <c:if test="${answer eq option.order}">
+                                                                                <input type="checkbox" name="questionAnswers[${loop.index}].integerAnswerValuesArray" value="${option.order}" checked="true" disabled="true"/>
+                                                                                <span class="text"><code><c:out value="${option.text}"/></code></span>
+                                                                                <c:set var="found" value="true" />
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                        <c:if test="${!found}" >
+                                                                            <input type="checkbox" name="questionAnswers[${loop.index}].integerAnswerValuesArray" value="${option.order}" disabled="true"/>
+                                                                            <span class="text"><c:out value="${option.text}"/></span>
+                                                                        </c:if>
+                                                                    </label>
+                                                                </div>
+                                                                <c:set var="otherOptionNumb" value="${loop2.index+1}" />
+                                                            </c:forEach>
+                                                            <c:if test="${questionAnswer.question.allowOtherTextBox}">
+                                                                기타 : <input type="text" name="questionAnswers[${loop.index}].otherStringAnswerValue" value="${questionAnswer.otherStringAnswerValue}" maxlength="50" disabled="true" class="form-control input-sm" />
+                                                            </c:if>
+                                                        </div>
+                                                    </c:when>
+                                                    <!-- 수직 -->
+                                                    <c:otherwise>
+                                                        <c:forEach items="${questionAnswer.question.options}" var="option" varStatus="loop2">
+                                                            <c:set var="found" value="false" />
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <c:forEach items="${questionAnswer.integerAnswerValuesArray}" var="answer" varStatus="loop3">
+                                                                        <c:if test="${answer eq option.order}">
+                                                                            <input type="checkbox" name="questionAnswers[${loop.index}].integerAnswerValuesArray" value="${option.order}" checked="true" disabled="true" />
+                                                                            <span class="text"><code><c:out value="${option.text}"/></code></span>
+                                                                            <c:set var="found" value="true" />
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                    <c:if test="${!found}" >
+                                                                        <input type="checkbox" name="questionAnswers[${loop.index}].integerAnswerValuesArray" value="${option.order}" disabled="true" />
+                                                                        <span class="text"><c:out value="${option.text}"/></span>
+                                                                    </c:if>
+                                                                </label>
+                                                            </div>
+                                                            <c:set var="otherOptionNumb" value="${loop2.index+1}" />
+                                                        </c:forEach>
+                                                        <c:if test="${questionAnswer.question.allowOtherTextBox}">
+                                                            <p class="form-inline">
+                                                                기타 : <input type="text" name="questionAnswers[${loop.index}].otherStringAnswerValue" value="${questionAnswer.otherStringAnswerValue}" maxlength="50" disabled="true" class="form-control input-sm"/>
+                                                            </p>
+                                                        </c:if>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:when>
+
+                                            <!-- BRM: Yes No DropDown Matrix -->
+                                            <c:when test='${questionAnswer.question.type.code == "BRM"}'>
+                                                <table class="table table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <c:forEach items="${questionAnswer.question.columnLabels}" var="col">
+                                                                <th class="text-center"><c:out value="${col.label}"/></th>
+                                                            </c:forEach>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <c:forEach items="${questionAnswer.question.rowLabels}" var="row" varStatus="rindex">
+                                                            <tr>
+                                                                <td class="text-center"><c:out value="${row.label}"/></td>
+                                                                <c:forEach items="${questionAnswer.question.columnLabels}" var="col" varStatus="cindex">
+                                                                    <td>
+                                                                        <code><c:out value="${questionAnswer.booleanAnswerValuesMatrix[rindex.index][cindex.index]}"/></code>
+                                                                    </td>
+                                                                </c:forEach>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                            </c:when>
+
+                                            <!-- BCM:BRM: Yes No DropDown Matrix
+                                                     STM: Short Text Input Matrix
+                                                     INM: Integer Input Matrix
+                                                     CRM: Currency Input Matrix
+                                                     NMM: Decimal Input Matrix
+                                                     DTM: Date Input Matrix
+                                                     CPM: Complex Input Matrix
+                                            -->
+                                            <c:when test='${
+                                                    questionAnswer.question.type.code == "STM" ||
+                                                    questionAnswer.question.type.code == "INM" ||
+                                                    questionAnswer.question.type.code == "CRM" ||
+                                                    questionAnswer.question.type.code == "NMM" ||
+                                                    questionAnswer.question.type.code == "DTM" ||
+                                                    questionAnswer.question.type.code == "CPM"
+                                            }'>
+
+                                                <table class="table table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <c:forEach items="${questionAnswer.question.columnLabels}" var="col">
+                                                                <th class="text-center"><c:out value="${col.label}"/></th>
+                                                            </c:forEach>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <c:forEach items="${questionAnswer.question.rowLabels}" var="row" varStatus="rindex">
+                                                            <tr>
+                                                                <td class="text-center"><c:out value="${row.label}"/></td>
+                                                                <c:forEach items="${questionAnswer.question.columnLabels}" var="col" varStatus="cindex">
+                                                                    <td>
+                                                                        <code><c:out value="${questionAnswer.stringAnswerValuesMatrix[rindex.index][cindex.index]}"/></code>
+                                                                    </td>
+                                                                </c:forEach>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                            </c:when>
+
+                                            <!-- FIL 'File Upload'-->
+                                            <c:when test='${questionAnswer.question.type.code == "FIL"}'>
+                                                <div class="form-inline">
+                                                    <c:choose>
+                                                        <c:when test="${not empty questionAnswer.surveyDocument}">
+                                                            <code>파일이 정상적으로 업로드 되었습니다.</code>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <code><!----></code>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </div>
+                                            </c:when>
+
+                                            <c:otherwise>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                        <p class="help-block">${questionAnswer.question.tip}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </c:forEach>
+                    </c:forEach>
+                </div>
+            </div>
+
+            <div class="actions actions-footer" style="text-align: center; padding:10px;">
+                <spring:url value="/${survey_base_path}/submit" var="form_url"/>
+                <form action="${form_url}" method="POST" class="formee">
+                    <input type="hidden" name="id"  value="${survey.id}" />
+                    <button type="submit" class="btn btn-default btn-next pull-right" name="_submit" id="submit" value="등록">설문종료<i class="fa fa-angle-right"><!----></i></button>
+                    <c:if test="${surveyPage.order ne 1}">
+                        <button type="submit" class="btn btn-default btn-prev pull-left" name="_back" value="뒤로"><i class="fa fa-angle-left"><!----></i> 이전</button>
+                    </c:if>
+                    <div style="clear: both;"><!----></div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    <c:if test="${not empty tbSurveyQestnr.qestnrBcrnColor}">
+    $('#submit').css("background-color", "<c:out value="${tbSurveyQestnr.qestnrBcrnColor}" />");
+    </c:if>
+
+    $(function() {
+        if ($.browser.mobile) {
+            $('.wizard').hide();
+        } else {
+            $('.wizard').show();
+        }
+    });
+    </script>
+</div>

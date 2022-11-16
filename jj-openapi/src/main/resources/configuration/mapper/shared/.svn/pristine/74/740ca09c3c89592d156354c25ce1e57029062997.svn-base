@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 메일 발송 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.email.sndng.TbComEmailSndngMapper">
+
+    <!-- 생성 - 스케줄러로부터 -->
+    <insert id="insertByScheduler">
+        <![CDATA[
+            INSERT INTO TB_COM_EMAIL_SNDNG (
+                   EMAIL_SNDNG_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , EMAIL_ID
+                 , SNDNG_SN
+                 , SNDNG_SERVER_IP
+                 , SNDNG_STTUS
+                 , TEST_EMAIL_ADRES
+                 , SNDNG_DT
+                 , SNDNG_RESULT
+            )
+            SELECT #{tbComEmailSndng.emailSndngId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbComEmailSndng.emailId}
+        ]]>
+
+        <choose>
+        <when test='tbComEmailSndng.sndngSn == null'>
+            <![CDATA[
+                 , (SELECT IFNULL(MAX(A.SNDNG_SN), 0) + 1 FROM TB_COM_EMAIL_SNDNG A WHERE A.EMAIL_ID = #{tbComEmailSndng.emailId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , #{tbComEmailSndng.sndngSn}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , #{tbComEmailSndng.sndngServerIp}
+                 , #{tbComEmailSndng.sndngSttus}
+                 , #{tbComEmailSndng.testEmailAdres}
+                 , #{tbComEmailSndng.sndngDt}
+                 , #{tbComEmailSndng.sndngResult}
+            FROM   DUAL
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_COM_EMAIL_SNDNG
+                        WHERE  EMAIL_ID = #{tbComEmailSndng.emailId}
+                        AND    SNDNG_STTUS IN ('READY', 'WORKING')
+                   )
+            AND    (SELECT COUNT(1) FROM TB_COM_EMAIL_RECPTN TCER WHERE TCER.EMAIL_ID = #{tbComEmailSndng.emailId}) > 0
+            AND    (SELECT COUNT(1) FROM TB_COM_EMAIL_SNDNG TCES WHERE TCES.EMAIL_ID = #{tbComEmailSndng.emailId}) < 5
+        ]]>
+    </insert>
+
+    <!-- 수정 - 발송중으로 -->
+    <update id="updateSndngSttusWorking">
+        <![CDATA[
+            UPDATE TB_COM_EMAIL_SNDNG SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , SNDNG_STTUS                      = 'WORKING'
+            WHERE  SNDNG_SERVER_IP = #{tbComEmailSndng.sndngServerIp}
+            AND    SNDNG_STTUS = 'READY'
+            AND    EMAIL_SNDNG_ID = (
+                        SELECT MIN(TCES.EMAIL_SNDNG_ID)
+                        FROM   TB_COM_EMAIL_SNDNG TCES
+                        WHERE  TCES.SNDNG_SERVER_IP = #{tbComEmailSndng.sndngServerIp}
+                        AND    TCES.SNDNG_STTUS = 'READY'
+                   )
+        ]]>
+    </update>
+
+    <!-- 목록 조회 - 발송중 -->
+    <select id="selectSndngSttusWorkingList" resultType="kr.ac.jj.shared.domain.main.model.com.email.sndng.TbComEmailSndng">
+        <![CDATA[
+            SELECT TCES.EMAIL_SNDNG_ID
+                 , TCES.EMAIL_ID
+                 , TCES.TEST_EMAIL_ADRES
+            FROM   TB_COM_EMAIL_SNDNG TCES
+            WHERE  TCES.SNDNG_STTUS = 'WORKING'
+        ]]>
+    </select>
+
+    <!-- 수정 - 발송 결과 -->
+    <update id="updateSendResult">
+        <![CDATA[
+            UPDATE TB_COM_EMAIL_SNDNG SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , SNDNG_STTUS                      = #{tbComEmailSndng.sndngSttus}
+                 , SNDNG_DT                         = #{tbComEmailSndng.sndngDt}
+                 , SNDNG_RESULT                     = #{tbComEmailSndng.sndngResult}
+            WHERE  EMAIL_SNDNG_ID = #{tbComEmailSndng.emailSndngId}
+        ]]>
+    </update>
+
+</mapper>

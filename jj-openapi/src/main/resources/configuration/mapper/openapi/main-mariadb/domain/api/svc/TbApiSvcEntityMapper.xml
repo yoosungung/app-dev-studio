@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 오픈API_서비스 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.openapi.domain.main.mapper.api.svc.TbApiSvcEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.openapi.domain.main.model.api.svc.TbApiSvc">
+        <![CDATA[
+            SELECT TAS.SVC_ID
+                 , TAS.REGIST_PSN_ID
+                 , TAS.REGIST_DT
+                 , TAS.SVC_NM
+                 , TAS.URL
+                 , TAS.DATA_FRMAT
+                 , TAS.OTHBC_TY
+                 , TAS.OTHBC_PD_BEGIN
+                 , TAS.OTHBC_PD_END
+                 , TAS.VALID_PD_BEGIN
+                 , TAS.VALID_PD_END
+                 , TAS.MANAGE_DEPT_NM
+                 , TAS.MANAGE_DEPT_TLPHON_NO
+                 , TAS.ATCH_FILE_ID
+                 , TAS.RM
+                 , TAS.PERSON_SE
+            FROM   TB_API_SVC TAS
+            WHERE  TAS.SVC_ID = #{svcId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_API_SVC (
+                   SVC_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , REGIST_PSN_ID
+                 , REGIST_DT
+                 , SVC_NM
+                 , URL
+                 , DATA_FRMAT
+                 , OTHBC_TY
+                 , OTHBC_PD_BEGIN
+                 , OTHBC_PD_END
+                 , VALID_PD_BEGIN
+                 , VALID_PD_END
+                 , MANAGE_DEPT_NM
+                 , MANAGE_DEPT_TLPHON_NO
+                 , ATCH_FILE_ID
+                 , RM
+                 , PERSON_SE
+            ) VALUES (
+                   #{tbApiSvc.svcId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{$var.loginUser.personId}
+                 , #{$var.systemDate}
+                 , #{tbApiSvc.svcNm}
+                 , #{tbApiSvc.url}
+                 , #{tbApiSvc.dataFrmat}
+                 , #{tbApiSvc.othbcTy}
+                 , #{tbApiSvc.othbcPdBegin}
+                 , #{tbApiSvc.othbcPdEnd}
+                 , #{tbApiSvc.validPdBegin}
+                 , #{tbApiSvc.validPdEnd}
+                 , #{tbApiSvc.manageDeptNm}
+                 , #{tbApiSvc.manageDeptTlphonNo}
+                 , #{tbApiSvc.atchFileId}
+                 , #{tbApiSvc.rm}
+                 , #{tbApiSvc.personSe}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_API_SVC SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , SVC_NM                           = #{tbApiSvc.svcNm}
+                 , URL                              = #{tbApiSvc.url}
+                 , DATA_FRMAT                       = #{tbApiSvc.dataFrmat}
+                 , OTHBC_TY                         = #{tbApiSvc.othbcTy}
+                 , OTHBC_PD_BEGIN                   = #{tbApiSvc.othbcPdBegin}
+                 , OTHBC_PD_END                     = #{tbApiSvc.othbcPdEnd}
+                 , VALID_PD_BEGIN                   = #{tbApiSvc.validPdBegin}
+                 , VALID_PD_END                     = #{tbApiSvc.validPdEnd}
+                 , MANAGE_DEPT_NM                   = #{tbApiSvc.manageDeptNm}
+                 , MANAGE_DEPT_TLPHON_NO            = #{tbApiSvc.manageDeptTlphonNo}
+                 , ATCH_FILE_ID                     = #{tbApiSvc.atchFileId}
+                 , RM                               = #{tbApiSvc.rm}
+                 , PERSON_SE                        = #{tbApiSvc.personSe}
+            WHERE  SVC_ID = #{tbApiSvc.svcId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_API_SVC
+            WHERE  SVC_ID = #{svcId}
+        ]]>
+    </delete>
+
+</mapper>

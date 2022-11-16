@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 부서 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.dept.TbComDeptMapper">
+
+    <!-- 부서 코드, 부서 ID 목록 조회 -->
+    <select id="selectDeptCodeDeptIdList" resultType="kr.ac.jj.shared.domain.main.model.com.dept.TbComDept">
+        <![CDATA[
+            SELECT TCD.DEPT_SE
+                 , TCD.DEPT_CODE
+                 , TCD.DEPT_ID
+            FROM   TB_COM_DEPT TCD
+            WHERE  TCD.DEPT_SE IS NOT NULL
+            ORDER BY TCD.DEPT_CODE
+        ]]>
+    </select>
+
+    <!-- 트리 목록 조회 -->
+    <select id="selectTreeList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TCD.DEPT_ID
+                 , TCD.UPPER_DEPT_ID
+                 , TCD.DEPT_CODE
+                 , TCD.DEPT_NM
+            FROM   TB_COM_DEPT TCD
+            ORDER BY TCD.DEPT_LEVEL, TCD.DEPT_NM
+        ]]>
+    </select>
+
+    <!-- 수정 - 인터페이스 ID 없는 것들 -->
+    <update id="updateUseYnWhereIntrfcIdNotMatched">
+        <![CDATA[
+            UPDATE TB_COM_DEPT SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , USE_YN                           = #{useYn}
+            WHERE  DEPT_ID NOT IN (
+                        SELECT TSI.ID_VALUE
+                        FROM   TB_SYS_INTRFC TSI
+                        WHERE  TSI.TABLE_NM = #{tableNm}
+                   )
+        ]]>
+    </update>
+
+</mapper>

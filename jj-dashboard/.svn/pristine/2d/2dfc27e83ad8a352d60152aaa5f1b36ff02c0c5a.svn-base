@@ -1,0 +1,30 @@
+package kr.ac.jj.dashboard.application.analysis.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.dashboard.application.analysis.mapper.AnalysisMapper;
+
+/**
+ * 학습 분석 Service
+ *
+ */
+@Service
+public class AnalysisServiceImpl {
+
+    private @Autowired AnalysisMapper analysisMapper;
+
+    /**
+     * 조회 - 학습 분석
+     *
+     * @param search
+     * @return
+     */
+    public List<Map<String, Object>> readList(Map<String, Object> search) {
+        return analysisMapper.readList(search);
+    }
+
+}

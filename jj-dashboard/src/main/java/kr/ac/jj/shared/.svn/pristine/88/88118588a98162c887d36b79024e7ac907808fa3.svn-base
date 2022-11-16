@@ -1,0 +1,184 @@
+package kr.ac.jj.shared.application.admin.appmanage.personmanage.service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.application.admin.appmanage.personmanage.mapper.PersonManageMapper;
+import kr.ac.jj.shared.application.admin.appmanage.personmanage.model.PersonManageModel;
+import kr.ac.jj.shared.domain.main.mapper.com.person.TbComPersonMapper;
+import kr.ac.jj.shared.domain.main.mapper.com.person.user.TbComPersonUserMapper;
+import kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserMapper;
+import kr.ac.jj.shared.domain.main.model.com.person.TbComPerson;
+import kr.ac.jj.shared.domain.main.model.com.person.user.TbComPersonUser;
+import kr.ac.jj.shared.domain.main.model.sys.user.TbSysUser;
+import kr.ac.jj.shared.infrastructure.grid.handler.GridDataResultHandler;
+import kr.ac.jj.shared.infrastructure.grid.model.GridRequest;
+
+/**
+ * 사람 관리 Service
+ */
+@Service
+public class PersonManageServiceImpl {
+
+    private @Autowired PersonManageMapper personManageMapper;
+    private @Autowired TbComPersonMapper tbComPersonMapper;
+    private @Autowired TbComPersonUserMapper tbComPersonUserMapper;
+    private @Autowired TbSysUserMapper tbSysUserMapper;
+
+    /**
+     * 목록 조회
+     *
+     * @param gridRequest
+     * @return
+     */
+    public List<Map<String, Object>> readList(GridRequest gridRequest) {
+        GridDataResultHandler resultHandler = new GridDataResultHandler(gridRequest);
+
+        personManageMapper.selectList(resultHandler, gridRequest.getPaging(), gridRequest.getSearch());
+
+        return resultHandler.getResultList();
+    }
+
+    /**
+     * 조회 - 생성용
+     *
+     * @return
+     */
+    public PersonManageModel read() {
+        PersonManageModel model = new PersonManageModel();
+
+        TbComPerson tbComPerson = new TbComPerson();
+
+        model.setTbComPerson(tbComPerson);
+
+        return model;
+    }
+
+    /**
+     * 조회
+     *
+     * @param personId
+     * @return
+     */
+    public PersonManageModel read(String personId) {
+        PersonManageModel model = new PersonManageModel();
+
+        TbComPerson tbComPerson = tbComPersonMapper.select(personId);
+
+        model.setTbComPerson(tbComPerson);
+
+        return model;
+    }
+
+    /**
+     * 생성
+     *
+     * @param model
+     * @return
+     */
+    public String create(PersonManageModel model) {
+        TbComPerson tbComPerson = model.getTbComPerson().newId();
+
+        tbComPersonMapper.insert(tbComPerson);
+
+        return tbComPerson.getPersonId();
+    }
+
+    /**
+     * 수정
+     *
+     * @param model
+     */
+    public void update(PersonManageModel model) {
+        TbComPerson tbComPerson = model.getTbComPerson();
+
+        tbComPersonMapper.update(tbComPerson);
+    }
+
+    /**
+     * 삭제
+     *
+     * @param bbsId
+     */
+    public void delete(String personId) {
+        tbComPersonMapper.delete(personId);
+    }
+
+    /**
+     * DW 데이터 I/F 저장
+     *
+     * @param data
+     */
+    public void updateFromDw(Map<String, Object> data) {
+        String emplNo = (String) data.get("emplNo");
+
+        String personId = tbComPersonMapper.selectPersonIdByEmplNo(emplNo);
+
+        // 사람 생성
+        TbComPerson tbComPerson = new TbComPerson();
+
+        tbComPerson.setEmplNo(emplNo);
+        tbComPerson.setEmailAdres((String) data.get("emailAdres"));
+        tbComPerson.setKoreanNm((String) data.get("koreanNm"));
+        tbComPerson.setUniv((String) data.get("univ"));
+        tbComPerson.setUndeg((String) data.get("undeg"));
+        tbComPerson.setSubjct((String) data.get("subjct"));
+        tbComPerson.setHffcSttus((String) data.get("hffcSttus"));
+        tbComPerson.setTlphonNo((String) data.get("tlphonNo"));
+        tbComPerson.setDeptId((String) data.get("deptCode"));
+        tbComPerson.setDeptLevel((Integer) data.get("deptLevel"));
+
+        if (StringUtils.isEmpty(personId)) {
+            tbComPerson.newId();
+            personId = tbComPerson.getPersonId();
+            tbComPerson.setWritngPsnId("SYSTEM");
+            tbComPerson.setWritngDt(new Date());
+            tbComPersonMapper.insert(tbComPerson);
+        } else {
+            tbComPerson.setPersonId(personId);
+            tbComPerson.setChangePsnId("SYSTEM");
+            tbComPerson.setChangeDt(new Date());
+            tbComPersonMapper.update(tbComPerson);
+        }
+
+        // 유저 생성 및 매핑
+        if(!StringUtils.isEmpty((String) data.get("loginPassword"))) {
+            TbSysUser tbSysUser = new TbSysUser();
+
+            String userId = tbSysUserMapper.selectUserIdByPersonId(personId);
+
+            tbSysUser.setLoginNm(emplNo);
+            tbSysUser.setLoginPassword((String) data.get("loginPassword"));
+            tbSysUser.setUseYn(true);
+            tbSysUser.setUserLocale("ko_KR");
+
+            if (StringUtils.isEmpty(userId)) {
+                tbSysUser.newId();
+                userId = tbSysUser.getUserId();
+
+                tbSysUserMapper.insert(tbSysUser);
+
+             // 사람 <> 유저 매핑 생성
+                TbComPersonUser tbComPersonUser = new TbComPersonUser();
+                tbComPersonUser.newId();
+                tbComPersonUser.setPersonId(personId);
+                tbComPersonUser.setUserId(userId);
+
+                tbComPersonUserMapper.insert(tbComPersonUser);
+
+            } else {
+                tbSysUser.setUserId(userId);
+
+                tbSysUserMapper.update(tbSysUser);
+            }
+
+        }
+
+    }
+
+}

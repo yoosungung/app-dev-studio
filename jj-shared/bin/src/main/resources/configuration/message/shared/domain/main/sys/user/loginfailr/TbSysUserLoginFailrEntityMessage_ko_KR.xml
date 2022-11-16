@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 시스템 - 사용자 로그인 실패 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbSysUserLoginFailr.failrCo"><![CDATA[실패 횟수]]></entry>
+    <entry key="domain.main.tbSysUserLoginFailr.lastFailrDt"><![CDATA[최종실패 일시]]></entry>
+
+</properties>

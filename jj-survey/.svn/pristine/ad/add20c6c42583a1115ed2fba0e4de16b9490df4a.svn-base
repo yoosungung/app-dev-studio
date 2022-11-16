@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="page-body"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:form="http://www.springframework.org/tags/form"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" version="2.0">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+
+    <script type="text/javascript">
+    var offsetTopCorrection;
+
+    $(function() {
+        $('div.main-container.container-fluid').width("100%");
+
+        $('.item-more').on('click', function(e) {
+
+            $selectedOrderItem = $(this).parent();
+
+            $.ajax({
+                url: $(this).attr('href')
+            }).done(function(data) {
+
+                $('.order-item').removeClass('top');
+                $selectedOrderItem.addClass('top');
+
+                $('#moreStatistics').html(data);
+
+                animateMoreStatistics($selectedOrderItem);
+            });
+            e.preventDefault();
+        });
+    });
+
+    function animateMoreStatistics($selectedOrderItem) {
+        if (offsetTopCorrection == null) {
+            offsetTopCorrection = $selectedOrderItem.closest('div.row').offset().top;
+        }
+
+        var top = $selectedOrderItem.offset().top - offsetTopCorrection;
+        var $moreStatistics = $('#moreStatistics');
+
+        $moreStatistics.animate({top: top}, 500, 'easeInOutExpo', function() {
+            if ($moreStatistics.offset().top != $selectedOrderItem.offset().top) {
+                offsetTopCorrection = $moreStatistics.offset().top - $selectedOrderItem.offset().top;
+                animateMoreStatistics($selectedOrderItem);
+            }
+        });
+    }
+
+    function showDetails() {
+        var url = '<spring:url value="/statistics/details/list"/>';
+        $('#surveyPage').attr('action', url).submit();;
+    }
+    </script>
+
+    <c:choose>
+        <c:when test="${empty surveyStatistic}">
+            <div class="alert alert-info fade in radius-bordered alert-shadowed">
+                <i class="fa-fw fa fa-info"><!----></i>
+                선택된 설문조사가 없습니다. 조회할 설문조사를 선택하세요.
+            </div>
+        </c:when>
+        <c:when test="${surveyStatistic.submittedCount le 0}">
+            <div class="alert alert-info fade in radius-bordered alert-shadowed">
+                <i class="fa-fw fa fa-info"><!----></i>
+                설문 결과가 없습니다.
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div class="widget radius-bordered">
+                <div class="widget-header header-large bordered-bottom bordered-blueberry">
+                    <span class="widget-caption" style="font-size: 16px; margin-top: 8px;">
+                        <c:forEach items="${surveyDefinitions}" var="surveyDef" varStatus="loop">
+                            <c:if test="${surveyDef.id eq surveyDefinition.id}">
+                                ${surveyDef.name}
+                            </c:if>
+                        </c:forEach>
+                    </span>
+                </div>
+                <div class="widget-body">
+                    <p style="margin-bottom: 0;" class="text-primary">
+                        <span class="label label-orange">
+                            작성중 : <fmt:formatNumber type="number" value="${surveyStatistic.icompletedCount}" />
+                        </span>
+                        <span style="margin-left: 10px;" class="label label-orange">
+                            완료 : <fmt:formatNumber type="number" value="${surveyStatistic.submittedCount}" />
+                        </span>
+                        <span style="margin-left: 10px;" class="label label-orange">
+                            삭제 : <fmt:formatNumber type="number" value="${surveyStatistic.deletedCount}" />
+                        </span>
+                        <span style="margin-left: 10px;" class="label label-orange">
+                            합계 : <fmt:formatNumber type="number" value="${surveyStatistic.totalCount}" />
+                        </span>
+                    </p>
+
+                    <hr class="wide"/>
+                    <p class="text-danger"><i class="fa fa-exclamation"><!----></i> 아래 통계는 완료된 설문조사를 대상으로 계산됩니다. 작성중이거나 삭제된 설문은 포함되지 않습니다.</p>
+                    <hr class="wide"/>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <c:forEach items="${surveyDefinition.pages}" var="page"    varStatus="loop">
+                                <div class="orders-container" style="margin-bottom: 15px;">
+                                    <div class="orders-header">
+                                        <h6><strong>페이지 ${loop.count} : ${page.title}</strong></h6>
+                                    </div>
+                                    <ul class="orders-list">
+                                        <c:forEach items="${page.questions}" var="q" varStatus="loop">
+                                            <spring:url value="/statistics/list2" var="link_url" htmlEscape="false">
+                                                <spring:param name="sid" value="${surveyDefinition.id}" />
+                                                <spring:param name="qid" value="${q.id}" />
+                                            </spring:url>
+                                            <li class="order-item">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-xs-12 item-left" style="padding-right: 30px;">
+                                                        <div class="item-booker" style="float: left; width: 20px;">${q.order}.</div>
+                                                        <div class="item-booker">${q.questionText}</div>
+                                                    </div>
+                                                </div>
+                                                <a class="item-more" href="${link_url}">
+                                                    <i><!----></i>
+                                                </a>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                            </c:forEach>
+                        </div>
+                        <div id="moreStatistics" class="col-xs-12 col-md-6">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:otherwise>
+    </c:choose>
+</div>

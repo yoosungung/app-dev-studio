@@ -1,0 +1,10 @@
+package kr.ac.jj.openapi.application.openapi.apitabserviceguide.mapper;
+
+import kr.ac.jj.openapi.config.DataSourceMapperConfig.MainSqlMapper;
+
+/**
+ * 서비스 이용안내 Mapper
+ */
+@MainSqlMapper
+public interface ApiTabServiceGuideMapper {
+}

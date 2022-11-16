@@ -1,0 +1,42 @@
+package kr.ac.jj.survey.domain.main.mapper.com.bbs;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.survey.domain.main.model.com.bbs.TbComBbs;
+
+/**
+ * 공통 - 게시판 Entity Mapper
+ */
+abstract interface TbComBbsEntityMapper {
+    /**
+     * 조회
+     *
+     * @param bbsId
+     * @return
+     */
+    public TbComBbs select(@Param("bbsId") String bbsId);
+
+    /**
+     * 생성
+     *
+     * @param tbComBbs
+     * @return
+     */
+    public int insert(@Param("tbComBbs") TbComBbs tbComBbs);
+
+    /**
+     * 수정
+     *
+     * @param tbComBbs
+     * @return
+     */
+    public int update(@Param("tbComBbs") TbComBbs tbComBbs);
+
+    /**
+     * 삭제
+     *
+     * @param bbsId
+     * @return
+     */
+    public int delete(@Param("bbsId") String bbsId);
+}

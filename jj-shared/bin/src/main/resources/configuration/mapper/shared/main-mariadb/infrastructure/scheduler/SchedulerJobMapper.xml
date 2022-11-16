@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 스케줄러 Job Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.infrastructure.scheduler.mapper.SchedulerJobMapper">
+
+    <!-- 스케줄러 목록 전체 미사용 처리 -->
+    <update id="updateToNoUseAllList">
+        <![CDATA[
+            UPDATE TB_SYS_SCHDUL SET
+                   VALID_YN = '0'
+                 , USE_YN = '0'
+        ]]>
+    </update>
+
+    <!-- 미완료된 실행 목록 비정상 종료 처리 -->
+    <update id="updateAbnormalEndList">
+        <![CDATA[
+            UPDATE TB_SYS_SCHDUL_EXECUT SET
+                   SUCCES_YN = '0'
+                 , ERROR_MSSAGE = 'Abnormally terminated.'
+            WHERE  SUCCES_YN IS NULL
+        ]]>
+    </update>
+
+</mapper>

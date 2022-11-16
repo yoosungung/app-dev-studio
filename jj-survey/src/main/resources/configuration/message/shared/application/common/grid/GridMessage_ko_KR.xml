@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+    <entry key="common.grid.title.excelDownload"><![CDATA[그리드 엑셀 다운로드]]></entry>
+
+    <entry key="common.grid.label.downloadType"><![CDATA[파일 형식]]></entry>
+    <entry key="common.grid.label.downloadType.1"><![CDATA[Excel 통합 문서 (*.xlsx)]]></entry>
+    <entry key="common.grid.label.downloadType.0"><![CDATA[Excel 97 - 2003 통합 문서 (*.xls)]]></entry>
+    <entry key="common.grid.label.downloadMode"><![CDATA[저장 범위]]></entry>
+    <entry key="common.grid.label.downloadMode.1"><![CDATA[현재 페이지만]]></entry>
+    <entry key="common.grid.label.downloadMode.2"><![CDATA[전체 페이지]]></entry>
+    <entry key="common.grid.label.download"><![CDATA[다운로드]]></entry>
+
+</properties>

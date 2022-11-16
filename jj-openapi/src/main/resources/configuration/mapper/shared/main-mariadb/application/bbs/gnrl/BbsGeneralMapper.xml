@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 게시판(일반) Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.bbs.gnrl.mapper.BbsGeneralMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TBG.BBSCTT_ID
+                 , (SELECT A.BBSCTT_NO FROM TB_BBS_GNRL A WHERE A.BBSCTT_ID = TBG.FRST_BBSCTT_ID) AS FRST_BBSCTT_NO
+                 , TBG.BBSCTT_NO
+                 , CASE WHEN TBG.DELETE_YN = '1' THEN '(삭제된 글입니다)' ELSE TBG.BBSCTT_SJ END AS BBSCTT_SJ
+                 , CASE WHEN TBG.DELETE_YN = '1' THEN NULL ELSE FN_PERSON_NAME(TBG.WRITNG_PSN_ID, #{$var.userLocale}) END AS WRITNG_PSN_NM
+                 , CASE WHEN TBG.DELETE_YN = '1' THEN NULL ELSE TBG.WRITNG_DT END AS WRITNG_DT
+                 , CASE WHEN TBG.DELETE_YN = '1' THEN NULL ELSE TBG.RDCNT END AS RDCNT
+                 , TBG.FRST_BBSCTT_ID
+                 , TBG.ANSWER_LEVEL
+                 , TBG.ANSWER_ORDR
+                 , TBG.DELETE_YN
+            FROM   TB_BBS_GNRL TBG
+            WHERE  TBG.BBS_CODE = #{bbsCode}
+        ]]>
+
+        <!-- 제목 -->
+        <if test='search != null and search.bbscttSj != null and search.bbscttSj != ""'>
+            <![CDATA[
+            AND    UPPER(TBG.BBSCTT_SJ) LIKE CONCAT_WS('', '%', UPPER(#{search.bbscttSj}), '%')
+            ]]>
+        </if>
+
+        <!-- 내용 -->
+        <if test='search != null and search.bbscttCn != null and search.bbscttCn != ""'>
+            <![CDATA[
+            AND    UPPER(TBG.BBSCTT_CN) LIKE CONCAT_WS('', '%', UPPER(#{search.bbscttCn}), '%')
+            ]]>
+        </if>
+    </select>
+
+</mapper>

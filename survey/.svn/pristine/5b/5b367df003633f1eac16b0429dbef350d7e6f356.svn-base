@@ -1,0 +1,69 @@
+/* This CSS for example 2 overwrites the default Boutique CSS for customization */
+/* See /css/boutique.css for the original, complete, commented CSS */
+
+#demo2{
+	display: none;
+}
+
+/* The frames */
+#demo2 .boutique-frame{
+	/*background: #fff url(images/loading2.gif) center no-repeat;
+	border: 1px solid;
+	border-color: #eaeaea #ccc #ccc #eaeaea;
+	*/
+	background:#00c7ce;
+	border:1px solid #00c7ce;
+}
+
+/* Headers of all frames */
+#demo2 .boutique-frame-title{
+	margin: 0 0 5px;
+	font-family: Verdana, sans-serif;
+	line-height: 1;
+	font-weight: normal;
+	color: #fff;
+}
+
+/* Description text of all frames */
+#demo2 .boutique-frame-text{
+	font-family: Verdana, sans-serif;
+	border:6px solid #00c7ce;
+	border-top:0;
+	padding: 15px 25px 20px;
+	margin: 0;
+	color: #fff;
+	background:url(../../wcom/img/zeus2014/common/bg_70.png);
+}
+
+/* The most frontal item */
+#demo2 .front .boutique-frame-image{
+	margin: 5px;
+}
+#demo2 .front .boutique-frame-title{
+	font-size: 18px;
+}
+#demo2 .front .boutique-frame-text{
+	font-size: 12px;
+}
+
+/* The further back items */
+#demo2 .behind .boutique-frame-image{
+	margin: 0;
+}
+#demo2 .behind .boutique-frame-title{
+	font-size: 14px;
+}
+#demo2 .behind .boutique-frame-text{
+	font-size: 8px;
+}
+
+/* The furthest back items */
+#demo2 .back .boutique-frame-image{
+	margin: 0;
+}
+#demo2 .back .boutique-frame-title{
+	font-size: 10px;
+}
+#demo2 .back .boutique-frame-text{
+	font-size: 4px;
+}

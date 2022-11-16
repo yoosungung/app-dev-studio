@@ -1,0 +1,67 @@
+package kr.ac.jj.shared.domain.main.model.sys.schdul;
+
+import kr.ac.jj.shared.domain.main.model.MainEntity;
+
+/**
+ * 시스템 - 스케줄 Entity
+ */
+abstract class TbSysSchdulEntity extends MainEntity {
+
+    private static final long serialVersionUID = 8069236255981247907L;
+
+    protected String schdulId;
+    protected String schdulKey;
+    protected String schdulNm;
+    protected String opertClass;
+    protected Boolean validYn;
+    protected Boolean useYn;
+
+    public String getSchdulId() {
+        return this.schdulId;
+    }
+
+    public void setSchdulId(String schdulId) {
+        this.schdulId = schdulId;
+    }
+
+    public String getSchdulKey() {
+        return this.schdulKey;
+    }
+
+    public void setSchdulKey(String schdulKey) {
+        this.schdulKey = schdulKey;
+    }
+
+    public String getSchdulNm() {
+        return this.schdulNm;
+    }
+
+    public void setSchdulNm(String schdulNm) {
+        this.schdulNm = schdulNm;
+    }
+
+    public String getOpertClass() {
+        return this.opertClass;
+    }
+
+    public void setOpertClass(String opertClass) {
+        this.opertClass = opertClass;
+    }
+
+    public Boolean getValidYn() {
+        return this.validYn;
+    }
+
+    public void setValidYn(Boolean validYn) {
+        this.validYn = validYn;
+    }
+
+    public Boolean getUseYn() {
+        return this.useYn;
+    }
+
+    public void setUseYn(Boolean useYn) {
+        this.useYn = useYn;
+    }
+
+}

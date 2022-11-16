@@ -1,0 +1,29 @@
+package kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.scheduler;
+
+import org.quartz.DisallowConcurrentExecution;
+import org.quartz.JobExecutionContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.BaseJob;
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.model.JobDetailTrigger;
+import kr.ac.jj.shared.infrastructure.framework.core.support.scheduling.model.SchedulerJobConfig;
+import kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.controller.HumanResourceManageController;
+
+/**
+ * 인사정보 관리 SchedulerJob
+ */
+@Component
+@DisallowConcurrentExecution
+public class HumanResourceManageSchedulerJob extends BaseJob {
+
+    private @Autowired HumanResourceManageController humanResourceManageController;
+
+    @Override
+    public void executeJob(SchedulerJobConfig jobConfig, JobDetailTrigger jobDetailTrigger,
+            JobExecutionContext context) {
+
+        humanResourceManageController.createOrUpdateAll();
+    }
+
+}

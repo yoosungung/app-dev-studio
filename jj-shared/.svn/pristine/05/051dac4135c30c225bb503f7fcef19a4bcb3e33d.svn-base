@@ -1,0 +1,8 @@
+package kr.ac.jj.shared.application.bbs.notice.model;
+
+/**
+ * 게시판(공지사항) Model
+ */
+public class BbsNoticeModel {
+
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+    <entry key="admin.sysmanage.codemanage.title.list"><![CDATA[코드 관리]]></entry>
+    <entry key="admin.sysmanage.codemanage.title.create"><![CDATA[코드 생성]]></entry>
+    <entry key="admin.sysmanage.codemanage.title.detail"><![CDATA[코드 상세]]></entry>
+    <entry key="admin.sysmanage.codemanage.title.update"><![CDATA[코드 수정]]></entry>
+    <entry key="admin.sysmanage.codemanage.title.valueList"><![CDATA[코드값 목록]]></entry>
+
+    <entry key="admin.sysmanage.codemanage.label.codeValueCo"><![CDATA[코드값 갯수]]></entry>
+
+    <entry key="admin.sysmanage.codemanage.message.duplicatedCodeGroup"><![CDATA[중복된 코드그룹 "{0}" 입니다.]]></entry>
+    <entry key="admin.sysmanage.codemanage.message.codeGroupCreateNotAvail"><![CDATA[코드그룹 "{0}" 을 생성할 수가 없습니다.]]></entry>
+
+</properties>

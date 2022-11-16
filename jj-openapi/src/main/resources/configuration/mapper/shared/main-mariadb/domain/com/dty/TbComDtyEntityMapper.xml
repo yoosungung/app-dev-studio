@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 직무 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.dty.TbComDtyEntityMapper">
+
+    <!-- 기본 조회 SQL -->
+    <sql id="baseSelectSql">
+        <![CDATA[
+            SELECT TCD.DTY_ID
+                 , TCD.DTY_SE
+                 , TCD.DTY_CODE
+                 , TCD.DTY_NM
+                 , TCD.USE_YN
+            FROM   TB_COM_DTY TCD
+        ]]>
+    </sql>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.com.dty.TbComDty">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TCD.DTY_ID = #{dtyId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_COM_DTY (
+                   DTY_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , DTY_SE
+                 , DTY_CODE
+                 , DTY_NM
+                 , USE_YN
+            ) VALUES (
+                   #{tbComDty.dtyId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbComDty.dtySe}
+                 , #{tbComDty.dtyCode}
+                 , #{tbComDty.dtyNm}
+                 , #{tbComDty.useYn}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_COM_DTY SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , DTY_SE                           = #{tbComDty.dtySe}
+                 , DTY_CODE                         = #{tbComDty.dtyCode}
+                 , DTY_NM                           = #{tbComDty.dtyNm}
+                 , USE_YN                           = #{tbComDty.useYn}
+            WHERE  DTY_ID = #{tbComDty.dtyId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_DTY
+            WHERE  DTY_ID = #{dtyId}
+        ]]>
+    </delete>
+
+</mapper>

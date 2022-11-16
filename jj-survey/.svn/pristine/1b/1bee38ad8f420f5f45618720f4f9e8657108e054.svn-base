@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jd.survey.zeus.mapper.ZeusQuestionAndAnswerMapper">
+
+    <select id="getQuestionAndAnswerList" resultType="com.jd.survey.zeus.domain.ZeusQuestionAndAnswer">
+        /* 실태조사 QuestionAndAnswer 목록 */
+        SELECT  r1.post_no AS postNo,               r1.subject,                       r1.regist_nm AS registNm,
+                r1.class_cd AS classCd,             r1.regist_dt AS registDt,          r1.stat_cd AS statCd
+        FROM hi_hiboard_post r1
+        LEFT OUTER JOIN hi_hiboard_class CLASS ON r1.class_cd = CLASS.class_cd AND r1.board_cd = CLASS.board_cd
+        WHERE  r1.board_cd = 82
+        AND (r1.class_cd != '' or r1.class_cd != null or r1.class_cd is not null)
+        AND ROWNUM &lt; 8
+        ORDER BY registDt DESC
+    </select>
+
+</mapper>

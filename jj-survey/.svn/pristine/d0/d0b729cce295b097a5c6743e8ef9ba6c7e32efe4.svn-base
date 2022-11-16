@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 설문지 관리 Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.application.qestnrmanage.mapper.QuestionnaireManageMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TSQ.SURVEY_QESTNR_ID
+                 , TSQ.SURVEY_DEFINITION_ID
+                 , SD.NAME
+                 , TSR.SURVEY_REALM_NM
+                 , SD.STATUS
+                 , ${$var.getCodeData("[SURVEY_DEFINITION_STATUS]", "SD.STATUS", "SD.STATUS")} AS STATUS_NAME
+                 , ${$var.getCodeData("[SURVEY_SNDNG_YN]", "TSQ.SNDNG_YN", "TSQ.SNDNG_YN")} AS SNDNG_YN_NM
+                 , SD.START_DT
+                 , SD.END_DT
+                 , CONCAT_WS('', DATE_FORMAT(SD.START_DT, '%Y-%m-%d'), ' ~ ', DATE_FORMAT(SD.END_DT, '%Y-%m-%d')) AS PD_DT
+                 , TSQ.CNRS_YN
+                 , ${$var.getCodeData("[CNRS_YN]", "TSQ.CNRS_YN", "TSQ.CNRS_YN")} AS CNRS_YN_NM
+                 , (SELECT COUNT(1)
+                    FROM   SURVEY_DEFINITION_PAGE SDP
+                    WHERE  SDP.SURVEY_DEFINITION_ID = TSQ.SURVEY_DEFINITION_ID
+                   ) AS DEFINITION_PAGE_CO
+                 , (SELECT COUNT(1)
+                    FROM   SURVEY_DEFINITION_PAGE SDP
+                           INNER JOIN SURVEY_QUESTION SQ ON SQ.SURVEY_DEFINITION_PAGE_ID = SDP.ID
+                    WHERE  SDP.SURVEY_DEFINITION_ID = TSQ.SURVEY_DEFINITION_ID
+                   ) AS QUESTION_CO
+                 , (SELECT COUNT(1)
+                    FROM   TB_SURVEY_QESTNR_PERSON TSQP
+                    WHERE  TSQP.SURVEY_QESTNR_ID = TSQ.SURVEY_QESTNR_ID
+                   ) AS PERSON_CO
+                 , (SELECT COUNT(1)
+                    FROM   TB_SURVEY_QESTNR_PERSON TSQP
+                    WHERE  TSQP.SURVEY_QESTNR_ID = TSQ.SURVEY_QESTNR_ID
+                    AND    TSQP.SURVEY_ID IS NOT NULL
+                   ) AS SURVEY_CO
+            FROM   TB_SURVEY_QESTNR TSQ
+                   INNER JOIN TB_SURVEY_REALM TSR ON TSQ.SURVEY_REALM_ID = TSR.SURVEY_REALM_ID
+                   INNER JOIN SURVEY_DEFINITION SD ON SD.ID = TSQ.SURVEY_DEFINITION_ID
+            WHERE  TSQ.SURVEY_QESTNR_ID IN (
+                        SELECT VPSQ.SURVEY_QESTNR_ID
+                        FROM   VW_PERSON_SURVEY_QESTNR VPSQ
+                        WHERE  VPSQ.PERSON_ID = #{$var.loginUser.personId}
+                   )
+        ]]>
+
+        <!-- 설문 이름 -->
+        <if test='search != null and search.name != null and search.name != ""'>
+            <![CDATA[
+            AND    UPPER(SD.NAME) LIKE CONCAT_WS('', '%', UPPER(#{search.name}), '%')
+            ]]>
+        </if>
+
+        <!-- 설문 분야 -->
+        <if test='search != null and search.surveyRealmId != null and search.surveyRealmId != ""'>
+            <![CDATA[
+            AND    TSQ.SURVEY_REALM_ID = #{search.surveyRealmId}
+            ]]>
+        </if>
+    </select>
+
+    <!-- 템플릿 검색 목록 조회 -->
+    <select id="selectTemplateSearchList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TST.SURVEY_TMPLAT_ID
+                 , SD.NAME
+                 , TSR.SURVEY_REALM_NM
+                 , TST.TMPLAT_STTUS
+                 , ${$var.getCodeData("[TMPLAT_STTUS]", "TST.TMPLAT_STTUS", "TST.TMPLAT_STTUS")} AS TMPLAT_STTUS_NM
+            FROM   TB_SURVEY_TMPLAT TST
+                   INNER JOIN TB_SURVEY_REALM TSR ON TST.SURVEY_REALM_ID = TSR.SURVEY_REALM_ID
+                   INNER JOIN SURVEY_DEFINITION SD ON SD.ID = TST.SURVEY_DEFINITION_ID
+            WHERE  TST.TMPLAT_STTUS = '1'
+        ]]>
+
+        <!-- 템플릿 이름 -->
+        <if test='search != null and search.name != null and search.name != ""'>
+            <![CDATA[
+            AND    UPPER(SD.NAME) LIKE CONCAT_WS('', '%', UPPER(#{search.name}), '%')
+            ]]>
+        </if>
+
+        <!-- 설문 분야 -->
+        <if test='search != null and search.surveyRealmId != null and search.surveyRealmId != ""'>
+            <![CDATA[
+            AND    TST.SURVEY_REALM_ID = #{search.surveyRealmId}
+            ]]>
+        </if>
+    </select>
+
+    <!-- 이전 설문지 검색 목록 조회 -->
+    <select id="selectPrevSurveySearchList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TSQ.SURVEY_QESTNR_ID
+                 , SD.NAME
+                 , TSR.SURVEY_REALM_NM
+                 , SD.STATUS
+                 , ${$var.getCodeData("[SURVEY_DEFINITION_STATUS]", "SD.STATUS", "SD.STATUS")} AS STATUS_NAME
+                 , SD.START_DT
+                 , SD.END_DT
+                 , TSQ.CNRS_YN
+                 , ${$var.getCodeData("[CNRS_YN]", "TSQ.CNRS_YN", "TSQ.CNRS_YN")} AS CNRS_YN_NM
+            FROM   TB_SURVEY_QESTNR TSQ
+                   INNER JOIN TB_SURVEY_REALM TSR ON TSQ.SURVEY_REALM_ID = TSR.SURVEY_REALM_ID
+                   INNER JOIN SURVEY_DEFINITION SD ON SD.ID = TSQ.SURVEY_DEFINITION_ID
+            WHERE  TSQ.SURVEY_QESTNR_ID IN (
+                        SELECT VPSQ.SURVEY_QESTNR_ID
+                        FROM   VW_PERSON_SURVEY_QESTNR VPSQ
+                        WHERE  VPSQ.PERSON_ID = #{$var.loginUser.personId}
+                   )
+        ]]>
+
+        <!-- 설문 이름 -->
+        <if test='search != null and search.name != null and search.name != ""'>
+            <![CDATA[
+            AND    UPPER(SD.NAME) LIKE CONCAT_WS('', '%', UPPER(#{search.name}), '%')
+            ]]>
+        </if>
+
+        <!-- 설문 분야 -->
+        <if test='search != null and search.surveyRealmId != null and search.surveyRealmId != ""'>
+            <![CDATA[
+            AND    TSQ.SURVEY_REALM_ID = #{search.surveyRealmId}
+            ]]>
+        </if>
+    </select>
+
+    <!-- 사람(대상자) 그룹 검색 -->
+    <select id="selectPersonGroupList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TSG.SURVEY_GROUP_ID
+                 , TSG.GROUP_NM
+                 , TSG.GROUP_DC
+                 , FN_CODE_NAME('CNRS_YN', TSG.CNRS_YN, #{$var.userLocale}, #{$var.defaultLocale}, NULL) AS CNRS_YN_NM
+                 , TSG.REGIST_DT
+                 , FN_PERSON_NAME(TSG.REGIST_PSN_ID, #{$var.userLocale}) AS REGIST_PSN_NM
+                 , (SELECT COUNT(*)
+                    FROM   TB_SURVEY_GROUP_PERSON TSGP
+                           INNER JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TSGP.PERSON_ID
+                    WHERE  TSGP.SURVEY_GROUP_ID = TSG.SURVEY_GROUP_ID
+                   ) AS PERSON_CO
+            FROM   TB_SURVEY_GROUP TSG
+                   INNER JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TSG.REGIST_PSN_ID
+            WHERE  TSG.SURVEY_GROUP_ID IN (
+                        SELECT VPSG.SURVEY_GROUP_ID
+                        FROM   VW_PERSON_SURVEY_GROUP VPSG
+                        WHERE  VPSG.PERSON_ID = #{$var.loginUser.personId}
+                   )
+        ]]>
+
+        <!-- 그룹명 -->
+        <if test='search != null and search.groupNm != null and search.groupNm != ""'>
+            <![CDATA[
+            AND    UPPER(TSG.GROUP_NM) LIKE CONCAT_WS('', '%', UPPER(#{search.groupNm}), '%')
+            ]]>
+        </if>
+    </select>
+
+    <!-- 사람(대상자) 목록 생성 - 그룹 ID로부터 -->
+    <insert id="insertPersonListFromGroupId">
+        <![CDATA[
+            INSERT INTO TB_SURVEY_QESTNR_PERSON (
+                   SURVEY_PERSON_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SURVEY_QESTNR_ID
+                 , PERSON_ID
+                 , SNDNG_YN
+                 , EMAIL_SURVEY_URL
+                 , EMAIL_SHRTEN_URL
+                 , SMS_SURVEY_URL
+                 , SMS_SHRTEN_URL
+                 , SURVEY_ID
+            )
+            SELECT FN_UID('0') AS SURVEY_PERSON_ID
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{surveyQestnrId}
+                 , TCP.PERSON_ID
+                 , '0' AS SNDNG_YN
+                 , NULL AS EMAIL_SURVEY_URL
+                 , NULL AS EMAIL_SHRTEN_URL
+                 , NULL AS SMS_SURVEY_URL
+                 , NULL AS SMS_SHRTEN_URL
+                 , NULL AS SURVEY_ID
+            FROM   TB_COM_PERSON TCP
+                   INNER JOIN TB_SURVEY_GROUP_PERSON TSGP ON TSGP.PERSON_ID = TCP.PERSON_ID
+            WHERE  TSGP.SURVEY_GROUP_ID = #{surveyGroupId}
+            AND    NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_SURVEY_QESTNR_PERSON TSQP
+                        WHERE  TSQP.SURVEY_QESTNR_ID = #{surveyQestnrId}
+                        AND    TSQP.PERSON_ID = TCP.PERSON_ID
+                   )
+        ]]>
+    </insert>
+
+    <!-- 사람(대상자) 목록 검색 -->
+    <select id="selectPersonSearchList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TCP.PERSON_ID
+                 , TCD2.DEPT_NM AS DEPT_NM1
+                 , TCD.DEPT_NM AS DEPT_NM2
+                 , TCP.EMPL_NO
+                 , TCP.KOREAN_NM
+                 , TCPD.RSPOFC_NM
+                 , CASE WHEN TSQP.PERSON_ID IS NOT NULL THEN '1' ELSE '0' END AS SURVEY_PERSON_YN
+            FROM   TB_COM_PERSON TCP
+                   LEFT JOIN TB_COM_PERSON_DEPT TCPD ON TCPD.PERSON_ID = TCP.PERSON_ID
+                   LEFT JOIN TB_COM_DEPT TCD ON TCD.DEPT_ID = TCPD.DEPT_ID
+                   LEFT JOIN TB_COM_DEPT TCD2 ON TCD2.DEPT_ID = TCD.UPPER_DEPT_ID
+                   LEFT JOIN TB_SURVEY_QESTNR_PERSON TSQP ON TSQP.SURVEY_QESTNR_ID = #{search.surveyQestnrId} AND TSQP.PERSON_ID = TCP.PERSON_ID
+            WHERE  TCP.PERSON_SE IS NOT NULL
+            AND    TCP.HFFC_STTUS = 'C'
+        ]]>
+
+        <!-- 사번 -->
+        <if test='search != null and search.emplNo != null and search.emplNo != ""'>
+            <![CDATA[
+            AND    UPPER(TCP.EMPL_NO) LIKE CONCAT_WS('', '%', UPPER(#{search.emplNo}), '%')
+            ]]>
+        </if>
+
+        <!-- 이름 -->
+        <if test='search != null and search.name != null and search.name != ""'>
+            <![CDATA[
+            AND    (UPPER(TCP.KOREAN_NM) LIKE CONCAT_WS('', '%', UPPER(#{search.name}), '%') OR
+                    UPPER(TCP.ENGL_NM) LIKE CONCAT_WS('', '%', UPPER(#{search.name}), '%') OR
+                    UPPER(TCP.CHCRT_NM) LIKE CONCAT_WS('', '%', UPPER(#{search.name}), '%')
+                   )
+            ]]>
+        </if>
+    </select>
+
+    <!-- 사람(대상자) 생성 - 존재하지 않는 경우 -->
+    <insert id="insertPersonNotExists">
+        <![CDATA[
+            INSERT INTO TB_SURVEY_QESTNR_PERSON (
+                   SURVEY_PERSON_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SURVEY_QESTNR_ID
+                 , PERSON_ID
+                 , SNDNG_YN
+                 , EMAIL_SURVEY_URL
+                 , EMAIL_SHRTEN_URL
+                 , SMS_SURVEY_URL
+                 , SMS_SHRTEN_URL
+                 , SURVEY_ID
+            )
+            SELECT #{tbSurveyQestnrPerson.surveyPersonId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbSurveyQestnrPerson.surveyQestnrId}
+                 , #{tbSurveyQestnrPerson.personId}
+                 , #{tbSurveyQestnrPerson.sndngYn}
+                 , #{tbSurveyQestnrPerson.emailSurveyUrl}
+                 , #{tbSurveyQestnrPerson.emailShrtenUrl}
+                 , #{tbSurveyQestnrPerson.smsSurveyUrl}
+                 , #{tbSurveyQestnrPerson.smsShrtenUrl}
+                 , #{tbSurveyQestnrPerson.surveyId}
+            FROM   TB_COM_PERSON TCP
+            WHERE  TCP.PERSON_ID = #{tbSurveyQestnrPerson.personId}
+            AND    NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_SURVEY_QESTNR_PERSON TSQP
+                        WHERE  TSQP.SURVEY_QESTNR_ID = #{tbSurveyQestnrPerson.surveyQestnrId}
+                        AND    TSQP.PERSON_ID = #{tbSurveyQestnrPerson.personId}
+                   )
+        ]]>
+    </insert>
+
+    <!-- 조직 트리 목록 조회 -->
+    <select id="selectDeptTreeList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TCD.DEPT_ID
+                 , TCD.UPPER_DEPT_ID
+                 , TCD.DEPT_CODE
+                 , TCD.DEPT_NM
+                 , IFNULL(TCPD.PERSON_CO, 0) AS TOT_PERSON_CO
+                 , IFNULL(TSQP.PERSON_CO, 0) AS ADIT_PERSON_CO
+            FROM   TB_COM_DEPT TCD
+                   LEFT JOIN (
+                        SELECT TCPD.DEPT_ID
+                             , COUNT(*) AS PERSON_CO
+                        FROM   TB_COM_PERSON_DEPT TCPD
+                               INNER JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPD.PERSON_ID
+                        GROUP BY TCPD.DEPT_ID
+                   ) TCPD ON TCPD.DEPT_ID = TCD.DEPT_ID
+                   LEFT JOIN (
+                        SELECT TCPD.DEPT_ID
+                             , COUNT(*) AS PERSON_CO
+                        FROM   TB_COM_PERSON_DEPT TCPD
+                               INNER JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPD.PERSON_ID
+                               INNER JOIN TB_SURVEY_QESTNR_PERSON TSQP ON TSQP.SURVEY_QESTNR_ID = #{surveyQestnrId} AND TSQP.PERSON_ID = TCP.PERSON_ID
+                        GROUP BY TCPD.DEPT_ID
+                   ) TSQP ON TSQP.DEPT_ID = TCD.DEPT_ID
+            WHERE  TCD.USE_YN = '1'
+            AND    TCD.DEPT_SE = #{deptSe}
+            ORDER BY TCD.DEPT_LEVEL, TCD.SORT_ORDR, TCD.DEPT_NM
+        ]]>
+    </select>
+
+    <!-- 사람(대상자) 목록 생성 - 부서 ID로부터 -->
+    <insert id="insertPersonListFromDeptId">
+        <![CDATA[
+            INSERT INTO TB_SURVEY_QESTNR_PERSON (
+                   SURVEY_PERSON_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SURVEY_QESTNR_ID
+                 , PERSON_ID
+                 , SNDNG_YN
+                 , EMAIL_SURVEY_URL
+                 , EMAIL_SHRTEN_URL
+                 , SMS_SURVEY_URL
+                 , SMS_SHRTEN_URL
+                 , SURVEY_ID
+            )
+            SELECT FN_UID('0') AS SURVEY_PERSON_ID
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{surveyQestnrId}
+                 , TCP.PERSON_ID
+                 , '0' AS SNDNG_YN
+                 , NULL AS EMAIL_SURVEY_URL
+                 , NULL AS EMAIL_SHRTEN_URL
+                 , NULL AS SMS_SURVEY_URL
+                 , NULL AS SMS_SHRTEN_URL
+                 , NULL AS SURVEY_ID
+            FROM   TB_COM_PERSON_DEPT TCPD
+                   INNER JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPD.PERSON_ID
+            WHERE  TCPD.DEPT_ID = #{deptId}
+            AND    NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_SURVEY_QESTNR_PERSON TSQP
+                        WHERE  TSQP.SURVEY_QESTNR_ID = #{surveyQestnrId}
+                        AND    TSQP.PERSON_ID = TCP.PERSON_ID
+                   )
+        ]]>
+    </insert>
+
+</mapper>

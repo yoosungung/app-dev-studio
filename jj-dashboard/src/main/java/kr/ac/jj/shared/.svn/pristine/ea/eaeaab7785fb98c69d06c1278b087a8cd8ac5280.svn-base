@@ -1,0 +1,106 @@
+package kr.ac.jj.shared.application.common.email.sender.javamail;
+
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
+import java.util.Properties;
+
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.Authenticator;
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import kr.ac.jj.shared.application.common.email.model.BaseEmail;
+import kr.ac.jj.shared.application.common.email.sender.EmailSender;
+import kr.ac.jj.shared.domain.main.model.com.email.TbComEmail;
+import kr.ac.jj.shared.domain.main.model.com.email.atchfile.TbComEmailAtchFile;
+import kr.ac.jj.shared.domain.main.model.com.email.recptn.TbComEmailRecptn;
+import kr.ac.jj.shared.infrastructure.framework.core.foundation.exception.BaseException;
+
+@Component(value = "emailSender.JavaMailSender")
+public class JavaMailSenderImpl implements EmailSender {
+
+    private static final String CHARSET = "utf-8";
+
+    private @Autowired JavaMailSenderConfigProperties javaMailSenderConfig;
+
+    @Override
+    public void send(BaseEmail email) {
+        Properties properties = javaMailSenderConfig.getSessionProperties();
+
+        Session session;
+
+        if ("true".equals(properties.getProperty("mail.smtp.auth"))) {
+            session = Session.getInstance(properties, new Authenticator() {
+
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(javaMailSenderConfig.getSmtpAuthUsername(),
+                            javaMailSenderConfig.getSmtpAuthPassword());
+                }
+
+            });
+        } else {
+            session = Session.getInstance(properties);
+        }
+
+        MimeMessage mimeMessage = new MimeMessage(session);
+
+        try {
+
+            TbComEmail tbComEmail = email.getTbComEmail();
+
+            mimeMessage.setHeader("Content-Transfer-Encoding", "quoted-printable");
+            mimeMessage.setSubject(tbComEmail.getEmailSj(), CHARSET);
+            mimeMessage
+                    .setFrom(new InternetAddress(tbComEmail.getSenderEmailAdres(), tbComEmail.getSenderNm(), CHARSET));
+            mimeMessage.setSentDate(new Date());
+
+            for (TbComEmailRecptn tbComEmailRecptn : email.getTbComEmailRecptnList()) {
+                mimeMessage.addRecipient(tbComEmailRecptn.getRecptnTyEnum(), new InternetAddress(
+                        tbComEmailRecptn.getRcverEmailAdres(), tbComEmailRecptn.getRcverNm(), CHARSET));
+            }
+
+            if (email.getTbComEmailAtchFileList() == null || email.getTbComEmailAtchFileList().size() == 0) {
+                mimeMessage.setContent(tbComEmail.getEmailCn(), "text/html; charset=" + CHARSET);
+            } else {
+                Multipart multipart = new MimeMultipart();
+
+                BodyPart bodyPart = new MimeBodyPart();
+                bodyPart.setContent(tbComEmail.getEmailCn(), "text/html; charset=" + CHARSET);
+                multipart.addBodyPart(bodyPart);
+
+                for (TbComEmailAtchFile tbComEmailAtchFile : email.getTbComEmailAtchFileList()) {
+                    BodyPart filePart = new MimeBodyPart();
+
+                    FileDataSource fds = new FileDataSource(tbComEmailAtchFile.getFile());
+                    filePart.setDataHandler(new DataHandler(fds));
+                    filePart.setFileName(MimeUtility.encodeText(tbComEmailAtchFile.getFileNm(), CHARSET, "B"));
+
+                    multipart.addBodyPart(filePart);
+                }
+
+                mimeMessage.setContent(multipart);
+            }
+
+            Transport.send(mimeMessage);
+
+        } catch (MessagingException e) {
+            throw new BaseException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new BaseException(e);
+        }
+    }
+
+}

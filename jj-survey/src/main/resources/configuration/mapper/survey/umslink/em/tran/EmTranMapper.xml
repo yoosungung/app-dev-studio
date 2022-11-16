@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.ac.jj.survey.domain.umslink.mapper.em.tran.EmTranMapper">
+
+    <!-- 기본 조회 SQL -->
+    <sql id="baseSelectSql">
+        <![CDATA[
+            SELECT ET.TRAN_PR
+                 , ET.TRAN_REFKEY
+                 , ET.TRAN_ID
+                 , ET.TRAN_PHONE
+                 , ET.TRAN_CALLBACK
+                 , ET.TRAN_STATUS
+                 , ET.TRAN_DATE
+                 , ET.TRAN_RSLTDATE
+                 , ET.TRAN_REPORTDATE
+                 , ET.TRAN_RSLT
+                 , ET.TRAN_NET
+                 , ET.TRAN_MSG
+                 , ET.TRAN_ETC1
+                 , ET.TRAN_ETC2
+                 , ET.TRAN_ETC3
+                 , ET.TRAN_ETC4
+                 , ET.TRAN_TYPE
+            FROM   em_tran ET
+        ]]>
+    </sql>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.umslink.model.em.tran.EmTran">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  ET.TRAN_PR = #{tranPr}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="emTran.tranPr">
+        <![CDATA[
+            INSERT INTO em_tran (
+                   TRAN_PR
+                 , TRAN_REFKEY
+                 , TRAN_ID
+                 , TRAN_PHONE
+                 , TRAN_CALLBACK
+                 , TRAN_STATUS
+                 , TRAN_DATE
+                 , TRAN_RSLTDATE
+                 , TRAN_REPORTDATE
+                 , TRAN_RSLT
+                 , TRAN_NET
+                 , TRAN_MSG
+                 , TRAN_ETC1
+                 , TRAN_ETC2
+                 , TRAN_ETC3
+                 , TRAN_ETC4
+                 , TRAN_TYPE
+            ) VALUES (
+                   #{emTran.tranPr}
+                 , #{emTran.tranRefkey}
+                 , #{emTran.tranId}
+                 , #{emTran.tranPhone}
+                 , #{emTran.tranCallback}
+                 , #{emTran.tranStatus}
+                 , NOW()
+                 , #{emTran.tranRsltdate}
+                 , #{emTran.tranReportdate}
+                 , #{emTran.tranRslt}
+                 , #{emTran.tranNet}
+                 , #{emTran.tranMsg}
+                 , #{emTran.tranEtc1}
+                 , #{emTran.tranEtc2}
+                 , #{emTran.tranEtc3}
+                 , #{emTran.tranEtc4}
+                 , #{emTran.tranType}
+            )
+        ]]>
+    </insert>
+
+</mapper>

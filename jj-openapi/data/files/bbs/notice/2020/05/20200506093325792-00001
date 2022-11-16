@@ -1,0 +1,174 @@
+﻿# Python 2.7.6 64-bit
+# pip install openpyxl
+# pip install mysql-connector-python
+# pip install beautifulsoup4
+# pip install pandas
+# pip install nltk
+# pip install sqlalchemy 배열을 sql로 저장
+# pip install WordCloud
+# pip install pymysql
+# pip install konlpy
+
+from wordcloud import WordCloud, STOPWORDS
+
+import numpy as np
+from PIL import Image
+import pandas as pd
+
+import platform
+import matplotlib.pyplot as plt
+
+import pymysql
+from sqlalchemy import create_engine
+
+from bs4 import BeautifulSoup 
+from urllib.request import urlopen
+import urllib
+import time
+
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
+
+conn = pymysql.connect(host = '202.31.236.115', user = 'root', password = '1111' ,db = 'dw_jj')
+# host = DB주소(localhost 또는 ip주소), user = DB id, password = DB password, db = DB명
+
+curs = conn.cursor()
+
+curs.close()
+
+engine = create_engine("mysql+pymysql://root:"+"1111"+"@202.31.236.115:3306/dw_jj?charset=utf8", encoding='utf-8')
+conn = engine.connect()
+
+# %matplotlib inline
+
+path = "c:/Windows/Fonts/malgun.ttf"
+from matplotlib import font_manager, rc
+if platform.system() == 'Darwin':
+    rc('font', family='AppleGothic')
+elif platform.system() == 'Windows':
+    font_name = font_manager.FontProperties(fname=path).get_name()
+    rc('font', family=font_name)
+else:
+    print('Unknown system... sorry~~~~')    
+
+plt.rcParams['axes.unicode_minus'] = False
+
+
+
+
+query = input("검색어 입력: ") 
+
+tmp1 = 'https://search.naver.com/search.naver?where=kin'
+html = tmp1 + '&sm=tab_jum&ie=utf8&query={key_word}&start={num}'
+
+response = urlopen(html.format(num=1, key_word=urllib.parse.quote(query)))
+
+soup = BeautifulSoup(response, "html.parser")
+
+tmp = soup.find_all('dl')
+
+tmp_list = []
+for line in tmp:
+    tmp_list.append(line.text)
+    
+print(tmp_list)
+
+#from tqdm import tqdm_notebook
+
+present_candi_text = []
+
+for n in range(1, 1000, 10):
+    response = urlopen(html.format(num=n, key_word=urllib.parse.quote(query)))
+
+    soup = BeautifulSoup(response, "html.parser")
+
+    tmp = soup.find_all('dl')
+
+    for line in tmp:
+        present_candi_text.append(line.text)
+        
+    # time.sleep(0.5)
+
+print(present_candi_text)
+print(len(present_candi_text))
+
+import nltk
+from konlpy.tag import Twitter; t = Twitter()
+
+present_text = ''
+
+for each_line in present_candi_text[:10000]:
+    present_text = present_text + each_line + '\n'
+
+tokens_ko = t.morphs(present_text)
+print('tokens_ko')
+
+ko = nltk.Text(tokens_ko, name=query)
+print(len(ko.tokens))
+print(len(set(ko.tokens)))
+
+ko = nltk.Text(tokens_ko, name=query)
+ko.vocab().most_common(100)
+
+ko.similar(query)
+
+stop_words = [')', '(', '/', '.', '??', '입니다', '안', '있나요', '부', '나','가','요','답변','...','을','수','에','질문','제','를','이','도',
+                      '좋','1','는','로','으로','2','것','은','다',',','니다','대','들', '닉네임', '인', '이나', '하시면',
+                      '2017','들','데','..','의','때','겠','고','게','네요','한','일','할', '합니다', '어떻게', '하세요',
+                      '10','?','하는','06','주','려고','인데','거','좀','는데','~','ㅎㅎ', '23', '해서', '하고', '번', '???',
+                      '하나','이상','20','뭐','까','있는','잘','습니다','다면','했','주려','내', '자', '에는', '더', '금',
+                      '지','있','못','후','중','줄','6','과','어떤','기본','!!', '기', '본', '전', '이런', '에서', '까지','취중','바다','물고기','염도','내외','페이스','거리','바보','기타','상황','현재','영위','한자','하나','은하수','확률','형성','시절','단추','건배','강제','택시','정년퇴임','전날','선물','말씀','명예교수','넓이','위치','시선','불확실','해소','심층','무한','강화','이용','전반','기간','실제','참관','입장','마지막','불행','자연','예시','평소','주인','대가','한명','은거','처음','전부','일부','정도','지금','구축함','점심','일부분','절반','하루','근접','생성','외면','자재','얘기','표시','대사','퍼스널','의대','사항','강요','대의','모둠','모의','각각','한대','전파','좌우고면','시도','이직','교양지','배상','천연','연장','주가','이중','잠재','욕심','자만','대회','테니스','개최','가짐','소중','기영','당장','당연','단순','돈독','밀접','관련','해서','들이','조금씩','다양','가지','하기','중임','무엇','열심','같습니','슈퍼스','무언가','전공마스','하지','임하','누구','열정적','혼자','한경','직업적','지속적','적극','실질적','이럴때','이런거에','기본적','때문','외적','내적','스스로','잠재적','모토','위해','있습니','무조건','중시하','그것','그걸','벽취업난','할만','고싶','은일','이후','적음','정한','있을곳을','좋은곳에','확실','위주','만큼','대학생같','어느정도','오랫동안','학생과','교루를','신세대적','퍼스','거같','자발적','충분','도록','타과','많한','각자','조금더','해주','능동적','질높은','꾸준','완만','좋냐에','비롯','효율적','인상깊게','여러','잘참','여하','인관','적절','가장','잘꿰어','너희','의아','마다','인당','나중','떳떳','번째','어디','두냐인','모두','그에따른','다른사람','긍정적','되지','필연적','확고','누군가','계속','그러기','루기','위한','투자하','우선','등등','나름','생생','공이','급작','관련하','저희','이전','그자','말속','개별적','스펙쌓기','급급','올리','절대적','햑교는','심층적','지원또한','의외','뿌듯','임하면','해주시','융합적','단편적','일회','실용적','그동안','뚜렷','설계가','주고','이번','해치','하고','바탕지','진짜','계하','하는거','상관없','고유','훌륭','그로인해','최소한','자기계','동안','최대','허투','아나','것이라거','꿈보단','보단','맞는곳을','전혀다른','조금','창의적','혁신적','좋겠습니','어느것이','그것또한','이외','텔링이','좋겠','거기','한다한들','얼마','마주','하거','속한','불구','실무적','대외적','다방면적','생이','중인','와중','년차','환경적','기독','그다음','부수적','종합적','느끼','명확','해지','느낀점은','이론적','이것','소극','구체','획일적','네임드','리트','캠스톤','진사','분명','싶은일이','싶습니','정말','하려','커리','부지런','도모','일차원적','아래','고연','하단','말하','만들기','서비스인','정의한','덕분','통한','활발','동기와','필수적','한거','간략','율의','원만','자율적','관리하','단단','재학중','하자','최종적','거대','사소','내가','만하','기죽','예비','실의','뭔지','하는일이','일하','가까이','각장','추업','나위','최대한','개월','사실상','로한','발짝','한점','그학교','많은','예를들어','점들','물론','구해','잘먹고','까지','잘맞는','높은학','풍성','누리','외의','슥듭할수','전단계','전체','밤새','그게','또한요','생강','신이','강위','듣다보면','하면','더월드','주도적','잘쌓고','정하','각종','쌓아올린','미래의','어떤것이','있을가요','원하는직','의전','공과','지고','추가적','하신','사회적','말합','다채','학과란','어울','있느','마지','조차','버거워','수동적','이룩','일할','목적하','다각','생의','아닌거','의경','감과','되기','다섯','없습니','하빈','대내외적','조성해','하라','예전','무슨일','특히','특별','계획하','깨닫','끈임없는',
+                      '단어','선물해','라고','중요한','합','가요','....','보이','네','무지']
+
+tokens_ko = [each_word for each_word in tokens_ko 
+                        if each_word not in stop_words]
+
+ko = nltk.Text(tokens_ko, name=query)
+ko.vocab().most_common(50)
+
+print(ko.vocab().most_common(50))
+
+# DB insert
+
+
+sql = """truncate table dw_crwl"""
+conn.execute(sql)
+
+columns = ['keyword', 'weight']
+df = pd.DataFrame( ko.vocab().most_common(50), columns=columns)
+
+print(df)
+
+df.to_sql(name='dw_crwl', con=engine, if_exists='append', index=False)
+
+# sql = """insert into dw_crwl(keyword, weight)
+#         values (%s, %s)"""
+# curs.execute(sql, ko.vocab().most_common(50))
+# curs.execute(sql, ('이연수', 2))
+
+conn.close()
+
+# Chart
+plt.figure(figsize=(15,6))
+ko.plot(50) 
+plt.show()
+
+from wordcloud import WordCloud, STOPWORDS
+from PIL import Image
+
+data = ko.vocab().most_common(300)
+print(data)
+# for win : font_path='c:/Windows/Fonts/malgun.ttf'
+wordcloud = WordCloud(font_path='c:/Windows/Fonts/malgun.ttf',
+                      relative_scaling = 0.2,
+                      #stopwords=STOPWORDS,
+                      background_color='white',
+                      ).generate_from_frequencies(dict(data))
+plt.figure(figsize=(16,8))
+plt.imshow(wordcloud)
+plt.axis("off")
+plt.show()
+
+
+

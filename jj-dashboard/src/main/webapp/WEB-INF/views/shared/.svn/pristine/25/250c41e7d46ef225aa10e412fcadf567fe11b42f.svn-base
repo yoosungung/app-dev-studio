@@ -1,0 +1,187 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/layouts/shared/include/PageHeader.jspf" %>
+
+<style>
+.code {
+    font-family: "Courier New";
+}
+
+pre.code {
+    white-space: pre;
+    overflow-x: auto;
+}
+</style>
+
+<div id="read" style="display: none;">
+    <div class="pageHeader">
+        에러 상세
+    </div>
+
+    <div class="pageContents">
+        <table class="form">
+            <colgroup>
+                <col width="120px">
+                <col width="">
+                <col width="120px">
+                <col width="">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>에러 코드</th>
+                    <td>
+                        <span>{{ model.tbSysLogError.errorCode }}</span>
+                    </td>
+                    <th>응답 상태코드</th>
+                    <td>
+                        <span>{{ model.tbSysLog.rspnsSttusCode }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>에러 일시</th>
+                    <td>
+                        <span>{{ formatter.datetime(model.tbSysLogError.errorDt) }}</span>
+                    </td>
+                    <th>요청 유형/방식</th>
+                    <td>
+                        <span>{{ model.tbSysLog.requstTy }}</span> /
+                        <span>{{ model.tbSysLog.requstMthd }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>사용자 이름</th>
+                    <td>
+                        <span>{{ model.tbSysUser && model.tbSysUser.userNm }}</span>
+                    </td>
+                    <th>로그인 이름</th>
+                    <td>
+                        <span>{{ model.tbSysUser && model.tbSysUser.loginNm }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>서버 IP주소</th>
+                    <td>
+                        <span>{{ model.tbSysLog.serverIp }}</span>
+                    </td>
+                    <th>요청 IP주소</th>
+                    <td>
+                        <span>{{ model.tbSysLog.requstIp }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>요청 호스트</th>
+                    <td colspan="3">
+                        <span class="code">{{ model.tbSysLog.requstHost }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>요청 경로</th>
+                    <td colspan="3">
+                        <span class="code">{{ model.tbSysLog.requstPath }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>요청 헤더</th>
+                    <td colspan="3">
+                        <pre class="code">{{ model.tbSysLog.requstHder }}</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <th>요청 파라미터</th>
+                    <td colspan="3">
+                        <pre class="code">{{ model.tbSysLog.requstParamtr }}</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <th>요청 Body</th>
+                    <td colspan="3">
+                        <pre class="code">{{ model.tbSysLog.requstBody }}</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <th>에러 클래스</th>
+                    <td colspan="3">
+                        <pre class="code">{{ model.tbSysLogError.errorClass }}</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <th>에러 메시지</th>
+                    <td colspan="3">
+                        <pre class="code">{{ model.tbSysLogError.errorMssage }}</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <th>에러 스택</th>
+                    <td colspan="3">
+                        <pre class="code">{{ model.tbSysLogError.errorStack }}</pre>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div v-for="(tbSysLogQuery, index) in model.tbSysLogQueryList" style="position: relative; margin-top: 20px;">
+            <h3>
+                <span>쿼리정보 {{ index + 1 }}/{{ model.tbSysLogQueryList.length }} : {{ formatter.datetime(tbSysLogQuery.queryDt) }}</span>
+                <span v-if="tbSysLogQuery.executTime != null">({{ tbSysLogQuery.executTime }}ms)</span>
+                <span v-if="tbSysLogQuery.executTime == null" style="color: red;">(Error)</span>
+            </h3>
+            <div style="position: absolute; top: 0px; right: 0px;">
+                <ui-checkbox v-model="tbSysLogQuery.queryParamtrShow">파라미터 확장</ui-checkbox>
+            </div>
+            <table class="form">
+                <colgroup>
+                    <col width="50%">
+                    <col width="50%">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <pre class="code">{{ tbSysLogQuery.querySntenc }}</pre>
+                            <pre class="code" v-show="tbSysLogQuery.queryParamtrShow">{{ tbSysLogQuery.queryParamtr }}</pre>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <pre class="code">{{ tbSysLogQuery.querySntencCmplt }}</pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="page-space tar">
+            <ui-button class="page" v-on:click="service['delete']();">삭제</ui-button>
+            <ui-button class="list" v-on:click="viewList();">목록</ui-button>
+        </div>
+    </div>
+</div>
+
+<script>
+vues.read = new Vue({
+    el: '#read',
+    data: {
+        errorLogId: null,
+        model: {
+            tbSysLogError: {},
+            tbSysLog: {},
+            tbSysUser: {},
+            tbSysLogQueryList: []
+        }
+    },
+    computed: {
+        service: function() {
+            return new ErrorLogManageViewService(this);
+        },
+        formatter: function() {
+            return CommonUtil.formatter;
+        }
+    },
+    methods: {
+        // 초기화
+        init: function(errorLogId) {
+            this.service.read(errorLogId);
+        },
+        // 목록 화면
+        viewList: function() {
+            CommonUtil.changeVue("list");
+        }
+    }
+});
+</script>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 사람 사용자 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.com.person.user.TbComPersonUserEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.com.person.user.TbComPersonUser">
+        <![CDATA[
+            SELECT TCPU.PERSON_USER_ID
+                 , TCPU.PERSON_ID
+                 , TCPU.USER_ID
+            FROM   TB_COM_PERSON_USER TCPU
+            WHERE  TCPU.PERSON_USER_ID = #{personUserId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_COM_PERSON_USER (
+                   PERSON_USER_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , PERSON_ID
+                 , USER_ID
+            ) VALUES (
+                   #{tbComPersonUser.personUserId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbComPersonUser.personId}
+                 , #{tbComPersonUser.userId}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_COM_PERSON_USER SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , PERSON_ID                        = #{tbComPersonUser.personId}
+                 , USER_ID                          = #{tbComPersonUser.userId}
+            WHERE  PERSON_USER_ID = #{tbComPersonUser.personUserId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_PERSON_USER
+            WHERE  PERSON_USER_ID = #{personUserId}
+        ]]>
+    </delete>
+
+</mapper>

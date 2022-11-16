@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 인사정보 관리 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.admin.appmanage.hrmanage.mapper.HumanResourceManageMapper">
+
+    <!-- 학생 조직 목록 조회 -->
+    <select id="selectStudentOrganizationList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TCP.UNIV AS DEPT_CODE
+                 , NULL AS UPPER_DEPT_CODE
+                 , 1 AS DEPT_LEVEL
+                 , TCP.UNIV
+                 , NULL AS UNDEG
+                 , NULL AS SUBJCT
+            FROM   TB_COM_PERSON TCP
+            WHERE  TCP.PERSON_SE IN ('G', 'S')
+            AND    TCP.HFFC_STTUS = 'C'
+            UNION
+            SELECT TCP.UNDEG AS DEPT_CODE
+                 , TCP.UNIV AS UPPER_DEPT_CODE
+                 , 2 AS DEPT_LEVEL
+                 , TCP.UNIV
+                 , TCP.UNDEG
+                 , NULL AS SUBJCT
+            FROM   TB_COM_PERSON TCP
+            WHERE  TCP.PERSON_SE IN ('G', 'S')
+            AND    TCP.HFFC_STTUS = 'C'
+            UNION
+            SELECT TCP.SUBJCT AS DEPT_CODE
+                 , TCP.UNDEG AS UPPER_DEPT_CODE
+                 , 3 AS DEPT_LEVEL
+                 , TCP.UNIV
+                 , TCP.UNDEG
+                 , TCP.SUBJCT
+            FROM   TB_COM_PERSON TCP
+            WHERE  TCP.PERSON_SE IN ('G', 'S')
+            AND    TCP.HFFC_STTUS = 'C'
+            AND    TCP.SUBJCT != '0000'
+        ]]>
+    </select>
+
+    <!-- 학생 조직 맵핑 목록 생성 -->
+    <insert id="insertStudentPersonDeptList">
+        <![CDATA[
+            INSERT INTO TB_COM_PERSON_DEPT (
+                   PERSON_ID
+                 , DEPT_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+            )
+            SELECT TCP.PERSON_ID
+                 , #{deptId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+            FROM   TB_COM_PERSON TCP
+            WHERE  TCP.PERSON_SE IN ('G', 'S')
+            AND    TCP.UNIV = #{univ}
+            AND    TCP.UNDEG = #{undeg}
+            AND    TCP.SUBJCT = #{subjct}
+            AND    NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_COM_PERSON_DEPT
+                        WHERE  PERSON_ID = TCP.PERSON_ID
+                        AND    DEPT_ID = #{deptId}
+                   )
+        ]]>
+    </insert>
+
+</mapper>

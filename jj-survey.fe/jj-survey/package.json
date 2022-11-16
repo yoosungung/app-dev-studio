@@ -1,0 +1,101 @@
+{
+  "name": "jj-survey",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "set NODE_ENV=development&&set BABEL_ENV=development&&node_modules\\.bin\\webpack -d --progress",
+    "watch": "set NODE_ENV=development&&set BABEL_ENV=development&&node_modules\\.bin\\webpack -d --progress --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@blueprintjs/core": "^3.21.0",
+    "@blueprintjs/docs-theme": "^3.4.0",
+    "@blueprintjs/select": "^3.11.2",
+    "@blueprintjs/table": "^3.8.2",
+    "@types/axios": "^0.14.0",
+    "@types/react": "^16.9.13",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-router-dom": "^5.1.2",
+    "axios": "^0.19.0",
+    "axios-progress-bar": "^1.2.0",
+    "bootstrap": "^4.3.1",
+    "core-js": "^3.4.7",
+    "i": "^0.3.6",
+    "mobx": "^4.14.1",
+    "mobx-react": "^6.1.4",
+    "mobx-react-router": "^4.0.7",
+    "node-sass": "^4.13.0",
+    "npm": "^6.13.1",
+    "react": "^16.12.0",
+    "react-addons-css-transition-group": "^15.6.2",
+    "react-addons-transition-group": "^15.6.2",
+    "react-app-polyfill": "^1.0.5",
+    "react-data-grid": "^6.1.0",
+    "react-dom": "^16.12.0",
+    "react-loader-spinner": "^3.1.5",
+    "react-multiselect-checkboxes": "^0.1.1",
+    "react-promise-tracker": "^2.0.5",
+    "react-router-dom": "^5.1.2",
+    "react-toastify": "^5.4.1",
+    "reactstrap": "^8.1.1",
+    "styled-components": "^4.4.1",
+    "typescript": "^3.7.2",
+    "url-search-params-polyfill": "^7.0.0",
+    "use-react-router": "^1.0.7",
+    "use-state-with-callback": "^1.0.18"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-proposal-decorators": "^7.7.4",
+    "awesome-typescript-loader": "^5.2.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.2.0",
+    "file-loader": "^4.3.0",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.0",
+    "url-loader": "^2.3.0",
+    "webpack": "^4.41.2",
+    "webpack-bundle-analyzer": "^3.6.0",
+    "webpack-cli": "^3.3.10"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      ">0.2%",
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "react-app",
+      "mobx"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
+        }
+      ]
+    ]
+  }
+}

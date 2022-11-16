@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 리소스별 권한 TO 시스템 - 리소스 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.resrce.author.TbSysResrceAuthorToResrceMapper">
+
+    <!-- 목록 조회 - AUTHOR_ID(으)로 -->
+    <select id="selectListByAuthorId" resultType="kr.ac.jj.shared.domain.main.model.sys.resrce.author.TbSysResrceAuthorToResrce">
+        <![CDATA[
+            SELECT TSR.RESRCE_ID
+                 , TSR.RESRCE_TY
+                 , TSR.RESRCE_PTTRN
+                 , TSR.SORT_ORDR
+                 , TSR.USE_YN
+                 , CASE WHEN TSRA.RESRCE_AUTHOR_CO IS NULL THEN 0 ELSE TSRA.RESRCE_AUTHOR_CO END AS RESRCE_AUTHOR_CO
+                 , CASE WHEN TSRA.RESRCE_AUTHOR_CO IS NULL THEN '0' ELSE '1' END AS RESRCE_AUTHOR_YN
+            FROM   TB_SYS_RESRCE TSR
+                   LEFT JOIN (
+                        SELECT TSRA.RESRCE_ID
+                             , COUNT(*) AS RESRCE_AUTHOR_CO
+                        FROM   TB_SYS_RESRCE_AUTHOR TSRA
+                        WHERE  TSRA.AUTHOR_ID = #{authorId}
+                        GROUP BY TSRA.RESRCE_ID
+                   ) TSRA ON TSRA.RESRCE_ID = TSR.RESRCE_ID
+            ORDER BY TSR.SORT_ORDR
+        ]]>
+    </select>
+
+</mapper>

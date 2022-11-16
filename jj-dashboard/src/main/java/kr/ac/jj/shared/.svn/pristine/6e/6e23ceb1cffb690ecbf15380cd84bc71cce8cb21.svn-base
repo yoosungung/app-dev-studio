@@ -1,0 +1,95 @@
+package kr.ac.jj.shared.application.common.file.controller;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.codec.binary.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.Base64Utils;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import kr.ac.jj.shared.application.common.file.model.FileDownloadInfo;
+import kr.ac.jj.shared.application.common.file.view.FileDownloadView;
+import kr.ac.jj.shared.infrastructure.framework.core.support.collection.BaseMap;
+import kr.ac.jj.shared.infrastructure.util.BaseUtil;
+
+/**
+ * 파일 Controller
+ */
+@Controller
+@RequestMapping(path = "/common/file")
+public class FileController {
+
+    private @Autowired FileDownloadView fileDownloadView;
+
+    /**
+     * 이미지 업로드
+     */
+    @PostMapping(path = "/uploadImage")
+    public void uploadImage(HttpServletResponse response, @RequestParam("upload") MultipartFile multipartFile) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("data:image/png;base64,");
+
+        try {
+            sb.append(StringUtils.newStringUtf8(Base64Utils.encode(multipartFile.getBytes())));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        BaseMap result = new BaseMap();
+        result.put("url", sb.toString());
+        result.put("uploaded", true);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            objectMapper.writeValue(response.getOutputStream(), result);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 임시 파일 다운로드
+     *
+     * @param tempFileName
+     * @param realFileName
+     * @param request
+     * @param response
+     */
+    @PostMapping(path = "/downloadTempFile")
+    public void downloadExcelFile(@RequestParam String tempFileName, @RequestParam String realFileName,
+            HttpServletRequest request, HttpServletResponse response) {
+
+        File excelFile = new File(BaseUtil.getTempDirectory(), tempFileName);
+        Map<String, Object> model = new HashMap<String, Object>();
+
+        FileDownloadInfo fileDownloadInfo = new FileDownloadInfo();
+        fileDownloadInfo.setDownloadFile(excelFile);
+        fileDownloadInfo.setOriginalFileName(realFileName);
+        fileDownloadInfo.setDeleteDownloadFile(true);
+
+        model.put("fileDownloadInfo", fileDownloadInfo);
+
+        try {
+            fileDownloadView.renderMergedOutputModel(model, request, response);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            excelFile.delete();
+        }
+    }
+
+}

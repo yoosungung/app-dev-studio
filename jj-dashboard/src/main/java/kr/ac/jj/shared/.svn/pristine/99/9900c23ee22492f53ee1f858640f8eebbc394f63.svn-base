@@ -1,0 +1,32 @@
+package kr.ac.jj.shared.domain.main.mapper.com.dty;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+
+/**
+ * 공통 - 직무 Mapper
+ */
+@SharedMainSqlMapper
+public interface TbComDtyMapper extends TbComDtyEntityMapper {
+
+    /**
+     * 목록 생성
+     *
+     * @return
+     */
+    public int insertList();
+
+    /**
+     * 목록 수정
+     *
+     * @return
+     */
+    public int updateList();
+
+    /**
+     * 목록 수정 - 사용 여부 미사용 처리
+     *
+     * @return
+     */
+    public int updateListUseYnTo0();
+
+}

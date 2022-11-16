@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.jd.survey.sec.user.group.JdSurveySecUserGroupEntityMapper">
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO SURVEY_SEC_USER_GROUP (
+                   USER_ID
+                 , GROUP_ID
+            ) VALUES (
+                   #{jdSurveySecUserGroup.userId}
+                 , #{jdSurveySecUserGroup.groupId}
+            )
+        ]]>
+    </insert>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   SURVEY_SEC_USER_GROUP
+            WHERE  USER_ID = #{userId}
+            AND    GROUP_ID = #{groupId}
+        ]]>
+    </delete>
+
+</mapper>

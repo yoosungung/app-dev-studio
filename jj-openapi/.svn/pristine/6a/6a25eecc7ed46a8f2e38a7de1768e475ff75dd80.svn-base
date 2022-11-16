@@ -1,0 +1,67 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/layouts/shared/include/PageHeader.jspf"%>
+
+<div id="read" style="dispaly:none;">
+<div class="main_content">
+
+    <br><br>
+    <div class="pageHeader">
+                    이용 안내
+    </div>
+    <div class="pageContents">
+<!-- <ui-button class="page" v-on:click="viewEdit();" v-if="model.editable">수정</ui-button> -->
+            <div style="text-align:right;" class="btn_area">
+                <ui-button class="page" v-if="model.editable" v-on:click="viewEdit();" >수정</ui-button>
+            </div>
+
+            <table class="form">
+                <colgroup>
+                    <col width="100%">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td style="text-align:center;">
+                            <ui-ckeditor v-model="model.tbServiceGuide.serviceContent" read-only></ui-ckeditor>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width:1200px;"></th>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    vues.read = new Vue({
+        el : '#read',
+        data : {
+           model : {
+               tbServiceGuide: {}
+           }
+        },
+        computed : {
+            service : function() {
+                 return new ServiceGuideViewService(this);
+            },
+            formatter : function() {
+                return CommonUtil.formatter;
+            }
+        },
+        mounted: function() {
+            this.service.read();
+        },
+        methods : {
+            // 초기화
+            init: function() {
+                this.service.read();
+            },
+            // 수정 화면
+            viewEdit : function() {
+                CommonUtil.changeVue("edit");
+            }
+        }
+    });
+</script>

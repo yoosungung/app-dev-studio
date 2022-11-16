@@ -1,0 +1,12 @@
+################################################################################
+# 기본
+################################################################################
+spring:
+  profiles:
+    include:
+      - logging-console
+
+config:
+  shared:
+    logs-directory: data/logs
+    temp-directory: data/temp

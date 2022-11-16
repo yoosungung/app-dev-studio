@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 오픈API_서비스 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbApiSvc.svcId"><![CDATA[서비스 ID]]></entry>
+    <entry key="domain.main.tbApiSvc.registPsnId"><![CDATA[생성 사용자 ID]]></entry>
+    <entry key="domain.main.tbApiSvc.registDt"><![CDATA[생성 일시]]></entry>
+    <entry key="domain.main.tbApiSvc.svcNm"><![CDATA[서비스 이름]]></entry>
+    <entry key="domain.main.tbApiSvc.url"><![CDATA[URL]]></entry>
+    <entry key="domain.main.tbApiSvc.dataFrmat"><![CDATA[데이터 포맷]]></entry>
+    <entry key="domain.main.tbApiSvc.othbcTy"><![CDATA[공개 유형]]></entry>
+    <entry key="domain.main.tbApiSvc.othbcPdBegin"><![CDATA[공개기간시작]]></entry>
+    <entry key="domain.main.tbApiSvc.othbcPdEnd"><![CDATA[공개기간종료]]></entry>
+    <entry key="domain.main.tbApiSvc.validPdBegin"><![CDATA[유효기간시작]]></entry>
+    <entry key="domain.main.tbApiSvc.validPdEnd"><![CDATA[유효기간종료]]></entry>
+    <entry key="domain.main.tbApiSvc.manageDeptNm"><![CDATA[관리부서명]]></entry>
+    <entry key="domain.main.tbApiSvc.manageDeptTlphonNo"><![CDATA[관리부서전화번호]]></entry>
+    <entry key="domain.main.tbApiSvc.atchFileId"><![CDATA[첨부파일]]></entry>
+    <entry key="domain.main.tbApiSvc.rm"><![CDATA[비고]]></entry>
+
+</properties>

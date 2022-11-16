@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 사람 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.person.TbComPersonMapper">
+
+    <!-- PERSON_ID 조회 - 사번으로 -->
+    <select id="selectPersonIdByEmplNo" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TCP.PERSON_ID
+            FROM   TB_COM_PERSON TCP
+            WHERE  TCP.EMPL_NO = #{emplNo}
+        ]]>
+    </select>
+
+    <!-- PERSON_ID 조회 - 사람 정보로 -->
+    <select id="selectPersonId" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TCP.PERSON_ID
+            FROM   TB_COM_PERSON TCP
+            WHERE  1 = 1
+        ]]>
+
+        <choose>
+        <when test='tbComPerson.koreanNm != null and tbComPerson.koreanNm != ""'>
+            <![CDATA[
+            AND    UPPER(TCP.KOREAN_NM) = UPPER(#{tbComPerson.koreanNm})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+            AND    TCP.KOREAN_NM IS NULL
+            ]]>
+        </otherwise>
+        </choose>
+
+        <choose>
+        <when test='tbComPerson.emailAdres != null and tbComPerson.emailAdres != ""'>
+            <![CDATA[
+            AND    UPPER(TCP.EMAIL_ADRES) = UPPER(#{tbComPerson.emailAdres})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+            AND    TCP.EMAIL_ADRES IS NULL
+            ]]>
+        </otherwise>
+        </choose>
+
+        <choose>
+        <when test='tbComPerson.tlphonNo != null and tbComPerson.tlphonNo != ""'>
+            <![CDATA[
+            AND    UPPER(REPLACE(TCP.TLPHON_NO, '-', '')) = UPPER(REPLACE(#{tbComPerson.tlphonNo}, '-', ''))
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+            AND    TCP.TLPHON_NO IS NULL
+            ]]>
+        </otherwise>
+        </choose>
+    </select>
+
+    <!-- 사번, PERSON_ID 목록 조회 -->
+    <select id="selectEmplNoPersonIdList" resultType="kr.ac.jj.shared.domain.main.model.com.person.TbComPerson">
+        <![CDATA[
+            SELECT TCP.EMPL_NO
+                 , TCP.PERSON_ID
+            FROM   TB_COM_PERSON TCP
+            WHERE  TCP.PERSON_SE IS NOT NULL
+            ORDER BY TCP.EMPL_NO
+        ]]>
+    </select>
+
+    <!-- 사번, USER_ID 목록 조회 -->
+    <select id="selectEmplNoUserIdList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TCP.EMPL_NO
+                 , TCPU.USER_ID
+            FROM   TB_COM_PERSON TCP
+                   INNER JOIN TB_COM_PERSON_USER TCPU ON TCPU.PERSON_ID = TCP.PERSON_ID
+            WHERE  TCP.PERSON_SE IS NOT NULL
+            ORDER BY TCP.EMPL_NO
+        ]]>
+    </select>
+
+    <!-- 수정 - 인터페이스 ID 없는 것들 -->
+    <update id="updateHffcSttusWhereIntrfcIdNotMatched">
+        <![CDATA[
+            UPDATE TB_COM_PERSON SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , HFFC_STTUS                       = #{hffcSttus}
+            WHERE  PERSON_ID NOT IN (
+                        SELECT TSI.ID_VALUE
+                        FROM   TB_SYS_INTRFC TSI
+                        WHERE  TSI.TABLE_NM = #{tableNm}
+                   )
+            AND    PERSON_SE IS NOT NULL
+        ]]>
+    </update>
+
+</mapper>

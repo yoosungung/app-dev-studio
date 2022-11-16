@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 사용자 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.sys.user.TbSysUser">
+        <![CDATA[
+            SELECT TSU.USER_ID
+                 , TSU.LOGIN_NM
+                 , TSU.LOGIN_PASSWORD
+                 , TSU.USE_YN
+                 , TSU.USER_LOCALE
+                 , TSU.PASSWORD_END_DE
+                 , TSU.BEFORE_LOGIN_DT
+                 , TSU.LAST_LOGIN_DT
+            FROM   TB_SYS_USER TSU
+            WHERE  TSU.USER_ID = #{userId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SYS_USER (
+                   USER_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , LOGIN_NM
+                 , LOGIN_PASSWORD
+                 , USE_YN
+                 , USER_LOCALE
+                 , PASSWORD_END_DE
+                 , BEFORE_LOGIN_DT
+                 , LAST_LOGIN_DT
+            ) VALUES (
+                   #{tbSysUser.userId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbSysUser.loginNm}
+                 , #{tbSysUser.loginPassword}
+                 , #{tbSysUser.useYn}
+                 , #{tbSysUser.userLocale}
+                 , #{tbSysUser.passwordEndDe}
+                 , #{tbSysUser.beforeLoginDt}
+                 , #{tbSysUser.lastLoginDt}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SYS_USER SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , LOGIN_NM                         = #{tbSysUser.loginNm}
+                 , USE_YN                           = #{tbSysUser.useYn}
+                 , USER_LOCALE                      = #{tbSysUser.userLocale}
+            WHERE  USER_ID = #{tbSysUser.userId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_USER
+            WHERE  USER_ID = #{userId}
+        ]]>
+    </delete>
+
+</mapper>

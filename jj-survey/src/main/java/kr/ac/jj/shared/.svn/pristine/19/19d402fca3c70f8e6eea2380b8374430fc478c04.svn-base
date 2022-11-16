@@ -1,0 +1,10 @@
+package kr.ac.jj.shared.domain.main.mapper.sys.log.menu;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+
+/**
+ * 시스템 - 메뉴 로그 Mapper
+ */
+@SharedMainSqlMapper
+public interface TbSysLogMenuMapper extends TbSysLogMenuEntityMapper {
+}

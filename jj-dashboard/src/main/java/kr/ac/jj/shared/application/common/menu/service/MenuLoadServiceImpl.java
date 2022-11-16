@@ -1,0 +1,48 @@
+package kr.ac.jj.shared.application.common.menu.service;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper;
+import kr.ac.jj.shared.config.props.SharedConfigProperties;
+import kr.ac.jj.shared.infrastructure.framework.core.support.collection.BaseMapList;
+import kr.ac.jj.shared.infrastructure.framework.web.security.util.SecurityContextUtil;
+
+/**
+ * 메뉴 로딩 Service
+ */
+@Service
+public class MenuLoadServiceImpl {
+
+    private @Autowired SharedConfigProperties sharedConfig;
+    private @Autowired MenuLoadMapper menuLoadMapper;
+
+    /**
+     * 전체 목록 조회
+     *
+     * @param menuKnd
+     * @return
+     */
+    public BaseMapList readAllList(String menuKnd) {
+        Collection<? extends GrantedAuthority> authorities = SecurityContextUtil.getUserReachableAuthorities();
+
+        if (authorities != null) {
+            return menuLoadMapper.readAllList(menuKnd, authorities);
+        }
+
+        ArrayList<GrantedAuthority> authorityList = new ArrayList<GrantedAuthority>();
+
+        for (String authorCode : sharedConfig.getLogin().getDefaultAuthorCodes()) {
+            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(authorCode);
+            authorityList.add(authority);
+        }
+
+        return menuLoadMapper.readAllList(menuKnd, authorityList);
+    }
+
+}

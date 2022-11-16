@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템관리 코드데이터 Mapper
+ -->
+<mapper namespace="codedata.admin.sysmanage">
+
+    <!-- 권한 코드 -->
+    <select id="authorCode" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TSA.AUTHOR_CODE AS CODE
+                 , TSA.AUTHOR_CODE AS NAME
+            FROM   TB_SYS_AUTHOR TSA
+            ORDER BY TSA.SORT_ORDR
+        ]]>
+    </select>
+
+</mapper>

@@ -1,0 +1,54 @@
+package kr.ac.jj.shared.infrastructure.framework.core.support.codedata;
+
+import java.util.ArrayList;
+
+import javax.annotation.PostConstruct;
+
+import org.apache.commons.lang3.StringUtils;
+
+public class CodeDataBooleanTypeList extends ArrayList<CodeDataBooleanType> {
+
+    private static final long serialVersionUID = 7709224841369650118L;
+
+    private String[] trueCodes;
+    private String[] falseCodes;
+
+    @PostConstruct
+    public void postConstruct() {
+        this.trueCodes = new String[this.size()];
+        this.falseCodes = new String[this.size()];
+
+        for (int i = 0, ii = this.size(); i < ii; i++) {
+            CodeDataBooleanType booleanCode = this.get(i);
+
+            this.trueCodes[i] = booleanCode.getTrueCode();
+            this.falseCodes[i] = booleanCode.getFalseCode();
+        }
+    }
+
+    public boolean isBooleanType(String code1, String code2) {
+        for (CodeDataBooleanType booleanCode : this) {
+            String trueCode = booleanCode.getTrueCode();
+            String falseCode = booleanCode.getFalseCode();
+
+            if (StringUtils.equalsIgnoreCase(code1, trueCode) && StringUtils.equalsIgnoreCase(code2, falseCode)) {
+                return true;
+            }
+
+            if (StringUtils.equalsIgnoreCase(code1, falseCode) && StringUtils.equalsIgnoreCase(code2, trueCode)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isTrueCode(String code) {
+        return StringUtils.equalsAnyIgnoreCase(code, this.trueCodes);
+    }
+
+    public boolean isFalseCode(String code) {
+        return StringUtils.equalsAnyIgnoreCase(code, this.falseCodes);
+    }
+
+}

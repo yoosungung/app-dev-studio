@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 게시판 - 일반(답변형) Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.bbs.gnrl.TbBbsGnrlEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.bbs.gnrl.TbBbsGnrl">
+        <![CDATA[
+            SELECT TBG.BBSCTT_ID
+                 , TBG.BBS_CODE
+                 , TBG.BBSCTT_NO
+                 , TBG.BBSCTT_SJ
+                 , TBG.BBSCTT_CN
+                 , TBG.ATCH_FILE_ID
+                 , TBG.RDCNT
+                 , TBG.FRST_BBSCTT_ID
+                 , TBG.ANSWER_LEVEL
+                 , TBG.ANSWER_ORDR
+                 , TBG.DELETE_YN
+                 , TBG.WRITNG_PSN_ID
+                 , TBG.WRITNG_DT
+                 , TBG.CHANGE_PSN_ID
+                 , TBG.CHANGE_DT
+            FROM   TB_BBS_GNRL TBG
+            WHERE  TBG.BBSCTT_ID = #{bbscttId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_BBS_GNRL (
+                   BBSCTT_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , BBS_CODE
+                 , BBSCTT_NO
+                 , BBSCTT_SJ
+                 , BBSCTT_CN
+                 , ATCH_FILE_ID
+                 , RDCNT
+                 , FRST_BBSCTT_ID
+                 , ANSWER_LEVEL
+                 , ANSWER_ORDR
+                 , DELETE_YN
+                 , WRITNG_PSN_ID
+                 , WRITNG_DT
+            ) VALUES (
+                   #{tbBbsGnrl.bbscttId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbBbsGnrl.bbsCode}
+        ]]>
+
+        <choose>
+        <when test='tbBbsGnrl.bbscttNo == null'>
+            <![CDATA[
+                 , (SELECT IFNULL(MAX(A.BBSCTT_NO), 0) + 1 FROM TB_BBS_GNRL A WHERE A.BBS_CODE = #{tbBbsGnrl.bbsCode})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , #{tbBbsGnrl.bbscttNo}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , #{tbBbsGnrl.bbscttSj}
+                 , #{tbBbsGnrl.bbscttCn}
+                 , #{tbBbsGnrl.atchFileId}
+                 , #{tbBbsGnrl.rdcnt}
+                 , #{tbBbsGnrl.frstBbscttId}
+                 , #{tbBbsGnrl.answerLevel}
+                 , #{tbBbsGnrl.answerOrdr}
+                 , #{tbBbsGnrl.deleteYn}
+                 , #{$var.loginUser.personId}
+                 , #{$var.systemDate}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_BBS_GNRL SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , BBS_CODE                         = #{tbBbsGnrl.bbsCode}
+        ]]>
+
+        <choose>
+        <when test='tbBbsGnrl.bbscttNo == null'>
+            <![CDATA[
+                 , BBSCTT_NO                        = (SELECT IFNULL(MAX(A.BBSCTT_NO), 0) + 1 FROM TB_BBS_GNRL A WHERE A.BBS_CODE = #{tbBbsGnrl.bbsCode})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , BBSCTT_NO                        = #{tbBbsGnrl.bbscttNo}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , BBSCTT_SJ                        = #{tbBbsGnrl.bbscttSj}
+                 , BBSCTT_CN                        = #{tbBbsGnrl.bbscttCn}
+                 , ATCH_FILE_ID                     = #{tbBbsGnrl.atchFileId}
+                 , RDCNT                            = #{tbBbsGnrl.rdcnt}
+                 , FRST_BBSCTT_ID                   = #{tbBbsGnrl.frstBbscttId}
+                 , ANSWER_LEVEL                     = #{tbBbsGnrl.answerLevel}
+                 , ANSWER_ORDR                      = #{tbBbsGnrl.answerOrdr}
+                 , DELETE_YN                        = #{tbBbsGnrl.deleteYn}
+                 , CHANGE_PSN_ID                    = #{$var.loginUser.personId}
+                 , CHANGE_DT                        = #{$var.systemDate}
+            WHERE  BBSCTT_ID = #{tbBbsGnrl.bbscttId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_BBS_GNRL
+            WHERE  BBSCTT_ID = #{bbscttId}
+        ]]>
+    </delete>
+
+</mapper>

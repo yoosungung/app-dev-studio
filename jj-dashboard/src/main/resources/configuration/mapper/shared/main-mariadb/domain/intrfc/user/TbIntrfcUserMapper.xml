@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 인터페이스 - 사용자 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.intrfc.user.TbIntrfcUserMapper">
+
+    <!-- 목록 생성 -->
+    <insert id="insertList">
+        <![CDATA[
+            INSERT INTO TB_INTRFC_USER (
+                   USER_ID
+                 , USER_PASSWORD
+                 , EMAIL_ADRES
+                 , DEPT_CODE
+                 , USER_SE
+                 , ECNY_DE
+                 , USER_NM
+                 , TLPHON_NO
+                 , UNIV_CODE
+                 , UNIV_NM
+                 , UNDEG_CODE
+                 , UNDEG_NM
+                 , SUBJCT_CODE
+                 , SUBJCT_NM
+                 , OFCPS_NM
+                 , DELETE_YN
+            ) VALUES
+        ]]>
+
+        <foreach collection="tbIntrfcUserList" item="tbIntrfcUser" separator=", ">
+            <![CDATA[
+            (
+                   #{tbIntrfcUser.userId}
+                 , #{tbIntrfcUser.userPassword}
+                 , #{tbIntrfcUser.emailAdres}
+                 , #{tbIntrfcUser.deptCode}
+                 , #{tbIntrfcUser.userSe}
+                 , #{tbIntrfcUser.ecnyDe}
+                 , #{tbIntrfcUser.userNm}
+                 , #{tbIntrfcUser.tlphonNo}
+                 , #{tbIntrfcUser.univCode}
+                 , #{tbIntrfcUser.univNm}
+                 , #{tbIntrfcUser.undegCode}
+                 , #{tbIntrfcUser.undegNm}
+                 , #{tbIntrfcUser.subjctCode}
+                 , #{tbIntrfcUser.subjctNm}
+                 , #{tbIntrfcUser.ofcpsNm}
+                 , #{tbIntrfcUser.deleteYn}
+            )
+            ]]>
+        </foreach>
+    </insert>
+
+    <!-- 전체 삭제 -->
+    <delete id="deleteAll">
+        <![CDATA[
+            DELETE
+            FROM   TB_INTRFC_USER
+        ]]>
+    </delete>
+
+</mapper>

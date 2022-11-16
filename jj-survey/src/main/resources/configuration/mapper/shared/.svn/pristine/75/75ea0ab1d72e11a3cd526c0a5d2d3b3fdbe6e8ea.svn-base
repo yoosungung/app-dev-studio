@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 게시판 - FAQ Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.bbs.faq.TbBbsFaqMapper">
+
+    <!-- 수정 - 조회수 증가 -->
+    <update id="updateRdcnt">
+        <![CDATA[
+            UPDATE TB_BBS_FAQ SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , RDCNT                            = RDCNT + 1
+            WHERE  BBSCTT_ID = #{bbscttId}
+        ]]>
+    </update>
+
+    <!-- 수정 - 삭제 여부 -->
+    <update id="updateDeleteYn">
+        <![CDATA[
+            UPDATE TB_BBS_FAQ SET
+                 , UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , DELETE_YN                        = #{deleteYn}
+            WHERE  BBSCTT_ID = #{bbscttId}
+        ]]>
+    </update>
+
+</mapper>

@@ -1,0 +1,80 @@
+function ServiceStatusViewService(vue) {
+
+    /**
+     * 목록 조회
+     */
+    this.readList = function(firstPage) {
+        GridUtil.setLoadStart(vue, firstPage);
+
+        GridUtil.axios(vue)
+        .post("readList", vue.gridRequest)
+        .then(function(response) {
+            GridUtil.loadData(vue, response.data.result);
+        })
+        ["catch"](function(error) {
+            GridUtil.showAxiosError(vue, error);
+        });
+    };
+
+    /**
+     * 조회
+     */
+    this.read = function(svcId, callback) {
+        vue.svcId = svcId;
+        vue.apiRequest = null;
+        vue.apiResult = null;
+        
+        CommonUtil.initModel(vue.model);
+        CommonUtil.initValid();
+
+        CommonUtil.axios()
+        .get(vue.svcId)
+        .then(function(response) {
+            vue.model = response.data;
+
+            if (callback != null) {
+                callback(response.data);
+            }
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+    /**
+     * API 요청
+     */
+    this.api = function(callback) {
+         if (!CommonUtil.checkValid()) {
+             return;
+         }
+
+        var apiUrl = "/openapi/apilist/ApiList";
+        vue.apiRequest = { apiKey: null, dataFormat: null, paging: {} , search: {} };
+		vue.apiResult = null;
+
+        for (var i = 0; i < vue.model.tbApiSvcMapngList.length; i++) {
+            var tbApiSvcMapng = vue.model.tbApiSvcMapngList[i];
+
+            if (tbApiSvcMapng.vriabl == "apiKey") {
+                vue.apiRequest.apiKey = tbApiSvcMapng.inputVal;
+            } else if (tbApiSvcMapng.vriabl == "currentPageNo" || tbApiSvcMapng.vriabl == "recordCountPerPage") {
+                vue.apiRequest.paging[tbApiSvcMapng.vriabl] = tbApiSvcMapng.inputVal;
+            } else if (tbApiSvcMapng.vriabl == "dataFormat") {
+                vue.apiRequest.dataFormat = tbApiSvcMapng.inputVal;
+            } else {
+                vue.apiRequest.search[tbApiSvcMapng.vriabl] = tbApiSvcMapng.inputVal;
+            }
+        }
+
+        CommonUtil.axios()
+        ["post"](apiUrl + vue.model.tbApiSvc.url, vue.apiRequest)
+        .then(function(response) {
+            vue.apiResult = response.data;
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+}

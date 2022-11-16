@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 인터페이스 - 사용자 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.intrfc.user.TbIntrfcUserEntityMapper">
+
+    <!-- 기본 조회 SQL -->
+    <sql id="baseSelectSql">
+        <![CDATA[
+            SELECT TIU.USER_ID
+                 , TIU.USER_PASSWORD
+                 , TIU.EMAIL_ADRES
+                 , TIU.DEPT_CODE
+                 , TIU.USER_SE
+                 , TIU.ECNY_DE
+                 , TIU.USER_NM
+                 , TIU.TLPHON_NO
+                 , TIU.UNIV_CODE
+                 , TIU.UNIV_NM
+                 , TIU.UNDEG_CODE
+                 , TIU.UNDEG_NM
+                 , TIU.SUBJCT_CODE
+                 , TIU.SUBJCT_NM
+                 , TIU.OFCPS_NM
+                 , TIU.DELETE_YN
+            FROM   TB_INTRFC_USER TIU
+        ]]>
+    </sql>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.intrfc.user.TbIntrfcUser">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TIU.USER_ID = #{userId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_INTRFC_USER (
+                   USER_ID
+                 , USER_PASSWORD
+                 , EMAIL_ADRES
+                 , DEPT_CODE
+                 , USER_SE
+                 , ECNY_DE
+                 , USER_NM
+                 , TLPHON_NO
+                 , UNIV_CODE
+                 , UNIV_NM
+                 , UNDEG_CODE
+                 , UNDEG_NM
+                 , SUBJCT_CODE
+                 , SUBJCT_NM
+                 , OFCPS_NM
+                 , DELETE_YN
+            ) VALUES (
+                   #{tbIntrfcUser.userId}
+                 , #{tbIntrfcUser.userPassword}
+                 , #{tbIntrfcUser.emailAdres}
+                 , #{tbIntrfcUser.deptCode}
+                 , #{tbIntrfcUser.userSe}
+                 , #{tbIntrfcUser.ecnyDe}
+                 , #{tbIntrfcUser.userNm}
+                 , #{tbIntrfcUser.tlphonNo}
+                 , #{tbIntrfcUser.univCode}
+                 , #{tbIntrfcUser.univNm}
+                 , #{tbIntrfcUser.undegCode}
+                 , #{tbIntrfcUser.undegNm}
+                 , #{tbIntrfcUser.subjctCode}
+                 , #{tbIntrfcUser.subjctNm}
+                 , #{tbIntrfcUser.ofcpsNm}
+                 , #{tbIntrfcUser.deleteYn}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_INTRFC_USER SET
+                   USER_PASSWORD                    = #{tbIntrfcUser.userPassword}
+                 , EMAIL_ADRES                      = #{tbIntrfcUser.emailAdres}
+                 , DEPT_CODE                        = #{tbIntrfcUser.deptCode}
+                 , USER_SE                          = #{tbIntrfcUser.userSe}
+                 , ECNY_DE                          = #{tbIntrfcUser.ecnyDe}
+                 , USER_NM                          = #{tbIntrfcUser.userNm}
+                 , TLPHON_NO                        = #{tbIntrfcUser.tlphonNo}
+                 , UNIV_CODE                        = #{tbIntrfcUser.univCode}
+                 , UNIV_NM                          = #{tbIntrfcUser.univNm}
+                 , UNDEG_CODE                       = #{tbIntrfcUser.undegCode}
+                 , UNDEG_NM                         = #{tbIntrfcUser.undegNm}
+                 , SUBJCT_CODE                      = #{tbIntrfcUser.subjctCode}
+                 , SUBJCT_NM                        = #{tbIntrfcUser.subjctNm}
+                 , OFCPS_NM                         = #{tbIntrfcUser.ofcpsNm}
+                 , DELETE_YN                        = #{tbIntrfcUser.deleteYn}
+            WHERE  USER_ID = #{tbIntrfcUser.userId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_INTRFC_USER
+            WHERE  USER_ID = #{userId}
+        ]]>
+    </delete>
+
+</mapper>

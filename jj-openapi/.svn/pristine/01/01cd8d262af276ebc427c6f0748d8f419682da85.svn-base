@@ -1,0 +1,29 @@
+package kr.ac.jj.openapi.application.ServiceGuide.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * 메인 Controller
+ */
+/**
+ * 게시판(FAQ) Controller
+ */
+@Controller
+@RequestMapping(path = "/openapi/serviceguide/serviceguide")
+public class ServiceGuideController {
+
+    /**
+     * 화면
+     *
+     * @return
+     */
+    @GetMapping
+    public String view() {
+        return "tiles2-common:/openapi/serviceguide/serviceguide";
+        //return "tiles2-main:/main/MainView";
+    }
+
+}
+

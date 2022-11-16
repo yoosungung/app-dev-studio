@@ -1,0 +1,91 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/layouts/shared/include/PageHeader.jspf" %>
+
+<div id="read" style="display: none;">
+    <div class="pageHeader">
+        권한 상세
+    </div>
+
+    <div class="pageContents">
+        <h3>권한 정보</h3>
+        <table class="form">
+            <colgroup>
+                <col width="120px">
+                <col width="">
+                <col width="120px">
+                <col width="">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>권한 코드</th>
+                    <td>
+                        <span>{{ model.tbSysAuthor.authorCode }}</span>
+                    </td>
+                    <th>권한 이름</th>
+                    <td>
+                        <span>{{ model.tbSysAuthor.authorNm }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>권한 설명</th>
+                    <td colspan="3">
+                        <pre>{{ model.tbSysAuthor.authorDc }}</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <th>정렬 순서</th>
+                    <td>
+                        <span>{{ model.tbSysAuthor.sortOrdr }}</span>
+                    </td>
+                    <th>사용 여부</th>
+                    <td>
+                        <span>{{ model.tbSysAuthor.useYnNm }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-space tar">
+            <ui-button class="page" v-on:click="viewEdit();" v-if="model.editable">수정</ui-button>
+            <ui-button class="page" v-on:click="service['delete']();" v-if="model.editable">삭제</ui-button>
+            <ui-button class="list" v-on:click="viewList();">목록</ui-button>
+        </div>
+    </div>
+</div>
+
+<script>
+vues.read = new Vue({
+    el: '#read',
+    data: {
+        authorId: null,
+        model: {
+            tbSysAuthor: {},
+            tbSysMenuAuthorToMenuListMap: {},
+            tbSysResrceAuthorToResrceList: [],
+            tbSysUserAuthorToUserList: []
+        }
+    },
+    computed: {
+        service: function() {
+            return new AuthorityManageViewService(this);
+        },
+        formatter: function() {
+            return CommonUtil.formatter;
+        }
+    },
+    methods: {
+        // 수정 화면
+        viewEdit: function() {
+            vues.edit.service.read(this.authorId, function(model) {
+                if (model.editable === true) {
+                    CommonUtil.setViewMode(vues, "edit");
+                }
+            });
+        },
+        // 목록 화면
+        viewList: function() {
+            CommonUtil.setViewMode(vues, "list");
+        }
+    }
+});
+</script>

@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="page-body"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"  
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" 
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:form="http://www.springframework.org/tags/form" 
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/2015/table"
+	xmlns:sec="http://www.springframework.org/security/tags" 
+	version="2.0">
+	
+	<jsp:directive.page contentType="text/html;charset=UTF-8"/>
+	<jsp:output omit-xml-declaration="yes"/>
+	
+	<style>
+		.section_wrap.progress .left_box .cont_header .tit {
+		    margin-top: 40px; 
+		    font-size: 19px; 
+		}
+		.section_wrap.progress .left_box .cont_header .share {
+		  	top: 45px;
+		}
+		.section_wrap.progress .left_box .graph_box .tit .num {
+			font-size:12px;
+			margin: 0 8px 0 0;
+			font-weight: bold;
+		
+		}
+		.now_day {
+			position: absolute;
+			left: 880px;
+			top: 15px;
+		}
+	</style>
+	
+	<script type="text/javascript">		
+		<![CDATA[
+			$(function() {
+				
+				var dt = new Date(); // 날짜값 입력			
+				$('.now_day').text(' ('+dt.getFullYear()+'.'+(dt.getMonth()+1)+'.'+dt.getDate()+' 기준)')
+			
+				startclock ('${surveyDefinition.surveyDefinitionId}');
+				getStatus(1);
+				
+				$("#selectStatus").change(function(){
+					getStatus($(this).val());
+				});
+				
+				$('.share a').on('click', function(e) {
+					var snsUrl = encodeURIComponent(document.domain + $(this).attr('href'));
+					var snsTitle = encodeURIComponent("[출처:ZEUS 조사] " + $(this).attr('title'));
+					
+					if($(this).hasClass('btn_fb')) {
+						window.open("http://facebook.com/sharer.php?u=" + snsUrl + "&t=" + snsTitle);
+					}
+					else if($(this).hasClass('btn_twt')) {
+						window.open("http://twitter.com/home?status=" + snsTitle + " " + snsUrl);
+					}
+					else if($(this).hasClass('btn_email')) {
+						location.href = 'mailto:lea0829@kbsi.re.kr';
+					}
+					else {
+						alert('정의되지 않은 SNS 주소입니다.');
+					}
+					e.preventDefault();
+				});
+				
+			});
+			
+			var timerID = null;
+			var timerRunning = false;
+			
+			function stopclock () {
+				if(timerRunning) clearTimeout(timerID);
+				timerRunning = false;
+			}
+			
+			function startclock (surveyId) {
+				stopclock();
+				showtime(surveyId);
+			}
+			
+			function showtime(surveyId) {
+				now = new Date();
+				var CurMonth = now.getMonth();
+				var CurDate = now.getDate();
+				var CurHour = now.getHours();
+				var CurMinute = now.getMinutes();
+				var CurSecond = now.getSeconds();
+				
+				var endDt = $('#endDt'+surveyId).val();
+				
+				var endYear = endDt.split('.')[0];
+				var endMonth = minusZero(endDt.split('.')[1], '12');
+				var endDate = minusZero(endDt.split('.')[2], '31');
+				var endHour = minusZero(endDt.split('.')[3], '24');
+				var endMinute = minusZero(endDt.split('.')[4], '59');
+				var endSecond = minusZero(endDt.split('.')[5], '59');
+				
+				var Monthleft = endMonth - (CurMonth+1);
+				var Dateleft = endDate - CurDate;
+				var Hourleft = endHour - CurHour;
+				var Minuteleft = endMinute - CurMinute;
+				var Secondleft = endSecond - CurSecond;
+				
+				var obj = document.getElementById('left_time'+surveyId);
+				
+				event_day = new Date(endYear, endMonth, endDate, endHour, endMinute, endSecond);
+				
+				if(event_day.getTime()>now.getTime()){
+						
+					var leftStr = '';
+					if(Monthleft > 0) leftStr += plusZero(Monthleft)+'달 ';
+					if(Monthleft > 0 || Dateleft > 0) {
+						if(Hourleft<0) {
+							if(Dateleft == 1) leftStr += '';
+							else leftStr += plusZero(Dateleft-1)+'일 ';
+						}
+						else leftStr += plusZero(Dateleft)+'일 ';
+					}
+					
+					if(!(Monthleft > 0) && Dateleft > 0) {
+						if(Hourleft<0) leftStr += plusZero(24+Hourleft)+'시간 ';	
+						else if(Hourleft == 0) leftStr += '24시간 ';
+						else if((Hourleft-1)>0) leftStr += plusZero((Hourleft-1))+'시간 ';
+					}
+					else if(!(Monthleft > 0) && !(Dateleft > 0)) {
+						if(Hourleft<0) leftStr += plusZero(24+Hourleft)+'시간 ';	
+						else if(Hourleft == 0) leftStr += '24시간 ';
+						else if((Hourleft-1)>0) leftStr += plusZero((Hourleft-1))+'시간 ';
+					}
+					
+					if(!(Monthleft > 0) && !(Dateleft > 0) && Minuteleft > 0) leftStr += plusZero(Minuteleft)+'분 ';
+					if(!(Monthleft > 0) && !(Dateleft > 0) && !(Hourleft > 0) && Secondleft > 0) leftStr += plusZero(Secondleft)+'초';
+					
+					obj.innerHTML = leftStr;
+				}
+				else obj.innerHTML = '00시간 00분 00초';
+				now = null;
+				timerID = setTimeout('showtime('+surveyId+')',1000);
+				timerRunning = true;
+			}
+			
+			
+			function minusZero(str, substr) {
+				if(str.match('^0') && !str.match('00')) str = str.substring(1,2);
+				else if(str.match('00')) str = substr;
+				return str;
+			}
+			
+			function plusZero(str) {
+				if((str.toString().length)<2) str = '0'+str;
+				return str;
+			}
+			
+			function surveyPageMove(type, id) {
+				if(type == 'P' && id == 0) alert('첫번째 페이지입니다.');
+				else if(type == 'N' && id == 0) alert('마지막 페이지입니다.');
+				else location.href = '${pageContext.request.contextPath}/pub/survey/research/'+id+'/?process';
+			}
+			
+			function getStatus(order) {
+				$.ajax({
+					type: 'get',
+					url: '${pageContext.request.contextPath}/pub/survey/status/${surveyDefinition.surveyDefinitionId}/'+order
+				}).done(function(data) {
+					var str = '';
+					$(data).each(function(i) {
+						
+						if(i==0) 	str += '<div class="item edge">';
+						else 		str += '<div class="item">';
+						
+									str += '	<p class="tit_graph'+order+'">'+this.name+'</p>';
+									str += '	<div class="g_bg'+order+'">';
+									str += '		<div class="g_bar" style="width:'+this.cnt+'%"><!--  --></div>';
+									str += '		<strong class="num">'+this.cnt+'%</strong>';
+									str += '	</div>';
+									str += '</div>';
+					});
+					
+					$('.graph').html(str);							
+				});
+			}
+			
+			function checkSurveyTarget(id) {
+				var flag = true;
+				
+				$.ajax({
+					type: 'post',
+					async: false,
+					url: '${pageContext.request.contextPath}/pub/survey/'+id,
+				}).done(function(data) {
+					
+					
+					
+					if(data == 0) {
+						alert('조사대상자가 아닙니다.');
+						flag = false;
+					}
+				});
+				return flag;
+			}
+			
+		]]>
+	</script>
+	
+	<!-- container -->
+  	<div id="container">
+  		<div class="section_wrap progress">
+  			<!-- left_box -->
+  			<div class="left_box" style="border:1px solid #dfdfdf;">
+  				<div class="cont_header">
+  					<h2 class="tit">${surveyDefinition.name}</h2>
+  					<div class="label"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/label_01.png" alt="조사진행중" /></div>
+  					<div class="timer">
+  						<input type="hidden" id="surveyId" value="${surveyDefinition.surveyDefinitionId}"/>
+						<input type="hidden" id="status" value="${surveyDefinition.status}"/>
+						<input type="hidden" id="endDt${surveyDefinition.surveyDefinitionId}" value="${surveyDefinition.endDt}"/>
+						<p class="clock">남은시간 <strong id="left_time${surveyDefinition.surveyDefinitionId}" class="f_red"><!--  --></strong></p>
+						<p class="bar">현재참여 <strong class="f_red">${surveyDefinition.userCnt}</strong></p>
+					</div>
+				<div class="share">
+					<a href="${pageContext.request.contextPath}/pub/survey/research/${surveyDefinition.surveyDefinitionId}?process" title="${surveyDefinition.name}" class="edge btn_fb"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/icon_fb.png" alt="페이스북" /></a>
+					<a href="${pageContext.request.contextPath}/pub/survey/research/${surveyDefinition.surveyDefinitionId}?process" title="${surveyDefinition.name}" class="btn_twt"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/icon_twt.png" alt="트위터" /></a>
+					<a href="javascript:void(0);" class="btn_email"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/icon_mail.png" alt="이메일" /></a>
+				</div>
+  				</div>
+	
+  				<div class="cont_body">
+					<form:form action="${pageContext.request.contextPath}/pub/survey/research" method="POST" modelAttribute="surveyPage">
+						<input type="hidden" name="survey.id" value="${surveyDefinition.surveyId}"/>
+						<input type="hidden" name="survey.typeId" value="${surveyDefinition.surveyDefinitionId}"/>
+						<input type="hidden" name="order" value="1"/>
+					
+	  					<c:forEach items="${surveyDefinition.questionAnswers}" var="questionAnswer" varStatus="loop">
+	  						<input type="hidden" name="questionAnswers[${loop.index}].question.order" value="${loop.count}"/>
+							<c:choose>
+								<!-- 수평 -->
+								<c:when test='${questionAnswer.question.direction == "HORIZONTAL"}'>
+									<div class="mb30">
+										<div class="graph_box mb30">
+											<h3 class="tit"><span class="num">${loop.count}</span>${questionAnswer.question.questionText}</h3>
+											<ul class="lst_label_w">
+												<c:forEach items="${questionAnswer.question.options}" var="option" varStatus="loop2">
+													<li class="${loop2.count == 1 ? 'edge' : ''}" style="width: ${fn:length(questionAnswer.question.options) == 2 ? 250: fn:length(questionAnswer.question.options) == 3 ? 161: fn:length(questionAnswer.question.options) == 4 ? 117: 90}px;">
+														<c:choose>
+															<c:when test="${surveyDefinition.answerStatus eq 'S'}">
+																<c:if test="${questionAnswer.stringAnswerValue eq option.value}">
+																	<label id="question" ><input type="radio" name="questionAnswers[${loop.index}].stringAnswerValue" value="${option.value}" checked="true" disabled="disabled"/> ${option.text}</label>
+																</c:if>
+																<c:if test="${questionAnswer.stringAnswerValue ne option.value}">
+																	<label id="question" ><input type="radio" name="questionAnswers[${loop.index}].stringAnswerValue" value="${option.value}" disabled="disabled"/> ${option.text}</label>
+																</c:if>
+															</c:when>
+															<c:otherwise>
+																<c:if test="${questionAnswer.stringAnswerValue eq option.value}">
+																	<label id="question" ><input type="radio" name="questionAnswers[${loop.index}].stringAnswerValue" value="${option.value}" checked="true" /> ${option.text}</label>
+																</c:if>
+																<c:if test="${questionAnswer.stringAnswerValue ne option.value}">
+																	<label id="question" ><input type="radio" name="questionAnswers[${loop.index}].stringAnswerValue" value="${option.value}" /> ${option.text}</label>
+																</c:if>
+															</c:otherwise>
+														</c:choose>
+													</li>
+												</c:forEach>
+											</ul>
+										</div>
+									</div>
+								</c:when>
+								<!-- 수직 -->
+								<c:otherwise>
+									<div class="mb30">
+										<div class="graph_box mb30">
+											<h3 class="tit"><span class="num">${loop.count}</span>${questionAnswer.question.questionText}</h3>
+											<ul class="lst_label">
+												<c:forEach items="${questionAnswer.question.options}" var="option" varStatus="loop2">
+													<c:choose>
+														<c:when test="${surveyDefinition.answerStatus eq 'S'}">
+															<c:if test="${questionAnswer.stringAnswerValue eq option.value}">
+																<li><label id="question" ><input type="radio" name="questionAnswers[${loop.index}].stringAnswerValue" value="${option.value}" checked="true" disabled="disabled"/> ${option.text}</label></li>
+															</c:if>
+															<c:if test="${questionAnswer.stringAnswerValue ne option.value}">
+																<li><label id="question" ><input type="radio" name="questionAnswers[${loop.index}].stringAnswerValue" value="${option.value}" disabled="disabled" /> ${option.text}</label></li>
+															</c:if>
+														</c:when>
+														<c:otherwise>
+															<c:if test="${questionAnswer.stringAnswerValue eq option.value}">
+																<li><label id="question" ><input type="radio" name="questionAnswers[${loop.index}].stringAnswerValue" value="${option.value}" checked="true" /> ${option.text}</label></li>
+															</c:if>
+															<c:if test="${questionAnswer.stringAnswerValue ne option.value}">
+																<li><label id="question" ><input type="radio" name="questionAnswers[${loop.index}].stringAnswerValue" value="${option.value}" /> ${option.text}</label></li>
+															</c:if>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+											</ul>
+										</div>
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:choose>
+							<c:when test="${surveyDefinition.answerStatus eq 'S'}">
+								<a href="javascript:alert('투표가 완료되었습니다.')" class="btn_vote_basic mb10">투표완료</a>
+							</c:when>
+							<c:otherwise>
+								<sec:authorize ifAnyGranted="ROLE_ADMIN, ROLE_SURVEY_PARTICIPANT">
+									<c:choose>
+										<c:when test="${surveyDefinition.isPublic > 0}">
+											<a onclick="$(this).closest('form').submit();" class="btn_vote mb10">투표하기</a>
+										</c:when>
+										<c:otherwise>
+											<a onclick="if(checkSurveyTarget(${surveyDefinition.surveyDefinitionId})) $(this).closest('form').submit();" class="btn_vote mb10">투표하기</a>
+										</c:otherwise>
+									</c:choose>
+								</sec:authorize>
+								<sec:authorize ifNotGranted="ROLE_ADMIN, ROLE_SURVEY_PARTICIPANT">
+									<a href="javascript:alert('로그인 후 이용 가능합니다.');" class="btn_vote mb10">투표하기</a>
+								</sec:authorize>
+							</c:otherwise>										
+						</c:choose>
+					</form:form>
+
+					<div id="cmtarea" class="viewarea">
+						<div class="article"><!----></div>
+					</div>
+					
+					<script type="text/javascript">
+						<![CDATA[
+							function cmtInit() {
+								$.ajax({
+									type: 'get',
+									url: '${pageContext.request.contextPath}/pub/survey/cmt?surveyDefinitionId=${surveyDefinition.surveyDefinitionId}'
+								}).done(function(data) {
+									$('#cmtarea').html(data);							
+								});
+							}
+		
+							function delCmt(id) {
+								if(confirm('삭제 하시겠습니까?')) {
+									$.ajax({
+										type: 'post',
+										url: '${pageContext.request.contextPath}/pub/survey/cmt/' + id,
+										data: {_method: 'delete'}
+									}).done(function(data) {
+										if(data < 1) {
+											alert('삭제할 수 없습니다.');
+										}
+										else {
+											cmtInit();
+										}
+									});	
+								}
+							}
+							
+							cmtInit();
+						]]>
+					</script>
+					
+  				</div>
+				<div id="btn_box">
+					<a href="javascript:surveyPageMove('P',${previousId})" class="btn_arr prev">이전</a>
+					<a href="javascript:surveyPageMove('N',${nextId})" class="btn_arr next">다음</a>
+				</div>
+  			</div>
+  			<!-- //left_box -->
+  			<!-- right_box -->
+  			<div class="right_box">
+  				<div class="graph_box mb10">
+  					<div class="graph_header">
+  						<select id="selectStatus">
+  							<option value="1">기관유형별</option>
+  							<option value="2">지역별</option>
+  						</select>
+  						<span>  참여현황</span>
+  						<p class="now_day info"><!--  --></p>
+  					</div>
+  					<div class="graph_body">
+						<div class="graph"><!--  --></div>
+  					</div>
+  				</div>
+  				<div class="progress_list mb10">
+					<h3 class="tit">최신 설문조사</h3>
+  					<ul>
+	   					<c:forEach var="survey" items="${newestSurveyList}" varStatus="status">
+							<li class="${status.count == 1 ? 'edge': ''}">
+								<span class="alram ${survey.status eq 'P' ? 'on': ''}">${survey.status eq 'P' ? '투표중': '종료'}</span>
+											<a href="${pageContext.request.contextPath}/pub/survey/research/${survey.surveyDefinitionId}${survey.status eq 'P' ? '?process':''}">${survey.name}</a>
+								<div class="info">
+									<span class="bar">${survey.status eq 'P' ? '현재참여': '전체참여'} <em class="f_red">${survey.userCnt}</em></span>
+									<span><spring:eval expression="survey.startDay"/> ~ <spring:eval expression="survey.endDay"/></span>
+								</div>
+							</li>
+						</c:forEach>
+					</ul>
+					<a href="${pageContext.request.contextPath}/pub/survey/research" class="btn_more">더보기</a>
+   				</div>
+   				<div class="brn_box">
+   					<a href="http://www.zeus.go.kr/market/cafe/survey/post?cafeIndividualNickNm=false"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/img_brn02.jpg" alt="제안해주세요. 조사주제를제안해주세요.ZEUS가조사해드립니다." /></a>
+   				</div>
+   			</div>
+   			<!-- //right_box -->
+   		</div>
+   	</div>
+   	<!-- end container -->
+</div>	
+

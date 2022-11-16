@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 사용자 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.common.user.mapper.UserMapper">
+
+    <!-- 검색 목록 조회 -->
+    <select id="selectSearchList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.BaseMap">
+        <![CDATA[
+            SELECT TSU.USER_ID
+                 , TSU.LOGIN_NM
+                 , TCP.EMPL_NO
+                 , TCP.KOREAN_NM
+                 , FN_DEPT_NAMES(TCP.PERSON_ID) AS DEPT_NAMES
+                 , TCP.OFCPS_NM
+                 , TCP.EMAIL_ADRES
+                 , ${$var.getCodeData("[HFFC_STTUS]", "TCP.HFFC_STTUS", "TCP.HFFC_STTUS")} AS HFFC_STTUS_NM
+            FROM   TB_SYS_USER TSU
+                   LEFT JOIN TB_COM_PERSON_USER TCPU ON TCPU.USER_ID = TSU.USER_ID
+                   LEFT JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPU.PERSON_ID
+            WHERE  TSU.USE_YN = '1'
+        ]]>
+
+        <!-- 권한 ID -->
+        <if test='search != null and search.authorId != null and search.authorId != ""'>
+            <![CDATA[
+            AND    EXISTS (
+                        SELECT 1
+                        FROM   TB_SYS_USER_AUTHOR TSUA
+                               INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TSUA.AUTHOR_ID
+                        WHERE  TSUA.USER_ID = TSU.USER_ID
+                        AND    TSUA.AUTHOR_ID = #{search.authorId}
+                   )
+            ]]>
+        </if>
+
+        <!-- 이름 -->
+        <if test='search != null and search.searchText != null and search.searchText != ""'>
+            <![CDATA[
+            AND    (UPPER(TSU.LOGIN_NM) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%') OR
+                    UPPER(TCP.EMPL_NO) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%') OR
+                    UPPER(TCP.KOREAN_NM) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%') OR
+                    UPPER(FN_DEPT_NAMES(TCP.PERSON_ID)) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%') OR
+                    UPPER(TCP.EMAIL_ADRES) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%')
+                   )
+            ]]>
+        </if>
+    </select>
+
+    <!-- USER_ID 조회 - 로그인 이름 -->
+    <select id="selectUserIdByLoginNm" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TSU.USER_ID
+            FROM   TB_SYS_USER TSU
+            WHERE  TSU.LOGIN_NM = #{loginNm}
+        ]]>
+    </select>
+
+    <!-- USER_ID 조회 - SSO 키(사번 등) -->
+    <select id="selectUserIdBySsoKey" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TCPU.USER_ID
+            FROM   TB_COM_PERSON TCP
+                   INNER JOIN TB_COM_PERSON_USER TCPU ON TCPU.PERSON_ID = TCP.PERSON_ID
+            WHERE  TCP.EMPL_NO = #{ssoKey}
+        ]]>
+    </select>
+
+    <!-- USER_ID 조회 - SURVEY_PERSON_ID -->
+    <select id="selectUserIdBySurveyPersonId" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TSQP.PERSON_ID
+            FROM   TB_SURVEY_QESTNR_PERSON TSQP
+            WHERE  TSQP.SURVEY_PERSON_ID = #{surveyPersonId}
+        ]]>
+    </select>
+
+    <!-- 권한코드 목록 조회 -->
+    <select id="selectAuthorCodeList" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TSA.AUTHOR_CODE
+            FROM   TB_SYS_USER_AUTHOR TSUA
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TSUA.AUTHOR_ID
+            WHERE  TSUA.USER_ID = #{userId}
+            UNION
+            SELECT TSA.AUTHOR_CODE
+            FROM   TB_COM_PERSON_USER TCPU
+                   INNER JOIN TB_COM_PERSON_DEPT TCPD ON TCPD.PERSON_ID = TCPU.PERSON_ID
+                   INNER JOIN TB_COM_DEPT_AUTHOR TCDA ON TCDA.DEPT_ID = TCPD.DEPT_ID
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TCDA.AUTHOR_ID
+            WHERE  TCPU.USER_ID = #{userId}
+            UNION
+            SELECT TSA.AUTHOR_CODE
+            FROM   TB_COM_PERSON_USER TCPU
+                   INNER JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPU.PERSON_ID
+                   INNER JOIN TB_SYS_AUTHOR_RELATE_CODE TSARC ON TSARC.RELATE_CODE_SE = 'PERSON_SE'
+                            AND TSARC.RELATE_CODE_VALUE = TCP.PERSON_SE
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TSARC.AUTHOR_ID
+            WHERE  TCPU.USER_ID = #{userId}
+            UNION
+            SELECT TSA.AUTHOR_CODE
+            FROM   TB_COM_PERSON_USER TCPU
+                   INNER JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPU.PERSON_ID
+                   INNER JOIN TB_SYS_AUTHOR_RELATE_CODE TSARC ON TSARC.RELATE_CODE_SE = 'DTY_NM'
+                            AND UPPER(TCP.OFCPS_NM) LIKE CONCAT_WS('', '%', UPPER(TSARC.RELATE_CODE_VALUE), '%')
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TSARC.AUTHOR_ID
+            WHERE  TCPU.USER_ID = #{userId}
+        ]]>
+    </select>
+
+</mapper>

@@ -1,0 +1,78 @@
+package kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.interceptor;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.plugin.Intercepts;
+import org.apache.ibatis.plugin.Invocation;
+import org.apache.ibatis.plugin.Plugin;
+import org.apache.ibatis.plugin.Signature;
+import org.apache.ibatis.session.ResultHandler;
+import org.apache.ibatis.session.RowBounds;
+
+import kr.ac.jj.shared.infrastructure.framework.core.persistence.dao.helper.SqlHelper;
+import kr.ac.jj.shared.infrastructure.framework.core.persistence.dao.helper.SqlHelperUtil;
+import kr.ac.jj.shared.infrastructure.framework.core.persistence.dao.paging.model.PagingInfo;
+
+@Intercepts({ @Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class,
+        RowBounds.class, ResultHandler.class }) })
+public class SelectQueryWrappingInterceptor implements Interceptor {
+
+    @Override
+    public Object intercept(Invocation invocation) throws Throwable {
+        final Object[] args = invocation.getArgs();
+
+        if (args[1] == null) {
+            args[1] = new HashMap<String, Object>();
+        }
+
+        this.processIntercept(invocation);
+
+        return invocation.proceed();
+    }
+
+    @Override
+    public Object plugin(Object target) {
+        return Plugin.wrap(target, this);
+    }
+
+    @Override
+    public void setProperties(Properties properties) {
+    }
+
+    @SuppressWarnings("unchecked")
+    private void processIntercept(Invocation invocation) {
+        Object[] args = invocation.getArgs();
+
+        Map<String, Object> parameter = null;
+
+        if (args[1] instanceof Map) {
+            parameter = (Map<String, Object>) args[1];
+        }
+
+        if (parameter == null) {
+            return;
+        }
+
+        MappedStatement mappedStatement = (MappedStatement) args[0];
+        DataSource dataSource = mappedStatement.getConfiguration().getEnvironment().getDataSource();
+        SqlHelper sqlHelper = SqlHelperUtil.getSqlHelper(dataSource);
+
+        for (Entry<String, Object> entry : parameter.entrySet()) {
+            if (entry.getValue() instanceof PagingInfo) {
+                sqlHelper.setPagingInfo((PagingInfo) entry.getValue());
+                break;
+            }
+        }
+
+        parameter.put(SqlHelper.WRAPPER_KEY, sqlHelper);
+    }
+
+}

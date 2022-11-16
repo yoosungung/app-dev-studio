@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.jd.survey.question.rowlabel.JdSurveyQuestionRowLabelEntityMapper">
+
+    <!-- 목록 조회 - QUESTION_ID(으)로 -->
+    <select id="selectListByQuestionId" resultType="kr.ac.jj.survey.domain.main.model.jd.survey.question.rowlabel.JdSurveyQuestionRowLabel">
+        <![CDATA[
+            SELECT SQRL.ID
+                 , SQRL.LABEL
+                 , SQRL.ROW_LABEL_ORDER
+                 , SQRL.QUESTION_ID
+                 , SQRL.VERSION
+            FROM   SURVEY_QUESTION_ROW_LABEL SQRL
+            WHERE  SQRL.QUESTION_ID = #{questionId}
+            ORDER BY SQRL.ROW_LABEL_ORDER
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.jd.survey.question.rowlabel.JdSurveyQuestionRowLabel">
+        <![CDATA[
+            SELECT SQRL.ID
+                 , SQRL.LABEL
+                 , SQRL.ROW_LABEL_ORDER
+                 , SQRL.QUESTION_ID
+                 , SQRL.VERSION
+            FROM   SURVEY_QUESTION_ROW_LABEL SQRL
+            WHERE  SQRL.ID = #{id}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="jdSurveyQuestionRowLabel.id">
+        <![CDATA[
+            INSERT INTO SURVEY_QUESTION_ROW_LABEL (
+                   ID
+                 , LABEL
+                 , ROW_LABEL_ORDER
+                 , QUESTION_ID
+                 , VERSION
+            ) VALUES (
+                   #{jdSurveyQuestionRowLabel.id}
+                 , #{jdSurveyQuestionRowLabel.label}
+        ]]>
+
+        <choose>
+        <when test='jdSurveyQuestionRowLabel.rowLabelOrder == null'>
+            <![CDATA[
+                 , (SELECT IFNULL(MAX(A.ROW_LABEL_ORDER), 0) + 1 FROM SURVEY_QUESTION_ROW_LABEL A WHERE A.QUESTION_ID = #{jdSurveyQuestionRowLabel.questionId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , #{jdSurveyQuestionRowLabel.rowLabelOrder}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , #{jdSurveyQuestionRowLabel.questionId}
+                 , #{jdSurveyQuestionRowLabel.version}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE SURVEY_QUESTION_ROW_LABEL SET
+                   LABEL                            = #{jdSurveyQuestionRowLabel.label}
+        ]]>
+
+        <choose>
+        <when test='jdSurveyQuestionRowLabel.rowLabelOrder == null'>
+            <![CDATA[
+                 , ROW_LABEL_ORDER                  = (SELECT IFNULL(MAX(A.ROW_LABEL_ORDER), 0) + 1 FROM SURVEY_QUESTION_ROW_LABEL A WHERE A.QUESTION_ID = #{jdSurveyQuestionRowLabel.questionId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , ROW_LABEL_ORDER                  = #{jdSurveyQuestionRowLabel.rowLabelOrder}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , QUESTION_ID                      = #{jdSurveyQuestionRowLabel.questionId}
+                 , VERSION                          = #{jdSurveyQuestionRowLabel.version}
+            WHERE  ID = #{jdSurveyQuestionRowLabel.id}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   SURVEY_QUESTION_ROW_LABEL
+            WHERE  ID = #{id}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - QUESTION_ID(으)로 -->
+    <delete id="deleteListByQuestionId">
+        <![CDATA[
+            DELETE
+            FROM   SURVEY_QUESTION_ROW_LABEL
+            WHERE  QUESTION_ID = #{questionId}
+        ]]>
+    </delete>
+
+</mapper>

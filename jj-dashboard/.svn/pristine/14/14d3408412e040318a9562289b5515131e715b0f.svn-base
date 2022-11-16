@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 게시판(일반) Mapper -->
+<mapper namespace="dashboard-codedata.supercompetence">
+
+    <select id="readDaehakCode" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT DAEHAK_NAME AS CODE
+                  ,DAEHAK_NAME AS NAME
+            FROM   DM_ON_SUPER_N
+            WHERE  DAEHAK_NAME IS NOT NULL
+            GROUP BY DAEHAK_NAME
+        ]]>
+    </select>
+
+    <select id="readHakbuCode" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT HAKBU_NAME AS CODE
+                  ,HAKBU_NAME AS NAME
+            FROM   DM_ON_SUPER_N
+            WHERE  DAEHAK_NAME = #{param1}
+            GROUP BY HAKBU_NAME
+        ]]>
+    </select>
+
+    <select id="readYearCode" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT HAKG_YEAR AS CODE
+                  ,HAKG_YEAR AS NAME
+            FROM   DM_ON_SUPER_N
+            WHERE  DAEHAK_NAME = #{param1}
+            AND HAKG_YEAR IS NOT NULL
+        ]]>
+        <if test="param2 != null and param2 != ''">
+            <![CDATA[
+                AND HAKBU_NAME = #{param2}
+            ]]>
+        </if>
+        <![CDATA[
+            GROUP BY HAKG_YEAR
+        ]]>
+    </select>
+
+</mapper>

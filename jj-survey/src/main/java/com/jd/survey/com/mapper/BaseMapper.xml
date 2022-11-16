@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="baseMapper">
+
+    <sql id="pagingPrefix">
+        SELECT T1.* FROM (
+    </sql>
+
+    <sql id="pagingSurfix">
+        ) T1
+        LIMIT ${firstElementOnPage}, ${lastElementOnPage}
+    </sql>
+
+    <sql id="sort">
+        <if test="sort != null">
+            <choose>
+                <when test="sortOrder != null">
+                    ORDER BY ${sort} ${sortOrder}
+                </when>
+                <otherwise>
+                    ORDER BY ${sort}
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
+    <sql id="sortCondition">
+        <if test="sort != null">
+            <choose>
+                <when test="sortOrder != null">
+                    ORDER BY ${sortDbStyle} ${sortOrder}
+                </when>
+                <otherwise>
+                    ORDER BY ${sortDbStyle}
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
+</mapper>

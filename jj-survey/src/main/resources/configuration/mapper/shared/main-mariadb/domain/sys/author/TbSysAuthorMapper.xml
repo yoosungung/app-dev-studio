@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 권한 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.author.TbSysAuthorMapper">
+
+    <!-- 조회 - MAX 정렬 순서 -->
+    <select id="selectMaxSortOrdr" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT NVL(MAX(TSA.SORT_ORDR), 0) AS MAX_SORT_ORDR
+            FROM   TB_SYS_AUTHOR TSA
+        ]]>
+    </select>
+
+    <!-- 조회 - 정렬 순서 목록 -->
+    <select id="selectSortOrdrList" resultType="kr.ac.jj.shared.domain.main.model.sys.author.TbSysAuthor">
+        <![CDATA[
+            SELECT TSA.AUTHOR_ID
+                 , TSA.AUTHOR_CODE
+                 , TSA.AUTHOR_NM
+                 , TSA.SORT_ORDR
+                 , TSA.USE_YN
+                 , TSA.BASS_AUTHOR_YN
+                 , TSA.USER_AUTHOR_YN
+            FROM   TB_SYS_AUTHOR TSA
+            ORDER BY TSA.SORT_ORDR
+        ]]>
+    </select>
+
+    <!-- 수정 - 정렬 순서 -->
+    <update id="updateSortOrdr">
+        <![CDATA[
+            UPDATE TB_SYS_AUTHOR SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , SORT_ORDR                        = #{tbSysAuthor.sortOrdr}
+            WHERE  AUTHOR_ID = #{tbSysAuthor.authorId}
+        ]]>
+    </update>
+
+</mapper>

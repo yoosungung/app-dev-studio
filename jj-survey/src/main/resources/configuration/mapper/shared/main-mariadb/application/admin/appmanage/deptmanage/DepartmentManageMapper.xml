@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 부서 관리 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.admin.appmanage.deptmanage.mapper.DepartmentManageMapper">
+
+    <!-- 트리 조회 -->
+    <select id="selectTree" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TCD.DEPT_ID
+                 , TCD.UPPER_DEPT_ID
+                 , TCD.DEPT_LEVEL
+                 , TCD.DEPT_CODE
+                 , TCD.DEPT_NM
+                 , TCD.USE_YN
+                 , (SELECT CASE WHEN COUNT(1) > 0 THEN 'FOLDER' ELSE 'FILE' END
+                    FROM   TB_COM_DEPT TCD2
+                    WHERE  TCD2.UPPER_DEPT_ID = TCD.DEPT_ID
+                   ) AS NODE_TYPE_NM
+            FROM   TB_COM_DEPT TCD
+            ORDER BY TCD.DEPT_LEVEL, TCD.DEPT_CODE
+        ]]>
+    </select>
+
+</mapper>

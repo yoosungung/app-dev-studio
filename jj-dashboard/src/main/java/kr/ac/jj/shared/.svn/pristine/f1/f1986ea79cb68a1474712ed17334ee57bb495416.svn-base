@@ -1,0 +1,33 @@
+package kr.ac.jj.shared.infrastructure.framework.core.support.codedata;
+
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import kr.ac.jj.shared.infrastructure.framework.core.support.collection.BaseMap;
+import kr.ac.jj.shared.infrastructure.framework.core.support.collection.BaseMapList;
+
+public class CodeDataSourceUtil {
+
+    public static boolean isBooleanType(BaseMapList codeDataList) {
+        for (int i = 0; i < codeDataList.size(); i++) {
+            if (!StringUtils.equalsAnyIgnoreCase(codeDataList.get(i, "code") + "", "true", "false")) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static void convertToBoolean(BaseMapList codeDataList) {
+        if (!isBooleanType(codeDataList)) {
+            return;
+        }
+
+        for (BaseMap map : codeDataList) {
+            if (map.get("code") != null) {
+                map.put("code", BooleanUtils.toBoolean(map.get("code") + ""));
+            }
+        }
+    }
+
+}

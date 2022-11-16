@@ -1,0 +1,32 @@
+package kr.ac.jj.shared.infrastructure.logging.service;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.MDC;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.domain.main.model.sys.log.query.TbSysLogQuery;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.logging.StatementLoggingService;
+import kr.ac.jj.shared.infrastructure.logging.util.LoggingUtil;
+
+@Service
+public class StatementLoggingServiceImpl implements StatementLoggingService {
+
+    @Override
+    public void createLog(String id, String sql, String parameter) {
+        if (StringUtils.isEmpty(LoggingUtil.getCurrentLogId())) {
+            return;
+        }
+
+        TbSysLogQuery tbSysLogQuery = new TbSysLogQuery();
+        tbSysLogQuery.setQueryId(id);
+        tbSysLogQuery.setQuerySntenc(sql);
+        tbSysLogQuery.setQueryParamtr(parameter);
+        tbSysLogQuery.setQuerySntencCmplt(MDC.get("log.jdbc.sql"));
+        tbSysLogQuery.setExecutTime(MDC.get("log.jdbc.execTime"));
+        tbSysLogQuery.insertQueue();
+
+        MDC.remove("log.jdbc.sql");
+        MDC.remove("log.jdbc.execTime");
+    }
+
+}

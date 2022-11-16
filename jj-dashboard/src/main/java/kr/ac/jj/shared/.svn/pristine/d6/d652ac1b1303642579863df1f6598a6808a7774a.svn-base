@@ -1,0 +1,215 @@
+package kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.ResultContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.config.props.SharedConfigProperties;
+import kr.ac.jj.shared.domain.main.mapper.com.person.user.TbComPersonUserMapper;
+import kr.ac.jj.shared.domain.main.mapper.intrfc.code.TbIntrfcCodeMapper;
+import kr.ac.jj.shared.domain.main.mapper.intrfc.dept.empl.TbIntrfcDeptEmplMapper;
+import kr.ac.jj.shared.domain.main.mapper.intrfc.user.TbIntrfcUserMapper;
+import kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserMapper;
+import kr.ac.jj.shared.domain.main.model.com.dept.TbComDept.DeptSeEnums;
+import kr.ac.jj.shared.domain.main.model.intrfc.code.TbIntrfcCode;
+import kr.ac.jj.shared.domain.main.model.intrfc.dept.empl.TbIntrfcDeptEmpl;
+import kr.ac.jj.shared.domain.main.model.intrfc.user.TbIntrfcUser;
+import kr.ac.jj.shared.domain.main.model.sys.user.TbSysUser;
+import kr.ac.jj.shared.domain.main.service.sys.user.TbSysUserServiceImpl;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.handler.DataResultHandler;
+import kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.mapper.HumanResourceManageDeptIntrfcEmplMapper;
+import kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.mapper.HumanResourceManageDeptIntrfcUserMapper;
+import kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.mapper.HumanResourceManageDtyIntrfcMapper;
+import kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.mapper.HumanResourceManagePersonDeptIntrfcMapper;
+import kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.mapper.HumanResourceManagePersonIntrfcMapper;
+import kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.mapper.HumanResourceManagePortalMapper;
+
+/**
+ * 인사정보 관리 Service
+ */
+@Service
+public class HumanResourceManageServiceNoTxImpl {
+
+    private @Autowired SharedConfigProperties sharedConfig;
+    private @Autowired HumanResourceManagePortalMapper humanResourceManagePortalMapper;
+    private @Autowired HumanResourceManagePersonIntrfcMapper humanResourceManagePersonIntrfcMapper;
+    private @Autowired HumanResourceManageDtyIntrfcMapper humanResourceManageDtyIntrfcMapper;
+    private @Autowired HumanResourceManageDeptIntrfcEmplMapper humanResourceManageDeptIntrfcEmplMapper;
+    private @Autowired HumanResourceManageDeptIntrfcUserMapper humanResourceManageDeptIntrfcUserMapper;
+    private @Autowired HumanResourceManagePersonDeptIntrfcMapper humanResourceManagePersonDeptIntrfcMapper;
+    private @Autowired TbComPersonUserMapper tbComPersonUserMapper;
+    private @Autowired TbSysUserMapper tbSysUserMapper;
+    private @Autowired TbSysUserServiceImpl tbSysUserService;
+    private @Autowired TbIntrfcUserMapper tbIntrfcUserMapper;
+    private @Autowired TbIntrfcCodeMapper tbIntrfcCodeMapper;
+    private @Autowired TbIntrfcDeptEmplMapper tbIntrfcDeptEmplMapper;
+
+    /**
+     * 직무 목록 생성/수정
+     */
+    public void createOrUpdateDutyList() {
+        List<TbIntrfcCode> tbIntrfcCodeList = new ArrayList<TbIntrfcCode>();
+
+        tbIntrfcCodeMapper.deleteListByCodeTy("203");
+
+        humanResourceManagePortalMapper.selectCodeList("203", new DataResultHandler<TbIntrfcCode>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends TbIntrfcCode> resultContext) {
+                tbIntrfcCodeList.add(resultContext.getResultObject());
+
+                if (tbIntrfcCodeList.size() % 1000 == 0) {
+                    tbIntrfcCodeMapper.insertList(tbIntrfcCodeList);
+                    tbIntrfcCodeList.clear();
+                }
+            }
+
+        });
+
+        if (tbIntrfcCodeList.size() > 0) {
+            tbIntrfcCodeMapper.insertList(tbIntrfcCodeList);
+            tbIntrfcCodeList.clear();
+        }
+
+        humanResourceManageDtyIntrfcMapper.updateList("OFCPS");
+        humanResourceManageDtyIntrfcMapper.updateListUseYnTo0("OFCPS");
+        humanResourceManageDtyIntrfcMapper.insertList("OFCPS");
+    }
+
+    /**
+     * 사람 목록 생성/수정
+     */
+    public void createOrUpdatePersonList() {
+        this.createOrUpdatePersonList(null);
+    }
+
+    /**
+     * 사람 목록 생성/수정
+     *
+     * @param userId
+     */
+    public void createOrUpdatePersonList(String userId) {
+        List<TbIntrfcUser> tbIntrfcUserList = new ArrayList<TbIntrfcUser>();
+
+        tbIntrfcUserMapper.deleteAll();
+
+        humanResourceManagePortalMapper.selectUserList(userId, new DataResultHandler<TbIntrfcUser>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends TbIntrfcUser> resultContext) {
+                tbIntrfcUserList.add(resultContext.getResultObject());
+
+                if (tbIntrfcUserList.size() % 1000 == 0) {
+                    tbIntrfcUserMapper.insertList(tbIntrfcUserList);
+                    tbIntrfcUserList.clear();
+                }
+            }
+
+        });
+
+        if (tbIntrfcUserList.size() > 0) {
+            tbIntrfcUserMapper.insertList(tbIntrfcUserList);
+            tbIntrfcUserList.clear();
+        }
+
+        humanResourceManagePersonIntrfcMapper.updateList();
+
+        if (StringUtils.isEmpty(userId)) {
+            humanResourceManagePersonIntrfcMapper.updateListHffcSttusToT();
+        }
+
+        humanResourceManagePersonIntrfcMapper.insertList();
+
+        tbSysUserMapper.updateList();
+
+        if (StringUtils.isEmpty(userId)) {
+            tbSysUserMapper.updateListUseYnTo0(sharedConfig.getLogin().getUserPersonSe());
+        }
+
+        tbSysUserMapper.insertList(sharedConfig.getLogin().getUserPersonSe());
+
+        tbComPersonUserMapper.insertList();
+    }
+
+    /**
+     * 사용자 목록 삭제
+     */
+    public void deleteUserList() {
+        tbSysUserMapper.selectDeleteList(sharedConfig.getLogin().getUserPersonSe(), new DataResultHandler<TbSysUser>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends TbSysUser> resultContext) {
+                TbSysUser tbSysUser = resultContext.getResultObject();
+
+                tbSysUserService.delete(tbSysUser.getUserId());
+            }
+
+        });
+    }
+
+    /**
+     * 부서 목록 생성/수정 - 직원
+     */
+    public void createOrUpdateDeptEmployeeList() {
+        List<TbIntrfcDeptEmpl> tbIntrfcDeptEmplList = new ArrayList<TbIntrfcDeptEmpl>();
+
+        tbIntrfcDeptEmplMapper.deleteAll();
+
+        humanResourceManagePortalMapper.selectEmployeeOrganizationList(new DataResultHandler<TbIntrfcDeptEmpl>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends TbIntrfcDeptEmpl> resultContext) {
+                tbIntrfcDeptEmplList.add(resultContext.getResultObject());
+
+                if (tbIntrfcDeptEmplList.size() % 1000 == 0) {
+                    tbIntrfcDeptEmplMapper.insertList(tbIntrfcDeptEmplList);
+                    tbIntrfcDeptEmplList.clear();
+                }
+            }
+
+        });
+
+        if (tbIntrfcDeptEmplList.size() > 0) {
+            tbIntrfcDeptEmplMapper.insertList(tbIntrfcDeptEmplList);
+            tbIntrfcDeptEmplList.clear();
+        }
+
+        humanResourceManageDeptIntrfcEmplMapper.updateListLevel1(DeptSeEnums.EMPLOYEE);
+        humanResourceManageDeptIntrfcEmplMapper.updateListLevel2(DeptSeEnums.EMPLOYEE);
+        humanResourceManageDeptIntrfcEmplMapper.updateListLevel3(DeptSeEnums.EMPLOYEE);
+
+        humanResourceManageDeptIntrfcEmplMapper.updateListUseYnTo0Level1(DeptSeEnums.EMPLOYEE);
+        humanResourceManageDeptIntrfcEmplMapper.updateListUseYnTo0Level2(DeptSeEnums.EMPLOYEE);
+        humanResourceManageDeptIntrfcEmplMapper.updateListUseYnTo0Level3(DeptSeEnums.EMPLOYEE);
+
+        humanResourceManageDeptIntrfcEmplMapper.insertListLevel1(DeptSeEnums.EMPLOYEE);
+        humanResourceManageDeptIntrfcEmplMapper.insertListLevel2(DeptSeEnums.EMPLOYEE);
+        humanResourceManageDeptIntrfcEmplMapper.insertListLevel3(DeptSeEnums.EMPLOYEE);
+
+        humanResourceManagePersonDeptIntrfcMapper.insertListNotExists(DeptSeEnums.EMPLOYEE);
+    }
+
+    /**
+     * 부서 목록 생성/수정 - 학생
+     */
+    public void createOrUpdateDeptStudentList() {
+        humanResourceManageDeptIntrfcUserMapper.updateListLevel1(DeptSeEnums.STUDENT);
+        humanResourceManageDeptIntrfcUserMapper.updateListLevel2(DeptSeEnums.STUDENT);
+        humanResourceManageDeptIntrfcUserMapper.updateListLevel3(DeptSeEnums.STUDENT);
+
+        humanResourceManageDeptIntrfcUserMapper.updateListUseYnTo0Level1(DeptSeEnums.STUDENT);
+        humanResourceManageDeptIntrfcUserMapper.updateListUseYnTo0Level2(DeptSeEnums.STUDENT);
+        humanResourceManageDeptIntrfcUserMapper.updateListUseYnTo0Level3(DeptSeEnums.STUDENT);
+
+        humanResourceManageDeptIntrfcUserMapper.insertListLevel1(DeptSeEnums.STUDENT);
+        humanResourceManageDeptIntrfcUserMapper.insertListLevel2(DeptSeEnums.STUDENT);
+        humanResourceManageDeptIntrfcUserMapper.insertListLevel3(DeptSeEnums.STUDENT);
+
+        humanResourceManagePersonDeptIntrfcMapper.insertListNotExists(DeptSeEnums.STUDENT);
+    }
+
+}

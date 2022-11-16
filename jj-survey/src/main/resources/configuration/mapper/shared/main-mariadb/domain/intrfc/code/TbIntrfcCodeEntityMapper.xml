@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 인터페이스 - 코드 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.intrfc.code.TbIntrfcCodeEntityMapper">
+
+    <!-- 기본 조회 SQL -->
+    <sql id="baseSelectSql">
+        <![CDATA[
+            SELECT TIC.CODE_TY
+                 , TIC.CODE_VALUE
+                 , TIC.CODE_NM
+                 , TIC.CODE_INDICT_YN
+            FROM   TB_INTRFC_CODE TIC
+        ]]>
+    </sql>
+
+    <!-- 목록 조회 - CODE_TY(으)로 -->
+    <select id="selectListByCodeTy" resultType="kr.ac.jj.shared.domain.main.model.intrfc.code.TbIntrfcCode">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TIC.CODE_TY = #{codeTy}
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.intrfc.code.TbIntrfcCode">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TIC.CODE_TY = #{codeTy}
+            AND    TIC.CODE_VALUE = #{codeValue}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_INTRFC_CODE (
+                   CODE_TY
+                 , CODE_VALUE
+                 , CODE_NM
+                 , CODE_INDICT_YN
+            ) VALUES (
+                   #{tbIntrfcCode.codeTy}
+                 , #{tbIntrfcCode.codeValue}
+                 , #{tbIntrfcCode.codeNm}
+                 , #{tbIntrfcCode.codeIndictYn}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_INTRFC_CODE SET
+                   CODE_NM                          = #{tbIntrfcCode.codeNm}
+                 , CODE_INDICT_YN                   = #{tbIntrfcCode.codeIndictYn}
+            WHERE  CODE_TY = #{tbIntrfcCode.codeTy}
+            AND    CODE_VALUE = #{tbIntrfcCode.codeValue}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_INTRFC_CODE
+            WHERE  CODE_TY = #{codeTy}
+            AND    CODE_VALUE = #{codeValue}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - CODE_TY(으)로 -->
+    <delete id="deleteListByCodeTy">
+        <![CDATA[
+            DELETE
+            FROM   TB_INTRFC_CODE
+            WHERE  CODE_TY = #{codeTy}
+        ]]>
+    </delete>
+
+</mapper>

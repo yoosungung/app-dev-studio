@@ -1,0 +1,28 @@
+package kr.ac.jj.shared.application.bbs.faq.model;
+
+import kr.ac.jj.shared.domain.main.model.com.bbsctt.TbComBbsctt;
+
+/**
+ * 게시판(FAQ) Model
+ */
+public class BbsFaqModel {
+
+    private TbComBbsctt tbComBbsctt;
+
+    public boolean isEditable() {
+        if (this.tbComBbsctt == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public TbComBbsctt getTbComBbsctt() {
+        return this.tbComBbsctt;
+    }
+
+    public void setTbComBbsctt(TbComBbsctt tbComBbsctt) {
+        this.tbComBbsctt = tbComBbsctt;
+    }
+
+}

@@ -1,0 +1,49 @@
+package kr.ac.jj.shared.application.admin.appmanage.hrmanage.mapper;
+
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedPortalSqlMapper;
+import kr.ac.jj.shared.domain.main.model.com.dept.TbComDept;
+import kr.ac.jj.shared.domain.main.model.intrfc.code.TbIntrfcCode;
+import kr.ac.jj.shared.domain.main.model.intrfc.user.TbIntrfcUser;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.handler.DataResultHandler;
+
+/**
+ * 인사정보 관리 Mapper
+ */
+@SharedPortalSqlMapper
+public interface HumanResourceManagePortalMapper {
+
+    /**
+     * 코드 목록 조회
+     *
+     * @param codeType
+     * @param resultHandler
+     */
+    public void selectCodeList(@Param("codeType") String codeType, DataResultHandler<TbIntrfcCode> resultHandler);
+
+    /**
+     * 사용자 목록 조회
+     *
+     * @param userId
+     * @param resultHandler
+     */
+    public void selectUserList(@Param("userId") String userId, DataResultHandler<TbIntrfcUser> resultHandler);
+
+    /**
+     * 직원 조직 목록 조회
+     *
+     * @param resultHandler
+     */
+    public void selectEmployeeOrganizationList(DataResultHandler<Map<String, Object>> resultHandler);
+
+    /**
+     * 학생 조직 이름 목록 조회
+     *
+     * @param resultHandler
+     */
+    public void selectStudentOrganizationNameList(DataResultHandler<TbComDept> resultHandler);
+
+}

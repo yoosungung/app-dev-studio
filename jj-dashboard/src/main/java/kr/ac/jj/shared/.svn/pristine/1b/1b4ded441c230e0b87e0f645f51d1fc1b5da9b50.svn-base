@@ -1,0 +1,107 @@
+package kr.ac.jj.shared.application.bbs.faq.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.application.bbs.faq.mapper.BbsFaqMapper;
+import kr.ac.jj.shared.application.bbs.faq.model.BbsFaqModel;
+import kr.ac.jj.shared.domain.main.mapper.bbs.faq.TbBbsFaqMapper;
+import kr.ac.jj.shared.domain.main.model.bbs.faq.TbBbsFaq;
+import kr.ac.jj.shared.infrastructure.framework.core.foundation.exception.BizException;
+import kr.ac.jj.shared.infrastructure.framework.web.context.support.MessageUtil;
+import kr.ac.jj.shared.infrastructure.grid.handler.GridDataResultHandler;
+import kr.ac.jj.shared.infrastructure.grid.model.GridRequest;
+
+/**
+ * 게시판(FAQ) Service
+ */
+@Service
+public class BbsFaqServiceImpl {
+
+    private @Autowired BbsFaqMapper bbsFaqMapper;
+    private @Autowired TbBbsFaqMapper tbBbsFaqMapper;
+
+    /**
+     * 목록 조회
+     *
+     * @param gridRequest
+     * @return
+     */
+    public List<Map<String, Object>> readList(GridRequest gridRequest) {
+        GridDataResultHandler resultHandler = new GridDataResultHandler(gridRequest);
+        bbsFaqMapper.selectList(resultHandler, gridRequest.getPaging(), gridRequest.getSearch());
+        return resultHandler.getResultList();
+    }
+
+    /**
+     * 조회 - 생성용
+     *
+     * @return
+     */
+    public BbsFaqModel read() {
+        BbsFaqModel model = new BbsFaqModel();
+        TbBbsFaq tbBbsFaq = new TbBbsFaq();
+        model.setTbBbsFaq(tbBbsFaq);
+        return model;
+    }
+
+    /**
+     * 조회
+     *
+     * @param bbscttId
+     * @return
+     */
+    public BbsFaqModel read(String bbscttId) {
+        BbsFaqModel model = new BbsFaqModel();
+        TbBbsFaq tbBbsFaq = tbBbsFaqMapper.select(bbscttId);
+
+        tbBbsFaqMapper.updateRdcnt(bbscttId);
+
+        model.setTbBbsFaq(tbBbsFaq);
+
+        return model;
+    }
+
+    /**
+     * 생성
+     *
+     * @param model
+     * @return
+     */
+    public String create(BbsFaqModel model) {
+        TbBbsFaq tbBbsfaq = model.getTbBbsFaq().newId();
+        tbBbsfaq.setRdcnt(0);
+        tbBbsfaq.setDeleteYn(false);
+        tbBbsFaqMapper.insert(tbBbsfaq);
+        return tbBbsfaq.getBbscttId();
+    }
+
+    /**
+     * 수정
+     *
+     * @param model
+     */
+    public void update(BbsFaqModel model) {
+        if (!this.read(model.getTbBbsFaq().getBbscttId()).isEditable()) {
+            throw new BizException(MessageUtil.getMessage("common.message.notAvail.update", "수정할 수 없는 데이터입니다."));
+        }
+        TbBbsFaq tbBbsFaq = model.getTbBbsFaq();
+        tbBbsFaqMapper.update(tbBbsFaq);
+    }
+
+    /**
+     * 삭제
+     *
+     * @param BbscttId
+     */
+    public void delete(String BbscttId) {
+        if (!this.read(BbscttId).isEditable()) {
+            throw new BizException(MessageUtil.getMessage("common.message.notAvail.delete", "삭제할 수 없는 데이터입니다."));
+        }
+        tbBbsFaqMapper.delete(BbscttId);
+    }
+
+}

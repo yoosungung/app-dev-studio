@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 시스템 - 타이틀 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbSysTitle.titleCode"><![CDATA[명칭 코드]]></entry>
+    <entry key="domain.main.tbSysTitle.titleLocale"><![CDATA[명칭 언어]]></entry>
+    <entry key="domain.main.tbSysTitle.titleCn"><![CDATA[명칭 내용]]></entry>
+
+</properties>

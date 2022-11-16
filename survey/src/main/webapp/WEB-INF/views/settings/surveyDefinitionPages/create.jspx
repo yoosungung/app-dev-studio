@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="modal-content" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" 
+	xmlns:form2="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:form="http://www.springframework.org/tags/form"  
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+	xmlns:spring="http://www.springframework.org/tags" 
+	version="2.0">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    
+    <script type="text/javascript">
+    
+    	$(function() {
+    		$('#pageForm').on('submit', function() {
+    			if(this.title.value == '') {
+    				alert('페이지 제목을 입력하세요.');
+    				this.title.focus();
+    			}
+    			else if(confirm('페이지를 추가 하시겠습니까?')) {
+    				return true;
+    			}
+    			return false;
+    		});
+    	});
+    
+    </script>
+    
+    <div class="modal-body" style="min-height: 700px;">
+		<div class="bootbox-body">
+			<div class="row">
+				<div class="col-md-12">
+					
+					<form id="pageForm" action="${pageContext.request.contextPath}/settings/surveyDefinitionPages" method="POST" enctype="application/x-www-form-urlencoded" class="form-horizontal" role="form">
+					
+						<input type="hidden" name="surveyDefinition.id" value="${surveyDefinitionPage.surveyDefinition.id}" />
+						
+						<div class="form-group">
+							<label for="title" class="col-sm-2 control-label no-padding-right"><i class="fa fa-check red"><!----></i> 페이지 순서</label>
+							<div class="col-sm-10">
+								<c:choose>
+									<!-- empty set -->
+									<c:when test="${size eq 0}">
+										<div id="_c_com.jd.survey.domain.settings.SurveyDefinitionPage.order_id">
+											<form:select path="surveyDefinitionPage.order">
+												<spring:message code="global_first_position" var="label" htmlEscape="false"/>
+												<form:option value="1" label="첫번째 위치"/>	
+											</form:select>
+										</div> 	
+									</c:when>
+									<!-- More than 1 element in the set-->
+									<c:otherwise>
+										<div id="_c_com.jd.survey.domain.settings.SurveyDefinitionPage.order_id">
+											<form:select path="surveyDefinitionPage.order">
+												<c:forEach var="i" begin="1" end="${size + 1}" step="1" varStatus ="status">
+													<c:choose>
+														<c:when test="${i eq 1}">
+															<form:option value="${i}" label="첫번재 위치"/>
+														</c:when>
+														<c:when test="${i eq (size + 1)}">
+															<form:option value="${i}" label="마지막 위치"/>
+														</c:when>
+														<c:otherwise>
+															<form:option value="${i}" label="${i}번째 위치"/>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+											</form:select>
+										</div>  
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="title" class="col-sm-2 control-label no-padding-right"><i class="fa fa-check red"><!----></i> 페이지 제목</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="title" name="title" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="instructions" class="col-sm-2 control-label no-padding-right">지침</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="instructions" name="instructions" />
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="col-sm-12 text-center">
+								<button type="submit" class="btn btn-palegreen" name="_proceed" id="_proceed" value="저장">페이지 추가</button>
+							</div>
+						</div>
+					</form>
+					<form2:dependency dependencies="${dependencies}" id="d_com.jd.survey.domain.settings.SurveyDefinitionPage" render="${not empty dependencies}"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

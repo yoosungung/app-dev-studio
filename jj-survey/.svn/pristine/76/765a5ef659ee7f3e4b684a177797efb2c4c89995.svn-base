@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 설문_설문지 - 사람(대상자) Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.survey.qestnr.person.TbSurveyQestnrPersonEntityMapper">
+
+    <!-- 기본 조회 SQL -->
+    <sql id="baseSelectSql">
+        <![CDATA[
+            SELECT TSQP.SURVEY_PERSON_ID
+                 , TSQP.SURVEY_QESTNR_ID
+                 , TSQP.PERSON_ID
+                 , TSQP.SNDNG_YN
+                 , TSQP.EMAIL_SURVEY_URL
+                 , TSQP.EMAIL_SHRTEN_URL
+                 , TSQP.SMS_SURVEY_URL
+                 , TSQP.SMS_SHRTEN_URL
+                 , TSQP.CONECT_DEVICE
+                 , TSQP.CONECT_LINK
+                 , TSQP.SURVEY_ID
+                 , TSQP.INDVDLINFO_PROVD_AGRE_DT
+                 , TSQP.CURR_PGE_NO
+                 , TSQP.STRE_PGE_NO
+            FROM   TB_SURVEY_QESTNR_PERSON TSQP
+        ]]>
+    </sql>
+
+    <!-- 목록 조회 - SURVEY_QESTNR_ID(으)로 -->
+    <select id="selectListBySurveyQestnrId" resultType="kr.ac.jj.survey.domain.main.model.survey.qestnr.person.TbSurveyQestnrPerson">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TSQP.SURVEY_QESTNR_ID = #{surveyQestnrId}
+        ]]>
+    </select>
+
+    <!-- 목록 조회 - PERSON_ID(으)로 -->
+    <select id="selectListByPersonId" resultType="kr.ac.jj.survey.domain.main.model.survey.qestnr.person.TbSurveyQestnrPerson">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TSQP.PERSON_ID = #{personId}
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.survey.qestnr.person.TbSurveyQestnrPerson">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TSQP.SURVEY_PERSON_ID = #{surveyPersonId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SURVEY_QESTNR_PERSON (
+                   SURVEY_PERSON_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SURVEY_QESTNR_ID
+                 , PERSON_ID
+                 , SNDNG_YN
+                 , EMAIL_SURVEY_URL
+                 , EMAIL_SHRTEN_URL
+                 , SMS_SURVEY_URL
+                 , SMS_SHRTEN_URL
+                 , CONECT_DEVICE
+                 , CONECT_LINK
+                 , SURVEY_ID
+                 , INDVDLINFO_PROVD_AGRE_DT
+                 , CURR_PGE_NO
+                 , STRE_PGE_NO
+            ) VALUES (
+                   #{tbSurveyQestnrPerson.surveyPersonId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbSurveyQestnrPerson.surveyQestnrId}
+                 , #{tbSurveyQestnrPerson.personId}
+                 , #{tbSurveyQestnrPerson.sndngYn}
+                 , #{tbSurveyQestnrPerson.emailSurveyUrl}
+                 , #{tbSurveyQestnrPerson.emailShrtenUrl}
+                 , #{tbSurveyQestnrPerson.smsSurveyUrl}
+                 , #{tbSurveyQestnrPerson.smsShrtenUrl}
+                 , #{tbSurveyQestnrPerson.conectDevice}
+                 , #{tbSurveyQestnrPerson.conectLink}
+                 , #{tbSurveyQestnrPerson.surveyId}
+                 , #{tbSurveyQestnrPerson.indvdlinfoProvdAgreDt}
+                 , #{tbSurveyQestnrPerson.currPgeNo}
+                 , #{tbSurveyQestnrPerson.strePgeNo}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SURVEY_QESTNR_PERSON SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , SURVEY_QESTNR_ID                 = #{tbSurveyQestnrPerson.surveyQestnrId}
+                 , PERSON_ID                        = #{tbSurveyQestnrPerson.personId}
+                 , SNDNG_YN                         = #{tbSurveyQestnrPerson.sndngYn}
+                 , EMAIL_SURVEY_URL                 = #{tbSurveyQestnrPerson.emailSurveyUrl}
+                 , EMAIL_SHRTEN_URL                 = #{tbSurveyQestnrPerson.emailShrtenUrl}
+                 , SMS_SURVEY_URL                   = #{tbSurveyQestnrPerson.smsSurveyUrl}
+                 , SMS_SHRTEN_URL                   = #{tbSurveyQestnrPerson.smsShrtenUrl}
+                 , CONECT_DEVICE                    = #{tbSurveyQestnrPerson.conectDevice}
+                 , CONECT_LINK                      = #{tbSurveyQestnrPerson.conectLink}
+                 , SURVEY_ID                        = #{tbSurveyQestnrPerson.surveyId}
+                 , INDVDLINFO_PROVD_AGRE_DT         = #{tbSurveyQestnrPerson.indvdlinfoProvdAgreDt}
+                 , CURR_PGE_NO                      = #{tbSurveyQestnrPerson.currPgeNo}
+                 , STRE_PGE_NO                      = #{tbSurveyQestnrPerson.strePgeNo}
+            WHERE  SURVEY_PERSON_ID = #{tbSurveyQestnrPerson.surveyPersonId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SURVEY_QESTNR_PERSON
+            WHERE  SURVEY_PERSON_ID = #{surveyPersonId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - SURVEY_QESTNR_ID(으)로 -->
+    <delete id="deleteListBySurveyQestnrId">
+        <![CDATA[
+            DELETE
+            FROM   TB_SURVEY_QESTNR_PERSON
+            WHERE  SURVEY_QESTNR_ID = #{surveyQestnrId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - PERSON_ID(으)로 -->
+    <delete id="deleteListByPersonId">
+        <![CDATA[
+            DELETE
+            FROM   TB_SURVEY_QESTNR_PERSON
+            WHERE  PERSON_ID = #{personId}
+        ]]>
+    </delete>
+
+</mapper>

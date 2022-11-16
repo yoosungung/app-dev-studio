@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 설문_공통문항 응답 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.survey.cmmnrspns.TbSurveyCmmnRspnsEntityMapper">
+
+    <!-- 기본 조회 SQL -->
+    <sql id="baseSelectSql">
+        <![CDATA[
+            SELECT TSCR.CMMN_RSPNS_ID
+                 , TSCR.SURVEY_ID
+                 , TSCR.PERSON_ID
+                 , TSCR.RSPNS_ODR
+                 , TSCR.SEXDSTN
+                 , TSCR.AREA
+                 , TSCR.GRADE
+                 , TSCR.CGHMY
+                 , TSCR.SUBJCT
+                 , TSCR.STSFDG_01
+                 , TSCR.STSFDG_02
+                 , TSCR.STSFDG_03
+            FROM   TB_SURVEY_CMMN_RSPNS TSCR
+        ]]>
+    </sql>
+
+    <!-- 목록 조회 - PERSON_ID(으)로 -->
+    <select id="selectListByPersonId" resultType="kr.ac.jj.survey.domain.main.model.survey.cmmnrspns.TbSurveyCmmnRspns">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TSCR.PERSON_ID = #{personId}
+            ORDER BY TSCR.RSPNS_ODR
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.survey.cmmnrspns.TbSurveyCmmnRspns">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TSCR.CMMN_RSPNS_ID = #{cmmnRspnsId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SURVEY_CMMN_RSPNS (
+                   CMMN_RSPNS_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SURVEY_ID
+                 , PERSON_ID
+                 , RSPNS_ODR
+                 , SEXDSTN
+                 , AREA
+                 , GRADE
+                 , CGHMY
+                 , SUBJCT
+                 , STSFDG_01
+                 , STSFDG_02
+                 , STSFDG_03
+            ) VALUES (
+                   #{tbSurveyCmmnRspns.cmmnRspnsId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbSurveyCmmnRspns.surveyId}
+                 , #{tbSurveyCmmnRspns.personId}
+        ]]>
+
+        <choose>
+        <when test='tbSurveyCmmnRspns.rspnsOdr == null'>
+            <![CDATA[
+                 , (SELECT IFNULL(MAX(A.RSPNS_ODR), 0) + 1 FROM TB_SURVEY_CMMN_RSPNS A WHERE A.PERSON_ID = #{tbSurveyCmmnRspns.personId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , #{tbSurveyCmmnRspns.rspnsOdr}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , #{tbSurveyCmmnRspns.sexdstn}
+                 , #{tbSurveyCmmnRspns.area}
+                 , #{tbSurveyCmmnRspns.grade}
+                 , #{tbSurveyCmmnRspns.cghmy}
+                 , #{tbSurveyCmmnRspns.subjct}
+                 , #{tbSurveyCmmnRspns.stsfdg01}
+                 , #{tbSurveyCmmnRspns.stsfdg02}
+                 , #{tbSurveyCmmnRspns.stsfdg03}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SURVEY_CMMN_RSPNS SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , SURVEY_ID                        = #{tbSurveyCmmnRspns.surveyId}
+                 , PERSON_ID                        = #{tbSurveyCmmnRspns.personId}
+        ]]>
+
+        <choose>
+        <when test='tbSurveyCmmnRspns.rspnsOdr == null'>
+            <![CDATA[
+                 , RSPNS_ODR                        = (SELECT IFNULL(MAX(A.RSPNS_ODR), 0) + 1 FROM TB_SURVEY_CMMN_RSPNS A WHERE A.PERSON_ID = #{tbSurveyCmmnRspns.personId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , RSPNS_ODR                        = #{tbSurveyCmmnRspns.rspnsOdr}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , SEXDSTN                          = #{tbSurveyCmmnRspns.sexdstn}
+                 , AREA                             = #{tbSurveyCmmnRspns.area}
+                 , GRADE                            = #{tbSurveyCmmnRspns.grade}
+                 , CGHMY                            = #{tbSurveyCmmnRspns.cghmy}
+                 , SUBJCT                           = #{tbSurveyCmmnRspns.subjct}
+                 , STSFDG_01                        = #{tbSurveyCmmnRspns.stsfdg01}
+                 , STSFDG_02                        = #{tbSurveyCmmnRspns.stsfdg02}
+                 , STSFDG_03                        = #{tbSurveyCmmnRspns.stsfdg03}
+            WHERE  CMMN_RSPNS_ID = #{tbSurveyCmmnRspns.cmmnRspnsId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SURVEY_CMMN_RSPNS
+            WHERE  CMMN_RSPNS_ID = #{cmmnRspnsId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - PERSON_ID(으)로 -->
+    <delete id="deleteListByPersonId">
+        <![CDATA[
+            DELETE
+            FROM   TB_SURVEY_CMMN_RSPNS
+            WHERE  PERSON_ID = #{personId}
+        ]]>
+    </delete>
+
+</mapper>

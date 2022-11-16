@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 오픈API_서비스_결과_매핑 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbApiSvcResult.svcResultId"><![CDATA[서비스결과ID]]></entry>
+    <entry key="domain.main.tbApiSvcResult.svcId"><![CDATA[서비스ID]]></entry>
+    <entry key="domain.main.tbApiSvcResult.result"><![CDATA[결과변수명]]></entry>
+    <entry key="domain.main.tbApiSvcResult.dc"><![CDATA[설명]]></entry>
+
+</properties>

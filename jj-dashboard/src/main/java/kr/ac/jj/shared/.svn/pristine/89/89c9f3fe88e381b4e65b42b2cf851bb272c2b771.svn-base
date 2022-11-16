@@ -1,0 +1,61 @@
+package kr.ac.jj.shared.application.common.menu.interceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper;
+import kr.ac.jj.shared.config.props.SharedConfigProperties;
+import kr.ac.jj.shared.domain.main.model.sys.log.menu.TbSysLogMenu;
+import kr.ac.jj.shared.infrastructure.framework.web.context.request.RequestContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.web.context.request.RequestTypes;
+import kr.ac.jj.shared.infrastructure.logging.service.LoggingServiceImpl;
+
+/**
+ * 메뉴 로그 Interceptor
+ */
+@Component
+public class MenuLogInterceptor implements HandlerInterceptor {
+
+    private @Autowired SharedConfigProperties sharedConfig;
+    private @Autowired LoggingServiceImpl loggingService;
+    private @Autowired MenuLoadMapper menuLoadMapper;
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws Exception {
+
+        if (!sharedConfig.getLog().getMenu().isEnable()) {
+            return true;
+        }
+
+        if (RequestContextUtil.getRequestType() == RequestTypes.AJAX) {
+            return true;
+        }
+
+        String[] menuIds = menuLoadMapper.selectMenuIdsByMenuPath(request.getServletPath());
+
+        if (menuIds != null && menuIds.length > 0) {
+            TbSysLogMenu tbSysLogMenu = new TbSysLogMenu();
+            tbSysLogMenu.setMenuId(menuIds[0]);
+            loggingService.createMenu(tbSysLogMenu);
+        }
+
+        return true;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+            ModelAndView modelAndView) throws Exception {
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+            throws Exception {
+    }
+
+}

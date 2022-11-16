@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="modal-content " 
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags" 
+	xmlns:form="http://www.springframework.org/tags/form" 
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	version="2.0">
+	
+	<jsp:directive.page contentType="text/html;charset=UTF-8"/>
+	<jsp:output omit-xml-declaration="yes"/>
+	
+	<script type="text/javascript">
+		$(function() {
+			$('#forkForm').on('submit', function() {
+				if(confirm('페이지분기를 설정 하시겠습니까?')) {
+					return true;
+				}
+				return false;
+			});
+		});
+	</script>
+	
+	<div class="modal-body" style="min-height: 700px;">
+		<div class="bootbox-body">
+			<div class="row">
+				<div class="col-md-12">
+				
+					<c:choose>
+						<c:when test="${empty page.questions}">
+							<div class="alert alert-warning fade in radius-bordered alert-shadowed">
+								<i class="fa-fw fa fa-warning"><!----></i>
+								<strong>경고</strong> 등록된 질문이 없습니다. 질문을 등록하세요.
+							</div>
+						</c:when>
+						<c:otherwise>
+							
+							<spring:url value="/settings/surveyDefinitionPages/fork" var="form_url"/>
+							
+							<form:form id="forkForm" action="${form_url}" method="POST" modelAttribute="page" cssClass="form-horizontal">
+				   				<form:hidden path="id" />	
+				   				<form:hidden path="surveyDefinition.id"/>
+				   				
+								<div class="well bordered-blueberry" style="padding-bottom: 5px; margin-bottom: 20px;">
+									
+									<div class="row">
+						   				<div class="form-group col-lg-6 col-sm-6 col-xs-12">
+											<label for="required" class="col-sm-3 control-label no-padding-right"><i class="fa fa-check red"><!----></i> 분기조건</label>
+											<div class="col-sm-9">
+								   				<c:if test="${page.pageLogic.groupingOperator eq 'AND'}">
+													<div class="radio">
+														<label>
+															<input type="radio" name="pageLogic.groupingOperator" value="AND" checked="checked" />
+															<span class="text">아래 선택된 모든 조건 충족시</span>
+														</label>
+													</div>
+												</c:if>
+												
+												<c:if test="${page.pageLogic.groupingOperator ne 'AND'}">
+													<div class="radio">
+														<label>
+															<input type="radio" name="pageLogic.groupingOperator" value="AND" />
+															<span class="text">아래 선택된 모든 조건 충족시</span>
+														</label>
+													</div>
+												</c:if>
+												
+												<c:if test="${page.pageLogic.groupingOperator eq 'OR'}">
+													<div class="radio">
+														<label>
+															<input type="radio" name="pageLogic.groupingOperator" value="OR" checked="checked" />
+															<span class="text">아래 선택된 조건 중 하나라도 충족시</span>
+														</label>
+													</div>
+												</c:if>
+												
+												<c:if test="${page.pageLogic.groupingOperator ne 'OR'}">
+													<div class="radio">
+														<label>
+															<input type="radio" name="pageLogic.groupingOperator" value="OR" />
+															<span class="text">아래 선택된 조건 중 하나라도 충족시</span>
+														</label>
+													</div>
+												</c:if>
+											</div>
+										</div>
+										
+						   				<div class="form-group col-lg-6 col-sm-6 col-xs-12">
+											<label for="required" class="col-sm-2 control-label no-padding-right"><i class="fa fa-check red"><!----></i> 분기</label>
+											<div class="col-sm-10">
+								   				<form:select path="pageLogic.jumpToPageOrder">
+									   				<c:forEach items="${page.surveyDefinition.pages}" var="p" varStatus="loop">
+									   					<c:if test="${p.order gt page.order}">
+									   						<c:if test="${page.pageLogic.jumpToPageOrder eq p.order}">	
+									   							<option value="${p.order}" selected="selected">'페이지 ${p.order} : ${p.title}' 이동</option>
+									   						</c:if>
+									   						<c:if test="${page.pageLogic.jumpToPageOrder ne p.order}">	
+									   							<option value="${p.order}">'페이지 ${pageLabel} ${p.order} : ${p.title}' 이동</option>
+									   						</c:if>	
+									   					</c:if>
+													</c:forEach>
+													<c:if test="${page.pageLogic.jumpToPageOrder eq 0}">	
+							   							<option value="0" selected="selected">설문조사 완료</option>
+							   						</c:if>
+							   						<c:if test="${page.pageLogic.jumpToPageOrder ne 0}">	
+							   							<option value="0">설문조사 완료</option>
+							   						</c:if>	
+												</form:select>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<table class="table table-hover table-striped table-bordered">
+									<colgroup>
+										<col style="width: 6%;" />
+										<col />
+										<col style="width: 25%;" />
+										<col style="width: 25%;" />
+									</colgroup>
+                                    <thead class="bordered-blueberry">
+                                        <tr>
+                                            <th class="text-center">활성화</th>
+                                            <th class="text-center">질문</th>
+                                            <th class="text-center">작업</th>
+                                            <th class="text-center">값</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+										<!-- Labels for Inputs and IDs so they are ADA Compliant  -->
+										<spring:message code="question_number_label" var="questionNumLbl" htmlEscape="false"/>
+										<spring:message code="question_option_text" var="optionText" htmlEscape="false"/>
+										<spring:message code="input_for_label" var="inputForLbl" htmlEscape="false"/>	
+									
+										<spring:message code="branching_logic_page_label" var="pageLabel"/>
+										<spring:message code="branching_logic_terminate_survey_label" var="terminateSurveyLabel"/>
+										
+										
+										
+										<c:forEach items="${page.questions}" var="question" varStatus="loop">
+											<spring:message text="lc${question.order}" var="logicalConditionKey" htmlEscape="false" />
+											<c:set var="logicalCondition" value="${requestScope[logicalConditionKey]}"/>
+											
+											<c:choose>
+												<!-- single value multiple choice question types  -->
+												<c:when test="${question.type.requiresOptions and question.type.code != 'MC'}">
+													<tr>
+														<td class="text-center" style="vertical-align: middle;">
+															<c:if test="${!empty logicalCondition and logicalCondition.enabled}">
+																<div class="checkbox">
+																	<label>
+																		<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].enabled" value="true" checked="checked" id="enabled${question.id}" />
+																		<span class="text"><!----></span>
+																	</label>
+																</div>
+															</c:if>
+															 <c:if test="${empty logicalCondition or !logicalCondition.enabled}">
+															 	<div class="checkbox">
+																	<label>
+																		<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].enabled" value="true" id="enabled${question.id}" />
+																		<span class="text"><!----></span>
+																	</label>
+																</div>
+															</c:if>	
+														</td>
+														<td style="vertical-align: middle;">
+															<c:out value="${questionNumber}"/><c:out value="${question.questionText}" escapeXml="false"/>
+														</td>
+									   					<td style="vertical-align: middle;">
+									   						<form:hidden path="pageLogic.logicalConditions['${question.order}'].logicOperator" value="IN" />
+									   						다음 값 중 하나와 일치
+									   					</td>
+									   					<td style="vertical-align: middle;">
+									   						<c:forEach items="${question.options}" var="option" varStatus="loop2">
+																<c:set var="found" value="false" />
+																<c:forEach items="${logicalCondition.stringValues}" var="answer" varStatus="loop3">
+																	<c:if test="${answer eq  option.value}">
+																		<div class="checkbox">
+																			<label>
+																				<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].stringValues" value="${option.value}" checked="true" />
+																				<span class="text">${option.text}</span>
+																			</label>
+																		</div>
+																		<c:set var="found" value="true" />
+																	</c:if>
+																</c:forEach>
+																<c:if test="${!found}" >
+																	<div class="checkbox">
+																		<label>
+																			<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].stringValues" value="${option.value}" />
+																			<span class="text">${option.text}</span>
+																		</label>
+																	</div>
+																</c:if>
+															</c:forEach>
+									   					</td>
+									   				</tr>	
+								   				</c:when>
+								   				
+								   				<!-- MULTIPLE_CHOICE_CHECKBOXES -->
+								   				<c:when test="${question.type.code == 'MC'}">
+									   				<tr>
+														<td class="text-center" style="vertical-align: middle;">
+															<c:if test="${!empty logicalCondition and logicalCondition.enabled}">
+																<div class="checkbox">
+																	<label>
+																		<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].enabled" value="true" checked="checked" id="enabled${question.id}" />
+																		<span class="text"><!----></span>
+																	</label>
+																</div>
+															</c:if>
+															 <c:if test="${empty logicalCondition or !logicalCondition.enabled}">
+															 	<div class="checkbox">
+																	<label>
+																		<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].enabled" value="true" id="enabled${question.id}" />
+																		<span class="text"><!----></span>
+																	</label>
+																</div>
+															</c:if>	
+														</td>
+														<td style="vertical-align: middle;">
+															<c:out value="${questionNumber}"/><c:out value="${question.questionText}" escapeXml="false"/>
+														</td>
+									   					<td style="vertical-align: middle;">
+									   						 <form:hidden path="pageLogic.logicalConditions['${question.order}'].logicOperator" value="IN" />
+									   						 다음 값 중 하나와 일치
+									   					</td>
+									   					<td style="vertical-align: middle;">
+									   						<c:forEach items="${question.options}" var="option" varStatus="loop2">
+																<c:set var="found" value="false" />
+																<c:forEach items="${logicalCondition.integerValues}" var="answer" varStatus="loop3">
+																	<c:if test="${answer eq option.order}">
+																		<div class="checkbox">
+																			<label>
+																				<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].integerValues" value="${option.order}" checked="true" />
+																				<span class="text">${option.text}</span>
+																			</label>
+																		</div>
+																		<c:set var="found" value="true" />
+																	</c:if>
+																</c:forEach>
+																<c:if test="${!found}" >
+																	<div class="checkbox">
+																		<label>
+																			<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].integerValues" value="${option.order}" />
+																			<span class="text">${option.text}</span>
+																		</label>
+																	</div>
+																</c:if>
+															</c:forEach>
+									   					</td>
+									   				</tr>	
+								   				</c:when>
+								   				
+								   				<!--YES_NO_DROPDOWN-->
+								   				<c:when test="${question.type.code == 'BR'}">
+													<tr>
+														<td class="text-center" style="vertical-align: middle;">
+															<c:if test="${!empty logicalCondition and logicalCondition.enabled}">
+																<div class="checkbox">
+																	<label>
+																		<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].enabled" value="true" checked="checked" id="enabled${question.id}" />
+																		<span class="text"><!----></span>
+																	</label>
+																</div>
+															</c:if>
+															 <c:if test="${empty logicalCondition or !logicalCondition.enabled}">
+															 	<div class="checkbox">
+																	<label>
+																		<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].enabled" value="true" id="enabled${question.id}" />
+																		<span class="text"><!----></span>
+																	</label>
+																</div>
+															</c:if>
+														</td>
+														<td style="vertical-align: middle;">
+															<c:out value="${questionNumber}"/><c:out value="${question.questionText}" escapeXml="false"/>
+														</td>
+														<td style="vertical-align: middle;">
+														 	<form:hidden path="pageLogic.logicalConditions['${question.order}'].logicOperator" value="EQUALS" />
+									   					 	다음 값과 같음
+									   					</td>
+									   					<td style="vertical-align: middle;">
+									   						<form:select class="grid-12-12"  path="pageLogic.logicalConditions['${question.order}'].booleanValue">
+																<c:if test="${!empty logicalCondition and  !empty logicalCondition.booleanValue and logicalCondition.booleanValue}">
+																	<option value="1" selected="selected">Yes</option>
+																	<option value="0" >No</option>
+																</c:if>
+																<c:if test="${empty logicalCondition or empty logicalCondition.booleanValue or !logicalCondition.booleanValue}">
+																	<option value="1" >Yes</option>
+																	<option value="0" selected="selected">No</option>
+																</c:if>
+															</form:select>
+														</td>
+									   				</tr>
+								   				</c:when>
+								   				
+								   				<!-- INTEGER_INPUT("IN") -->
+								   				<c:when test="${question.type.code == 'IN'}">
+									   				<tr>
+														<td class="text-center" style="vertical-align: middle;">
+															<c:if test="${!empty logicalCondition and  logicalCondition.enabled}">
+																<div class="checkbox">
+																	<label>
+																		<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].enabled" value="true" checked="checked" id="enabled${question.id}" />
+																		<span class="text"><!----></span>
+																	</label>
+																</div>
+															</c:if>
+															<c:if test="${empty logicalCondition or  !logicalCondition.enabled}">
+															 	<div class="checkbox">
+																	<label>
+																		<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].enabled" value="true" id="enabled${question.id}" />
+																		<span class="text"><!----></span>
+																	</label>
+																</div>
+															</c:if>
+														</td>
+														<td style="vertical-align: middle;">
+															<c:out value="${questionNumber}" /><c:out value="${question.questionText}" escapeXml="false" />
+														</td>
+														<td style="vertical-align: middle;">
+															<form:hidden path="pageLogic.logicalConditions['${question.order}'].logicOperator" value="BETWEEN" />
+								   						 	다음 값 범위에 속함
+									   					</td>
+									   					<td style="vertical-align: middle;">
+									   						<div class="form-inline">
+																<div class="form-group" style="margin: 0;">
+																	<form:input  path="pageLogic.logicalConditions['${question.order}'].longMin" maxlength="50" id="min${question.id}" cssClass="form-control" placeholder="최소값" size="9" />
+																	<form:errors path="pageLogic.logicalConditions['${question.order}'].longMin" cssClass="validation_error"/>
+																</div>
+																~
+																<div class="form-group" style="margin: 0;">
+																	<form:input  path="pageLogic.logicalConditions['${question.order}'].longMax" maxlength="50" id="max${question.id}" cssClass="form-control" placeholder="최대값" size="9" />
+																	<form:errors path="pageLogic.logicalConditions['${question.order}'].longMax" cssClass="validation_error"/>
+																</div>
+															</div>
+														</td>
+									   				</tr>	
+								   				</c:when>
+								   				
+												<!-- CURRENCY_INPUT("CR") : 사용안함 (이규선) -->
+												<c:when test="${question.type.code == 'CR'}">
+													<tr>
+														<td class="alignTop">
+															<c:if test="${!empty logicalCondition and  logicalCondition.enabled}">
+																<label for="enabled${question.id}" style="display:none;"><spring:message code="branching_logic_enable_table_header_label"/></label>
+																<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].enabled" value="true" class="checkbox" checked="true" id="enabled${question.id}">
+																</input>
+															</c:if>
+															 <c:if test="${empty logicalCondition or  !logicalCondition.enabled}">
+																<label for="enabled${question.id}" style="display:none;"><spring:message code="branching_logic_enable_table_header_label"/></label>
+																<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].enabled" value="true" class="checkbox"  id="enabled${question.id}">
+																</input>
+															</c:if>	
+														</td>
+														<td class="alignTop"><c:out value="${questionNumber}"/><c:out value="${question.questionText}" escapeXml="false"/></td>
+														<td class="alignTop">
+															<form:hidden path="pageLogic.logicalConditions['${question.order}'].logicOperator" value="BETWEEN" />
+								   						 	<spring:message code="branching_logic_between_operator_label"/>
+									   					</td>
+									   					<td class="alignTop">
+									   						<label class="grid-4-12" for="min${question.id}"><spring:message code="branching_logic_minimum_table_row_label"/></label>
+															<form:input  path="pageLogic.logicalConditions['${question.order}'].bigDecimalMin" maxlength="50"  id="min${question.id}"/>
+															<form:errors path="pageLogic.logicalConditions['${question.order}'].bigDecimalMin" cssClass="validation_error"/>
+															<br/>
+															<label class="grid-4-12" for="max${question.id}"><spring:message code="branching_logic_maximum_table_row_label"/></label>
+															<form:input  path="pageLogic.logicalConditions['${question.order}'].bigDecimalMax" maxlength="50"  id="max${question.id}"/>
+															<form:errors path="pageLogic.logicalConditions['${question.order}'].bigDecimalMax" cssClass="validation_error"/>
+														</td>
+									   				</tr>	
+								   				</c:when>
+								   				
+												<!-- DECIMAL_INPUT("NM") -->
+												<c:when test="${question.type.code == 'NM'}">
+													<tr>
+														<td class="text-center" style="vertical-align: middle;">
+															<c:if test="${!empty logicalCondition and logicalCondition.enabled}">
+																<div class="checkbox">
+																	<label>
+																		<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].enabled" value="true" checked="checked" id="enabled${question.id}" />
+																		<span class="text"><!----></span>
+																	</label>
+																</div>
+															</c:if>
+															<c:if test="${empty logicalCondition or !logicalCondition.enabled}">
+															 	<div class="checkbox">
+																	<label>
+																		<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].enabled" value="true" id="enabled${question.id}" />
+																		<span class="text"><!----></span>
+																	</label>
+																</div>
+															</c:if>
+														</td>
+														<td style="vertical-align: middle;">
+															<c:out value="${questionNumber}"/><c:out value="${question.questionText}" escapeXml="false"/>
+														</td>
+														<td style="vertical-align: middle;">
+															<form:hidden path="pageLogic.logicalConditions['${question.order}'].logicOperator" value="BETWEEN" />
+								   						 	다음 값 범위에 속함
+									   					</td>
+									   					<td style="vertical-align: middle;">
+									   						<div class="form-inline">
+																<div class="form-group" style="margin: 0;">
+																	<form:input  path="pageLogic.logicalConditions['${question.order}'].bigDecimalMin" maxlength="50" id="min${question.id}" cssClass="form-control" placeholder="최소값" size="9" />
+																	<form:errors path="pageLogic.logicalConditions['${question.order}'].bigDecimalMin" cssClass="validation_error"/>
+																</div>
+																~
+																<div class="form-group" style="margin: 0;">
+																	<form:input  path="pageLogic.logicalConditions['${question.order}'].bigDecimalMax" maxlength="50" id="max${question.id}" cssClass="form-control" placeholder="최대값" size="9" />
+																	<form:errors path="pageLogic.logicalConditions['${question.order}'].bigDecimalMax" cssClass="validation_error"/>
+																</div>
+															</div>
+														</td>
+									   				</tr>
+								   				</c:when>
+								   				
+												<!-- DATE_INPUT("DT") -->
+												<c:when test="${question.type.code == 'DT'}">
+													<tr>
+														<td class="text-center" style="vertical-align: middle;">
+															<c:if test="${!empty logicalCondition and logicalCondition.enabled}">
+																<div class="checkbox">
+																	<label>
+																		<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].enabled" value="true" checked="checked" id="enabled${question.id}" />
+																		<span class="text"><!----></span>
+																	</label>
+																</div>
+															</c:if>
+															<c:if test="${empty logicalCondition or !logicalCondition.enabled}">
+															 	<div class="checkbox">
+																	<label>
+																		<input type="checkbox" name="pageLogic.logicalConditions['${question.order}'].enabled" value="true" id="enabled${question.id}" />
+																		<span class="text"><!----></span>
+																	</label>
+																</div>
+															</c:if>
+														</td>
+														<td style="vertical-align: middle;">
+															<c:out value="${questionNumber}"/><c:out value="${question.questionText}" escapeXml="false"/>
+														</td>
+														<td style="vertical-align: middle;">
+															<form:hidden path="pageLogic.logicalConditions['${question.order}'].logicOperator" value="BETWEEN" />
+								   						 	다음 값 범위에 속함
+									   					</td>
+									   					<td style="vertical-align: middle;">
+									   						<div class="form-inline">
+																<div class="form-group" style="margin: 0;">
+																	<form:input  path="pageLogic.logicalConditions['${question.order}'].dateMin" maxlength="50" id="min${question.id}" cssClass="form-control" placeholder="최소값" size="9" />
+																	<form:errors path="pageLogic.logicalConditions['${question.order}'].dateMin" cssClass="validation_error"/>
+																</div>
+																~
+																<div class="form-group" style="margin: 0;">
+																	<form:input  path="pageLogic.logicalConditions['${question.order}'].dateMax" maxlength="50" id="max${question.id}" cssClass="form-control" placeholder="최대값" size="9" />
+																	<form:errors path="pageLogic.logicalConditions['${question.order}'].dateMax" cssClass="validation_error"/>
+																</div>
+															</div>
+														</td>
+									   				</tr>
+								   				</c:when>
+								   			</c:choose>	
+							   			</c:forEach>
+                                    </tbody>
+                                </table>
+								
+								<div class="form-group" style="margin-top: 10px;">
+									<div class="col-sm-12 text-center">
+										<button type="submit" class="btn btn-palegreen" name="_proceed" id="_proceed" value="저장">페이지분기 설정</button>
+									</div>
+								</div>
+						
+				   			</form:form>
+				   			
+						</c:otherwise>
+					</c:choose>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	   
+
+</div>

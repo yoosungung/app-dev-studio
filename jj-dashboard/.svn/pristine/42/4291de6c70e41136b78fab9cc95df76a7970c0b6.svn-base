@@ -1,0 +1,35 @@
+package kr.ac.jj.dashboard.application.dashboard.supercompetence.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.dashboard.config.DataSourceMapperConfig.MainSqlMapper;
+
+/**
+ * 배너 관리 Mapper
+ */
+@MainSqlMapper
+public interface SuperCompetenceMapper {
+
+    /**
+     * 데이터 조회
+     * @param search
+     */
+
+    //대학별 데이터 조회
+    public List<Map<String, Object>> readDaehakData(@Param("search") Map<String, Object> search);
+
+    //전체평균 조회
+    public List<Map<String, Object>> readAvgData(@Param("search") Map<String, Object> search);
+
+    //단과대학별 평균 조회
+    public List<Map<String, Object>> readAvgDaehakData(@Param("search") Map<String, Object> search);
+
+    //단과대학 학년별 평균 조회
+    public List<Map<String, Object>> readDaehakYearData(@Param("search") Map<String, Object> search);
+
+    //단과대학 학과별 데이터 조회
+    public List<Map<String, Object>> readHakbuData(@Param("search") Map<String, Object> search);
+}

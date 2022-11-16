@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 인터페이스 - 부서 - 사원 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.intrfc.dept.empl.TbIntrfcDeptEmplEntityMapper">
+
+    <!-- 기본 조회 SQL -->
+    <sql id="baseSelectSql">
+        <![CDATA[
+            SELECT TIDE.SORT_ORDR
+                 , TIDE.DEPT_CODE_1
+                 , TIDE.DEPT_NM_1
+                 , TIDE.DEPT_CODE_2
+                 , TIDE.DEPT_NM_2
+                 , TIDE.DEPT_CODE_3
+                 , TIDE.DEPT_NM_3
+                 , TIDE.DEPT_SORT_ORDR
+                 , TIDE.OFCPS_ID
+                 , TIDE.OFCPS_NM
+                 , TIDE.EMPL_CODE
+                 , TIDE.LOGIN_NM
+                 , TIDE.PERSON_NM
+                 , TIDE.MOBLPHON_NO
+                 , TIDE.EMAIL_ADRES
+                 , TIDE.UNIV_CODE
+                 , TIDE.UNDEG_CODE
+                 , TIDE.SUBJCT_CODE
+                 , TIDE.UMS_DEPT_ID
+            FROM   TB_INTRFC_DEPT_EMPL TIDE
+        ]]>
+    </sql>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.intrfc.dept.empl.TbIntrfcDeptEmpl">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_INTRFC_DEPT_EMPL (
+                   SORT_ORDR
+                 , DEPT_CODE_1
+                 , DEPT_NM_1
+                 , DEPT_CODE_2
+                 , DEPT_NM_2
+                 , DEPT_CODE_3
+                 , DEPT_NM_3
+                 , DEPT_SORT_ORDR
+                 , OFCPS_ID
+                 , OFCPS_NM
+                 , EMPL_CODE
+                 , LOGIN_NM
+                 , PERSON_NM
+                 , MOBLPHON_NO
+                 , EMAIL_ADRES
+                 , UNIV_CODE
+                 , UNDEG_CODE
+                 , SUBJCT_CODE
+                 , UMS_DEPT_ID
+            ) VALUES (
+                   #{tbIntrfcDeptEmpl.sortOrdr}
+                 , #{tbIntrfcDeptEmpl.deptCode1}
+                 , #{tbIntrfcDeptEmpl.deptNm1}
+                 , #{tbIntrfcDeptEmpl.deptCode2}
+                 , #{tbIntrfcDeptEmpl.deptNm2}
+                 , #{tbIntrfcDeptEmpl.deptCode3}
+                 , #{tbIntrfcDeptEmpl.deptNm3}
+                 , #{tbIntrfcDeptEmpl.deptSortOrdr}
+                 , #{tbIntrfcDeptEmpl.ofcpsId}
+                 , #{tbIntrfcDeptEmpl.ofcpsNm}
+                 , #{tbIntrfcDeptEmpl.emplCode}
+                 , #{tbIntrfcDeptEmpl.loginNm}
+                 , #{tbIntrfcDeptEmpl.personNm}
+                 , #{tbIntrfcDeptEmpl.moblphonNo}
+                 , #{tbIntrfcDeptEmpl.emailAdres}
+                 , #{tbIntrfcDeptEmpl.univCode}
+                 , #{tbIntrfcDeptEmpl.undegCode}
+                 , #{tbIntrfcDeptEmpl.subjctCode}
+                 , #{tbIntrfcDeptEmpl.umsDeptId}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_INTRFC_DEPT_EMPL SET
+                   SORT_ORDR                        = #{tbIntrfcDeptEmpl.sortOrdr}
+                 , DEPT_CODE_1                      = #{tbIntrfcDeptEmpl.deptCode1}
+                 , DEPT_NM_1                        = #{tbIntrfcDeptEmpl.deptNm1}
+                 , DEPT_CODE_2                      = #{tbIntrfcDeptEmpl.deptCode2}
+                 , DEPT_NM_2                        = #{tbIntrfcDeptEmpl.deptNm2}
+                 , DEPT_CODE_3                      = #{tbIntrfcDeptEmpl.deptCode3}
+                 , DEPT_NM_3                        = #{tbIntrfcDeptEmpl.deptNm3}
+                 , DEPT_SORT_ORDR                   = #{tbIntrfcDeptEmpl.deptSortOrdr}
+                 , OFCPS_ID                         = #{tbIntrfcDeptEmpl.ofcpsId}
+                 , OFCPS_NM                         = #{tbIntrfcDeptEmpl.ofcpsNm}
+                 , EMPL_CODE                        = #{tbIntrfcDeptEmpl.emplCode}
+                 , LOGIN_NM                         = #{tbIntrfcDeptEmpl.loginNm}
+                 , PERSON_NM                        = #{tbIntrfcDeptEmpl.personNm}
+                 , MOBLPHON_NO                      = #{tbIntrfcDeptEmpl.moblphonNo}
+                 , EMAIL_ADRES                      = #{tbIntrfcDeptEmpl.emailAdres}
+                 , UNIV_CODE                        = #{tbIntrfcDeptEmpl.univCode}
+                 , UNDEG_CODE                       = #{tbIntrfcDeptEmpl.undegCode}
+                 , SUBJCT_CODE                      = #{tbIntrfcDeptEmpl.subjctCode}
+                 , UMS_DEPT_ID                      = #{tbIntrfcDeptEmpl.umsDeptId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_INTRFC_DEPT_EMPL
+        ]]>
+    </delete>
+
+</mapper>

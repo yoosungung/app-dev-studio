@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 사람 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.person.TbComPersonMapper">
+
+    <!-- PERSON_ID 조회 - 사번으로 -->
+    <select id="selectPersonIdByEmplNo" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TCP.PERSON_ID
+            FROM   TB_COM_PERSON TCP
+            WHERE  TCP.EMPL_NO = #{emplNo}
+        ]]>
+    </select>
+
+    <!-- 부서 코드 부서 ID로 변환 -->
+    <update id="updateDeptId">
+        <![CDATA[
+            UPDATE TB_COM_PERSON SET
+                   DEPT_ID                          = #{deptId}
+            WHERE  DEPT_ID = #{deptCode}
+            AND    DEPT_LEVEL = (CASE WHEN LENGTH(#{deptCode}) = 9 THEN 1
+                                      ELSE #{deptLevel}
+                                  END)
+
+        ]]>
+    </update>
+
+</mapper>

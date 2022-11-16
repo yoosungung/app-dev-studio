@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- api Mapper -->
+<mapper namespace="kr.ac.jj.openapi.application.apilist">
+
+    <!-- 서비스 ID 조회 -->
+    <select id="selectSvcId" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TAS.SVC_ID
+            FROM TB_API_SVC TAS
+            WHERE TAS.URL = #{url}
+        ]]>
+    </select>
+
+    <!-- 사용자 ID 조회 -->
+    <select id="selectPersonId" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TASK.APPLCNT_ID
+            FROM TB_API_SVC_KEY TASK
+            WHERE TASK.API_KEY = #{apiKey}
+        ]]>
+    </select>
+
+    <!-- 서비스 키 ID 조회 -->
+    <select id="selectSvcKeyId" resultType="java.lang.String">
+        <![CDATA[
+            SELECT TASK.SVC_KEY_ID
+            FROM TB_API_SVC_KEY TASK
+            WHERE TASK.API_KEY = #{apiKey}
+        ]]>
+    </select>
+
+    <!-- 인증키 체크 -->
+    <select id="selectKeyCheck" resultType="java.lang.String">
+        <![CDATA[
+            SELECT CASE WHEN COUNT(1) > 0 THEN 'Y'
+                        ELSE 'N'
+                    END KEY_YN
+            FROM TB_API_SVC_KEY TASK
+            WHERE TASK.SVC_KEY_ID = #{svcKeyId}
+        ]]>
+    </select>
+
+    <!-- 인증키 권한 체크 -->
+    <select id="selectAuthCheck" resultType="java.lang.String">
+        <![CDATA[
+            SELECT CASE WHEN COUNT(1) > 0 THEN 'Y'
+                        ELSE 'N'
+                    END AUTH_YN
+            FROM TB_API_SVC_KEY TASK
+            WHERE TASK.SVC_KEY_ID = #{svcKeyId}
+              AND TASK.KEY_USE_PD_BEGIN <= CURDATE()
+              AND TASK.KEY_USE_PD_END >= CURDATE()
+              AND TASK.STTUS = 'C'
+        ]]>
+    </select>
+
+    <!-- 서비스 공개 기간 체크 -->
+    <select id="selectOthbcPdCheck" resultType="java.lang.String">
+        <![CDATA[
+            SELECT CASE WHEN COUNT(1) > 0 THEN 'Y'
+                        ELSE 'N'
+                    END OTHBC_PD_YN
+            FROM TB_API_SVC TAS
+            WHERE TAS.URL = #{url}
+              AND TAS.OTHBC_PD_BEGIN <= CURDATE()
+              AND TAS.OTHBC_PD_END >= CURDATE()
+              AND TAS.OTHBC_TY = 'Y'
+        ]]>
+    </select>
+
+    <!-- 서비스 여부 -->
+    <select id="selectSvcCheck" resultType="java.lang.String">
+        <![CDATA[
+            SELECT CASE WHEN COUNT(1) > 0 THEN 'Y'
+                        ELSE 'N'
+                    END SVC_YN
+            FROM TB_API_SVC TAS
+            WHERE TAS.URL = #{url}
+        ]]>
+    </select>
+
+    <!-- apiKey 일일 호출 횟수 -->
+    <select id="selectCallCoPday" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT TASK.CALL_CO_PDAY
+            FROM TB_API_SVC_KEY TASK
+            WHERE TASK.SVC_KEY_ID = #{svcKeyId}
+        ]]>
+    </select>
+
+    <!-- apiKey 당일 호출 횟수 -->
+    <select id="selectTodayCallCnt" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT COUNT(1) TODAY_CALL_CNT
+            FROM TB_API_SVC_KEY_HIST TASKH
+            WHERE TASKH.SVC_KEY_ID = #{svcKeyId}
+              AND TASKH.CALL_RESULT = '000'
+        ]]>
+    </select>
+
+</mapper>

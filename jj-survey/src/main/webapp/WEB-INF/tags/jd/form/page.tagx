@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:util="urn:jsptagdir:/WEB-INF/tags/jd/util"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:form="http://www.springframework.org/tags/form"
+    version="2.0">
+
+    <jsp:output omit-xml-declaration="yes" />
+    <jsp:directive.attribute name="order" type="java.lang.String" required="false" rtexprvalue="true" description="The order of the page" />
+    <jsp:directive.attribute name="title" type="java.lang.String" required="false" rtexprvalue="true" description="The title used for this object" />
+    <jsp:directive.attribute name="object" type="java.lang.Object" required="false" rtexprvalue="true" description="The form backing object" />
+    <jsp:directive.attribute name="path" type="java.lang.String" required="false" rtexprvalue="true" description="Specify the URL path" />
+
+    <script type="text/javascript">
+        function delSurveyPage(id) {
+            if(confirm('설문조사 페이지를 삭제 하시겠습니까?')) {
+                $('#' + id).submit();
+            }
+        }
+    </script>
+
+    <c:set var="sec_id">
+      <spring:escapeBody javaScriptEscape="true" >${id}</spring:escapeBody>
+    </c:set>
+
+    <c:set var="sec_openPane">
+      <spring:escapeBody javaScriptEscape="true" >${openPane}</spring:escapeBody>
+    </c:set>
+
+    <div class="widget">
+        <div class="widget-header header-large bordered-bottom bordered-blueberry">
+            <span class="widget-caption" style="font-size: 16px; margin-top: 8px;">페이지 ${order} : ${title}</span>
+            <div class="widget-buttons widget-custom-buttons">
+                <c:if test="${not empty object}">
+                    <c:set var="itemId"><spring:eval expression="object.id" /></c:set>
+
+                    <c:if test="${surveyDefinition.statusAsString eq 'I'}" >
+
+                        <!-- Update Link -->
+                        <spring:url value="${path}/${itemId}" var="update_form_url">
+                            <spring:param name="form" />
+                        </spring:url>
+                        <a href="${update_form_url}" target="_new" class="fancyboxLink tooltip-info" data-original-title="페이지 수정" data-toggle="tooltip" data-placement="bottom">
+                            <i class="fa fa-cog"><!----></i>
+                        </a>
+
+                        <!-- Forking Login Link -->
+                        <spring:url value="${path}/${itemId}" var="update_form_url">
+                            <spring:param name="fork" />
+                        </spring:url>
+                        <a href="${update_form_url}" data-modal-width="1100" target="_new" class="fancyboxLink tooltip-info" data-original-title="페이지 분기" data-toggle="tooltip" data-placement="bottom">
+                            <i class="fa fa-random"><!----></i>
+                        </a>
+
+                        <!-- Question Add Link -->
+                        <spring:url value="/settings/questions/${itemId}" var="create_url">
+                            <spring:param name="create" />
+                        </spring:url>
+                        <a href="${create_url}" target="_blank" class="fancyboxLink tooltip-info" data-original-title="질문 추가" data-toggle="tooltip" data-placement="bottom">
+                            <i class="fa fa-plus"><!----></i>
+                        </a>
+
+                        <!-- Delete Link -->
+                        <spring:url value="${path}/${itemId}" var="delete_form_url" />
+                        <a href="javascript:delSurveyPage('${singularLabel}_id_${itemId}')" class="tooltip-danger" data-original-title="페이지 삭제" data-toggle="tooltip" data-placement="bottom">
+                            <i class="fa fa-trash-o"><!----></i>
+                        </a>
+                        <form id="${singularLabel}_id_${itemId}" action="${delete_form_url}" method="post">
+                            <input type="hidden" name="_method" value="DELETE" />
+                        </form>
+                    </c:if>
+
+                </c:if>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="fontawesome-container">
+                <jsp:doBody />
+            </div>
+        </div>
+    </div>
+</jsp:root>

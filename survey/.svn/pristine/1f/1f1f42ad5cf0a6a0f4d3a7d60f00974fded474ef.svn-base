@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="modal-content" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" 
+	xmlns:form="http://www.springframework.org/tags/form" 
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+	xmlns:spring="http://www.springframework.org/tags" 
+	version="2.0">
+	
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    
+    <script type="text/javaScript">
+		$(function() {
+			
+			$('#userCrateForm').on('submit', function() {
+				
+				if(this.login.value == '') {
+					alert('아이디를 입력하세요.')
+					this.login.focus();
+					return false;
+				}
+				if(this.firstName.value == '') {
+					alert('이름을 입력하세요.')
+					this.firstName.focus();
+					return false;
+				}
+				if(this.email.value == '') {
+					alert('이메일을 입력하세요.')
+					this.email.focus();
+					return false;
+				}
+				if(this.password.value == '') {
+					alert('비밀번호를 입력하세요.')
+					this.password.focus();
+					return false;
+				}
+				if(this.confirmPassword.value == '') {
+					alert('비밀번호 확인을 입력하세요.')
+					this.confirmPassword.focus();
+					return false;
+				}
+				else if(confirm('사용자를 등록 하시겠습니까?')) {
+					return true;
+				}
+				return false;
+			});
+			
+			
+			checkboxChecked();
+		});
+		
+		function checkboxChecked() {
+			var id = '';
+			if('${fn:length(user.surveyDefinitions)}' > 0) {
+				<c:forEach items="${user.surveyDefinitions}" var="uSurveyDefinition">
+					id = <c:out value="${uSurveyDefinition.id}" />;
+					$('#surveyDefinitions input').each(function() {
+						if(id == this.value) {
+							$(this).prop('checked', true);
+						}
+					});
+				</c:forEach>
+			}
+		}
+	</script>
+    
+     <div class="modal-body" style="min-height: 700px;">
+		<div class="bootbox-body">
+			<div class="row">
+				<div class="col-md-12">
+					<form:form commandName="user" id="userCrateForm" class="form-horizontal"  action="/security/users" method="post" enctype="application/x-www-form-urlencoded">
+					
+						<form:hidden path="id" />
+						<form:hidden path="type"/>
+						<input type="hidden" name="groups" id="groups" value="3" />
+						<input type="hidden" name="middleName" id="middleName" value="middleName"/>
+						<input type="hidden" name="lastName" id="lastName" value="lastName"/>
+						<input type="hidden" name="dateOfBirth" id="dateOfBirth" value="1900-01-01"/>
+						<div class="form-group">
+							<label for="enabled" class="col-sm-2 control-label no-padding-right">사용여부</label>
+							<div class="col-sm-10 checkbox">
+								<label>
+									<input type="checkbox" name="enabled" id="enabled" value="true" class="colored-success" checked="checked"/>
+									<span class="text">사용</span>
+								</label>
+								<span class="text-warning" style="margin-left: 10px;"><i class="fa-fw fa fa-warning"><!----></i> 사용여부가 선택되지 않은 계정은 사용할 수 없습니다.</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="login" class="col-sm-2 control-label no-padding-right"><i class="fa fa-check orange"><!----></i> 아이디</label>
+							<div class="col-sm-4">
+								<form:input path="login" class="form-control" maxlength="100"/>
+								<form:errors id="_login_error_id" path="login" cssClass="help-block orange"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="firstName" class="col-sm-2 control-label no-padding-right"><i class="fa fa-check orange"><!----></i> 이름</label>
+							<div class="col-sm-4">
+								<form:input path="firstName" class="form-control" maxlength="75"/>
+								<form:errors id="_firstName_error_id" path="firstName" cssClass="help-block orange"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="email" class="col-sm-2 control-label no-padding-right"><i class="fa fa-check orange"><!----></i> 이메일</label>
+							<div class="col-sm-4">
+								<form:input path="email" class="form-control" maxlength="100"/>
+								<form:errors id="_email_error_id" path="email" cssClass="help-block orange"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="password" class="col-sm-2 control-label no-padding-right"><i class="fa fa-check orange"><!----></i> 비밀번호</label>
+							<div class="col-sm-4">
+								<form:password path="password" class="form-control" maxlength="20"/>
+								<form:errors id="_password_error_id" path="password" cssClass="help-block orange"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="confirmPassword" class="col-sm-2 control-label no-padding-right"><i class="fa fa-check orange"><!----></i> 비밀번호 확인</label>
+							<div class="col-sm-4">
+								<form:password path="confirmPassword" class="form-control" maxlength="20"/>
+								<form:errors id="_confirmPassword_error_id" path="confirmPassword" cssClass="help-block orange"/>
+							</div>
+						</div>
+						
+						<div class="form-title"><!--  --></div>
+						
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">설문조사</label>
+							<div class="col-sm-10 checkbox" id="surveyDefinitions">
+								
+								<p class="text-warning" style="margin: 0;"><i class="fa-fw fa fa-warning"><!----></i> 공개된 설문은 누구나 참여가 가능하나, 비공개 설문은 사용자별 참여권한을 부여해야 합니다.</p>
+								<p class="text-warning"><i class="fa-fw fa fa-warning"><!----></i> 아래 비공개 설문 중 참여권한을 부여할 설문을 선택바랍니다.</p>
+								
+								<div style="max-height: 200px; overflow: auto;">
+									<c:choose>
+										<c:when test="${fn:length(surveyDefinitions) != 0}">
+											<c:forEach items="${surveyDefinitions}" var="surveyDefinition">
+												<c:if test="${!surveyDefinition.isPublic}">
+													<label for="${surveyDefinition.surveyDefinitionLongName}"><input class="colored-success" value="${surveyDefinition.id}" name="surveyDefinitions" id="${surveyDefinition.surveyDefinitionLongName}" type="checkbox"/><span class="text">${surveyDefinition.name}</span></label><br></br>
+												</c:if>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											* 등록된 설문조사가 없습니다.
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group text-center">
+							<div class="col-sm-12">
+								<button type="submit" value="저장" name="_proceed" class="btn btn-palegreen">사용자 등록</button>
+							</div>
+						</div>
+					</form:form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>	
+
+

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="page-body"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:table="urn:jsptagdir:/WEB-INF/tags/jd/2015/table"
+    xmlns:sec="http://www.springframework.org/security/tags"
+    version="2.0">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <SCRIPT type="text/javascript">
+        <![CDATA[
+            function checkSurveyTarget(id) {
+                var flag = true;
+
+                $.ajax({
+                    type: 'post',
+                    async: false,
+                    url: '${pageContext.request.contextPath}/pub/survey/'+id,
+                }).done(function(data) {
+                    if(data == 0) {
+                        alert('조사대상자가 아닙니다.');
+                        flag = false;
+                    }
+                });
+                return flag;
+            }
+        ]]>
+    </SCRIPT>
+
+    <!-- container -->
+       <div id="container">
+           <div class="section_wrap progress">
+               <h2 class="wrap_tit">설문조사 목록</h2>
+               <form action="" >
+                   <div class="progress_list_wrap">
+                       <div class="info">
+                           <p class="txt">전체 <strong>${cmd.total}</strong>건의 설문조사가 있습니다.</p>
+                           <div class="sort">
+                               <a href="${cmd.sort eq 'endDt' ? cmd.sortInverseParameterUrl : cmd.sortParameterUrl}endDt" class="edge">등록순</a>
+                               <a href="${cmd.sort eq 'userCnt' ? cmd.sortInverseParameterUrl : cmd.sortParameterUrl}userCnt">참여순</a>
+                           </div>
+                       </div>
+                       <ul class="progress_list">
+                           <c:forEach var="survey" items="${cmd.pageList}" varStatus="status">
+                               <c:choose>
+                                   <c:when test="${status.count == 1 || status.count == 2 || status.count == 5 || status.count == 6 || status.count == 9 || status.count == 10}">
+                                       <li class="edge">
+                                        <span class="alram ${survey.status eq 'P' ? 'on':''}">${survey.status eq 'P' ? '투표중':'종료'}</span>
+                                        <a href="${pageContext.request.contextPath}/pub/survey/research/${survey.surveyDefinitionId}${survey.status eq 'P' ? '?process':''}">${survey.name}</a>
+                                        <div class="info">
+                                            <span class="bar">${survey.status eq 'P' ? '현재참여':'전체참여'} <em class="f_red">${survey.userCnt}</em></span>
+                                            <span><spring:eval expression="survey.endDay"/></span>
+                                        </div>
+                                    </li>
+                                   </c:when>
+                                   <c:otherwise>
+                                       <li>
+                                        <span class="alram ${survey.status eq 'P' ? 'on':''}">${survey.status eq 'P' ? '투표중':'종료'}</span>
+                                        <a href="${pageContext.request.contextPath}/pub/survey/research/${survey.surveyDefinitionId}${survey.status eq 'P' ? '?process':''}">${survey.name}</a>
+                                        <div class="info">
+                                            <span class="bar">${survey.status eq 'P' ? '현재참여':'전체참여'} <em class="f_red">${survey.userCnt}</em></span>
+                                            <span><spring:eval expression="survey.endDay"/></span>
+                                        </div>
+                                    </li>
+                                   </c:otherwise>
+                               </c:choose>
+                           </c:forEach>
+                       </ul>
+
+                       <c:import url="/WEB-INF/views/jd/navigation/navigation.jspx"/>
+                   </div>
+               </form>
+           </div>
+       </div>
+       <!-- end container -->
+</div>
+

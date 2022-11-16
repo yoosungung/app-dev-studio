@@ -1,0 +1,113 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/layouts/shared/include/PageHeader.jspf" %>
+
+<style type="text/css">
+.panel-height-helper{
+    height:850px;
+}
+</style>
+
+<div id="read" style="display: none;">
+    <div class="pageContents">
+        <div class="searchArea">
+            <table class="searchBox">
+                <colgroup>
+                    <col width="10%">
+                    <col width="*">
+                    <col width="10%">
+                    <col width="*">
+                    <col width="10%">
+                    <col width="*">
+                    <col width="10%">
+                    <col width="*">
+                </colgroup>
+                <tr>
+                    <th>학교</th>
+                    <td>
+                        <ui-select v-model="search.schoNm" code-data="entrance.readSchoList" first-name="전체"></ui-select>
+                    </td>
+                    <th>단과학과</th>
+                    <td>
+                        <ui-select v-model="search.daehakNm" code-data="entrance.readDaehakList" first-name="전체"></ui-select>
+                    </td>
+                    <th>학과</th>
+                    <td>
+                        <ui-select v-model="search.hakkwaNm" code-data="entrance.readHakkwa1nameList" first-name="전체"></ui-select>
+                    </td>
+                    <th>전형별</th>
+                    <td>
+                        <ui-select v-model="search.junhyungNm" code-data="entrance.readJunhyungList" first-name="전체"></ui-select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="panel-main">
+            <div class="panel-main">
+                <div class="panel-height-helper">
+                    <div class="panel-container">
+                        <div class="panel-header">
+                            <p>입학 데이터</p>
+                        </div>
+                        <div class="panel-content">
+                           <ui-graph id="entranceGraph" v-bind:search="search"></ui-graph>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+Vue.component('ui-graph', {
+    props: {
+        id: {
+            type: String
+        },
+        search: {
+            type: Object
+        }
+    },
+    computed: {
+        service: function() {
+            return new EntranceViewService(this);
+        },
+        key: function() {
+            return this.search.schoNm + '_' + this.search.daehakNm + '_' + this.search.hakkwaNm + '_' + this.search.junhyungNm
+        }
+    },
+    template: '<div class="findme" v-bind:id="id" v-bind:key="key" style="width:1400px;height:800px;display:inline-block;"></div>',
+    mounted: function() {
+        this.readList();
+    },
+    updated: function() {
+        this.readList();
+    },
+    methods: {
+        readList: function() {
+            this.service.readList(this.search);
+        }
+    }
+});
+
+vues.read = new Vue({
+    el: '#read',
+    data: {
+        search : {
+            schoNm: "",
+            daehakNm: "",
+            hakkwaNm: "",
+            junhyungNm: "",
+        }
+    },
+    computed: {
+        service: function() {
+            return new EntranceViewService(this);
+        },
+        formatter: function() {
+            return CommonUtil.formatter;
+        },
+    }
+});
+</script>

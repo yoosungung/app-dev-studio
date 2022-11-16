@@ -1,0 +1,26 @@
+package kr.ac.jj.shared.domain.main.model.com.sms;
+
+import kr.ac.jj.shared.infrastructure.idgen.util.IdGenerationUtil;
+
+/**
+ * 공통 - 문자메시지
+ */
+public class TbComSms extends TbComSmsEntity {
+
+    private static final long serialVersionUID = 1972817060567158891L;
+
+    public TbComSms newId() {
+        this.setSmsId(IdGenerationUtil.createUid("TB_COM_SMS"));
+
+        return this;
+    }
+
+    public void setTranPhone(String tranPhone) {
+        this.tranPhone = tranPhone;
+    }
+
+    public void setTranCallback(String tranCallback) {
+        this.tranCallback = tranCallback;
+    }
+
+}

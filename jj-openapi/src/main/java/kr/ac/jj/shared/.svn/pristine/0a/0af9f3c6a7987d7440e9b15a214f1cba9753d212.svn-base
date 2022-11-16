@@ -1,0 +1,48 @@
+package kr.ac.jj.shared.domain.main.model.sys.log.error;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Date;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
+
+import kr.ac.jj.shared.infrastructure.framework.core.support.sequence.BaseSequence;
+import kr.ac.jj.shared.infrastructure.idgen.util.IdGenerationUtil;
+
+/**
+ * 시스템 - 에러 로그
+ */
+public class TbSysLogError extends TbSysLogErrorEntity {
+
+    private static final long serialVersionUID = -8879390947732344792L;
+
+    private static final BaseSequence errorCodeSeq = new BaseSequence(0, 9999, true);
+
+    public TbSysLogError newId() {
+        this.setErrorLogId(IdGenerationUtil.createUid("TB_SYS_LOG_ERROR"));
+
+        return this;
+    }
+
+    public TbSysLogError newErrorCode() {
+        String[] hostAddresses;
+
+        try {
+            hostAddresses = InetAddress.getLocalHost().getHostAddress().split("\\.");
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+
+        Date errorDt = (this.getErrorDt() == null ? new Date() : this.getErrorDt());
+        String dateStr = DateFormatUtils.format(errorDt, "yyyyMMddHHmmss");
+        Long hostAddr = Long.parseLong(hostAddresses[3], 10);
+        String hostStr = StringUtils.leftPad(Long.toString(hostAddr, 36).toUpperCase(), 2, '0');
+        String seqStr = errorCodeSeq.getNextValue(4, '0');
+
+        this.setErrorCode(dateStr + hostStr + seqStr);
+
+        return this;
+    }
+
+}

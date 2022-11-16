@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+    "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+    "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+  <definition name="accessDenied" extends="default" template="/WEB-INF/layouts/jd/bootstrap-error.jspx">
+    <put-attribute name="body" value="/WEB-INF/views/jd/accessDenied.jspx"/>
+  </definition>
+
+  <definition name="dataAccessFailure" extends="public" template="/WEB-INF/layouts/jd/bootstrap-error.jspx">
+    <put-attribute name="body" value="/WEB-INF/views/jd/dataAccessFailure.jspx"/>
+  </definition>
+
+  <definition name="resourceNotFound" extends="public" template="/WEB-INF/layouts/jd/bootstrap-error.jspx">
+    <put-attribute name="body" value="/WEB-INF/views/jd/resourceNotFound.jspx"/>
+  </definition>
+
+  <definition name="uncaughtException" extends="public" template="/WEB-INF/layouts/jd/bootstrap-error.jspx">
+        <put-attribute name="body" value="/WEB-INF/views/jd/uncaughtException.jspx"/>
+  </definition>
+
+    <definition name="surveyAlreadyTaken" extends="public" template="/WEB-INF/layouts/jd/bootstrap-error.jspx">
+        <put-attribute name="body" value="/WEB-INF/views/jd/surveyAlreadyTaken.jspx"/>
+    </definition>
+
+</tiles-definitions>

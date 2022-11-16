@@ -1,0 +1,33 @@
+package kr.ac.jj.shared.domain.main.model.com.dept;
+
+import kr.ac.jj.shared.infrastructure.framework.web.support.codedata.CodeDataUtil;
+import kr.ac.jj.shared.infrastructure.idgen.util.IdGenerationUtil;
+
+/**
+ * 공통 - 부서
+ */
+public class TbComDept extends TbComDeptEntity {
+
+    private static final long serialVersionUID = 113649357787975034L;
+
+    private String upperDeptNm;
+
+    public TbComDept newId() {
+        this.setDeptId(IdGenerationUtil.createUid("TB_COM_DEPT"));
+
+        return this;
+    }
+
+    public String getUpperDeptNm() {
+        return this.upperDeptNm;
+    }
+
+    public void setUpperDeptNm(String upperDeptNm) {
+        this.upperDeptNm = upperDeptNm;
+    }
+
+    public String getUseYnNm() {
+        return CodeDataUtil.getCodeName("/common/useYn", this.getUseYn());
+    }
+
+}

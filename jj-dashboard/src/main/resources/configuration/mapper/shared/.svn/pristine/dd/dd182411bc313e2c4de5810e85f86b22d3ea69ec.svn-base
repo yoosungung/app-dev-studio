@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 사용자별 권한 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.user.author.TbSysUserAuthorMapper">
+
+    <!-- 생성 - 존재하지 않는 건 -->
+    <insert id="insertNotExists">
+        <![CDATA[
+            INSERT INTO TB_SYS_USER_AUTHOR (
+                   USER_ID
+                 , AUTHOR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+            )
+            SELECT #{tbSysUserAuthor.userId}
+                 , #{tbSysUserAuthor.authorId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_SYS_USER_AUTHOR
+                        WHERE  USER_ID = #{tbSysUserAuthor.userId}
+                        AND    AUTHOR_ID = #{tbSysUserAuthor.authorId}
+                   )
+        ]]>
+    </insert>
+
+</mapper>

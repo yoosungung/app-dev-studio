@@ -1,0 +1,11 @@
+################################################################################
+# OS - 리눅스
+################################################################################
+config:
+  shared:
+    logs-directory: /app/data/jj-survey/logs
+    temp-directory: /app/data/jj-survey/temp
+    file:
+      repository:
+        repositories:
+          repository1: /app/data/jj-survey/files

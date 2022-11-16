@@ -1,0 +1,28 @@
+################################################################################
+# 실행환경 - 운영
+################################################################################
+spring:
+  profiles:
+    include:
+      - logging-file
+      
+config:
+  shared:
+    datasources:
+      main:
+        hikari:
+          jdbc-url: "jdbc:mariadb://202.31.236.115:3306/jj_openapi"
+          minimum-idle: 10
+          maximum-pool-size: 500
+    email:
+      test-email-address:
+      sender-name: JavaMailSender
+      sender-options:
+        java-mail:
+          session-properties:
+            mail.smtp.host: 127.0.0.1
+            mail.smtp.port: 25
+            mail.smtp.auth: false
+            mail.smtp.starttls.enable: false
+          smtp-auth-username: ""
+          smtp-auth-password: ""

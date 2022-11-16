@@ -1,0 +1,41 @@
+package kr.ac.jj.shared.domain.main.mapper.com.dept;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+import kr.ac.jj.shared.domain.main.model.com.dept.TbComDept;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.handler.DataResultHandler;
+
+/**
+ * 공통 - 부서 Mapper
+ */
+@SharedMainSqlMapper
+public interface TbComDeptMapper extends TbComDeptEntityMapper {
+
+    /**
+     * 부서 코드, 부서 ID 목록 조회
+     *
+     * @param resultHandler
+     */
+    public void selectDeptCodeDeptIdList(DataResultHandler<TbComDept> resultHandler);
+
+    /**
+     * 트리 목록 조회
+     *
+     * @return
+     */
+    public List<Map<String, Object>> selectTreeList();
+
+    /**
+     * 수정 - 인터페이스 ID 없는 것들
+     *
+     * @param tableNm
+     * @param useYn
+     * @return
+     */
+    public int updateUseYnWhereIntrfcIdNotMatched(@Param("tableNm") String tableNm, @Param("useYn") String useYn);
+
+}

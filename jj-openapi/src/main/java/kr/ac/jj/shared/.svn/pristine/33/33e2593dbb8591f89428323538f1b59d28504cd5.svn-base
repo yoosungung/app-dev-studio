@@ -1,0 +1,49 @@
+package kr.ac.jj.shared.application.admin.appmanage.deptmanage.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+import kr.ac.jj.shared.domain.main.model.com.dept.TbComDept;
+
+/**
+ * 부서 관리 Mapper
+ */
+@SharedMainSqlMapper
+public interface DepartmentManageMapper {
+
+    /**
+     * 트리 조회
+     *
+     * @return
+     */
+    public List<Map<String, Object>> selectTree();
+
+    /**
+     * 부서 목록 조회(부서코드 길이 9)
+     * @return
+     */
+    public List<TbComDept> selectDeptTreeList();
+
+    /**
+     * 학과 목록 조회 Lv2
+     *
+     * @param
+     */
+    public List<TbComDept> selectUnivLv2List();
+
+    /**
+     * 학과 목록 조회 Lv3
+     *
+     * @param
+     */
+    public List<TbComDept> selectUnivLv3List();
+
+    /**
+     * 학과 목록 조회 Lv4
+     *
+     * @param
+     */
+    public List<TbComDept> selectUnivLv4List();
+
+}

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 메일 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.com.email.TbComEmailEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.com.email.TbComEmail">
+        <![CDATA[
+            SELECT TCE.EMAIL_ID
+                 , TCE.EMAIL_SJ
+                 , TCE.EMAIL_CN
+                 , TCE.SENDER_EMAIL_ADRES
+                 , TCE.SENDER_NM
+                 , TCE.SENDER_PERSON_ID
+                 , TCE.WRITNG_DT
+                 , TCE.RELATE_ID
+            FROM   TB_COM_EMAIL TCE
+            WHERE  TCE.EMAIL_ID = #{emailId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_COM_EMAIL (
+                   EMAIL_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , EMAIL_SJ
+                 , EMAIL_CN
+                 , SENDER_EMAIL_ADRES
+                 , SENDER_NM
+                 , SENDER_PERSON_ID
+                 , WRITNG_DT
+                 , RELATE_ID
+            ) VALUES (
+                   #{tbComEmail.emailId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbComEmail.emailSj}
+                 , #{tbComEmail.emailCn}
+                 , #{tbComEmail.senderEmailAdres}
+                 , #{tbComEmail.senderNm}
+                 , #{tbComEmail.senderPersonId}
+                 , #{$var.systemDate}
+                 , #{tbComEmail.relateId}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_COM_EMAIL SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , EMAIL_SJ                         = #{tbComEmail.emailSj}
+                 , EMAIL_CN                         = #{tbComEmail.emailCn}
+                 , SENDER_EMAIL_ADRES               = #{tbComEmail.senderEmailAdres}
+                 , SENDER_NM                        = #{tbComEmail.senderNm}
+                 , SENDER_PERSON_ID                 = #{tbComEmail.senderPersonId}
+                 , RELATE_ID                        = #{tbComEmail.relateId}
+            WHERE  EMAIL_ID = #{tbComEmail.emailId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_EMAIL
+            WHERE  EMAIL_ID = #{emailId}
+        ]]>
+    </delete>
+
+</mapper>

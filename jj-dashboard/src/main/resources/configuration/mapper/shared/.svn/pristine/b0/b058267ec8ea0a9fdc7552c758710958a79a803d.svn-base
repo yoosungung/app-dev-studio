@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 인터페이스 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.intrfc.TbSysIntrfcEntityMapper">
+
+    <!-- 기본 조회 SQL -->
+    <sql id="baseSelectSql">
+        <![CDATA[
+            SELECT TSI.TABLE_NM
+                 , TSI.ID_VALUE
+            FROM   TB_SYS_INTRFC TSI
+        ]]>
+    </sql>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.sys.intrfc.TbSysIntrfc">
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+            WHERE  TSI.TABLE_NM = #{tableNm}
+            AND    TSI.ID_VALUE = #{idValue}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SYS_INTRFC (
+                   TABLE_NM
+                 , ID_VALUE
+                 , CREAT_USER_ID
+                 , CREAT_DT
+            ) VALUES (
+                   #{tbSysIntrfc.tableNm}
+                 , #{tbSysIntrfc.idValue}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SYS_INTRFC SET
+            WHERE  TABLE_NM = #{tbSysIntrfc.tableNm}
+            AND    ID_VALUE = #{tbSysIntrfc.idValue}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_INTRFC
+            WHERE  TABLE_NM = #{tableNm}
+            AND    ID_VALUE = #{idValue}
+        ]]>
+    </delete>
+
+</mapper>

@@ -1,0 +1,92 @@
+package kr.ac.jj.shared.domain.main.model.sys.log;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.dizitart.no2.Document;
+
+import kr.ac.jj.shared.infrastructure.framework.core.foundation.exception.BaseException;
+import kr.ac.jj.shared.infrastructure.framework.core.support.context.ApplicationContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.web.context.request.RequestContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.web.context.session.SessionContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.web.support.codedata.CodeDataUtil;
+import kr.ac.jj.shared.infrastructure.idgen.util.IdGenerationUtil;
+import kr.ac.jj.shared.infrastructure.logging.collection.LoggingCollections;
+import kr.ac.jj.shared.infrastructure.logging.util.LoggingUtil;
+import kr.ac.jj.shared.infrastructure.user.BaseLoginUser;
+import kr.ac.jj.shared.infrastructure.util.BaseUtil;
+
+/**
+ * 시스템 - 로그
+ */
+public class TbSysLog extends TbSysLogEntity {
+
+    private static final long serialVersionUID = 7481603066954089219L;
+
+    public TbSysLog() {
+        BaseLoginUser loginUser = SessionContextUtil.getLoginUser(BaseLoginUser.class);
+
+        this.setLogId(LoggingUtil.getCurrentLogId(true));
+        this.setUserId(loginUser == null ? "(UNKNOWN)" : loginUser.getUserId());
+        this.setLogDt(new Date());
+
+        try {
+            this.setServerIp(InetAddress.getLocalHost().getHostAddress());
+        } catch (UnknownHostException e) {
+            throw new BaseException(e);
+        }
+
+        HttpServletRequest request = RequestContextUtil.getRequest();
+
+        if (request != null) {
+            String servletPath = request.getServletPath();
+            String queryString = request.getQueryString();
+
+            this.setRequstIp(RequestContextUtil.getClientIpAddress());
+            this.setRequstTy(RequestContextUtil.getRequestType().name());
+            this.setRequstHost(RequestContextUtil.getServerURL());
+            this.setRequstPath(request.getContextPath() + servletPath
+                    + (StringUtils.isEmpty(queryString) ? "" : "?" + queryString));
+            this.setRequstHder(BaseUtil.getHeaderValues(request));
+            this.setRequstMthd(RequestContextUtil.getRequestMethod());
+
+            if ("/common/user/login.do".equals(servletPath)) {
+                this.setRequstParamtr("(Privacy Protected)");
+            } else {
+                this.setRequstParamtr(BaseUtil.getParameterValues(request));
+            }
+        }
+    }
+
+    public TbSysLog newId() {
+        this.setLogId(IdGenerationUtil.createUid("TB_SYS_LOG"));
+
+        return this;
+    }
+
+    @Override
+    public void setRspnsSttusCode(Integer rspnsSttusCode) {
+        this.rspnsSttusCode = rspnsSttusCode;
+
+        this.setSuccesYn(this.rspnsSttusCode < HttpServletResponse.SC_BAD_REQUEST);
+    }
+
+    public String getSuccesYnNm() {
+        return CodeDataUtil.getCodeName("/common/yesNo", this.getSuccesYn());
+    }
+
+    public void insertQueue() {
+        Document document = LoggingUtil.newCurrentDocument(this);
+
+        if (document != null) {
+            LoggingCollections loggingCollections = ApplicationContextUtil.getBean(LoggingCollections.class);
+            loggingCollections.tbSysLog.insert(document);
+        }
+    }
+
+}

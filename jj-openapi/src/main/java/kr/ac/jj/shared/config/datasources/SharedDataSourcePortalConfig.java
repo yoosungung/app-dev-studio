@@ -1,0 +1,171 @@
+package kr.ac.jj.shared.config.datasources;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
+import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.session.LocalCacheScope;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.TypeHandlerRegistry;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
+import org.springframework.stereotype.Component;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+import kr.ac.jj.shared.infrastructure.framework.core.foundation.exception.BaseException;
+import kr.ac.jj.shared.infrastructure.framework.core.persistence.dao.helper.SqlHelperForOracle;
+import kr.ac.jj.shared.infrastructure.framework.core.persistence.dao.helper.SqlHelperUtil;
+import kr.ac.jj.shared.infrastructure.framework.core.support.jndi.JndiConfig;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.interceptor.BaseSqlInterceptor;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.interceptor.DataResultHandleInterceptor;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.interceptor.DataUpdatedCheckInterceptor;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.interceptor.SelectQueryWrappingInterceptor;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.interceptor.StatementLogInterceptor;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.scripting.SelectQueryWrappingLanguageDriver;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.type.EmptyToNullTypeHandler;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.type.LONGVARCHARTypeHandler;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.type.LocaleStringTypeHandler;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.type.StringDateTypeHandler;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.variables.MyBatisDataSourceSpec;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.datasource.config.MapperLocationResources;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.datasource.props.DatabaseIdProperties;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.datasource.props.MyBatisConfigProperties;
+import kr.ac.jj.shared.infrastructure.framework.web.persistence.dao.variables.WebSqlVariables;
+import kr.ac.jj.shared.infrastructure.user.AnonymousUser;
+import kr.ac.jj.shared.infrastructure.user.SystemUser;
+import net.sf.log4jdbc.sql.jdbcapi.DataSourceSpy;
+
+@Configuration
+public class SharedDataSourcePortalConfig {
+
+    @Bean(name = "hikariConfig.portal")
+    @ConfigurationProperties(prefix = "config.shared.datasources.portal.hikari")
+    public HikariConfig hikariConfig() {
+        return new HikariConfig();
+    }
+
+    @Bean(name = "jndiConfig.portal")
+    @ConfigurationProperties(prefix = "config.shared.datasources.portal.jndi")
+    public JndiConfig jndiConfig() {
+        return new JndiConfig();
+    }
+
+    @Bean(name = "myBatisConfig.portal")
+    @ConfigurationProperties(prefix = "config.shared.datasources.portal.mybatis")
+    public MyBatisConfigProperties myBatisConfig() {
+        return new MyBatisConfigProperties();
+    }
+
+    @Bean(name = "realDataSource.portal")
+    public DataSource realDataSource() {
+        DataSource realDataSource;
+        JndiConfig jndiConfig = jndiConfig();
+
+        if (StringUtils.isEmpty(jndiConfig.getJndiName())) {
+            realDataSource = new HikariDataSource(hikariConfig());
+        } else {
+            JndiDataSourceLookup jndiDataSourceLookup = new JndiDataSourceLookup();
+            jndiDataSourceLookup.setResourceRef(jndiConfig.isResourceRef());
+            realDataSource = jndiDataSourceLookup.getDataSource(jndiConfig.getJndiName());
+        }
+
+        return realDataSource;
+    }
+
+    @Bean(name = "dataSource.portal")
+    public DataSource dataSource() {
+        return new DataSourceSpy(realDataSource());
+    }
+
+    @Bean(name = "sqlSession.portal")
+    public SqlSessionTemplate sqlSession() {
+        return new SqlSessionTemplate(sqlSessionFactory());
+    }
+
+    @Bean(name = "sqlSessionFactory.portal")
+    public SqlSessionFactory sqlSessionFactory() {
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSource());
+
+        Properties databaseIdProperties = new DatabaseIdProperties();
+
+        VendorDatabaseIdProvider databaseIdProvider = new VendorDatabaseIdProvider();
+        databaseIdProvider.setProperties(databaseIdProperties);
+        sqlSessionFactoryBean.setDatabaseIdProvider(databaseIdProvider);
+
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        configuration.setCacheEnabled(true);
+        configuration.setLocalCacheScope(LocalCacheScope.STATEMENT);
+        configuration.setMapUnderscoreToCamelCase(true);
+        configuration.setCallSettersOnNulls(true);
+        configuration.setJdbcTypeForNull(JdbcType.VARCHAR);
+        configuration.setDefaultScriptingLanguage(SelectQueryWrappingLanguageDriver.class);
+        sqlSessionFactoryBean.setConfiguration(configuration);
+
+        WebSqlVariables sqlVariables = new WebSqlVariables();
+        sqlVariables.setDataSourceSpec(new MyBatisDataSourceSpec(dataSource(), databaseIdProvider));
+        sqlVariables.setAnonymousUser(new AnonymousUser());
+        sqlVariables.setSystemUser(new SystemUser());
+
+        BaseSqlInterceptor baseSqlInterceptor = new BaseSqlInterceptor();
+        baseSqlInterceptor.setSqlVariables(sqlVariables);
+        SelectQueryWrappingInterceptor selectQueryWrappingInterceptor = new SelectQueryWrappingInterceptor();
+        DataResultHandleInterceptor dataResultHandleInterceptor = new DataResultHandleInterceptor();
+        DataUpdatedCheckInterceptor dataUpdatedCheckInterceptor = new DataUpdatedCheckInterceptor();
+        StatementLogInterceptor statementLogInterceptor = new StatementLogInterceptor();
+        sqlSessionFactoryBean.setPlugins(new Interceptor[] { baseSqlInterceptor, selectQueryWrappingInterceptor,
+                dataResultHandleInterceptor, dataUpdatedCheckInterceptor, statementLogInterceptor });
+
+        TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
+        typeHandlerRegistry.register(EmptyToNullTypeHandler.class);
+        typeHandlerRegistry.register(LocaleStringTypeHandler.class);
+        typeHandlerRegistry.register(StringDateTypeHandler.class);
+        typeHandlerRegistry.register(LONGVARCHARTypeHandler.class);
+
+        MapperLocationResources mapperLocationResources = new MapperLocationResources(myBatisConfig());
+        sqlSessionFactoryBean.setMapperLocations(mapperLocationResources.getResources());
+
+        try {
+            return sqlSessionFactoryBean.getObject();
+        } catch (Exception e) {
+            throw new BaseException(e);
+        }
+    }
+
+    @MapperScan(annotationClass = SharedPortalSqlMapper.class, sqlSessionFactoryRef = "sqlSessionFactory.portal", basePackages = {
+            "kr.ac.jj.shared" })
+    public static class MapperScanPackages {
+
+        public MapperScanPackages() {
+            SqlHelperUtil.addSqlHelper(new SqlHelperForOracle());
+        }
+
+    }
+
+    @Target(ElementType.TYPE)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    @Component
+    public @interface SharedPortalSqlMapper {
+
+        String value() default "";
+
+    }
+
+}

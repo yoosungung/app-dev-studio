@@ -1,0 +1,42 @@
+package kr.ac.jj.shared.infrastructure.logging.scheduler;
+
+import org.dizitart.no2.filters.Filters;
+import org.quartz.DisallowConcurrentExecution;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import kr.ac.jj.shared.infrastructure.framework.core.support.context.ApplicationContextUtil;
+import kr.ac.jj.shared.infrastructure.logging.collection.LoggingCollections;
+import kr.ac.jj.shared.infrastructure.logging.service.LoggingServiceImpl;
+
+/**
+ * 로깅 생성 SchedulerJob
+ */
+@Component
+@DisallowConcurrentExecution
+public class LoggingCreatorSchedulerJob implements Job {
+
+    private static final Logger log = LoggerFactory.getLogger(LoggingCreatorSchedulerJob.class);
+
+    private @Autowired LoggingServiceImpl loggingService;
+
+    @Override
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+        LoggingCollections loggingCollections = ApplicationContextUtil.getBean(LoggingCollections.class);
+
+        if (loggingCollections.tbSysLog.isClosed()) {
+            return;
+        }
+
+        int removeCount = loggingService.create(loggingCollections);
+        int remainCount = loggingCollections.tbSysLog.find(Filters.eq("completed", true)).size();
+
+        log.trace("Removed Document : {}, Remain Document : {}", removeCount, remainCount);
+    }
+
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 시스템 - 스케줄 실행 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbSysSchdulExecut.schdulExecutId"><![CDATA[스케줄 실행 ID]]></entry>
+    <entry key="domain.main.tbSysSchdulExecut.schdulId"><![CDATA[스케줄 ID]]></entry>
+    <entry key="domain.main.tbSysSchdulExecut.executSn"><![CDATA[실행 순번]]></entry>
+    <entry key="domain.main.tbSysSchdulExecut.trigrNo"><![CDATA[트리거 번호]]></entry>
+    <entry key="domain.main.tbSysSchdulExecut.trigrExprsn"><![CDATA[트리거 표현식]]></entry>
+    <entry key="domain.main.tbSysSchdulExecut.planBeginDt"><![CDATA[계획 시작 일시]]></entry>
+    <entry key="domain.main.tbSysSchdulExecut.executBeginDt"><![CDATA[실행 시작 일시]]></entry>
+    <entry key="domain.main.tbSysSchdulExecut.executEndDt"><![CDATA[실행 종료 일시]]></entry>
+    <entry key="domain.main.tbSysSchdulExecut.nextBeginDt"><![CDATA[다음 시작 일시]]></entry>
+    <entry key="domain.main.tbSysSchdulExecut.succesYn"><![CDATA[성공 여부(1/0)]]></entry>
+    <entry key="domain.main.tbSysSchdulExecut.errorMssage"><![CDATA[에러 메시지]]></entry>
+    <entry key="domain.main.tbSysSchdulExecut.errorStack"><![CDATA[에러 스택]]></entry>
+
+</properties>

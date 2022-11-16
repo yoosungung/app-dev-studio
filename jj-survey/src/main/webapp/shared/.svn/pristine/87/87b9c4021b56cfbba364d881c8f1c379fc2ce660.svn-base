@@ -1,0 +1,19 @@
+$(function() {
+
+});
+
+function comma(strnum) {
+    return strnum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function minFn(arr) {
+    return arr.reduce(function (p, v) {
+        return ( p < v ? p : v );
+    });
+}
+
+function maxFn(arr) {
+    return arr.reduce(function (p, v) {
+        return ( p > v ? p : v );
+    });
+}

@@ -1,0 +1,76 @@
+@charset "utf-8";
+
+input[type="text"] { height: 17px; }
+select { height: 21px; vertical-align: middle; }
+
+/* 지도 보기 버튼 */
+.btn_xy	{ margin-left: 10px; }
+
+/* 게시물 수 STYLE
+-------------------------------------------------*/
+
+
+.authority_modify	{ display: inline-block; width: 100%; margin: 30px 0 0 0; padding-bottom:3px; }
+.authority_modify .search_form { margin-top: -25px; text-align: right; }
+.authority_modify .btn_area	{ margin-top: -55px; text-align: right; }
+
+.authority_modify .search_form select { height: 21px; margin-right: 3px; vertical-align: middle; }
+.authority_modify button { vertical-align: top; }
+.authority_modify .search_form {margin-top:1px; }
+.articles { clear: both; float: left; margin-bottom: 5px; padding: 0; font-family: arial; }
+.articles02 { clear: both; min-width: 600px; margin-bottom: 5px; padding: 0; font-family: arial; }
+.articles02 { margin-top: -25px; }
+.articles .total,
+.articles02 .total	{ color: #FF0000; }
+.articles .current,
+.articles02 .current { color: #4856aa; }
+	
+/* table style 
+------------------------------------------------*/
+/* 목록 STYLE */
+.tstyle_list { clear: both; width: 100%; border-top: solid 2px #5688d5; border-bottom: solid 2px #e1e1e1; }
+.tstyle_list th { padding: 7px 5px; background: #f7f7f7; border-bottom: solid 1px #e1e1e1; font-size: 1em; }
+.tstyle_list td { padding: 7px 5px; position: relative; border-bottom: solid 1px #e1e1e1; text-align: center; letter-spacing: -0.1em; }
+.tstyle_list td.txt_left { text-align: left; }
+.tstyle_list .name span { display: block; color: #a0a0a0; }
+.tstyle_list .date { letter-spacing: 0; color: #a0a0a0; }	
+.tstyle_list td.letter0 { letter-spacing: normal; }
+.tstyle_list .detail_view {text-align:left; letter-spacing:0; border-bottom:2px solid #e1e1e1; background-color:#fbfbfb;}
+.detail_view img {vertical-align: middle;}
+
+.detail_view .icon_detailview {margin:5px 12px 5px 7px; float:left; display:inline-block; font-size:11px; line-height:16px; color:#fff; letter-spacing:-1px; background: url(/wcom/img/common/bg_detailview.gif) no-repeat 0 0}
+.detail_view .icon_detailview span {display:inline-block; padding:0 8px 0 13px; font-size:11px; line-height:16px; background: url(/wcom/img/common/bg_detailview.gif) no-repeat 100% 0}
+
+.detail_view .list_content {float:left; padding:5px 0; width:85%;}
+
+/* 보기 STYLE */
+.tstyle_view { width: 100%; border-top: solid 2px #5688d5; border-bottom: solid 2px #e1e1e1; }
+.tstyle_view th	{ padding: 7px 10px; background: #eef3fb; border-bottom: solid 1px #e1e1e1; color: #5078b5; text-align: left; font-size: 1em; }
+.tstyle_view td { padding: 7px 10px; border-left: solid 1px #e3e5e8; border-bottom: solid 1px #e1e1e1; }
+
+/* 문서형태 아이콘 */
+.file img	{ margin-top: 1px; vertical-align: top; }
+
+/* 페이지이동 STYLE
+-------------------------------------------------*/
+.board_pager { clear: both; width: 100%; height: 30px; margin: 0px auto 0; padding-top:25px; text-align: center; }
+.board_pager a,
+.board_pager button {font-weight: bold; background: url(/wcom/img/bg/line_board_pager.gif) no-repeat 0 7px;}
+.board_pager a,
+.board_pager button,
+.board_pager strong{ display: inline-block; margin: 0 -1px; padding: 3px 5px; }
+.board_pager a,
+.board_pager button	{ color: #555; }
+.board_pager a:hover,
+.board_pager button:hover	{ color: #ff663d; text-decoration: none; }
+.board_pager .first,
+.board_pager .end,
+.board_pager .prev,
+.board_pager .next	{ width: auto; color: #313031; }
+.board_pager .first {margin-right:6px; padding-left:12px; font-weight:normal; background: url(/wcom/img/icon/icon_first.gif) no-repeat 0 6px;}
+.board_pager .end {margin-left:6px; padding-right:12px; font-weight:normal; background: url(/wcom/img/icon/icon_end.gif) no-repeat 100% 6px;}
+.board_pager .prev {padding-left:8px; font-weight:normal; background: url(/wcom/img/icon/icon_prev.gif) no-repeat 0 6px;}
+.board_pager .next {margin-left:2px; padding-right:8px; font-weight:normal; background: url(/wcom/img/icon/icon_next.gif) no-repeat 100% 6px;}
+.board_pager strong { border-color: #d5d7d8; color: #ff663d; }
+.board_pager a.num1,
+.board_pager button.num1 {padding-left:2px; background-image:none; }

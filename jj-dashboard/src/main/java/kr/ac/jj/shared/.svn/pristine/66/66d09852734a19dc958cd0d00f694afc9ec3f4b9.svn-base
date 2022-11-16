@@ -1,0 +1,10 @@
+package kr.ac.jj.shared.domain.main.mapper.intrfc.dept.empl;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+
+/**
+ * 인터페이스 - 부서 - 사원 Mapper
+ */
+@SharedMainSqlMapper
+public interface TbIntrfcDeptEmplMapper extends TbIntrfcDeptEmplEntityMapper {
+}

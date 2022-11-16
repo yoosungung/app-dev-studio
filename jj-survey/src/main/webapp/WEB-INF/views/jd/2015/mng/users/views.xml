@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+    <definition extends="default" name="mng/users" template="/WEB-INF/layouts/jd/bootstrap.jspx">
+        <put-attribute name="activeTab" value="user_" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/jd/2015/mng/users/users.jspx"/>
+    </definition>
+
+</tiles-definitions>

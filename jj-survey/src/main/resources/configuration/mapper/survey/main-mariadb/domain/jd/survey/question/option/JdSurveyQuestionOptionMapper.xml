@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.jd.survey.question.option.JdSurveyQuestionOptionMapper">
+
+    <!-- 목록 삭제 - SURVEY_DEFINITION_ID로 -->
+    <delete id="deleteListBySurveyDefinitionId">
+        <![CDATA[
+            DELETE
+            FROM   SURVEY_QUESTION_OPTION
+            WHERE  QUESTION_ID IN (
+                        SELECT SQ.ID
+                        FROM   SURVEY_QUESTION SQ
+                               INNER JOIN SURVEY_DEFINITION_PAGE SDP ON SDP.ID = SQ.SURVEY_DEFINITION_PAGE_ID
+                        WHERE  SDP.SURVEY_DEFINITION_ID = #{surveyDefinitionId}
+                   )
+        ]]>
+    </delete>
+
+    <!-- 복사 목록 생성 -->
+    <insert id="insertCopyList">
+        <![CDATA[
+            INSERT INTO SURVEY_QUESTION_OPTION (
+                   OPTION_TEXT
+                 , OPTION_VALUE
+                 , OPTION_ORDER
+                 , QUESTION_ID
+                 , VERSION
+            )
+            SELECT SQO.OPTION_TEXT
+                 , SQO.OPTION_VALUE
+                 , SQO.OPTION_ORDER
+                 , #{targetQuestionId} AS QUESTION_ID
+                 , 0 AS VERSION
+            FROM   SURVEY_QUESTION_OPTION SQO
+            WHERE  SQO.QUESTION_ID = #{sourceQuestionId}
+        ]]>
+    </insert>
+
+</mapper>

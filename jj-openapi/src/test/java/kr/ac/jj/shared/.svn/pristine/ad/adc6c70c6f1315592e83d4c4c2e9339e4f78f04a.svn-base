@@ -1,0 +1,19 @@
+package kr.ac.jj.shared.application.admin.appmanage.deptmanage.scheduler.test;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import kr.ac.jj.shared.application.admin.appmanage.deptmanage.service.DepartmentManageServiceNoTxImpl;
+
+@SpringBootTest
+public class DepartmentManageSchedulerJobTest {
+
+    private @Autowired DepartmentManageServiceNoTxImpl departmentManageServiceNoTx;
+
+    @Test
+    public void test() {
+        departmentManageServiceNoTx.readList();
+    }
+
+}

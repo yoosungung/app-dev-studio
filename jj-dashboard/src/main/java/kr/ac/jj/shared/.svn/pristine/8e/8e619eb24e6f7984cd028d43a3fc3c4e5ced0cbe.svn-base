@@ -1,0 +1,57 @@
+package kr.ac.jj.shared.domain.main.mapper.com.person;
+
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedMainSqlMapper;
+import kr.ac.jj.shared.domain.main.model.com.person.TbComPerson;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.handler.DataResultHandler;
+
+/**
+ * 공통 - 사람 Mapper
+ */
+@SharedMainSqlMapper
+public interface TbComPersonMapper extends TbComPersonEntityMapper {
+
+    /**
+     * PERSON_ID 조회 - 사번으로
+     *
+     * @param emplNo
+     * @return
+     */
+    public String selectPersonIdByEmplNo(@Param("emplNo") String emplNo);
+
+    /**
+     * PERSON_ID 조회 - 사람 정보로
+     *
+     * @param tbComPerson
+     * @return
+     */
+    public String selectPersonId(@Param("tbComPerson") TbComPerson tbComPerson);
+
+    /**
+     * 사번, PERSON_ID 목록 조회
+     *
+     * @param resultHandler
+     */
+    public void selectEmplNoPersonIdList(DataResultHandler<TbComPerson> resultHandler);
+
+    /**
+     * 사번, USER_ID 목록 조회
+     *
+     * @param resultHandler
+     */
+    public void selectEmplNoUserIdList(DataResultHandler<Map<String, String>> resultHandler);
+
+    /**
+     * 수정 - 인터페이스 ID 없는 것들
+     *
+     * @param tableNm
+     * @param hffcSttus
+     * @return
+     */
+    public int updateHffcSttusWhereIntrfcIdNotMatched(@Param("tableNm") String tableNm,
+            @Param("hffcSttus") String hffcSttus);
+
+}

@@ -1,0 +1,344 @@
+package kr.ac.jj.shared.application.admin.appmanage.hrmanage.service;
+
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.ResultContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.application.admin.appmanage.deptmanage.service.DepartmentManageServiceImpl;
+import kr.ac.jj.shared.application.admin.appmanage.dtymanage.service.DutyManageServiceImpl;
+import kr.ac.jj.shared.application.admin.appmanage.hrmanage.mapper.HumanResourceManageMapper;
+import kr.ac.jj.shared.application.admin.appmanage.hrmanage.mapper.HumanResourceManagePortalMapper;
+import kr.ac.jj.shared.application.admin.appmanage.hrmanage.model.PortalCodeMaster;
+import kr.ac.jj.shared.application.admin.appmanage.hrmanage.model.PortalInsaMaster;
+import kr.ac.jj.shared.application.admin.appmanage.personmanage.service.PersonManageServiceImpl;
+import kr.ac.jj.shared.config.props.SharedConfigProperties;
+import kr.ac.jj.shared.domain.main.mapper.com.dept.TbComDeptMapper;
+import kr.ac.jj.shared.domain.main.mapper.com.dty.TbComDtyMapper;
+import kr.ac.jj.shared.domain.main.mapper.com.person.TbComPersonMapper;
+import kr.ac.jj.shared.domain.main.mapper.com.person.dept.TbComPersonDeptMapper;
+import kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserMapper;
+import kr.ac.jj.shared.domain.main.model.com.dept.TbComDept;
+import kr.ac.jj.shared.domain.main.model.com.dept.TbComDept.DeptSeEnums;
+import kr.ac.jj.shared.domain.main.model.com.dty.TbComDty;
+import kr.ac.jj.shared.domain.main.model.com.person.TbComPerson;
+import kr.ac.jj.shared.domain.main.model.com.person.dept.TbComPersonDept;
+import kr.ac.jj.shared.domain.main.model.sys.user.TbSysUser;
+import kr.ac.jj.shared.domain.main.service.sys.intrfc.TbSysIntrfcServiceImpl;
+import kr.ac.jj.shared.domain.main.service.sys.user.TbSysUserServiceImpl;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.handler.DataResultHandler;
+
+/**
+ * 인사정보 관리 Service
+ */
+@Service
+public class HumanResourceManageServiceNoTxImpl {
+
+    private @Autowired SharedConfigProperties sharedConfig;
+    private @Autowired HumanResourceManagePortalMapper humanResourceManagePortalMapper;
+    private @Autowired HumanResourceManageMapper humanResourceManageMapper;
+    private @Autowired DepartmentManageServiceImpl departmentManageService;
+    private @Autowired TbComDeptMapper tbComDeptMapper;
+    private @Autowired TbComDtyMapper tbComDtyMapper;
+    private @Autowired DutyManageServiceImpl dutyManageService;
+    private @Autowired PersonManageServiceImpl personManageService;
+    private @Autowired TbComPersonMapper tbComPersonMapper;
+    private @Autowired TbComPersonDeptMapper tbComPersonDeptMapper;
+    private @Autowired TbSysUserMapper tbSysUserMapper;
+    private @Autowired TbSysUserServiceImpl tbSysUserService;
+    private @Autowired TbSysIntrfcServiceImpl tbSysIntrfcService;
+
+    /**
+     * 직무 목록 생성/수정
+     */
+    public void createOrUpdateDutyList() {
+        String tableNm = "TB_COM_DTY";
+
+        tbSysIntrfcService.deleteAll(tableNm);
+
+        Map<String, String> dtyCodeDtyIdMap = new LinkedHashMap<String, String>();
+
+        tbComDtyMapper.selectDtyCodeDtyIdList(new DataResultHandler<TbComDty>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends TbComDty> resultContext) {
+                TbComDty tbComDty = resultContext.getResultObject();
+
+                dtyCodeDtyIdMap.put(tbComDty.getDtyCode(), tbComDty.getDtyId());
+            }
+
+        });
+
+        humanResourceManagePortalMapper.selectDutyList(new DataResultHandler<PortalCodeMaster>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends PortalCodeMaster> resultContext) {
+                PortalCodeMaster portalCodeMaster = resultContext.getResultObject();
+
+                TbComDty tbComDty = new TbComDty();
+                tbComDty.setDtyId(dtyCodeDtyIdMap.get(portalCodeMaster.getCodeCode()));
+                tbComDty.setDtySe("OFCPS");
+                tbComDty.setDtyCode(portalCodeMaster.getCodeCode());
+                tbComDty.setDtyNm(portalCodeMaster.getCodeFname());
+                tbComDty.setUseYn(true);
+
+                String dtyId = dutyManageService.createOrUpdate(tbComDty);
+
+                tbSysIntrfcService.create(tableNm, dtyId);
+            }
+
+        });
+
+        tbComDtyMapper.updateUseYnWhereIntrfcIdNotMatched(tableNm, "0");
+    }
+
+    /**
+     * 사람 목록 생성/수정
+     */
+    public void createOrUpdatePersonList() {
+        String tableNm = "TB_COM_PERSON";
+
+        tbSysIntrfcService.deleteAll(tableNm);
+
+        Map<String, String> emplNoPersonIdMap = new LinkedHashMap<String, String>();
+        Map<String, String> emplNoUserIdMap = new LinkedHashMap<String, String>();
+
+        tbComPersonMapper.selectEmplNoPersonIdList(new DataResultHandler<TbComPerson>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends TbComPerson> resultContext) {
+                TbComPerson tbComPerson = resultContext.getResultObject();
+
+                emplNoPersonIdMap.put(tbComPerson.getEmplNo(), tbComPerson.getPersonId());
+            }
+
+        });
+
+        tbComPersonMapper.selectEmplNoUserIdList(new DataResultHandler<Map<String, String>>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends Map<String, String>> resultContext) {
+                Map<String, String> data = resultContext.getResultObject();
+
+                emplNoUserIdMap.put(data.get("emplNo"), data.get("userId"));
+            }
+
+        });
+
+        humanResourceManagePortalMapper.selectPersonList(new DataResultHandler<PortalInsaMaster>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends PortalInsaMaster> resultContext) {
+                PortalInsaMaster portalInsaMaster = resultContext.getResultObject();
+
+                // 사람 정보 설정
+                TbComPerson tbComPerson = new TbComPerson();
+                tbComPerson.setPersonId(emplNoPersonIdMap.get(portalInsaMaster.getUserId()));
+                tbComPerson.setPersonSe(portalInsaMaster.getDiv());
+                tbComPerson.setEmplNo(portalInsaMaster.getUserId());
+                tbComPerson.setEmailAdres(portalInsaMaster.getEmail());
+                tbComPerson.setKoreanNm(portalInsaMaster.getUserIrum());
+                tbComPerson.setUniv(portalInsaMaster.getDaehak());
+                tbComPerson.setUndeg(portalInsaMaster.getHakbu());
+                tbComPerson.setSubjct(portalInsaMaster.getHakgwa());
+                tbComPerson.setTlphonNo(portalInsaMaster.getUserTel());
+                tbComPerson.setDeptId(portalInsaMaster.getDeptId());
+                tbComPerson.setOfcpsNm(portalInsaMaster.getBojikname());
+                tbComPerson.setHffcSttus("C");
+
+                TbSysUser tbSysUser = null;
+
+                // 사용자 정보 설정
+                if (ArrayUtils.contains(sharedConfig.getLogin().getUserPersonSe(), tbComPerson.getPersonSe())
+                        && StringUtils.isNotEmpty(portalInsaMaster.getUserPwd())) {
+
+                    tbSysUser = new TbSysUser();
+                    tbSysUser.setUserId(emplNoUserIdMap.get(portalInsaMaster.getUserId()));
+                    tbSysUser.setLoginNm(portalInsaMaster.getUserId());
+                    tbSysUser.setLoginPassword(portalInsaMaster.getUserPwd());
+                    tbSysUser.setUseYn(true);
+                    tbSysUser.setUserLocale("ko_KR");
+                }
+
+                String personId = personManageService.createOrUpdate(tbComPerson, tbSysUser);
+
+                tbSysIntrfcService.create(tableNm, personId);
+            }
+
+        });
+
+        tbComPersonMapper.updateHffcSttusWhereIntrfcIdNotMatched(tableNm, "T");
+    }
+
+    /**
+     * 사용자 목록 삭제
+     */
+    public void deleteUserList() {
+        tbSysUserMapper.selectDeleteList(sharedConfig.getLogin().getUserPersonSe(), new DataResultHandler<TbSysUser>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends TbSysUser> resultContext) {
+                TbSysUser tbSysUser = resultContext.getResultObject();
+
+                tbSysUserService.delete(tbSysUser.getUserId());
+            }
+
+        });
+    }
+
+    /**
+     * 부서 목록 생성/수정
+     */
+    public void createOrUpdateDeptList() {
+        String tableNm = "TB_COM_DEPT";
+
+        tbSysIntrfcService.deleteAll(tableNm);
+
+        Map<String, String> deptCodeDeptIdMap = new LinkedHashMap<String, String>();
+        Map<String, String> emplNoPersonIdMap = new LinkedHashMap<String, String>();
+
+        tbComDeptMapper.selectDeptCodeDeptIdList(new DataResultHandler<TbComDept>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends TbComDept> resultContext) {
+                TbComDept tbComDept = resultContext.getResultObject();
+
+                deptCodeDeptIdMap.put(tbComDept.getDeptSe() + "-" + tbComDept.getDeptCode(), tbComDept.getDeptId());
+            }
+
+        });
+
+        tbComPersonMapper.selectEmplNoPersonIdList(new DataResultHandler<TbComPerson>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends TbComPerson> resultContext) {
+                TbComPerson tbComPerson = resultContext.getResultObject();
+
+                emplNoPersonIdMap.put(tbComPerson.getEmplNo(), tbComPerson.getPersonId());
+            }
+
+        });
+
+        Set<String> updatedKeySet = new LinkedHashSet<String>();
+
+        humanResourceManagePortalMapper.selectEmployeeOrganizationList(new DataResultHandler<Map<String, Object>>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends Map<String, Object>> resultContext) {
+                Map<String, Object> data = resultContext.getResultObject();
+
+                String deptId1 = this.createOrUpdate(data, null, 1);
+                String deptId2 = this.createOrUpdate(data, deptId1, 2);
+                String deptId3 = this.createOrUpdate(data, deptId2, 3);
+
+                String deptId;
+
+                if (StringUtils.equals(deptId1, deptId2)) {
+                    deptId = deptId1;
+                } else if (StringUtils.equals(deptId2, deptId3)) {
+                    deptId = deptId2;
+                } else {
+                    deptId = deptId3;
+                }
+
+                String emplNo = (String) data.get("사원번호_로그인ID");
+                String personId = emplNoPersonIdMap.get(emplNo);
+
+                if (StringUtils.isNotEmpty(personId)) {
+                    TbComPersonDept tbComPersonDept = new TbComPersonDept();
+                    tbComPersonDept.setPersonId(personId);
+                    tbComPersonDept.setDeptId(deptId);
+                    tbComPersonDeptMapper.insertNotExists(tbComPersonDept);
+                }
+            }
+
+            private String createOrUpdate(Map<String, Object> data, String upperDeptId, Integer deptLevel) {
+                String deptKey = DeptSeEnums.EMPLOYEE + "-" + data.get(deptLevel + "차조직코드");
+
+                if (StringUtils.isNotEmpty(deptCodeDeptIdMap.get(deptKey)) && updatedKeySet.contains(deptKey)) {
+                    return deptCodeDeptIdMap.get(deptKey);
+                }
+
+                TbComDept tbComDept = new TbComDept();
+                tbComDept.setDeptId(deptCodeDeptIdMap.get(deptKey));
+                tbComDept.setDeptSeEnum(DeptSeEnums.EMPLOYEE);
+                tbComDept.setUpperDeptId(upperDeptId);
+                tbComDept.setDeptLevel(deptLevel);
+                tbComDept.setDeptCode((String) data.get(deptLevel + "차조직코드"));
+                tbComDept.setDeptNm((String) data.get(deptLevel + "차조직"));
+                tbComDept.setSortOrdr(Integer.parseInt(data.get("부서정렬순서") + "", 10));
+                tbComDept.setUseYn(true);
+
+                String deptId = departmentManageService.createOrUpdate(tbComDept);
+
+                deptCodeDeptIdMap.put(deptKey, deptId);
+                updatedKeySet.add(deptKey);
+
+                tbSysIntrfcService.create(tableNm, deptId);
+
+                return deptId;
+            }
+
+        });
+
+        Map<String, String> studentDeptNameMap = new LinkedHashMap<String, String>();
+
+        humanResourceManagePortalMapper.selectStudentOrganizationNameList(new DataResultHandler<TbComDept>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends TbComDept> resultContext) {
+                TbComDept tbComDept = resultContext.getResultObject();
+
+                studentDeptNameMap.put(tbComDept.getDeptLevel() + "-" + tbComDept.getDeptCode(), tbComDept.getDeptNm());
+            }
+
+        });
+
+        humanResourceManageMapper.selectStudentOrganizationList(new DataResultHandler<Map<String, Object>>() {
+
+            @Override
+            public void handleResult(ResultContext<? extends Map<String, Object>> resultContext) {
+                Map<String, Object> data = resultContext.getResultObject();
+
+                String deptKey = DeptSeEnums.STUDENT + "-" + data.get("deptCode");
+
+                if (StringUtils.isNotEmpty(deptCodeDeptIdMap.get(deptKey)) && updatedKeySet.contains(deptKey)) {
+                    return;
+                }
+
+                TbComDept tbComDept = new TbComDept();
+                tbComDept.setDeptId(deptCodeDeptIdMap.get(deptKey));
+                tbComDept.setDeptSeEnum(DeptSeEnums.STUDENT);
+                tbComDept.setUpperDeptId(StringUtils.isEmpty((String) data.get("upperDeptCode")) ? null
+                        : deptCodeDeptIdMap.get(DeptSeEnums.STUDENT + "-" + data.get("upperDeptCode")));
+                tbComDept.setDeptLevel(Integer.parseInt(data.get("deptLevel") + "", 10));
+                tbComDept.setDeptCode((String) data.get("deptCode"));
+                tbComDept.setDeptNm(studentDeptNameMap.get(data.get("deptLevel") + "-" + data.get("deptCode")));
+                tbComDept.setSortOrdr(resultContext.getResultCount());
+                tbComDept.setUseYn(true);
+
+                String deptId = departmentManageService.createOrUpdate(tbComDept);
+
+                humanResourceManageMapper.insertStudentPersonDeptList(deptId, (String) data.get("univ"),
+                        (String) data.get("undeg"), StringUtils.defaultIfEmpty((String) data.get("subjct"), "0000"));
+
+                deptCodeDeptIdMap.put(deptKey, deptId);
+                updatedKeySet.add(deptKey);
+
+                tbSysIntrfcService.create(tableNm, deptId);
+            }
+
+        });
+
+        tbComDeptMapper.updateUseYnWhereIntrfcIdNotMatched(tableNm, "0");
+
+        tbComPersonDeptMapper.deleteListNotUsed();
+    }
+
+}

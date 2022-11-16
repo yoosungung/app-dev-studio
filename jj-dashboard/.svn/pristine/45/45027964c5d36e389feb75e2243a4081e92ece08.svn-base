@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 입학 분석 데이터 Mapper -->
+<mapper namespace="kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper">
+
+    <!-- 입학 분석 데이터 (1/2) 조회 -->
+    <select id="readList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+    </select>
+
+    <!-- 입학 분석 데이터 (2/2) table 데이터 조회 -->
+    <select id="readList2" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT IH_LCLASS
+            , IFNULL(SUM(CASE IPSY_GUBUN_NAME WHEN '학생부종합' THEN CNT END),0) cnt_jong
+            , IFNULL(SUM(CASE IPSY_GUBUN_NAME WHEN '학생부교과' THEN CNT END),0) cnt_gyo
+            , IFNULL(SUM(CASE IPSY_GUBUN_NAME WHEN '정시' THEN CNT END),0) cnt_jung
+            , IFNULL(SUM(CNT),0) CNT_ALL
+        FROM (
+            SELECT COUNT(*) CNT
+            , CASE WHEN IH_LCLASS IN ('일반고','자율고','특목고','특성화고','검정고시') THEN IH_LCLASS ELSE '기타' END IH_LCLASS
+            , CASE WHEN IPSY_GUBUN_NAME = '수시(학생부교과)' THEN '학생부교과'
+                    WHEN IPSY_GUBUN_NAME = '수시(학생부종합)' THEN '학생부종합'
+                    WHEN IPSY_GUBUN_NAME LIKE '정시%' THEN '정시' END IPSY_GUBUN_NAME
+            FROM DW_IPSY_HIGHSCOOL_MAT
+            WHERE IPSY_YY BETWEEN DATE_FORMAT(NOW(),'%Y')-4 AND DATE_FORMAT(NOW(),'%Y')
+            <if test="search.yearData != null and search.yearData != ''">
+            AND IPSY_YY = #{search.yearData}
+            </if>
+            AND (IPSY_GUBUN_NAME IN ('수시(학생부교과)','수시(학생부종합)') OR IPSY_GUBUN_NAME LIKE '정시%')
+            GROUP BY IH_LCLASS, IPSY_GUBUN_NAME
+        ) T
+        GROUP BY IH_LCLASS
+        ORDER BY CASE IH_LCLASS WHEN '일반고' THEN 1 WHEN '자율고' THEN 2 WHEN '특목고'  THEN 3 WHEN '특성화고' THEN 4  ELSE 5 END, IH_LCLASS ASC
+    </select>
+
+    <!-- 입학 분석 데이터 (2/2) chart 데이터 조회 -->
+    <select id="readChartList2" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT T.ipsy_gubun_name
+                , ROUND(CNT_ILBAN/CNT_ALL*100,0)      cnt_ilban_rate
+                , ROUND(CNT_FREE/CNT_ALL*100,0)       cnt_free_rate
+                , ROUND(CNT_SPECIAL/CNT_ALL*100,0)    cnt_special_rate
+                , ROUND(CNT_SPECIALIST/CNT_ALL*100,0) cnt_specialist_rate
+                , ROUND(CNT_GUMJUNG/CNT_ALL*100,0)    cnt_gumjung_rate
+                , ROUND(CNT_GYTA/CNT_ALL*100,0)       cnt_gyta_rate
+                , ROUND(entrance_cnt_ilban/entrance_cnt_all*100,0)       entrance_cnt_ilban_rate
+                , ROUND(entrance_cnt_free/entrance_cnt_all*100,0)       entrance_cnt_free_rate
+                , ROUND(entrance_cnt_special/entrance_cnt_all*100,0)       entrance_cnt_special_rate
+                , ROUND(entrance_cnt_specialist/entrance_cnt_all*100,0)       entrance_cnt_specialist_rate
+                , ROUND(entrance_cnt_gumjung/entrance_cnt_all*100,0)       entrance_cnt_gumjung_rate
+                , ROUND(entrance_cnt_gyta/entrance_cnt_all*100,0)       entrance_cnt_gyta_rate
+        FROM (SELECT IPSY_GUBUN_NAME
+                    , IFNULL(SUM(CASE IH_LCLASS WHEN '일반고' THEN CNT END),0) cnt_ilban
+                    , IFNULL(SUM(CASE IH_LCLASS WHEN '자율고' THEN CNT END),0) cnt_free
+                    , IFNULL(SUM(CASE IH_LCLASS WHEN '특목고' THEN CNT END),0) cnt_special
+                    , IFNULL(SUM(CASE IH_LCLASS WHEN '특성화고' THEN CNT END),0) cnt_specialist
+                    , IFNULL(SUM(CASE IH_LCLASS WHEN '검정고시' THEN CNT END),0) cnt_gumjung
+                    , IFNULL(SUM(CASE IH_LCLASS WHEN '기타' THEN CNT END),0) cnt_gyta
+                    , IFNULL(SUM(CNT),0) CNT_ALL
+                    , IFNULL(SUM(CASE WHEN IPSY_SUHUMNO_LEN = 1 AND IH_LCLASS = '일반고' AND IPSY_HAPGYUK_YN = 'Y' AND IPSY_JUNG_GBN = 1 THEN cnt ELSE 0 END),0) entrance_cnt_ilban
+                    , IFNULL(SUM(CASE WHEN IPSY_SUHUMNO_LEN = 1 AND IH_LCLASS = '자율고' AND IPSY_HAPGYUK_YN = 'Y' AND IPSY_JUNG_GBN = 1 THEN CNT END),0) entrance_cnt_free
+                    , IFNULL(SUM(CASE WHEN IPSY_SUHUMNO_LEN = 1 AND IH_LCLASS = '특목고' AND IPSY_HAPGYUK_YN = 'Y' AND IPSY_JUNG_GBN = 1 THEN CNT END),0) entrance_cnt_special
+                    , IFNULL(SUM(CASE WHEN IPSY_SUHUMNO_LEN = 1 AND IH_LCLASS = '특성화고' AND IPSY_HAPGYUK_YN = 'Y' AND IPSY_JUNG_GBN = 1 THEN CNT END),0) entrance_cnt_specialist
+                    , IFNULL(SUM(CASE WHEN IPSY_SUHUMNO_LEN = 1 AND IH_LCLASS = '검정고시' AND IPSY_HAPGYUK_YN = 'Y' AND IPSY_JUNG_GBN = 1 THEN CNT END),0) entrance_cnt_gumjung
+                    , IFNULL(SUM(CASE WHEN IPSY_SUHUMNO_LEN = 1 AND IH_LCLASS = '기타' AND IPSY_HAPGYUK_YN = 'Y' AND IPSY_JUNG_GBN = 1 THEN CNT END),0) entrance_cnt_gyta
+                    , IFNULL(SUM(CASE WHEN IPSY_SUHUMNO_LEN = 1 AND IPSY_HAPGYUK_YN = 'Y' AND IPSY_JUNG_GBN = 1 THEN CNT END),0) entrance_cnt_all
+                FROM (
+                    SELECT COUNT(*) CNT
+                    , CASE WHEN IH_LCLASS IN ('일반고','자율고','특목고','특성화고','검정고시') THEN IH_LCLASS ELSE '기타' END IH_LCLASS
+                    , CASE WHEN IPSY_GUBUN_NAME = '수시(학생부교과)' THEN '학생부교과'
+                            WHEN IPSY_GUBUN_NAME = '수시(학생부종합)' THEN '학생부종합'
+                            WHEN IPSY_GUBUN_NAME LIKE '정시%' THEN '정시' END IPSY_GUBUN_NAME
+                    , IPSY_HAPGYUK_YN, IPSY_JUNG_GBN
+                    , CASE WHEN LENGTH(IPSY_SUHUMNO) > 8 THEN 1 ELSE 0 END IPSY_SUHUMNO_LEN
+                    FROM DW_IPSY_HIGHSCOOL_MAT
+                    WHERE IPSY_YY BETWEEN DATE_FORMAT(NOW(),'%Y')-4 AND DATE_FORMAT(NOW(),'%Y')
+                    AND (IPSY_GUBUN_NAME IN ('수시(학생부교과)','수시(학생부종합)') OR IPSY_GUBUN_NAME LIKE '정시%')
+                    GROUP BY IH_LCLASS, IPSY_GUBUN_NAME, IPSY_HAPGYUK_YN, IPSY_JUNG_GBN
+                    , CASE WHEN LENGTH(IPSY_SUHUMNO) > 8 THEN 1 ELSE 0 END
+                ) T
+                GROUP BY IPSY_GUBUN_NAME
+        ) T
+    </select>
+</mapper>

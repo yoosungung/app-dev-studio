@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ API 로그 관리 Mapper
+ -->
+<mapper namespace="kr.ac.jj.openapi.application.servicelog.mapper.ApiLogManageMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT SVC_HIST_ID
+                 , (SELECT API_KEY FROM TB_API_SVC_KEY WHERE SVC_KEY_ID = TASKH.SVC_KEY_ID) AS API_KEY
+                 , (SELECT SVC_NM FROM TB_API_SVC WHERE SVC_ID = TASKH.SVC_ID) AS SVC_NM
+                 , FN_PERSON_NAME(CALL_USER_ID, #{$var.userLocale}) AS CALL_USER_NM
+                 , CALL_DT
+                 , CALL_RESULT
+
+            FROM   TB_API_SVC_KEY_HIST TASKH
+            WHERE 1=1
+        ]]>
+
+        <!-- API키 -->
+        <if test='search != null and search.apiKey != null and search.apiKey != ""'>
+            <![CDATA[
+            AND    UPPER(SVC_KEY_ID) LIKE
+                CONCAT_WS('', '%', UPPER((SELECT SVC_KEY_ID FROM TB_API_SVC_KEY WHERE API_KEY = #{search.apiKey})), '%')
+
+            ]]>
+        </if>
+
+        <!-- 호출 일자 -->
+        <if test='search != null and search.apiDtStart != null'>
+            <![CDATA[
+            AND    CALL_DT >= #{search.apiDtStart, jdbcType=DATE}
+            ]]>
+        </if>
+        <if test='search != null and search.apiDtEnd != null'>
+            <![CDATA[
+            AND    CALL_DT < #{search.apiDtEnd, jdbcType=DATE}
+            ]]>
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 인사정보 관리 - 사람별 부서 인터페이스 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.interfaces.admin.appmanage.hrmanage.mapper.HumanResourceManagePersonDeptIntrfcMapper">
+
+    <!-- 기본 조회 SQL -->
+    <sql id="baseSelectSql">
+        <![CDATA[
+                    SELECT TCP.PERSON_ID
+                         , TCD.DEPT_ID
+                         , TIDE.OFCPS_ID AS RSPOFC_CODE
+                         , TIDE.OFCPS_NM AS RSPOFC_NM
+                    FROM   TB_INTRFC_DEPT_EMPL TIDE
+                           INNER JOIN TB_COM_PERSON TCP ON TCP.EMPL_NO = TIDE.LOGIN_NM
+                           INNER JOIN TB_COM_DEPT TCD ON TCD.DEPT_CODE = TIDE.DEPT_CODE_3
+                    WHERE  TCP.PERSON_SE NOT IN ('G', 'S')
+                    AND    TCD.DEPT_SE = #{deptSe}
+                    UNION
+                    SELECT TCP.PERSON_ID
+                         , TCD1.DEPT_ID
+                         , NULL AS RSPOFC_CODE
+                         , NULL AS RSPOFC_NM
+                    FROM   TB_COM_PERSON TCP
+                           INNER JOIN TB_COM_DEPT TCD1 ON TCD1.DEPT_CODE = TCP.UNIV AND TCD1.DEPT_LEVEL = 1
+                    WHERE  TCP.PERSON_SE IN ('G', 'S')
+                    AND    TCD1.DEPT_SE = #{deptSe}
+                    AND    (TCP.UNDEG IS NULL OR TCP.UNDEG = '0000')
+                    UNION
+                    SELECT TCP.PERSON_ID
+                         , TCD2.DEPT_ID
+                         , NULL AS RSPOFC_CODE
+                         , NULL AS RSPOFC_NM
+                    FROM   TB_COM_PERSON TCP
+                           INNER JOIN TB_COM_DEPT TCD1 ON TCD1.DEPT_CODE = TCP.UNIV AND TCD1.DEPT_LEVEL = 1
+                           INNER JOIN TB_COM_DEPT TCD2 ON TCD2.DEPT_CODE = TCP.UNDEG AND TCD2.DEPT_LEVEL = 2 AND TCD2.UPPER_DEPT_ID = TCD1.DEPT_ID
+                    WHERE  TCP.PERSON_SE IN ('G', 'S')
+                    AND    TCD2.DEPT_SE = #{deptSe}
+                    AND    (TCP.SUBJCT IS NULL OR TCP.SUBJCT = '0000')
+                    UNION
+                    SELECT TCP.PERSON_ID
+                         , TCD3.DEPT_ID
+                         , NULL AS RSPOFC_CODE
+                         , NULL AS RSPOFC_NM
+                    FROM   TB_COM_PERSON TCP
+                           INNER JOIN TB_COM_DEPT TCD1 ON TCD1.DEPT_CODE = TCP.UNIV AND TCD1.DEPT_LEVEL = 1
+                           INNER JOIN TB_COM_DEPT TCD2 ON TCD2.DEPT_CODE = TCP.UNDEG AND TCD2.DEPT_LEVEL = 2 AND TCD2.UPPER_DEPT_ID = TCD1.DEPT_ID
+                           INNER JOIN TB_COM_DEPT TCD3 ON TCD3.DEPT_CODE = TCP.SUBJCT AND TCD3.DEPT_LEVEL = 3 AND TCD3.UPPER_DEPT_ID = TCD2.DEPT_ID
+                    WHERE  TCP.PERSON_SE IN ('G', 'S')
+                    AND    TCD3.DEPT_SE = #{deptSe}
+        ]]>
+    </sql>
+
+    <!-- 목록 생성 -->
+    <insert id="insertList">
+        <![CDATA[
+            INSERT INTO TB_COM_PERSON_DEPT (
+                   PERSON_ID
+                 , DEPT_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , RSPOFC_CODE
+                 , RSPOFC_NM
+            )
+            SELECT A.PERSON_ID
+                 , A.DEPT_ID
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , A.RSPOFC_CODE
+                 , A.RSPOFC_NM
+            FROM   (
+        ]]>
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+                   ) A
+            WHERE  NOT EXISTS (
+                        SELECT 1
+                        FROM   TB_COM_PERSON_DEPT TCPD
+                        WHERE  TCPD.PERSON_ID = A.PERSON_ID
+                        AND    TCPD.DEPT_ID = A.DEPT_ID
+                   )
+        ]]>
+    </insert>
+
+    <!-- 목록 수정 -->
+    <insert id="updateList">
+        <![CDATA[
+            UPDATE TB_COM_PERSON_DEPT TCPD, (
+        ]]>
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+                   ) A SET
+                   TCPD.UPDT_USER_ID                    = #{$var.loginUser.userId}
+                 , TCPD.UPDT_DT                         = #{$var.systemDate}
+                 , TCPD.RSPOFC_CODE                     = A.RSPOFC_CODE
+                 , TCPD.RSPOFC_NM                       = A.RSPOFC_NM
+            WHERE  TCPD.DEPT_ID IN (
+                        SELECT TCD.DEPT_ID
+                        FROM   TB_COM_DEPT TCD
+                        WHERE  TCD.DEPT_SE = #{deptSe}
+                   )
+            AND    A.PERSON_ID = TCPD.PERSON_ID
+            AND    A.DEPT_ID = TCPD.DEPT_ID
+        ]]>
+    </insert>
+
+    <!-- 목록 삭제 -->
+    <insert id="deleteList">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_PERSON_DEPT
+            WHERE  DEPT_ID IN (
+                        SELECT TCD.DEPT_ID
+                        FROM   TB_COM_DEPT TCD
+                        WHERE  TCD.DEPT_SE = #{deptSe}
+                   )
+            AND    CONCAT_WS('-', PERSON_ID, DEPT_ID) NOT IN (
+                        SELECT CONCAT_WS('-', A.PERSON_ID, A.DEPT_ID)
+                        FROM   (
+        ]]>
+        <include refid="baseSelectSql"></include>
+        <![CDATA[
+                               ) A
+                   )
+        ]]>
+    </insert>
+
+</mapper>

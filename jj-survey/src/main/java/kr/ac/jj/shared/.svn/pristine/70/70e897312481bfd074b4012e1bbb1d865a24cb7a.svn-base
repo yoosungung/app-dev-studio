@@ -1,0 +1,45 @@
+package kr.ac.jj.shared.application.admin.appmanage.hrmanage.mapper;
+
+import java.util.Map;
+
+import kr.ac.jj.shared.application.admin.appmanage.hrmanage.model.PortalCodeMaster;
+import kr.ac.jj.shared.application.admin.appmanage.hrmanage.model.PortalInsaMaster;
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedPortalSqlMapper;
+import kr.ac.jj.shared.domain.main.model.com.dept.TbComDept;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.handler.DataResultHandler;
+
+/**
+ * 인사정보 관리 Mapper
+ */
+@SharedPortalSqlMapper
+public interface HumanResourceManagePortalMapper {
+
+    /**
+     * 직무 목록 조회
+     *
+     * @param resultHandler
+     */
+    public void selectDutyList(DataResultHandler<PortalCodeMaster> resultHandler);
+
+    /**
+     * 사람 목록 조회
+     *
+     * @param resultHandler
+     */
+    public void selectPersonList(DataResultHandler<PortalInsaMaster> resultHandler);
+
+    /**
+     * 직원 조직 목록 조회
+     *
+     * @param resultHandler
+     */
+    public void selectEmployeeOrganizationList(DataResultHandler<Map<String, Object>> resultHandler);
+
+    /**
+     * 학생 조직 이름 목록 조회
+     *
+     * @param resultHandler
+     */
+    public void selectStudentOrganizationNameList(DataResultHandler<TbComDept> resultHandler);
+
+}

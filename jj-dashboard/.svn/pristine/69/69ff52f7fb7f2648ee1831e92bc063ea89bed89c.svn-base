@@ -1,0 +1,244 @@
+var scoreAveGraph;
+var gradeGraph;
+var hakgwaGraph;
+var sexGraph;
+function AnalysisViewService(vue) {
+
+    this.readList = function(search) {
+        var color = [
+                { normal: { color: '#5b73d5' } },
+                { normal: { color: '#e1c000' } },
+                { normal: { color: '#70ad47' } },
+                { normal: { color: '#ed7d31' } },
+                { normal: { color: '#7030a0' } },
+                { normal: { color: '#000000' } },
+                { normal: { color: 'black' } },
+        ];
+
+        // 평균성적
+        scoreAveGraph = echarts.init(document.getElementById('scoreAveGraph'), 'macarons');
+        scoreAveGraph.showLoading();
+
+        // 학년
+        gradeGraph = echarts.init(document.getElementById('gradeGraph'), 'macarons');
+        gradeGraph.showLoading();
+
+        // 학과
+        hakgwaGraph = echarts.init(document.getElementById('hakgwaGraph'), 'macarons');
+        hakgwaGraph.showLoading();
+
+        // 성별
+        sexGraph = echarts.init(document.getElementById('sexGraph'), 'macarons');
+        sexGraph.showLoading();
+
+        CommonUtil.axios()
+        .post("readList", search)
+        .then(function(response) {
+            var arr_ave = [];
+            var arr_grade = [];
+            var arr_hakgwa = [];
+            var arr_sex = [];
+
+            $(response.data).each(function(i,v) {
+                if (v.type === 'PYONG') {
+                    arr_ave.push({ value: v.cnt1, itemStyle: color[0] });
+                    arr_ave.push({ value: v.cnt2, itemStyle: color[1] });
+                    arr_ave.push({ value: v.cnt3, itemStyle: color[2] });
+                    arr_ave.push({ value: v.cnt4, itemStyle: color[3] });
+                    arr_ave.push({ value: v.cnt5, itemStyle: color[4] });
+                } else if (v.type === 'GARDE') {
+                    arr_grade.push({ value: v.cnt1, itemStyle: color[0] });
+                    arr_grade.push({ value: v.cnt2, itemStyle: color[1] });
+                    arr_grade.push({ value: v.cnt3, itemStyle: color[2] });
+                    arr_grade.push({ value: v.cnt4, itemStyle: color[3] });
+                    arr_grade.push({ value: v.cnt5, itemStyle: color[4] });
+                } else if (v.type === 'HAKGWA') {
+                    arr_hakgwa.push({ name: v.label, value: v.cnt1, itemStyle: color[i%5] });
+                } else if (v.type === 'SEX') {
+                    arr_sex.push({ name: "남", value: v.cnt1, itemStyle: color[0] });
+                    arr_sex.push({ name: "여", value: v.cnt2, itemStyle: color[1] });
+                }
+            });
+
+            /*공통 옵션*/
+            var option = {
+                grid: {
+                    width: '80%',
+                    bottom: '15%',
+                    containLabel: true
+                },
+                title: {
+                    show: false,
+                    textStyle: {
+                        color: "grey",
+                        fontSize: 20
+                    },
+                    text: "No data",
+                    left: "center",
+                    top: "center"
+                },
+                tooltip: {
+                    trigger: 'item',
+                    triggerOn: 'mousemove'
+                }
+            };
+
+            var arr_grade_label = ["1학년","2학년","3학년","4학년","5학년"];
+
+            // 평균성적
+            echarts.dispose(document.getElementById('scoreAveGraph'));
+            scoreAveGraph = echarts.init(document.getElementById('scoreAveGraph'), 'macarons');
+            scoreAveGraph.hideLoading();
+            var option_ave = {
+                xAxis: {
+                    type: 'category',
+                    data: arr_grade_label
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '평균'
+                },
+                series: [{
+                    data: arr_ave,
+                    type: 'bar',
+                    label: {
+                        show: true,
+                        position: 'top',
+                    },
+                    tooltip: {
+                        formatter: function (item) {
+                            return item.marker + "" + item.name + ": " + item.value + "점";
+                        }
+                    }
+                }]
+            }
+            Object.assign(option_ave,option);
+            option_ave.title.show = arr_ave.length === 0;
+            scoreAveGraph.setOption(option_ave);
+            $(window).on("resize", function() {
+                scoreAveGraph.resize();
+            });
+
+            // 학년
+            gradeGraph.hideLoading();
+            echarts.dispose(document.getElementById('gradeGraph'));
+            gradeGraph = echarts.init(document.getElementById('gradeGraph'), 'macarons');
+            var option_grade = {
+                xAxis: {
+                    type: 'category',
+                    data: arr_grade_label
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '인원수(명)'
+                },
+                series: [{
+                    data: arr_grade,
+                    type: 'bar',
+                    label: {
+                        show: true,
+                        position: 'top',
+                        formatter: function(d) {
+                            return d.data.value + "명";
+                        }
+                    },
+                    tooltip: {
+                        formatter: function (item) {
+                            return item.marker + "" + item.name + ": " + item.value + "명";
+                        }
+                    }
+                }]
+            }
+            Object.assign(option_grade,option);
+            option_grade.title.show = arr_grade.length === 0;
+            gradeGraph.setOption(option_grade);
+            $(window).on("resize", function() {
+                gradeGraph.resize();
+            });
+
+
+            // 학과
+            hakgwaGraph.hideLoading();
+            echarts.dispose(document.getElementById('hakgwaGraph'));
+            hakgwaGraph = echarts.init(document.getElementById('hakgwaGraph'), 'macarons');
+            var option_hak = {
+                legend: {
+                    type: 'scroll',
+                    orient: 'vertical',
+                    right: 10,
+                    top: 20,
+                    bottom: 20,
+                    data: arr_hakgwa,
+                },
+                series: [{
+                    data: arr_hakgwa,
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['40%', '50%'],
+                    label: {
+                        show: true,
+                        position: 'top',
+                        formatter: function(d) {
+                            return d.data.value + "%";
+                        }
+                    },
+                    tooltip: {
+                        formatter: function (item) {
+                            return item.marker + "" + item.name + ": " + item.value + "%";
+                        }
+                    }
+                }]
+            }
+            Object.assign(option_hak,option);
+            option_hak.title.show = arr_hakgwa.length === 0;
+            hakgwaGraph.setOption(option_hak);
+            $(window).on("resize", function() {
+                hakgwaGraph.resize();
+            });
+
+
+            // 성별
+            sexGraph.hideLoading();
+            sexGraph.hideLoading();
+            echarts.dispose(document.getElementById('sexGraph'));
+            sexGraph = echarts.init(document.getElementById('sexGraph'), 'macarons');
+            var option_sex = {
+                legend: {
+                    type: 'scroll',
+                    orient: 'vertical',
+                    right: 10,
+                    top: 20,
+                    bottom: 20,
+                    data: arr_sex,
+                },
+                series: [{
+                    data: arr_sex,
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['40%', '50%'],
+                    label: {
+                        show: true,
+                        position: 'top',
+                        formatter: function(d) {
+                            return d.data.value + "%";
+                        }
+                    },
+                    tooltip: {
+                        formatter: function (item) {
+                            return item.marker + "" + item.name + ": " + item.value + "%";
+                        }
+                    }
+                }]
+            }
+            Object.assign(option_sex,option);
+            option_sex.title.show = arr_sex.length === 0;
+            sexGraph.setOption(option_sex);
+            $(window).on("resize", function() {
+                sexGraph.resize();
+            });
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    }
+}

@@ -1,0 +1,78 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/layouts/shared/include/PageHeader.jspf" %>
+
+<div id="edit" style="display: none;">
+    <div class="pageHeader" v-if="work == 'create'">
+        Q&A 등록
+    </div>
+    <div class="pageHeader" v-if="work == 'update'">
+        Q&A 수정
+    </div>
+    <div class="pageHeader" v-if="work == 'answer'">
+        Q&A 답변
+    </div>
+
+    <div class="pageContents">
+        <table class="form">
+            <colgroup>
+                <col width="120px">
+                <col width="">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>제목</th>
+                    <td>
+                        <ui-input type="text" v-model="model.tbBbsGnrl.bbscttSj" v-bind:max-byte="2000" v-bind:byte-indicator="false" auto-focus></ui-input>
+                        <ui-valid-checker v-bind:value="model.tbBbsGnrl.bbscttSj" check="required"></ui-valid-checker>
+                    </td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td>
+                        <ui-ckeditor v-model="model.tbBbsGnrl.bbscttCn"></ui-ckeditor>
+                        <ui-valid-checker v-bind:value="model.tbBbsGnrl.bbscttCn" check="required"></ui-valid-checker>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-space tar">
+            <ui-button class="page" v-on:click="service['update']();">저장</ui-button>
+            <ui-button class="page" v-on:click="viewRead();" v-if="work != 'create'">취소</ui-button>
+            <ui-button class="list" v-on:click="viewList();" v-if="work == 'create'">목록</ui-button>
+        </div>
+    </div>
+</div>
+
+<script>
+vues.edit = new Vue({
+    el: '#edit',
+    data: {
+        bbscttId: null,
+        work: null, //create, update, answer
+        model: {
+            tbBbsGnrl: {},
+            tbComperson: {}
+        }
+    },
+    computed: {
+        service: function() {
+            return new BbsGeneralViewService(this);
+        },
+        formatter: function() {
+            return CommonUtil.formatter;
+        },
+    },
+    methods: {
+        // 조회 화면
+        viewRead: function() {
+            vues.read.service.read(this.bbscttId)
+            CommonUtil.setViewMode(vues, "read");
+        },
+        // 목록 화면
+        viewList: function() {
+            CommonUtil.setViewMode(vues, "list");
+        }
+    }
+});
+</script>

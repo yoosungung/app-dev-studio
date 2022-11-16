@@ -1,0 +1,11 @@
+package kr.ac.jj.survey.domain.main.mapper.survey.realm;
+
+import kr.ac.jj.survey.config.DataSourceMapperConfig.MainSqlMapper;
+
+/**
+ * 설문_분야 Mapper
+ */
+@MainSqlMapper
+public interface TbSurveyRealmMapper extends TbSurveyRealmEntityMapper
+{
+}

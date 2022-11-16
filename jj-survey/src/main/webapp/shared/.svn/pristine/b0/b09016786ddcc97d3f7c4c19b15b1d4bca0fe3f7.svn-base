@@ -1,0 +1,149 @@
+@charset "utf-8";
+
+[v-cloak] {
+    visibility: hidden;
+}
+
+.valid-message {
+    color: red;
+}
+
+div.table {
+    display: table;
+}
+
+div.table.fixed {
+    table-layout: fixed;
+}
+
+div.table > div {
+    display: table-cell;
+}
+
+div.table.space > div:not(:first-child) {
+    padding-left: 3px;
+}
+
+button {
+    white-space: nowrap;
+}
+
+h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="text"].fill, input[type="password"].fill, textarea.fill {
+    width: calc(100% - 10px);
+}
+
+input[type="number"].fill, input[type="number"].fill {
+    width: calc(100% - 4px);
+}
+
+.full, .fill {
+    width: 100%;
+}
+
+.page-space {
+    margin-top: 10px;
+}
+
+.grid .title-bar {
+    display: table;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.grid .title-bar>div {
+    display: table-cell;
+}
+
+.grid .title-bar>div:last-child {
+    text-align: right;
+}
+
+.grid table.list thead th .sort {
+    padding-right: 2px;
+}
+
+.grid table.list thead th .sort::before {
+    color: gray;
+}
+
+.grid table.list thead th .sort.asc::before {
+    color: red;
+}
+
+.grid table.list thead th .sort.desc::before {
+    color: red;
+}
+
+.grid .paging {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+table.form th.required {
+    position: relative;
+}
+
+table.form th.required::after {
+    content: '*';
+    color: red;
+    position: absolute;
+    right: 1px;
+}
+
+table.list th.required::after {
+    content: '*';
+    color: red;
+    margin-left: 1px;
+}
+
+.overflow {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: box;
+    max-height: 400px;
+    overflow: hidden;
+    vertical-align: top;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 20
+}
+
+.tal {
+    text-align: left;
+}
+
+.tac {
+    text-align: center;
+}
+
+.tar {
+    text-align: right;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.icon-date {
+    display: inline-block;
+    background: url(images/icon-date.png) no-repeat center center;
+    background-size: 18px;
+    width: 18px;
+    height: 18px;
+}

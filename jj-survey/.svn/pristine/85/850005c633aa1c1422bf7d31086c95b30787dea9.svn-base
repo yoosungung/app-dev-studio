@@ -1,0 +1,31 @@
+package kr.ac.jj.survey.domain.main.mapper.survey.group.person;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.survey.config.DataSourceMapperConfig.MainSqlMapper;
+import kr.ac.jj.survey.domain.main.model.survey.group.person.TbSurveyGroupPerson;
+
+/**
+ * 설문_그룹_사람 Mapper
+ */
+@MainSqlMapper
+public interface TbSurveyGroupPersonMapper extends TbSurveyGroupPersonEntityMapper {
+
+    /**
+     * 생성 - 존재하지 않는 경우
+     *
+     * @param tbSurveyGroupPerson
+     * @return
+     */
+    public int insertNotExists(@Param("tbSurveyGroupPerson") TbSurveyGroupPerson tbSurveyGroupPerson);
+
+    /**
+     * 목록 생성 - 부서 ID로부터
+     *
+     * @param surveyGroupId
+     * @param deptId
+     * @return
+     */
+    public int insertListFromDeptId(@Param("surveyGroupId") String surveyGroupId, @Param("deptId") String deptId);
+
+}

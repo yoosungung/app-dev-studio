@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ 공통 - 사람 CodeData
+ -->
+<codeData namespace="domain.main.tbComPerson">
+
+    <!-- 사람 구분 -->
+    <group id="personSe">
+        <item code="D" name="직원" />
+        <item code="A" name="교수" />
+        <item code="K" name="조교" />
+        <item code="I" name="산단" />
+        <item code="G" name="대학원생" />
+        <item code="S" name="학생" />
+    </group>
+
+</codeData>

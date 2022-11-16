@@ -1,0 +1,21 @@
+package kr.ac.jj.shared.application.admin.appmanage.personmanage.mapper;
+
+import java.util.Map;
+
+import kr.ac.jj.shared.config.SharedDataSourceMapperConfig.SharedDwSqlMapper;
+import kr.ac.jj.shared.infrastructure.framework.mybatis.persistence.dao.handler.DataResultHandler;
+
+/**
+ * 사람 관리 Mapper
+ */
+@SharedDwSqlMapper
+public interface PersonManageDwMapper {
+
+    /**
+     * 목록 조회
+     *
+     * @param resultHandler
+     */
+    public void selectList(DataResultHandler<Map<String, Object>> resultHandler);
+
+}

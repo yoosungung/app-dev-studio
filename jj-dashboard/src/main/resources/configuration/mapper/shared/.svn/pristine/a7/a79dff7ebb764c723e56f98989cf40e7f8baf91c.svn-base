@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 메뉴별 권한 TO 시스템 - 권한 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.menu.author.TbSysMenuAuthorToAuthorMapper">
+
+    <!-- 목록 조회 - MENU_ID(으)로 -->
+    <select id="selectListByMenuId" resultType="kr.ac.jj.shared.domain.main.model.sys.menu.author.TbSysMenuAuthorToAuthor">
+        <![CDATA[
+            SELECT TSA.AUTHOR_ID
+                 , TSA.AUTHOR_CODE
+                 , TSA.AUTHOR_NM
+                 , TSA.AUTHOR_DC
+                 , TSA.SORT_ORDR
+                 , TSA.USE_YN
+                 , TSA.BASS_AUTHOR_YN
+                 , TSA.USER_AUTHOR_YN
+                 , CASE WHEN TSMA.MENU_ID IS NOT NULL THEN '1' ELSE '0' END AS MENU_AUTHOR_YN
+            FROM   TB_SYS_AUTHOR TSA
+                   LEFT JOIN TB_SYS_MENU_AUTHOR TSMA ON TSMA.AUTHOR_ID = TSA.AUTHOR_ID AND TSMA.MENU_ID = #{menuId}
+            WHERE  (TSA.BASS_AUTHOR_YN = '0' OR TSA.AUTHOR_CODE IN ('ROLE_ANONYMOUS', 'ROLE_USER'))
+            ORDER BY TSA.SORT_ORDR
+        ]]>
+    </select>
+
+</mapper>

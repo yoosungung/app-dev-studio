@@ -1,0 +1,30 @@
+package kr.ac.jj.shared.application.bbs.gnrl.model;
+
+import kr.ac.jj.shared.domain.main.model.bbs.gnrl.TbBbsGnrl;
+import kr.ac.jj.shared.domain.main.model.com.person.TbComPerson;
+
+/**
+ * 게시판(일반) Model
+ */
+public class BbsGeneralModel {
+
+    private TbBbsGnrl tbBbsGnrl;
+    private TbComPerson tbComPerson;
+
+    public TbBbsGnrl getTbBbsGnrl() {
+        return this.tbBbsGnrl;
+    }
+
+    public void setTbBbsGnrl(TbBbsGnrl tbBbsGnrl) {
+        this.tbBbsGnrl = tbBbsGnrl;
+    }
+
+    public TbComPerson gettbComPerson() {
+        return this.tbComPerson;
+    }
+
+    public void settbComPerson(TbComPerson tbComPerson) {
+        this.tbComPerson = tbComPerson;
+    }
+
+}

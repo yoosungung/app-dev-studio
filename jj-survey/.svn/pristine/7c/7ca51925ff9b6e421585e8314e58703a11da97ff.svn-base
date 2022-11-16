@@ -1,0 +1,33 @@
+package kr.ac.jj.survey.domain.main.model.survey.qestnr;
+
+import kr.ac.jj.shared.infrastructure.framework.web.support.codedata.CodeDataUtil;
+import kr.ac.jj.shared.infrastructure.idgen.util.IdGenerationUtil;
+
+/**
+ * 설문_설문지
+ */
+public class TbSurveyQestnr extends TbSurveyQestnrEntity {
+
+    private static final long serialVersionUID = 7381852266853471430L;
+
+    private String surveyRealmNm;
+
+    public TbSurveyQestnr newId() {
+        this.setSurveyQestnrId(IdGenerationUtil.createUid("TB_SURVEY_QESTNR"));
+
+        return this;
+    }
+
+    public String getSurveyRealmNm() {
+        return this.surveyRealmNm;
+    }
+
+    public void setSurveyRealmNm(String surveyRealmNm) {
+        this.surveyRealmNm = surveyRealmNm;
+    }
+
+    public String getCnrsYnNm() {
+        return CodeDataUtil.getCodeName("[CNRS_YN]", this.cnrsYn);
+    }
+
+}

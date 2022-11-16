@@ -1,0 +1,95 @@
+package kr.ac.jj.survey.infrastructure.framework.core.persistence.dao.variables;
+
+import java.util.Date;
+import java.util.Locale;
+
+import org.apache.commons.lang3.StringUtils;
+
+import kr.ac.jj.survey.infrastructure.framework.core.support.codedata.CodeDataSourceAccessor;
+import kr.ac.jj.survey.infrastructure.framework.core.support.collection.BaseMapList;
+import kr.ac.jj.survey.infrastructure.framework.core.support.context.ApplicationContextUtil;
+
+public class SqlVariables {
+    public static final String BIND_KEY = "$var";
+
+    private static CodeDataSourceAccessor codeDataSourceAccessor;
+
+    private DataSourceSpec dataSourceSpec;
+
+    public void setDataSourceSpec(DataSourceSpec dataSourceSpec) {
+        this.dataSourceSpec = dataSourceSpec;
+    }
+
+    private CodeDataSourceAccessor getCodeDataSourceAccessor() {
+        if (codeDataSourceAccessor == null && ApplicationContextUtil.getApplicationContext() != null) {
+            codeDataSourceAccessor = ApplicationContextUtil.getBean(CodeDataSourceAccessor.class);
+        }
+
+        return codeDataSourceAccessor;
+    }
+
+    public Date getSystemDate() {
+        return new Date();
+    }
+
+    public Locale getDefaultLocale() {
+        return Locale.getDefault();
+    }
+
+    public String getDefaultLocaleString() {
+        return this.getDefaultLocale().toString();
+    }
+
+    public String getDatabaseId() {
+        if (this.dataSourceSpec == null) {
+            return null;
+        }
+
+        return this.dataSourceSpec.getDatabaseId();
+    }
+
+    public String getNamePrefix() {
+        if (this.dataSourceSpec == null) {
+            return null;
+        }
+
+        return this.dataSourceSpec.getNamePrefix();
+    }
+
+    public String getNameSuffix() {
+        if (this.dataSourceSpec == null) {
+            return null;
+        }
+
+        return this.dataSourceSpec.getNameSuffix();
+    }
+
+    public String getCodeData(String codeDataPath, String columnName) {
+        return this.getCodeData(codeDataPath, columnName, null, this.getDefaultLocale());
+    }
+
+    public String getCodeData(String codeDataPath, String columnName, String defaultText) {
+        return this.getCodeData(codeDataPath, columnName, defaultText, this.getDefaultLocale());
+    }
+
+    protected String getCodeData(String codeDataPath, String columnName, String defaultText, Locale locale) {
+        BaseMapList codeDataList = this.getCodeDataSourceAccessor().getList(codeDataPath, locale);
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("CASE ").append(columnName);
+
+        for (int i = 0; i < codeDataList.size(); i++) {
+            sb.append(" WHEN '").append(((String) codeDataList.get(i, "code")).replaceAll("'", "''")).append("'");
+            sb.append(" THEN '").append(((String) codeDataList.get(i, "name")).replaceAll("'", "''")).append("'");
+        }
+
+        if (StringUtils.isNotEmpty(defaultText)) {
+            sb.append(" ELSE ").append(defaultText);
+        }
+
+        sb.append(" END");
+
+        return sb.toString();
+    }
+}

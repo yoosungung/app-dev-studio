@@ -1,0 +1,10 @@
+package kr.ac.jj.shared.domain.main.mapper.sys.uid;
+
+import kr.ac.jj.shared.config.DataSourceMapperConfig.MainSqlMapper;
+
+/**
+ * 시스템 - UID Mapper
+ */
+@MainSqlMapper
+public interface TbSysUidMapper extends TbSysUidEntityMapper {
+}

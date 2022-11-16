@@ -1,0 +1,113 @@
+/* font css : 나눔고딕 */
+
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/NanumGothic-Regular.eot');
+  src: url('fonts/NanumGothic-Regular.eot?#iefix') format('embedded-opentype'),
+       url('fonts/NanumGothic-Regular.woff2') format('woff2'),
+       url('fonts/NanumGothic-Regular.woff') format('woff'),
+       url('fonts/NanumGothic-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 600;
+  src: url('fonts/NanumGothic-Bold.eot');
+  src: url('fonts/NanumGothic-Bold.eot?#iefix') format('embedded-opentype'),
+       url('fonts/NanumGothic-Bold.woff2') format('woff2'),
+       url('fonts/NanumGothic-Bold.woff') format('woff'),
+       url('fonts/NanumGothic-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 800;
+  src: url('fonts/NanumGothic-ExtraBold.eot');
+  src: url('fonts/NanumGothic-ExtraBold.eot?#iefix') format('embedded-opentype'),
+       url('fonts/NanumGothic-ExtraBold.woff2') format('woff2'),
+       url('fonts/NanumGothic-ExtraBold.woff') format('woff'),
+       url('fonts/NanumGothic-ExtraBold.ttf') format('truetype');
+}
+
+
+/* BASIC CSS */
+*       {padding:0;margin:0;}
+html    { height:100%; margin:0; padding:0; }
+body    {
+    height:100%; font-family: Nanum Gothic, Arial, Helvetica, sans-serif; font-size: 13px; line-height:1.3; color: #333;
+    overflow:hidden !important;
+    }
+
+table.basic { width:100%; border-style:hidden; border-collapse:collapse; border:0; table-layout:fixed }
+
+img { border:0 }
+A:link, A:visited, A:active {COLOR:#333; font-family:  Nanum Gothic, Arial, Helvetica, sans-serif; font-size: 12px; TEXT-DECORATION:none }
+A:hover { TEXT-DECORATION:none; COLOR:#0076c0;}
+
+input, textarea {
+    background-color:#fff;  border:solid 1px #ccc;   COLOR:#333333; font-size:13px;
+    font-family:  Nanum Gothic, Arial, Helvetica, sans-serif; line-height:1.0; margin: 0 1px !important;
+    display:inline-block;
+    }
+textarea { height:50px; overflow-y:auto; width:98%; padding:3px; line-height:1.3 !important;}
+select{ font-size:13px; height:25px; font-family:  Nanum Gothic, Arial, Helvetica, sans-serif; }
+div,dl,dt,dd,p,ul,li{margin:0px; padding:0px;}
+ul, dl { list-style:none; }
+
+input:focus, textarea:focus { border:solid 1px #66afe9 !important; }
+
+::-webkit-input-placeholder { color:#999 !important; font-size:12px !important; font-family:Arial, Helvetica, sans-serif !important; }
+::-moz-placeholder { color:#999 !important; font-size:12px !important; font-family:Arial, Helvetica, sans-serif !important; }
+:-moz-placeholder { color:#999 !important; font-size:12px !important; font-family:Arial, Helvetica, sans-serif !important; }
+:-ms-input-placeholder { color:#999 !important; font-size:12px !important; font-family:Arial, Helvetica, sans-serif !important; }
+
+
+/* LOGIN CSS */
+.loginArea { display:block; text-align:center; margin-top:7%; }
+.loginArea .btn_login {
+    display:inline-block; width:263px; height:53px; background:#2779af url("images/bg_btnlogin.png") no-repeat center; color:#fff; cursor:pointer;
+    border:0; font-size:0;
+    }
+.loginArea .btn_login:hover { background:#216998 url("images/bg_btnlogin.png") no-repeat center; }
+
+.loginBox {
+    display:inlnie-block; width:948px; height:640px; margin:0 auto; position:relative; text-align:left;
+    background:url("images/bg_loginbox.png") no-repeat
+    }
+
+.loginCon { display:inline-block; width:265px; position:absolute; top:314px; left:538px; }
+.loginCon .btn_login  { position:absolute; top:106px; left:4px; }
+.loginCon input[type=text],
+.loginCon input[type=password] {
+    border:solid 1px #d4d4d4; height:44px; width:263px; padding:5px 10px 5px 35px; box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif; font-size:14px;
+    }
+.loginCon input[type=text] { position:absolute; top:0; left:4px; background:#fff url("images/bg_icon_id.png") no-repeat left center; }
+.loginCon input[type=password] { position:absolute; top:53px; left:4px; background:#fff url("images/bg_icon_pw.png") no-repeat left center; }
+
+
+.contact {
+    font-family:dotum, Arial, Helvetica, sans-serif;
+    font-size:11px; color:#999; position:absolute; top:160px; left:4px; width:263px;  vertical-align:top;
+    }
+.contact p {
+    font-weight:bold; display:inline-block; position:absolute; top:13px; left:0;
+    }
+.contact ul { position:absolute; top:10px; left:70px; }
+.contact a { color:#999 }
+.contact .icon_email { display:inline-block; width:14px; height:10px; background:url("images/btn_email.png") no-repeat; margin:0 3px }
+
+.loginBottom {
+    display:inline-block; width:846px; height:20px; position:absolute; top:580px; left:51px; line-height:1.0; color:#666;
+    }
+.loginBottom p {
+    font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#999;
+    display:inline-block; position:absolute; top:0; left:0;
+    }
+.loginBottom span {
+    font-family:  Nanum Gothic, Arial, Helvetica, sans-serif; display:inline-block; position:absolute; top:-2px; right:0;
+    font-size:13px; font-weight:600; letter-spacing:-0.1px; padding-left:9px; background:url("images/bg_arrow.png") no-repeat left 3px;
+    }
+.loginBottom span a { color:#666; }

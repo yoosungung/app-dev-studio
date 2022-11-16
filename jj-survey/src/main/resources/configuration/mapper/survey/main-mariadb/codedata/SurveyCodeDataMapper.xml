@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 설문 코드데이터 Mapper
+ -->
+<mapper namespace="codedata.survey">
+
+    <!-- 설문 분야 ID -->
+    <select id="surveyRealmId" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TSR.SURVEY_REALM_ID AS CODE
+                 , TSR.SURVEY_REALM_NM AS NAME
+            FROM   TB_SURVEY_REALM TSR
+            ORDER BY NAME
+        ]]>
+    </select>
+
+    <!-- 설문 등록 부서 ID -->
+    <select id="surveyRegistDeptId" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TCD.DEPT_ID AS CODE
+                 , TCD.DEPT_NM AS NAME
+            FROM   TB_COM_DEPT TCD
+                   INNER JOIN TB_COM_PERSON_DEPT TCPD ON TCPD.DEPT_ID = TCD.DEPT_ID
+            WHERE  TCPD.PERSON_ID = #{$var.loginUser.personId}
+            UNION
+            SELECT TCD.DEPT_ID AS CODE
+                 , TCD.DEPT_NM AS NAME
+            FROM   TB_SURVEY_QESTNR TSQ
+                   INNER JOIN TB_COM_DEPT TCD ON TCD.DEPT_ID = TSQ.REGIST_DEPT_ID
+            WHERE  TSQ.SURVEY_QESTNR_ID = #{param1}
+            ORDER BY NAME
+        ]]>
+    </select>
+
+    <!-- 그룹 등록 부서 ID -->
+    <select id="groupRegistDeptId" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TCD.DEPT_ID AS CODE
+                 , TCD.DEPT_NM AS NAME
+            FROM   TB_COM_DEPT TCD
+                   INNER JOIN TB_COM_PERSON_DEPT TCPD ON TCPD.DEPT_ID = TCD.DEPT_ID
+            WHERE  TCPD.PERSON_ID = #{$var.loginUser.personId}
+            UNION
+            SELECT TCD.DEPT_ID AS CODE
+                 , TCD.DEPT_NM AS NAME
+            FROM   TB_SURVEY_GROUP TSG
+                   INNER JOIN TB_COM_DEPT TCD ON TCD.DEPT_ID = TSG.REGIST_DEPT_ID
+            WHERE  TSG.SURVEY_GROUP_ID = #{param1}
+            ORDER BY NAME
+        ]]>
+    </select>
+
+</mapper>

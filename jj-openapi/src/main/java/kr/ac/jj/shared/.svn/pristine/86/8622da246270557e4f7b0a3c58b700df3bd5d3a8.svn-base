@@ -1,0 +1,159 @@
+package kr.ac.jj.shared.application.bbs.gnrl.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.ac.jj.shared.application.bbs.gnrl.mapper.BbsGeneralMapper;
+import kr.ac.jj.shared.application.bbs.gnrl.model.BbsGeneralModel;
+import kr.ac.jj.shared.domain.main.mapper.bbs.gnrl.TbBbsGnrlMapper;
+import kr.ac.jj.shared.domain.main.model.bbs.gnrl.TbBbsGnrl;
+import kr.ac.jj.shared.infrastructure.framework.core.foundation.exception.BizException;
+import kr.ac.jj.shared.infrastructure.framework.web.context.support.MessageUtil;
+import kr.ac.jj.shared.infrastructure.grid.handler.GridDataResultHandler;
+import kr.ac.jj.shared.infrastructure.grid.model.GridRequest;
+
+/**
+ * 게시판(일반) Service
+ */
+@Service
+public class BbsGeneralServiceImpl {
+
+    private @Autowired BbsGeneralMapper bbsGeneralMapper;
+    private @Autowired TbBbsGnrlMapper tbBbsGnrlMapper;
+
+    /**
+     * 목록 조회
+     *
+     * @param bbsCode
+     * @param gridRequest
+     * @return
+     */
+    public List<Map<String, Object>> readList(String bbsCode, GridRequest gridRequest) {
+        GridDataResultHandler resultHandler = new GridDataResultHandler(gridRequest);
+
+        bbsGeneralMapper.selectList(bbsCode, resultHandler, gridRequest.getPaging(), gridRequest.getSearch());
+
+        return resultHandler.getResultList();
+    }
+
+    /**
+     * 조회 - 생성용
+     *
+     * @param bbsCode
+     * @return
+     */
+    public BbsGeneralModel read(String bbsCode) {
+        BbsGeneralModel model = new BbsGeneralModel();
+
+        TbBbsGnrl tbBbsGnrl = new TbBbsGnrl();
+
+        model.setTbBbsGnrl(tbBbsGnrl);
+
+        return model;
+    }
+
+    /**
+     * 조회
+     *
+     * @param bbsCode
+     * @param bbscttId
+     * @return
+     */
+    public BbsGeneralModel read(String bbsCode, String bbscttId) {
+        BbsGeneralModel model = new BbsGeneralModel();
+
+        TbBbsGnrl tbBbsGnrl = tbBbsGnrlMapper.select(bbscttId);
+
+        if (tbBbsGnrlMapper.updateRdcnt(bbscttId) == 0) {
+            throw new BizException(MessageUtil.getMessage("조회수를 증가시킬 수 없습니다."));
+        }
+
+        model.setTbBbsGnrl(tbBbsGnrl);
+
+        return model;
+    }
+
+    /**
+     * 생성
+     *
+     * @param bbsCode
+     * @param model
+     * @return
+     */
+    public String create(String bbsCode, BbsGeneralModel model) {
+        TbBbsGnrl tbBbsGnrl = model.getTbBbsGnrl();
+
+        tbBbsGnrl.newId();
+        tbBbsGnrl.setBbsCode(bbsCode);
+        tbBbsGnrl.setRdcnt(0);
+        tbBbsGnrl.setFrstBbscttId(tbBbsGnrl.getBbscttId());
+        tbBbsGnrl.setAnswerLevel(1);
+        tbBbsGnrl.setAnswerOrdr(bbsGeneralMapper.getBbscttCnt(bbsCode));
+        tbBbsGnrl.setDeleteYn(false);
+
+        if (tbBbsGnrlMapper.insert(tbBbsGnrl) == 0) {
+            throw new BizException(MessageUtil.getMessage("Q&A를 등록할 수 없습니다."));
+        }
+
+        return tbBbsGnrl.getBbscttId();
+    }
+
+    /**
+     * 생성 - 답글
+     *
+     * @param bbsCode
+     * @param orginlBbscttId
+     * @param model
+     * @return
+     */
+    public String createReply(String bbsCode, String orginlBbscttId, BbsGeneralModel model) {
+        TbBbsGnrl tbBbsGnrl = model.getTbBbsGnrl();
+
+        tbBbsGnrl.newId();
+        tbBbsGnrl.setBbsCode(bbsCode);
+        tbBbsGnrl.setRdcnt(0);
+        tbBbsGnrl.setAnswerLevel(tbBbsGnrl.getAnswerLevel() + 1);
+        tbBbsGnrl.setBbscttNo(null);
+        tbBbsGnrl.setDeleteYn(false);
+
+        if (tbBbsGnrlMapper.insert(tbBbsGnrl) == 0) {
+            throw new BizException(MessageUtil.getMessage("답변을 등록할 수 없습니다."));
+        }
+
+        return tbBbsGnrl.getBbscttId();
+    }
+
+    /**
+     * 수정
+     *
+     * @param bbsCode
+     * @param model
+     */
+    public void update(String bbsCode, BbsGeneralModel model) {
+        tbBbsGnrlMapper.update(model.getTbBbsGnrl());
+    }
+
+    /**
+     * 삭제
+     *
+     * @param bbsCode
+     * @param bbscttId
+     */
+    public void delete(String bbsCode, String bbscttId) {
+        tbBbsGnrlMapper.delete(bbscttId);
+    }
+
+    /**
+     * 전체 리스트 개수 확인
+     *
+     * @param bbsCode
+     * @param bbscttId
+     */
+    public int getBbscttCnt(String bbsCode) {
+        return bbsGeneralMapper.getBbscttCnt(bbsCode);
+    }
+
+}

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 공통 - 부서별 권한 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.com.dept.author.TbComDeptAuthorEntityMapper">
+
+    <!-- 목록 조회 - DEPT_ID(으)로 -->
+    <select id="selectListByDeptId" resultType="kr.ac.jj.survey.domain.main.model.com.dept.author.TbComDeptAuthorToAuthor">
+        <![CDATA[
+            SELECT TCDA.DEPT_ID
+                 , TCDA.AUTHOR_ID
+                 , TSA.AUTHOR_CODE
+                 , TSA.AUTHOR_NM_TITLE
+                 , TSA.AUTHOR_DC
+                 , TSA.USE_YN
+            FROM   TB_COM_DEPT_AUTHOR TCDA
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TCDA.AUTHOR_ID
+            WHERE  TCDA.DEPT_ID = #{deptId}
+            ORDER BY TSA.SORT_ORDR
+        ]]>
+    </select>
+
+    <!-- 목록 조회 - AUTHOR_ID(으)로 -->
+    <select id="selectListByAuthorId" resultType="kr.ac.jj.survey.domain.main.model.com.dept.author.TbComDeptAuthorToDept">
+        <![CDATA[
+            SELECT TCDA.DEPT_ID
+                 , TCDA.AUTHOR_ID
+                 , TCD.UPPER_DEPT_ID
+                 , TCD.DEPT_LEVEL
+                 , TCD.DEPT_CODE
+                 , TCD.DEPT_NM
+                 , TCD.USE_YN
+            FROM   TB_COM_DEPT_AUTHOR TCDA
+                   INNER JOIN TB_COM_DEPT TCD ON TCD.DEPT_ID = TCDA.DEPT_ID
+            WHERE  TCDA.AUTHOR_ID = #{authorId}
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.com.dept.author.TbComDeptAuthor">
+        <![CDATA[
+            SELECT TCDA.DEPT_ID
+                 , TCDA.AUTHOR_ID
+            FROM   TB_COM_DEPT_AUTHOR TCDA
+            WHERE  TCDA.DEPT_ID = #{deptId}
+            AND    TCDA.AUTHOR_ID = #{authorId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_COM_DEPT_AUTHOR (
+                   DEPT_ID
+                 , AUTHOR_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+            ) VALUES (
+                   #{tbComDeptAuthor.deptId}
+                 , #{tbComDeptAuthor.authorId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_COM_DEPT_AUTHOR SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+            WHERE  DEPT_ID = #{tbComDeptAuthor.deptId}
+            AND    AUTHOR_ID = #{tbComDeptAuthor.authorId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_DEPT_AUTHOR
+            WHERE  DEPT_ID = #{deptId}
+            AND    AUTHOR_ID = #{authorId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - DEPT_ID(으)로 -->
+    <delete id="deleteListByDeptId">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_DEPT_AUTHOR
+            WHERE  DEPT_ID = #{deptId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - AUTHOR_ID(으)로 -->
+    <delete id="deleteListByAuthorId">
+        <![CDATA[
+            DELETE
+            FROM   TB_COM_DEPT_AUTHOR
+            WHERE  AUTHOR_ID = #{authorId}
+        ]]>
+    </delete>
+
+</mapper>

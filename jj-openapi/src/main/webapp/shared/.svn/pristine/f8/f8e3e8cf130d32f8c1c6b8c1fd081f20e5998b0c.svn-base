@@ -1,0 +1,122 @@
+function EmailLogManageViewService(vue) {
+
+    /**
+     * 목록 조회
+     */
+    this.readList = function(firstPage) {
+        GridUtil.setLoadStart(vue, firstPage);
+
+        GridUtil.axios(vue)
+        .post("readList", vue.gridRequest)
+        .then(function(response) {
+            GridUtil.loadData(vue, response.data.result);
+        })
+        ["catch"](function(error) {
+            GridUtil.showAxiosError(vue, error);
+        });
+    };
+
+    /**
+     * 조회
+     */
+    this.read = function(emailId, callback) {
+        vue.emailId = emailId;
+
+        CommonUtil.initModel(vue.model);
+        ValidationUtil.init(vue);
+
+        CommonUtil.axios()
+        .get(vue.emailId)
+        .then(function(response) {
+            vue.model = response.data;
+
+            if (callback != null) {
+                callback(vue.model);
+            }
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+    /**
+     * 생성
+     */
+    this.create = function(method) {
+        if (!ValidationUtil.check(vue)) {
+            return;
+        }
+
+        if (method == "create") {
+            if (!confirm("DB 저장 후 스케줄러에 의해 발송됩니다.\n\n저장하시겠습니까?")) {
+                return;
+            }
+        } else {
+            if (!confirm("DB 저장 없이 바로 발송됩니다.\n\n발송하시겠습니까?")) {
+                return;
+            }
+        }
+
+        CommonUtil.axios()
+        [method == "create" ? "post" : "put"](null, vue.model)
+        .then(function(response) {
+            if (method == "create") {
+                alert("저장되었습니다.");
+            } else {
+                alert("발송되었습니다.");
+            }
+
+            vues.list.service.readList();
+
+            vue.closePopup();
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+    /**
+     * 삭제
+     */
+    this.delete = function() {
+        if (!confirm("정말로 삭제하시겠습니까?")) {
+            return;
+        }
+
+        CommonUtil.axios()
+        ["delete"](vue.emailId)
+        .then(function(response) {
+            alert("삭제되었습니다.");
+
+            vues.list.service.readList();
+
+            vue.viewList();
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+    /**
+     * 발송 생성
+     */
+    this.createSend = function() {
+        if (!confirm("재발송 처리하시겠습니까?")) {
+            return;
+        }
+
+        CommonUtil.axios()
+        .post("createSend", vue.emailId)
+        .then(function(response) {
+            alert("재발송 처리되었습니다.");
+
+            vue.service.read(vue.emailId);
+
+            vues.list.service.readList();
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+}

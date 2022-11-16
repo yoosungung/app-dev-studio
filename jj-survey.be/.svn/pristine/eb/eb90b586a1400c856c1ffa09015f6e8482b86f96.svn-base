@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 사용자 로그인 실패 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.survey.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper">
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.survey.domain.main.model.sys.user.loginfailr.TbSysUserLoginFailr">
+        <![CDATA[
+            SELECT TSULF.LOGIN_NM
+                 , TSULF.FAILR_CO
+                 , TSULF.LAST_FAILR_DT
+            FROM   TB_SYS_USER_LOGIN_FAILR TSULF
+            WHERE  TSULF.LOGIN_NM = #{loginNm}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SYS_USER_LOGIN_FAILR (
+                   LOGIN_NM
+                 , FAILR_CO
+                 , LAST_FAILR_DT
+            ) VALUES (
+                   #{tbSysUserLoginFailr.loginNm}
+                 , 1
+                 , #{$var.systemDate}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SYS_USER_LOGIN_FAILR SET
+                   FAILR_CO                         = FAILR_CO + 1
+                 , LAST_FAILR_DT                    = #{$var.systemDate}
+            WHERE  LOGIN_NM = #{tbSysUserLoginFailr.loginNm}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_USER_LOGIN_FAILR
+            WHERE  LOGIN_NM = #{loginNm}
+        ]]>
+    </delete>
+
+</mapper>

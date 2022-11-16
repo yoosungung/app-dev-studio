@@ -1,0 +1,14 @@
+function RecommendJobViewService(vue) {
+    this.readList = function(search) {
+        GridUtil.setLoadStart(vue, search);
+
+        GridUtil.axios(vue)
+        .post("readList", vue.gridRequest)
+        .then(function(response) {
+            GridUtil.loadData(vue, response.data.result);
+        })
+        ["catch"](function(error) {
+            GridUtil.showAxiosError(vue, error);
+        });
+    }
+}

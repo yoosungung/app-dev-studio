@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jd.survey.zeus.mapper.ZeusMapper">
+
+    <select id="getTbAccessCnt" resultType="com.jd.survey.zeus.domain.TbAccessLog" >
+        SELECT /* PubZeusMapper.getTbAccessCnt 방문자카운트 조회 */
+              sum(access_cnt) AS accessCnt
+              ,sum(CASE WHEN access_dt = DATE_FORMAT(SYSDATE, '%Y%m%d') THEN access_cnt ELSE 0 END) AS accessTodayCnt
+          FROM tb_access_log
+    </select>
+
+    <insert id="addTbAccessLog" parameterType="com.jd.survey.zeus.domain.TbAccessLog">
+        MERGE /* PubZeusMapper.addTbAccessLog 접속로그 등록(접속날짜 있으면 update 없으면 insert) */
+         INTO tb_access_log
+        USING dual ON (access_dt = #{accessDt} AND access_cd = #{accessCode})
+         WHEN MATCHED THEN
+              UPDATE SET
+                          access_cnt = access_cnt + 1
+         WHEN NOT MATCHED THEN
+              INSERT(access_dt                                        /* 접속일시 */
+                    ,access_cnt                                        /* 접속횟수 */
+                    ,access_cd
+                    )
+             VALUES
+                     (#{accessDt}                                    /* 접속IP */
+                    ,1                                                /* 접속일시 */
+                    ,#{accessCode}
+                    )
+    </insert>
+
+</mapper>

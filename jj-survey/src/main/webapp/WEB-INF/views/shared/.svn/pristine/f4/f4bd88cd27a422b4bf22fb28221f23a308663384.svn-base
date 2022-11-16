@@ -1,0 +1,109 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/layouts/shared/include/PageHeader.jspf" %>
+
+<div id="list" style="display: none;">
+    <div class="pageHeader">
+        메일 로그
+        <div class="btn_area">
+            <ui-button class="btn_write" onclick="vues.list.viewCreate();">메일 테스트</ui-button>
+        </div>
+    </div>
+
+    <div class="pageContents">
+        <!-- 검색조건 영역 시작 -->
+        <div class="searchArea">
+            <table class="searchBox" v-on:keyup.enter="service.readList(true);">
+                <colgroup>
+                    <col width="10%">
+                    <col width="35%">
+                    <col width="10%">
+                    <col>
+                    <col width="7%">
+                </colgroup>
+                <tr>
+                    <th>검색어</th>
+                    <td>
+                        <ui-input type="text" v-model="gridRequest.search.searchText"></ui-input>
+                    </td>
+                    <th>발송상태</th>
+                    <td>
+                        <ui-select v-model="gridRequest.search.sndngSttus" code-data="/common.email/emailSndngSttus" first-name="(전체)"></ui-select>
+                    </td>
+                    <td rowspan="2" style="vertical-align: bottom;">
+                        <div class="btnArea_center">
+                            <ui-button class="btn_total_search" v-on:click="service.readList(true);">조회</ui-button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>작성일자</th>
+                    <td colspan="3">
+                        <ui-date v-model="gridRequest.search.writngDeStart"></ui-date> ~
+                        <ui-date v-model="gridRequest.search.writngDeEnd"></ui-date>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- 검색조건 영역 끝 -->
+
+        <!-- 결과목록 영역 시작 -->
+        <ui-grid-paging v-bind:request="gridRequest" v-bind:result="gridResult" v-bind:read-list="service.readList">
+            <table class="bbs_list auto">
+                <thead>
+                    <tr>
+                        <th width="" column-name="emailSj" column-sort>메일 제목</th>
+                        <th width="200px" column-name="senderEmailAdres" column-sort>발송자 메일주소</th>
+                        <th width="100px" column-name="senderNm" column-sort>발송자 이름</th>
+                        <th width="80px" column-name="recptnCnt" column-sort>수신자 수</th>
+                        <th width="80px" column-name="sndngSttusNm" column-sort>발송상태</th>
+                        <th width="160px" column-name="writngDt" column-sort="DESC">작성일시</th>
+                    </tr>
+                </thead>
+                <tbody v-cloak>
+                    <tr v-for="row in gridResult.list" v-bind:key="row.emailId">
+                        <td class="tal">
+                            <a href="javascript:void(0);" v-on:click="viewDetail(row.emailId);">{{ row.emailSj }}</a>
+                        </td>
+                        <td class="tac">{{ row.senderEmailAdres }}</td>
+                        <td class="tac">{{ row.senderNm }}</td>
+                        <td class="tac">{{ row.recptnCnt }}</td>
+                        <td class="tac">{{ row.sndngSttusNm }}</td>
+                        <td class="tac">{{ formatter.datetime(row.writngDt) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </ui-grid-paging>
+        <!-- 결과목록 영역 시작 -->
+    </div>
+</div>
+
+<script>
+vues.list = new Vue({
+    el: '#list',
+    data: {
+        gridRequest: GridUtil.getRequestWithPaging({}),
+        gridResult: {}
+    },
+    computed: {
+        service: function() {
+            return new EmailLogManageViewService(this);
+        },
+        formatter: function() {
+            return CommonUtil.formatter;
+        }
+    },
+    mounted: function() {
+        this.service.readList();
+    },
+    methods: {
+        // 생성 화면
+        viewCreate: function() {
+            CommonUtil.popupVue("create");
+        },
+        // 상세 화면
+        viewDetail: function(emailId) {
+            CommonUtil.changeVue("read", emailId);
+        }
+    }
+});
+</script>

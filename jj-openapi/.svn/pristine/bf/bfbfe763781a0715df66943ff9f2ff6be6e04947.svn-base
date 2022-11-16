@@ -1,0 +1,36 @@
+package kr.ac.jj.openapi.application.openapi.bannermanage.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import kr.ac.jj.openapi.application.openapi.bannermanage.model.BannerManageModel;
+import kr.ac.jj.openapi.application.openapi.bannermanage.service.BannerManageServiceImpl;
+
+/**
+ * 배너 관리 RestController
+ */
+@RestController
+@RequestMapping(path = "/openapi/bannerManage/BannerManage", consumes = { MediaType.APPLICATION_JSON_VALUE })
+public class BannerManageRestController {
+
+    private @Autowired BannerManageServiceImpl bannerManagerService;
+
+    /**
+     * 생성
+     *
+     * @param model
+     * @return
+     */
+    @PostMapping
+    public String post(@RequestBody BannerManageModel model) {
+//        String bannerId = bannerManagerService.create(model);
+
+        return null;
+    }
+
+
+}

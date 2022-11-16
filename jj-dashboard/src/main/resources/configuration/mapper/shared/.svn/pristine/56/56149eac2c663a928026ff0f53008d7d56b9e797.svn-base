@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 인사정보 관리 Portal Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.admin.appmanage.hrmanage.mapper.HumanResourceManagePortalMapper">
+
+    <!-- 코드 목록 조회 -->
+    <select id="selectCodeList" resultType="kr.ac.jj.shared.domain.main.model.intrfc.code.TbIntrfcCode">
+        <![CDATA[
+            SELECT C.CODE_TYPE AS CODE_TY
+                 , C.CODE_CODE AS CODE_VALUE
+                 , C.CODE_FNAME AS CODE_NM
+                 , C.CODE_VISIBLE AS CODE_INDICT_YN
+            FROM   HSDB.CODEMAST C
+            WHERE  C.CODE_TYPE = #{codeType}
+        ]]>
+    </select>
+
+    <!-- 사용자 목록 조회 -->
+    <select id="selectUserList" resultType="kr.ac.jj.shared.domain.main.model.intrfc.user.TbIntrfcUser">
+        <![CDATA[
+            --교직원(교수, 직원, 조교) / 재직자
+            SELECT USER_ID ,
+                   USER_PWD AS USER_PASSWORD ,
+                   KICH_EMAIL1 AS EMAIL_ADRES ,
+                   insa_daehak
+                           || insa_hakkwa
+                           || '00' AS DEPT_CODE , -- 추후 SMS 발송 시 필요
+                   CASE
+                      WHEN SUBSTR(INSA_JIKGUB,1,1) IN ('D',
+                                                         'E',
+                                                         'F',
+                                                         'G',
+                                                         'H',
+                                                         'I')
+                      THEN 'D' -- 직원
+                      WHEN SUBSTR(INSA_JIKGUB,1,1) IN ('A',
+                                                         'B',
+                                                         'T')
+                      THEN 'A' -- 교수
+                      WHEN SUBSTR(INSA_JIKGUB,1,1) = 'K'
+                      THEN 'K' -- 조교
+                   END AS USER_SE ,
+                   USER_DATE AS ECNY_DE ,
+                   USER_IRUM AS USER_NM ,
+                   USER_TEL AS TLPHON_NO ,
+                   INSA_DAEHAK AS UNIV_CODE ,
+                   INSA_HAKBU AS UNDEG_CODE ,
+                   INSA_HAKKWA AS SUBJCT_CODE,
+                   JJUDBA.F_CODE('203', INSA_BOJIK1, 'f')
+                           || ','
+                           || JJUDBA.F_CODE('203', INSA_BOJIK2, 'f')
+                           || ','
+                           || JJUDBA.F_CODE('203', INSA_BOJIK3, 'f')
+                           || ','
+                           || JJUDBA.F_CODE('203', INSA_BOJIK4, 'f')
+                           || ','
+                           || JJUDBA.F_CODE('203', INSA_BOJIK5, 'f')
+                           || ','
+                           || JJUDBA.F_CODE('203', INSA_BOJIK6, 'f')
+                           || ','
+                           || JJUDBA.F_CODE('203', INSA_BOJIK7, 'f') AS OFCPS_NM ,
+                   'N' AS DELETE_YN
+            FROM   hsdb.usermast d,
+                   isdb.INSAMAST b,
+                   isdb.view_kichmast e
+            WHERE  d.user_id       =e.kich_sabun
+            AND    d.user_id       = b.INSA_SABUN
+            AND    b.INSA_JAE_GBN <> '99'
+            AND    b.INSA_JIKGUB  != 'B1'
+
+            union all
+
+            -- 산단 / 재직자
+            SELECT USER_ID ,
+                   USER_PWD ,
+                   KICH_EMAIL1 ,
+                   insa_daehak
+                          || insa_hakkwa
+                          || '00' AS DEPT_ID , -- 추후 SMS 발송 시 필요
+                   'I' DIV ,
+                   USER_DATE ,
+                   USER_IRUM ,
+                   USER_TEL ,
+                   INSA_DAEHAK DAEHAK ,
+                   INSA_HAKBU HAKBU ,
+                   INSA_HAKKWA HAKGWA,
+                   JJUDBA.F_CODE('203', INSA_BOJIK1, 'f')
+                          || ','
+                          || JJUDBA.F_CODE('203', INSA_BOJIK2, 'f')
+                          || ','
+                          || JJUDBA.F_CODE('203', INSA_BOJIK3, 'f')
+                          || ','
+                          || JJUDBA.F_CODE('203', INSA_BOJIK4, 'f')
+                          || ','
+                          || JJUDBA.F_CODE('203', INSA_BOJIK5, 'f')
+                          || ','
+                          || JJUDBA.F_CODE('203', INSA_BOJIK6, 'f') AS BOJIKNAME ,
+                   'N' AS DELETE_YN
+            FROM   hsdb.usermast d,
+                   isdb.INSAMAST@sanhak b,
+                   isdb.view_kichmast e
+            WHERE  d.user_id       =e.kich_sabun
+            AND    d.user_id       = b.INSA_SABUN
+            AND    b.INSA_JAE_GBN <> '99'
+
+            union all
+
+            -- 대학원생
+            SELECT WHAKJ_HAKBUN ,
+                   WHAKJ_PWD ,
+                   WHAKJ_EMAIL ,
+                   '' DEPT_ID ,
+                   'G' DIV ,
+                   WHAKJ_IPHAK_ILJA ,
+                   WHAKJ_IRUM ,
+                   '' TEL ,
+                   WHAKJ_DAEHAKWON ,
+                   WHAKJ_HAKBU ,
+                   WHAKJ_JUNGONG,
+                   '' AS BOJIKNAME ,
+                   'N' AS DELETE_YN
+            FROM   dwdb.whakjmast c ,
+                   dwdb.WADDRMAST cc
+            WHERE  c.WHAKJ_HAKBUN = cc.WADDR_HAKBUN
+            AND    WHAKJ_GWA_GBN IN ('1',
+                                     '2',
+                                     '6',
+                                     '8')
+            AND    WHAKJ_STATUS IN ('1',
+                                    '2') -- 3수료, 4졸업 제외
+
+            union all
+
+            -- 학생
+            SELECT HAKJ_HAKBUN ,
+                   HAKJ_PWD ,
+                   HAKJ_HAK_MAIL ,
+                   '' DEPT_ID ,
+                   'S' DIV ,
+                   HAKJ_IPHAK_ILJA ,
+                   HAKJ_IRUM ,
+                   HAKJ_HAK_PAGER ,
+                   HAKJ_DAEHAK ,
+                   HAKJ_HAKBU ,
+                   HAKJ_HAKGWA,
+                   '' AS BOJIKNAME ,
+                   'N' AS DELETE_YN
+            FROM   HSDB.HAKJMAST
+        ]]>
+    </select>
+
+    <!-- 직원 조직 목록 조회 -->
+    <select id="selectEmployeeOrganizationList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.BaseMap">
+        <![CDATA[
+            SELECT DG.rSEQ "부서정렬순서",
+                   REGEXP_SUBSTR(DG.DEPTNAME, '[^|]+', 1, 3) AS "1차조직",
+                   REGEXP_SUBSTR(DG.dept_code, '[^|]+', 1, 3) AS "1차조직코드",
+                   Nvl(REGEXP_SUBSTR(DG.DEPTNAME, '[^|]+', 1, 4), REGEXP_SUBSTR(DG.DEPTNAME, '[^|]+', 1, 3)) AS "2차조직",
+                   Nvl(REGEXP_SUBSTR(DG.dept_code, '[^|]+', 1, 4), REGEXP_SUBSTR(DG.dept_code, '[^|]+', 1, 3)) AS "2차조직코드",
+                   Nvl(REGEXP_SUBSTR(DG.DEPTNAME, '[^|]+', 1, 5), Nvl(REGEXP_SUBSTR(DG.DEPTNAME, '[^|]+', 1, 4), REGEXP_SUBSTR(DG.DEPTNAME, '[^|]+', 1, 3))) AS "3차조직",
+                   Nvl(REGEXP_SUBSTR(DG.dept_code, '[^|]+', 1, 5), Nvl(REGEXP_SUBSTR(DG.dept_code, '[^|]+', 1, 4), REGEXP_SUBSTR(DG.dept_code, '[^|]+', 1, 3)))AS "3차조직코드",
+                   UG.SEQ "부서내정렬순서",
+                   UG.pos_id,
+                   UG.POSNAME "직위명",
+                   UG.emp_code "ID_식별자",
+                   substr(UG.emp_code, 1, 5) "사원번호_로그인ID",
+                   UG.name "사용자명",
+                   VK.kich_tel2 "휴대전화번호",
+                   VK.kich_email1 "email",
+                   VI.INSA_DAEHAK "daehak",
+                   NVL(VI.INSA_HAKBU,'0000') "HAKBU",
+                   VI.INSA_HAKKWA "hakkwa"  ,
+                   VI.insa_daehak|| VI.insa_hakkwa|| '00' AS UMS_DEPT_ID
+              FROM
+                   (SELECT ROWNUM AS rSEQ,
+                          SYS_CONNECT_BY_PATH(dept_name,'|') AS DEPTNAME, --9i
+                          --LPAD('+ ', level*4) || dept_name AS DEPTNAME, --8i
+                          seq,
+                          SYS_CONNECT_BY_PATH(dept_code,'|') AS dept_code,
+                          dept_id,
+                          '00000655370' || dept_id AS DEPTID,
+                          par_id,
+                          rep_dept_id,
+                          dept_name,
+                          box_f
+                     FROM groupware.dept_global@gwdb
+                    WHERE dept_id > '000000000'
+                          AND status <> '4' CONNECT BY PRIOR dept_id = par_id START
+                   WITH dept_id ='000000101'
+                   ORDER SIBLINGS BY seq ASC --9i
+                          --ORDER BY rSEQ ASC --8i
+                      )
+                      DG,
+                      (SELECT user_id,
+                             dept_id,
+                             name,
+                             emp_code,
+                             business,
+                             phone,
+                             mobile_phone,
+                             home_phone,
+                             e_mail,
+                             pos_id,
+                             (SELECT pos_name
+                               FROM groupware.pos@gwdb
+                              WHERE pos_id=ug.pos_id
+                             ) AS POSNAME,
+                             (SELECT rank_name
+                               FROM groupware.rank@gwdb
+                              WHERE rank_id=ug.rank_id
+                             ) AS RANKNAME,
+                             duty_name,
+                             seq,
+                             sline_order,
+                             sec_level
+                        FROM groupware.usr_global@gwdb ug
+                       WHERE user_id > '000000000'
+                             AND status <> '4'
+                    ORDER BY seq,
+                             sline_order,
+                             sec_level
+                      ) UG,
+                      ISDB.VIEW_KICHMAST VK ,
+                      ISDB.VIEW_INSAMAST VI
+                WHERE DG.dept_id = UG.dept_id(+)
+                      AND DG.DEPTNAME LIKE '%전주대학교%'
+                      AND DG.DEPTNAME NOT LIKE '%삭제%'
+                      AND DG.DEPTNAME NOT LIKE '%사업종료%'
+                      AND DG.DEPTNAME NOT LIKE '%대면결재%'
+                      AND UG.emp_code NOT LIKE '%학교일정%'
+                      AND UG.emp_code NOT LIKE '%jjadmin%'
+                      AND UG.emp_code NOT LIKE '%JJ시스템안내%'
+                      AND UG.emp_code IS NOT NULL
+                      AND kich_sabun (+) = substr(UG.emp_code,1,5)
+                      AND insa_sabun (+) = substr(UG.emp_code,1,5)
+             ORDER BY DG.rSEQ,
+                      UG.seq
+        ]]>
+    </select>
+
+    <!-- 학생 조직 이름 목록 조회 -->
+    <select id="selectStudentOrganizationNameList" resultType="kr.ac.jj.shared.domain.main.model.com.dept.TbComDept">
+        <![CDATA[
+            SELECT 1 AS DEPT_LEVEL
+                 , C.CODE_CODE AS DEPT_CODE
+                 , C.CODE_FNAME AS DEPT_NM
+            FROM   HSDB.CODEMAST C
+            WHERE  C.CODE_TYPE = '101'
+            AND    C.CODE_VISIBLE = 'Y'
+            AND    C.CODE_CODE NOT IN ('type')
+            UNION ALL
+            SELECT 2 AS DEPT_LEVEL
+                 , C.CODE_CODE AS DEPT_CODE
+                 , C.CODE_FNAME AS DEPT_NM
+            FROM   HSDB.CODEMAST C
+            WHERE  C.CODE_TYPE = '102'
+            AND    C.CODE_VISIBLE = 'Y'
+            AND    C.CODE_CODE NOT IN ('type')
+            UNION ALL
+            SELECT 3 AS DEPT_LEVEL
+                 , C.CODE_CODE AS DEPT_CODE
+                 , C.CODE_FNAME AS DEPT_NM
+            FROM   HSDB.CODEMAST C
+            WHERE  C.CODE_TYPE = '103'
+            AND    C.CODE_VISIBLE = 'Y'
+            AND    C.CODE_CODE NOT IN ('type')
+        ]]>
+    </select>
+
+</mapper>

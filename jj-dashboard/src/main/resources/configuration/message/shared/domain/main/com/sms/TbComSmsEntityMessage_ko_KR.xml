@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<!--
+ 공통 - 문자메시지 Entity Message
+ -->
+<properties>
+
+    <entry key="domain.main.tbComSms.smsId"><![CDATA[문자메시지 ID]]></entry>
+    <entry key="domain.main.tbComSms.deptCode"><![CDATA[부서 코드]]></entry>
+    <entry key="domain.main.tbComSms.tranPr"><![CDATA[PK. 자동증가]]></entry>
+    <entry key="domain.main.tbComSms.tranRefkey"><![CDATA[각사용자ID -고정으로 입력 해야 함]]></entry>
+    <entry key="domain.main.tbComSms.tranId"><![CDATA[각사용자ID -고정으로 입력 해야 함]]></entry>
+    <entry key="domain.main.tbComSms.tranPhone"><![CDATA[수신자 전화번호]]></entry>
+    <entry key="domain.main.tbComSms.tranCallback"><![CDATA[송신자 전화번호]]></entry>
+    <entry key="domain.main.tbComSms.tranStatus"><![CDATA[메시지 상태(1) : 1로 고정]]></entry>
+    <entry key="domain.main.tbComSms.tranDate"><![CDATA[메시지 전송시간(YYYY-mm-dd HH:ii:ss)]]></entry>
+    <entry key="domain.main.tbComSms.tranRsltdate"><![CDATA[핸드폰에 전달된 시간(YYYY-mm-dd HH:ii:ss)]]></entry>
+    <entry key="domain.main.tbComSms.tranReportdate"><![CDATA[결과 수신 시간(YYYY-mm-dd HH:ii:ss)]]></entry>
+    <entry key="domain.main.tbComSms.tranRslt"><![CDATA[전송 결과 (코드표 참조)]]></entry>
+    <entry key="domain.main.tbComSms.tranNet"><![CDATA[]]></entry>
+    <entry key="domain.main.tbComSms.tranMsg"><![CDATA[전송 메시지]]></entry>
+    <entry key="domain.main.tbComSms.tranEtc1"><![CDATA[메시지 제목]]></entry>
+    <entry key="domain.main.tbComSms.tranEtc2"><![CDATA[타 시스템 유일키(구분키)]]></entry>
+    <entry key="domain.main.tbComSms.tranEtc3"><![CDATA[수신자명]]></entry>
+    <entry key="domain.main.tbComSms.tranEtc4"><![CDATA[]]></entry>
+    <entry key="domain.main.tbComSms.tranType"><![CDATA[연동시스템에서 LMS로 보낼 경우]]></entry>
+
+</properties>

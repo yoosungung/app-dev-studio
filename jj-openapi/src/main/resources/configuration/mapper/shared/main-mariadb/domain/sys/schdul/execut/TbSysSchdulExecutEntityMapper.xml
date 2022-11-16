@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 시스템 - 스케줄 실행 Entity Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.domain.main.mapper.sys.schdul.execut.TbSysSchdulExecutEntityMapper">
+
+    <!-- 목록 조회 - SCHDUL_ID(으)로 -->
+    <select id="selectListBySchdulId" resultType="kr.ac.jj.shared.domain.main.model.sys.schdul.execut.TbSysSchdulExecut">
+        <![CDATA[
+            SELECT TSSE.SCHDUL_EXECUT_ID
+                 , TSSE.SCHDUL_ID
+                 , TSSE.EXECUT_SN
+                 , TSSE.TRIGR_NO
+                 , TSSE.TRIGR_EXPRSN
+                 , TSSE.PLAN_BEGIN_DT
+                 , TSSE.EXECUT_BEGIN_DT
+                 , TSSE.EXECUT_END_DT
+                 , TSSE.NEXT_BEGIN_DT
+                 , TSSE.SUCCES_YN
+                 , TSSE.ERROR_MSSAGE
+                 , TSSE.ERROR_STACK
+            FROM   TB_SYS_SCHDUL_EXECUT TSSE
+            WHERE  TSSE.SCHDUL_ID = #{schdulId}
+            ORDER BY TSSE.EXECUT_SN
+        ]]>
+    </select>
+
+    <!-- 조회 -->
+    <select id="select" resultType="kr.ac.jj.shared.domain.main.model.sys.schdul.execut.TbSysSchdulExecut">
+        <![CDATA[
+            SELECT TSSE.SCHDUL_EXECUT_ID
+                 , TSSE.SCHDUL_ID
+                 , TSSE.EXECUT_SN
+                 , TSSE.TRIGR_NO
+                 , TSSE.TRIGR_EXPRSN
+                 , TSSE.PLAN_BEGIN_DT
+                 , TSSE.EXECUT_BEGIN_DT
+                 , TSSE.EXECUT_END_DT
+                 , TSSE.NEXT_BEGIN_DT
+                 , TSSE.SUCCES_YN
+                 , TSSE.ERROR_MSSAGE
+                 , TSSE.ERROR_STACK
+            FROM   TB_SYS_SCHDUL_EXECUT TSSE
+            WHERE  TSSE.SCHDUL_EXECUT_ID = #{schdulExecutId}
+        ]]>
+    </select>
+
+    <!-- 생성 -->
+    <insert id="insert">
+        <![CDATA[
+            INSERT INTO TB_SYS_SCHDUL_EXECUT (
+                   SCHDUL_EXECUT_ID
+                 , CREAT_USER_ID
+                 , CREAT_DT
+                 , SCHDUL_ID
+                 , EXECUT_SN
+                 , TRIGR_NO
+                 , TRIGR_EXPRSN
+                 , PLAN_BEGIN_DT
+                 , EXECUT_BEGIN_DT
+                 , EXECUT_END_DT
+                 , NEXT_BEGIN_DT
+                 , SUCCES_YN
+                 , ERROR_MSSAGE
+                 , ERROR_STACK
+            ) VALUES (
+                   #{tbSysSchdulExecut.schdulExecutId}
+                 , #{$var.loginUser.userId}
+                 , #{$var.systemDate}
+                 , #{tbSysSchdulExecut.schdulId}
+        ]]>
+
+        <choose>
+        <when test='tbSysSchdulExecut.executSn == null'>
+            <![CDATA[
+                 , (SELECT IFNULL(MAX(A.EXECUT_SN), 0) + 1 FROM TB_SYS_SCHDUL_EXECUT A WHERE A.SCHDUL_ID = #{tbSysSchdulExecut.schdulId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , #{tbSysSchdulExecut.executSn}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , #{tbSysSchdulExecut.trigrNo}
+                 , #{tbSysSchdulExecut.trigrExprsn}
+                 , #{tbSysSchdulExecut.planBeginDt}
+                 , #{tbSysSchdulExecut.executBeginDt}
+                 , #{tbSysSchdulExecut.executEndDt}
+                 , #{tbSysSchdulExecut.nextBeginDt}
+                 , #{tbSysSchdulExecut.succesYn}
+                 , #{tbSysSchdulExecut.errorMssage}
+                 , #{tbSysSchdulExecut.errorStack}
+            )
+        ]]>
+    </insert>
+
+    <!-- 수정 -->
+    <update id="update">
+        <![CDATA[
+            UPDATE TB_SYS_SCHDUL_EXECUT SET
+                   UPDT_USER_ID                     = #{$var.loginUser.userId}
+                 , UPDT_DT                          = #{$var.systemDate}
+                 , SCHDUL_ID                        = #{tbSysSchdulExecut.schdulId}
+        ]]>
+
+        <choose>
+        <when test='tbSysSchdulExecut.executSn == null'>
+            <![CDATA[
+                 , EXECUT_SN                        = (SELECT IFNULL(MAX(A.EXECUT_SN), 0) + 1 FROM TB_SYS_SCHDUL_EXECUT A WHERE A.SCHDUL_ID = #{tbSysSchdulExecut.schdulId})
+            ]]>
+        </when>
+        <otherwise>
+            <![CDATA[
+                 , EXECUT_SN                        = #{tbSysSchdulExecut.executSn}
+            ]]>
+        </otherwise>
+        </choose>
+
+        <![CDATA[
+                 , TRIGR_NO                         = #{tbSysSchdulExecut.trigrNo}
+                 , TRIGR_EXPRSN                     = #{tbSysSchdulExecut.trigrExprsn}
+                 , PLAN_BEGIN_DT                    = #{tbSysSchdulExecut.planBeginDt}
+                 , EXECUT_BEGIN_DT                  = #{tbSysSchdulExecut.executBeginDt}
+                 , EXECUT_END_DT                    = #{tbSysSchdulExecut.executEndDt}
+                 , NEXT_BEGIN_DT                    = #{tbSysSchdulExecut.nextBeginDt}
+                 , SUCCES_YN                        = #{tbSysSchdulExecut.succesYn}
+                 , ERROR_MSSAGE                     = #{tbSysSchdulExecut.errorMssage}
+                 , ERROR_STACK                      = #{tbSysSchdulExecut.errorStack}
+            WHERE  SCHDUL_EXECUT_ID = #{tbSysSchdulExecut.schdulExecutId}
+        ]]>
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_SCHDUL_EXECUT
+            WHERE  SCHDUL_EXECUT_ID = #{schdulExecutId}
+        ]]>
+    </delete>
+
+    <!-- 목록 삭제 - SCHDUL_ID(으)로 -->
+    <delete id="deleteListBySchdulId">
+        <![CDATA[
+            DELETE
+            FROM   TB_SYS_SCHDUL_EXECUT
+            WHERE  SCHDUL_ID = #{schdulId}
+        ]]>
+    </delete>
+
+</mapper>

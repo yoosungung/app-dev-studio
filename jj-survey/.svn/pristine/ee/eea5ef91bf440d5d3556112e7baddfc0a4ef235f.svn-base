@@ -1,0 +1,14 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+
+<pre>
+${message?default("")}
+</pre>
+<br>
+<a href="${urlLink}" target="_blank">[응답하기]</a>
+
+</body>
+</html>

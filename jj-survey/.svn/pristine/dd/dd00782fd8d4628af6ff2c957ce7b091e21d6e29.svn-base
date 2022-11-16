@@ -1,0 +1,44 @@
+package kr.ac.jj.survey.domain.main.mapper.jd.survey;
+
+import org.apache.ibatis.annotations.Param;
+
+import kr.ac.jj.survey.domain.main.model.jd.survey.JdSurvey;
+
+/**
+ * 설문_응답 Entity Mapper
+ */
+abstract interface JdSurveyEntityMapper {
+
+    /**
+     * 조회
+     *
+     * @param id
+     * @return
+     */
+    public JdSurvey select(@Param("id") Integer id);
+
+    /**
+     * 생성
+     *
+     * @param jdSurvey
+     * @return
+     */
+    public int insert(@Param("jdSurvey") JdSurvey jdSurvey);
+
+    /**
+     * 수정
+     *
+     * @param jdSurvey
+     * @return
+     */
+    public int update(@Param("jdSurvey") JdSurvey jdSurvey);
+
+    /**
+     * 삭제
+     *
+     * @param id
+     * @return
+     */
+    public int delete(@Param("id") Integer id);
+
+}

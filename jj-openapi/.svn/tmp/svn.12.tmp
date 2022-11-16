@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 메인 Mapper
+ -->
+<mapper namespace="kr.ac.jj.openapi.application.main.mapper.MainMapper">
+    <select id="readNoticeList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TBN.BBSCTT_ID
+                 , TBN.BBSCTT_NO
+                 , TBN.BBSCTT_SJ
+                 , TBN.WRITNG_DT
+                 , TBN.UPDT_DT
+            FROM   TB_BBS_NOTICE TBN
+            LIMIT 5
+        ]]>
+    </select>
+    <select id="readQnaList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TBG.BBSCTT_ID
+                 , TBG.BBSCTT_NO
+                 , TBG.BBSCTT_SJ
+                 , TBG.WRITNG_DT
+                 , TBG.UPDT_DT
+                 , TBG.ANSWER_LEVEL
+                 , TBG.ANSWER_ORDR
+            FROM   TB_BBS_GNRL TBG
+            ORDER BY ANSWER_ORDR DESC, ANSWER_LEVEL ASC
+            LIMIT 5
+        ]]>
+    </select>
+    <select id="readFaqList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TBF.BBSCTT_ID
+                 , TBF.BBSCTT_NO
+                 , TBF.BBSCTT_SJ
+                 , TBF.WRITNG_DT
+                 , TBF.UPDT_DT
+            FROM   TB_BBS_FAQ TBF
+            LIMIT 5
+        ]]>
+    </select>
+</mapper>

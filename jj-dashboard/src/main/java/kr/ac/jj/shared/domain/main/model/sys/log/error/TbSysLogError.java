@@ -1,0 +1,81 @@
+package kr.ac.jj.shared.domain.main.model.sys.log.error;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Date;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.dizitart.no2.Document;
+
+import kr.ac.jj.shared.domain.main.model.sys.log.TbSysLog;
+import kr.ac.jj.shared.infrastructure.error.model.ErrorHandleModel;
+import kr.ac.jj.shared.infrastructure.framework.core.support.context.ApplicationContextUtil;
+import kr.ac.jj.shared.infrastructure.framework.core.support.sequence.BaseSequence;
+import kr.ac.jj.shared.infrastructure.framework.core.support.uid.UidUtil;
+import kr.ac.jj.shared.infrastructure.idgen.util.IdGenerationUtil;
+import kr.ac.jj.shared.infrastructure.logging.collection.LoggingCollections;
+import kr.ac.jj.shared.infrastructure.logging.util.LoggingUtil;
+
+/**
+ * 시스템 - 에러 로그
+ */
+public class TbSysLogError extends TbSysLogErrorEntity {
+
+    private static final long serialVersionUID = -8879390947732344792L;
+
+    private static final BaseSequence errorCodeSeq = new BaseSequence(0, 9999, true);
+
+    public TbSysLogError newId() {
+        this.setErrorLogId(IdGenerationUtil.getUid());
+
+        return this;
+    }
+
+    public void resetErrorHandleModel(ErrorHandleModel errorHandleModel) {
+        this.setErrorLogId(UidUtil.generateUid());
+        this.setLogId(LoggingUtil.getCurrentLogId());
+        this.setErrorMssage(errorHandleModel.getMessage());
+        this.setErrorDt(new Date());
+
+        Throwable throwable = errorHandleModel.getThrowable();
+
+        if (throwable != null) {
+            this.setErrorClass(ExceptionUtils.getRootCause(throwable).getClass().getName());
+            this.setErrorStack(ExceptionUtils.getStackTrace(throwable));
+        }
+
+        TbSysLog tbSysLog = LoggingUtil.getCurrentTbSysLog();
+
+        if (tbSysLog != null) {
+            tbSysLog.setRspnsSttusCode(errorHandleModel.getStatus());
+        }
+
+        String[] hostAddresses;
+
+        try {
+            hostAddresses = InetAddress.getLocalHost().getHostAddress().split("\\.");
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+
+        Date errorDt = (this.getErrorDt() == null ? new Date() : this.getErrorDt());
+        String dateStr = DateFormatUtils.format(errorDt, "yyyyMMddHHmmss");
+        Long hostAddr = Long.parseLong(hostAddresses[3], 10);
+        String hostStr = StringUtils.leftPad(Long.toString(hostAddr, 36).toUpperCase(), 2, '0');
+        String seqStr = errorCodeSeq.getNextValue(4, '0');
+
+        this.setErrorCode(dateStr + hostStr + seqStr);
+    }
+
+    public void insertQueue() {
+        Document document = LoggingUtil.newCurrentDocument(this);
+
+        if (document != null) {
+            LoggingCollections loggingCollections = ApplicationContextUtil.getBean(LoggingCollections.class);
+            loggingCollections.tbSysLogError.insert(document);
+        }
+    }
+
+}

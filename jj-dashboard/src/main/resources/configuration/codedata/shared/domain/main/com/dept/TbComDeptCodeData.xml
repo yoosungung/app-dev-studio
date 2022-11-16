@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ 공통 - 부서 CodeData
+ -->
+<codeData namespace="domain.main.tbComDept">
+
+    <!-- 부서 구분 -->
+    <group id="deptSe">
+        <item code="EMPLOYEE" name="직원" />
+        <item code="STUDENT" name="학생" />
+    </group>
+
+</codeData>

@@ -1,0 +1,2 @@
+log4jdbc.spylogdelegator.name=kr.ac.jj.survey.infrastructure.logging.util.DataSourceLog4JdbcSpyLogDelegator
+log4jdbc.dump.sql.maxlinelength=0

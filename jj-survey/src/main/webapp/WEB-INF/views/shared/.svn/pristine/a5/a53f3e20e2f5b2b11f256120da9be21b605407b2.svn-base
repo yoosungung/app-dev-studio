@@ -1,0 +1,93 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/layouts/shared/include/PageHeader.jspf" %>
+
+<div id="userSearchList" style="display: none;">
+    <div class="pageContents" style="margin-top: 10px;">
+        <!-- 검색조건 영역 시작 -->
+        <div class="searchArea">
+            <table class="searchBox" v-on:keyup.enter="service.readUserSearchList(true);">
+                <colgroup>
+                    <col width="12%">
+                    <col width="">
+                    <col width="12%">
+                    <col width="">
+                    <col width="7%">
+                </colgroup>
+                <tr>
+                    <th>사용자 이름</th>
+                    <td>
+                        <ui-input type="text" v-model="gridRequest.search.name" auto-focus></ui-input>
+                    </td>
+                    <th>로그인 이름</th>
+                    <td>
+                        <ui-input type="text" v-model="gridRequest.search.loginNm"></ui-input>
+                    </td>
+                    <td>
+                        <div class="btnArea_center">
+                            <ui-button class="btn_total_search" v-on:click="service.readUserSearchList(true);">조회</ui-button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- 검색조건 영역 끝 -->
+
+        <!-- 결과목록 영역 시작 -->
+        <ui-grid-paging v-bind:request="gridRequest" v-bind:result="gridResult" v-bind:read-list="service.readUserSearchList">
+            <table class="bbs_list">
+                <thead>
+                    <tr>
+                        <th width="100px" column-name="emplNo" column-sort="ASC">교번</th>
+                        <th width="" column-name="loginNm" column-sort>로그인 이름</th>
+                        <th width="" column-name="koreanNm" column-sort>한글 이름</th>
+                        <th width="" column-name="emailAdres" column-sort>이메일 주소</th>
+                    </tr>
+                </thead>
+                <tbody v-cloak>
+                    <tr v-for="row in gridResult.list" v-bind:key="row.userId">
+                        <td class="tac">{{ row.emplNo }}</td>
+                        <td class="tac">
+                            <a href="javascript:void(0);" v-on:click="selectRow(row);">{{ row.loginNm }}</a>
+                        </td>
+                        <td class="tac">{{ row.koreanNm }}</td>
+                        <td class="tal">{{ row.emailAdres }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </ui-grid-paging>
+        <!-- 결과목록 영역 시작 -->
+    </div>
+</div>
+
+<script>
+vues.userSearchList = new Vue({
+    el: '#userSearchList',
+    data: {
+        gridRequest: GridUtil.getRequestWithPaging({}),
+        gridResult: {}
+    },
+    computed: {
+        service: function() {
+            return new AuthorityManageViewService(this);
+        },
+        formatter: function() {
+            return CommonUtil.formatter;
+        }
+    },
+    methods: {
+        // 초기화
+        init: function() {
+            $(this.$el).dialog({
+                title: "사용자 검색",
+                modal: true,
+                width: 1000,
+                height: 750
+            });
+        },
+        // 선택
+        selectRow: function(row) {
+            this.$emit("selectRow", row);
+        }
+    }
+});
+</script>

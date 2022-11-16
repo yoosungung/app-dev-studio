@@ -1,0 +1,191 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/layouts/shared/include/PageHeader.jspf" %>
+
+<style type="text/css">
+.panel-height-helper{
+    height:350px;
+}
+.table {
+    border: 1px solid #444444;
+}
+.table td, .table th {
+    border: 1px solid #444444;
+    padding: 3px;
+    font-size: larger;
+}
+</style>
+
+<div class="pageHeader">
+    입학 분석
+</div>
+
+<%@ include file="../ipsyHeader/IpsyHeaderView.jsp" %>
+
+<br/>
+
+<div id="read" style="display: none;">
+    <div class="pageContents">
+        <div class="searchArea">
+            <table class="searchBox">
+                <colgroup>
+                    <col width="10%">
+                    <col width="*">
+                    <col width="10%">
+                    <col width="*">
+                    <col width="10%">
+                    <col width="*">
+                    <col width="10%">
+                    <col width="*">
+                </colgroup>
+                <tr>
+                    <th>연도</th>
+                    <td>
+                        <ui-select v-model="search.yearData" code-data="ipsy.readYear" first-name="전체"></ui-select>
+                    </td>
+                    <td></td><td></td><td></td><td></td><td></td>
+                    <td>
+                        <div style="float: right;" class="btnArea_center">
+                            <ui-button class="btn_total_search" v-on:click="service.readList();">조회</ui-button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="panel-main">
+            <table>
+                <tr>
+                    <td>
+                        <div class="panel-main">
+                            <div class="panel-height-helper">
+                                <div class="panel-container">
+                                    <div class="panel-header">
+                                        <p>수시-학생부종합</p>
+                                    </div>
+                                    <div class="panel-content">
+                                       <ui-graph id="ipsyGraphJong" v-bind:search="search"></ui-graph>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="panel-main">
+                            <div class="panel-height-helper">
+                                <div class="panel-container">
+                                    <div class="panel-header">
+                                        <p>정시</p>
+                                    </div>
+                                    <div class="panel-content">
+                                       <ui-graph id="ipsyGraphJung" v-bind:search="search"></ui-graph>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="panel-main">
+                            <div class="panel-height-helper">
+                                <div class="panel-container">
+                                    <div class="panel-header">
+                                        <p>수시-학생부교과</p>
+                                    </div>
+                                    <div class="panel-content">
+                                       <ui-graph id="ipsyGraphGyo" v-bind:search="search"></ui-graph>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="panel-main">
+                            <div class="panel-height-helper">
+                                <div class="panel-container">
+                                    <div class="panel-header">
+                                        <p></p>
+                                    </div>
+                                    <div class="panel-content">
+                                        <table class="table" style="height:300px;">
+                                            <colgroup>
+                                                <col width="20%">
+                                                <col width="20%">
+                                                <col width="20%">
+                                                <col width="20%">
+                                                <col width="20%">
+                                            </colgroup>
+                                            <thead style="background-color:#e5e5e5;">
+                                                <tr>
+                                                    <th>고교유형</th>
+                                                    <th>학생부종합</th>
+                                                    <th>학생부교과</th>
+                                                    <th>정시</th>
+                                                    <th>전체</th>
+                                            </thead>
+                                            <tbody id="tbody"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+Vue.component('ui-graph', {
+    props: {
+        id: {
+            type: String
+        },
+        search: {
+            type: Object
+        }
+    },
+    computed: {
+        service: function() {
+            return new IpsyViewService(this);
+        },
+        key: function() {
+            return this.search.yearData
+        }
+    },
+    template: '<div class="findme" v-bind:id="id" v-bind:key="key" style="width:600px;height:300px;display:inline-block;"></div>',
+    mounted: function() {
+        this.readList();
+        this.readChartList();
+    },
+    updated: function() {
+        this.readList();
+    },
+    methods: {
+        readList: function() {
+            this.service.readList(this.search);
+        },
+        readChartList: function() {
+            this.service.readChartList();
+        }
+    }
+});
+
+vues.read = new Vue({
+    el: '#read',
+    data: {
+        search : {
+            yearData: ""
+        }
+    },
+    computed: {
+        service: function() {
+            return new IpsyViewService(this);
+        },
+        formatter: function() {
+            return CommonUtil.formatter;
+        },
+    }
+});
+</script>

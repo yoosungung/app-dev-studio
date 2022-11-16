@@ -1,0 +1,71 @@
+function ServiceStatusViewService(vue) {
+
+    /**
+     * 목록 조회
+     */
+    this.readList = function(firstPage) {
+        GridUtil.setLoadStart(vue, firstPage);
+
+        GridUtil.axios(vue)
+        .post("readList", vue.gridRequest)
+        .then(function(response) {
+            GridUtil.loadData(vue, response.data.result);
+        })
+        ["catch"](function(error) {
+            GridUtil.showAxiosError(vue, error);
+        });
+    };
+
+    /**
+     * 조회
+     */
+    this.read = function(svcId, callback) {
+        vue.svcId = svcId;
+
+        CommonUtil.initModel(vue.model);
+        CommonUtil.initValid();
+
+        CommonUtil.axios()
+        .get(vue.svcId)
+        .then(function(response) {
+            vue.model = response.data;
+
+            if (callback != null) {
+                callback(response.data);
+            }
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+    /**
+     * 테스트
+     */
+    this.test = function(callback) {
+
+        var apiUrl = "/openapi/apilist/ApiList";
+        vue.model.testResult = [];
+
+        CommonUtil.axios()
+        ["post"](apiUrl + vue.model.tbApiSvc.url, vue.model)
+        .then(function(response) {
+            vue.model = response.data;
+            vue.testUrl = apiUrl + vue.model.tbApiSvc.url;
+
+            for(var key in vue.model.tbApiSvcMapngList){
+                if(vue.model.tbApiSvcMapngList[key]["vriabl"] == "dataFormat"){
+                    vue.testDataFormat = vue.model.tbApiSvcMapngList[key]["inputVal"]
+                }
+            }
+
+            if(vue.testDataFormat == "xml"){
+                vue.model.testResult = CommonUtil.json2xml(vue.model.testResult);
+            }
+        })
+        ["catch"](function(error) {
+            CommonUtil.showAxiosError(error);
+        });
+    };
+
+}

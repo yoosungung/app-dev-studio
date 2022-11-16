@@ -1,0 +1,15 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/layouts/shared/include/PageHeader.jspf" %>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/shared/common/lib/vue-jstree/dist/vue-jstree.js"></script>
+
+<%@ include file="AuthorityManageViewList.jsp" %>
+<%@ include file="AuthorityManageViewSortList.jsp" %>
+<%@ include file="AuthorityManageViewHierarchyList.jsp" %>
+<%@ include file="AuthorityManageViewUserSearchList.jsp" %>
+<%@ include file="AuthorityManageViewFormRead.jsp" %>
+<%@ include file="AuthorityManageViewFormEdit.jsp" %>
+
+<script>
+CommonUtil.enableHashRouter("list");
+</script>

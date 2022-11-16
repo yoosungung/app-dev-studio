@@ -1,0 +1,1119 @@
+Vue.newComponentIndex = function() {
+    if (Vue.newComponentIndexValue == null) {
+        Vue.newComponentIndexValue = 0;
+    }
+
+    return ++Vue.newComponentIndexValue;
+};
+
+Vue.component('ui-button', {
+    props: {
+        type: {
+            type: String
+        }
+    },
+    template: ' \
+        <button v-bind:type="type || \'button\'" v-on:click="$emit(\'click\');"> \
+            <slot></slot> \
+        </button> \
+    '
+});
+
+Vue.component('ui-input', {
+    props: {
+        value: {
+            default: ""
+        },
+        maxByte: {
+            type: Number
+        },
+        byteIndicator: {
+            type: Boolean
+        },
+        unicodeCharSize: {
+            type: Number,
+            default: 3
+        },
+        fill: {
+            type: Boolean,
+            default: true
+        }
+    },
+    template: ' \
+        <input v-model="modelValue" v-bind:class="{ fill: fill == true }"></input> \
+    ',
+    data: function() {
+        return {
+            totalByte: 0
+        };
+    },
+    computed: {
+        modelValue: {
+            get: function() {
+                return this.value;
+            },
+            set: function(value) {
+                this.$emit("input", value);
+            }
+        }
+    },
+    mounted: function() {
+        var vue = this;
+
+        vue.$getText().on("keyup", function() {
+            TextUtil.setTruncatedValue(this, vue.maxByte, vue.unicodeCharSize);
+
+            vue.resetMaxLength();
+        });
+    },
+    updated: function() {
+        this.resetMaxLength();
+    },
+    methods: {
+        $getText: function() {
+            return $(this.$el);
+        },
+        resetMaxLength: function() {
+            TextUtil.resetVueElmMaxLength(this);
+        }
+    }
+});
+
+Vue.component('ui-textarea', {
+    props: {
+        value: {
+            default: ""
+        },
+        maxByte: {
+            type: Number
+        },
+        byteIndicator: {
+            type: Boolean
+        },
+        unicodeCharSize: {
+            type: Number,
+            default: 3
+        },
+        fill: {
+            type: Boolean,
+            default: true
+        }
+    },
+    template: ' \
+        <textarea v-model="modelValue" v-bind:class="{ fill: fill == true }"></textarea> \
+    ',
+    data: function() {
+        return {
+            totalByte: 0
+        };
+    },
+    computed: {
+        modelValue: {
+            get: function() {
+                return this.value;
+            },
+            set: function(value) {
+                this.$emit("input", value);
+            }
+        }
+    },
+    mounted: function() {
+        var vue = this;
+
+        vue.$getText().on("keyup", function() {
+            TextUtil.setTruncatedValue(this, vue.maxByte, vue.unicodeCharSize);
+
+            vue.resetMaxLength();
+        });
+    },
+    updated: function() {
+        this.resetMaxLength();
+    },
+    methods: {
+        $getText: function() {
+            return $(this.$el);
+        },
+        resetMaxLength: function() {
+            TextUtil.resetVueElmMaxLength(this);
+        }
+    }
+});
+
+Vue.component('ui-date', {
+    props: {
+        value: {
+        },
+        displayFormat: {
+            type: String,
+            default: "YYYY-MM-DD"
+        },
+        type: {
+            type: String,
+            default: "long"
+        }
+    },
+    template: ' \
+        <span> \
+            <input type="text" v-model="modelValue" readonly class="tac" style="width: 100px;"></input> \
+            <div class="icon-date"></div> \
+        </span> \
+    ',
+    computed: {
+        modelValue: {
+            get: function() {
+                return CommonUtil.formatter.date(this.value, this.displayFormat);
+            },
+            set: function(value) {
+                this.$emit("input", this.getReturnValue(value));
+            }
+        }
+    },
+    watch: {
+        value: function() {
+            this.$emit("input", this.getReturnValue(this.value));
+        }
+    },
+    mounted: function() {
+        var vue = this;
+        var $elm = $(vue.$el);
+
+        $elm.find('.icon-date').click(function() {
+            $(this).parent().find('input').focus();
+        });
+
+        $elm.find('input').daterangepicker({
+            "singleDatePicker": true,
+            "autoApply": true,
+            locale: {
+                format: vue.displayFormat
+            }
+        }).on("change", function() {
+            vue.$emit("input", vue.getReturnValue(this.value));
+        }).val(vue.modelValue);
+
+        $elm.find('input').on("keyup", function(event) {
+            if (event.keyCode != 8 && event.keyCode != 46) {
+                return;
+            }
+
+            var $this = $(this);
+            var daterangepicker = $this.data("daterangepicker");
+
+            daterangepicker.setStartDate(0);
+            daterangepicker.hide();
+
+            $this.val("");
+
+            vue.$emit("input", null);
+        });
+    },
+    methods: {
+        getReturnValue: function(value) {
+            if (value == null) {
+                return value;
+            }
+
+            var date = CommonUtil.toDate(value, this.displayFormat);
+
+            if (this.type === "string") {
+                return CommonUtil.formatter.date(date, "YYYYMMDD");
+            }
+
+            if (this.type === "date") {
+                return date;
+            }
+
+            return date.getTime();
+        }
+    }
+});
+
+Vue.component('ui-radios', {
+    props: {
+        value: {
+            default: ""
+        },
+        codeData: {
+            type: String
+        },
+        firstName: {
+            type: String
+        },
+        inline: {
+            type: Boolean
+        }
+    },
+    template: ' \
+        <div v-bind:style="{ display: inline ? \'inline\' : null }"> \
+            <label v-for="(item, index) in codeList" v-bind:key="item.code"> \
+                <input type="radio" v-bind:name="radioGroupName" v-bind:value="item.code" v-model="modelValue"></input> \
+                <span>{{ item.name }}</span> \
+            </label> \
+        </div> \
+    ',
+    data: function() {
+        return {
+            radioGroupName: "radioGroup" + Vue.newComponentIndex(),
+            codeList: []
+        };
+    },
+    computed: {
+        modelValue: {
+            get: function() {
+                return this.value;
+            },
+            set: function(value) {
+                this.$emit("input", value);
+            }
+        }
+    },
+    watch: {
+        value: function() {
+            this.$emit("input", this.value);
+        }
+    },
+    mounted: function() {
+        if (this.codeData == null) {
+            return;
+        }
+
+        var vue = this;
+
+        CommonUtil.loadCodeData([
+            { key: vue.codeData }
+        ], function(codeDataMap) {
+            vue.codeList = (function(codeList) {
+                var list = [];
+
+                if (vue.firstName != null) {
+                    list.push({ code: "", name: vue.firstName });
+                }
+
+                for (var i = 0; i < codeList.length; i++) {
+                    list.push(codeList[i]);
+                }
+
+                return list;
+            })(codeDataMap[vue.codeData].list);
+        });
+    }
+});
+
+Vue.component('ui-select', {
+    props: {
+        value: {
+            default: ""
+        },
+        codeData: {
+            type: String
+        },
+        firstName: {
+            type: String
+        },
+        firstDisabled: {
+            type: Boolean
+        },
+        fill: {
+            type: Boolean,
+            default: true
+        }
+    },
+    template: ' \
+        <select v-model="modelValue" v-bind:class="{ fill: fill == true }"> \
+            <option v-for="(item, index) in codeList" v-bind:key="item.code" v-bind:value="item.code" \
+                v-bind:disabled="firstDisabled === true && index === 0" \
+            >{{ item.name }}</option> \
+        </select> \
+    ',
+    data: function() {
+        return {
+            codeList: []
+        };
+    },
+    computed: {
+        modelValue: {
+            get: function() {
+                return this.value;
+            },
+            set: function(value) {
+                this.$emit("input", value);
+            }
+        }
+    },
+    watch: {
+        value: function() {
+            this.$emit("input", this.value);
+        }
+    },
+    mounted: function() {
+        if (this.codeData == null) {
+            return;
+        }
+
+        var vue = this;
+
+        CommonUtil.loadCodeData([
+            { key: vue.codeData }
+        ], function(codeDataMap) {
+            vue.codeList = (function(codeList) {
+                var list = [];
+
+                if (vue.firstName != null) {
+                    list.push({ code: "", name: vue.firstName });
+                }
+
+                for (var i = 0; i < codeList.length; i++) {
+                    list.push(codeList[i]);
+                }
+
+                return list;
+            })(codeDataMap[vue.codeData].list);
+        });
+    }
+});
+
+Vue.component('ui-checkbox', {
+    props: {
+        value: {
+            type: Boolean
+        }
+    },
+    template: ' \
+        <div class="chkArea single"> \
+            <input type="checkbox" v-bind:id="checkboxId" v-model="modelValue"></input> \
+            <label class="chkBox chk vue" v-bind:class="{ on: value }" v-bind:for="checkboxId"> \
+                <span></span> \
+                <slot></slot> \
+            </label> \
+        </div> \
+    ',
+    data: function() {
+        return {
+            checkboxId: "checkbox" + Vue.newComponentIndex()
+        };
+    },
+    computed: {
+        modelValue: {
+            get: function() {
+                return this.value;
+            },
+            set: function(value) {
+                this.$emit("input", value);
+            }
+        }
+    },
+    watch: {
+        value: function() {
+            this.$emit("input", this.value);
+        }
+    }
+});
+
+Vue.component('ui-checkbox-head', {
+    props: {
+        data: {
+            type: Array
+        }
+    },
+    template: ' \
+        <div class="chkArea single"> \
+            <input type="checkbox" v-bind:id="checkboxId" v-bind:checked="listHeadChecked" v-on:change="checkAllRow();"></input> \
+            <label class="chkBox chk vue" v-bind:for="checkboxId" v-bind:class="{ on: listHeadChecked }"> \
+                <span></span> \
+                <slot></slot> \
+            </label> \
+        </div> \
+    ',
+    computed: {
+        checkboxId: function() {
+            if (Vue.listHeadCheckIndex == null) {
+                Vue.listHeadCheckIndex = 0;
+            }
+
+            return "listHeadCheck" + (++Vue.listHeadCheckIndex);
+        },
+        listHeadChecked: function() {
+            if (this.data == null) {
+                return false;
+            }
+
+            this.data.forEach(function(rowData) {
+                if (rowData._rowCheck_ == null) {
+                    Vue.set(rowData, "_rowCheck_", false);
+                }
+
+                if (rowData._JOB_TYPE == null) {
+                    Vue.set(rowData, "_JOB_TYPE", "U");
+                }
+            });
+
+            var list = this.data.filter(function(rowData) {
+                return rowData._JOB_TYPE != "D";
+            });
+
+            if (list.length == 0) {
+                return false;
+            }
+
+            for (var i = 0; i < list.length; i++) {
+                if (list[i]._rowCheck_ != true) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    },
+    methods: {
+        checkAllRow: function() {
+            var headChecked = $('#' + this.checkboxId).prop("checked");
+
+            for (var i = 0; i < this.data.length; i++) {
+                this.data[i]._rowCheck_ = headChecked;
+            }
+
+            this.data.splice(0, 0);
+        }
+    }
+});
+
+Vue.component('ui-checkbox-row', {
+    props: {
+        data: {
+            type: Object
+        }
+    },
+    template: ' \
+        <div class="chkArea single"> \
+            <input type="checkbox" v-bind:id="checkboxId" v-model="data._rowCheck_"></input> \
+            <label class="chkBox chk vue" v-bind:for="checkboxId" v-bind:class="{ on: data._rowCheck_ }"> \
+                <span></span> \
+                <slot></slot> \
+            </label> \
+        </div> \
+    ',
+    computed: {
+        checkboxId: function() {
+            if (Vue.listRowCheckIndex == null) {
+                Vue.listRowCheckIndex = 0;
+            }
+
+            return "listRowCheck" + (++Vue.listRowCheckIndex);
+        }
+    }
+});
+
+Vue.component('ui-ckeditor', {
+    props: {
+        value: {
+            default: ""
+        },
+        readOnly: {
+            type: Boolean,
+            default: false
+        }
+    },
+    data: function() {
+        return {
+            editor: null,
+            updateDisabled: false
+        };
+    },
+    template: ' \
+        <div>{{ value }}</div> \
+    ',
+    mounted: function() {
+        var vue = this;
+
+        if(vue.readOnly){
+            ClassicEditor
+            .create(this.$el, {
+                toolbar: [],
+                fontSize: {
+                    options: [ 13, 14, 15, 16, 17, 18, 19,
+                        20, 21, 22, 23, 24, 25, 26, 27, 28 ]
+                }
+            })
+            .then(function(editor) {
+                editor.isReadOnly = vue.readOnly;
+                vue.editor = editor;
+            })
+            .catch(function(error) {
+                console.error(error.stack);
+            });
+        }else{
+            ClassicEditor
+            .create(this.$el, {
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+                    ]
+                },
+                fontFamily: {
+                    options: [
+                        'default',
+                        'Arial, Helvetica, sans-serif',
+                        'Courier New, Courier, monospace',
+                        'Georgia, serif',
+                        'Lucida Sans Unicode, Lucida Grande, sans-serif',
+                        'Tahoma, Geneva, sans-serif',
+                        'Times New Roman, Times, serif',
+                        'Trebuchet MS, Helvetica, sans-serif',
+                        'Verdana, Geneva, sans-serif',
+                        '맑은 고딕',
+                        '굴림'
+                    ]
+                },
+                fontSize: {
+                    options: [ 13, 14, 15, 16, 17, 18, 19,
+                        20, 21, 22, 23, 24, 25, 26, 27, 28 ]
+                },
+                fontColor: {
+                    colors: [
+                        { color: 'hsl(0, 0%, 0%)', label: 'Black' },
+                        { color: 'hsl(0, 0%, 60%)', label: 'Grey' },
+                        { color: 'hsl(0, 0%, 100%)', label: 'White',hasBorder: true },
+                        { color: 'hsl(0,71%,53%)', label: 'Red' },
+                        { color: 'hsl(30, 100%, 50%)', label: 'Orange' },
+                        { color: 'hsl(60, 86%, 53%)', label: 'Yellow' },
+                        { color: 'hsl(95, 65%, 55%)', label: 'Green' },
+                        { color: 'hsl(195, 69%, 59%)', label: 'Azure'},
+                        { color: 'hsl(208, 73%, 43%)', label: 'Blue' },
+                        { color: 'hsl(270, 77%, 52%)', label: 'Purple'}
+
+                    ]
+                },
+                toolbar: [ 'heading', '|', 'fontFamily', 'fontColor', 'fontSize', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ]
+            })
+            .then(function(editor) {
+                vue.editor = editor;
+
+                vue.editor.model.document.on("change:data", function() {
+                    vue.$emit("input", vue.editor.getData());
+                });
+            })
+            .catch(function(error) {
+                console.error(error.stack);
+            });
+        }
+    },
+    updated: function() {
+        if (this.editor.getData() != this.value) {
+            this.editor.setData(this.value);
+        }
+    }
+});
+
+Vue.component('ui-valid-checker', {
+    props: {
+        value: {
+        },
+        check: {
+            type: String
+        },
+        groups: {
+            type: String
+        }
+    },
+    template: ' \
+        <div class="valid-message" v-if="this.isVisible()" v-bind:title="message">{{ message }}</div> \
+    ',
+    data: function() {
+        return {
+            tableHeader: null,
+            checked: false,
+            message: null
+        };
+    },
+    mounted: function() {
+        var $$el = $(this.$el);
+
+        if ($$el.closest('table').hasClass("form")) {
+            this.tableHeader = $$el.closest('td').prev('th')[0];
+        } else if ($$el.closest('table').hasClass("list")) {
+            this.tableHeader = $$el.closest('table').children('thead').children('tr:last').children('th').eq($$el.closest('td').index())[0];
+        }
+
+        CommonUtil.addValid(this);
+    },
+    beforeDestroy: function() {
+        CommonUtil.removeValid(this);
+    },
+    methods: {
+        initValid: function() {
+            this.checked = false;
+        },
+        checkValid: function() {
+            this.checked = true;
+
+            if (this.check == null) {
+                return true;
+            }
+
+            var checks = this.check.split(",");
+            var message;
+
+            for (var i = 0; i < checks.length; i++) {
+                var validator = CommonUtil.validator[$.trim(checks[i])];
+
+                if (validator == null) {
+                    validator = CommonUtil.validator._unknown;
+                }
+
+                message = validator(this.value);
+
+                if (message != null) {
+                    break;
+                }
+            }
+
+            this.message = message;
+
+            return message == null;
+
+        },
+        isVisible: function() {
+            return this.checked === true && this.checkValid() !== true;
+        }
+    }
+});
+
+Vue.component('ui-valid-checker-duplicate', {
+    props: {
+        data: {
+            type: Array
+        },
+        rowData: {
+            type: Object
+        },
+        columnName: {
+            type: String
+        },
+        groups: {
+            type: String
+        }
+    },
+    template: ' \
+        <div class="valid-message" v-if="this.isVisible()" v-bind:title="message">{{ message }}</div> \
+    ',
+    data: function() {
+        return {
+            checked: false,
+            message: null
+        };
+    },
+    mounted: function() {
+        CommonUtil.addValid(this);
+    },
+    beforeDestroy: function() {
+        CommonUtil.removeValid(this);
+    },
+    methods: {
+        initValid: function() {
+            this.checked = false;
+        },
+        checkValid: function() {
+            this.checked = true;
+
+            if (this.data == null || this.data.length == 0) {
+                return true;
+            }
+
+            var valueMap = {};
+            var message;
+
+            for (var i = 0; i < this.data.length; i++) {
+                if (this.data[i]._JOB_TYPE == "D") {
+                    continue;
+                }
+
+                var value = this.data[i][this.columnName];
+
+                if (value == null || value == "") {
+                    continue;
+                }
+
+                if (valueMap[value] != true) {
+                    valueMap[value] = true;
+                } else if (this.data[i] === this.rowData) {
+                    message = "중복된 값입니다.";
+                }
+
+                if (this.data[i] === this.rowData) {
+                    break;
+                }
+            }
+
+            this.message = message;
+
+            return message == null;
+
+        },
+        isVisible: function() {
+            return this.checked === true && this.checkValid() !== true;
+        }
+    }
+});
+
+Vue.component('ui-grid-paging', {
+    props: {
+        request: {
+            type: Object
+        },
+        result: {
+            type: Object
+        },
+        readList: {
+            type: Function
+        }
+    },
+    template: ' \
+        <div> \
+            <div class="bbs_top"> \
+                <div class="bbs_total"> \
+                    <span class="total_num" v-html="titleMessage"></span> \
+                </div> \
+                <div class="bbs_top_info"> \
+                    <ul> \
+                        <li> \
+                            <button class="btn_excel" \
+                                v-bind:disable="this.result.list == null || this.result.list.length == 0" \
+                                v-on:click="downloadExcel($event);" \
+                            >엑셀다운로드</button> \
+                        </li> \
+                        <li> \
+                            <select name="recordCountPerPage" \
+                                v-model="resultPaging.recordCountPerPage" \
+                            > \
+                                <option \
+                                    v-for="recordCountPerPage in recordCountPerPageList" \
+                                    v-bind:value="recordCountPerPage" \
+                                >{{ recordCountPerPage }}개씩보기</option> \
+                            </select> \
+                        </li> \
+                    </ul> \
+                </div> \
+            </div> \
+            <slot></slot> \
+            <div id="pageControlArea" v-if="resultPaging.currentPageNo != null"> \
+                <button class="pageControl pagePrev2" \
+                    v-bind:disabled="resultPaging.currentPageNo == 1" \
+                    v-on:click="changePageNo($event, 1);" \
+                >&lt;&lt;</button> \
+                <button class="pageControl pagePrev1" \
+                    v-bind:disabled="resultPaging.currentPageNo == 1" \
+                    v-on:click="changePageNo($event, Math.max(resultPaging.currentPageNo - 1, 1));" \
+                >&lt;</button> \
+                <span v-for="(pageNo, index) in pageList"> \
+                <span v-if="index > 0">&nbsp;</span><button class="pageControl pageNum" \
+                    v-bind:class="{ on: pageNo == resultPaging.currentPageNo }" \
+                    v-on:click="changePageNo($event, pageNo);" \
+                >{{ pageNo }}</button> \
+                </span> \
+                <button class="pageControl pageNext1" \
+                    v-bind:disabled="resultPaging.currentPageNo == resultPaging.totalPageCount" \
+                    v-on:click="changePageNo($event, Math.min(resultPaging.currentPageNo + 1, resultPaging.totalPageCount));" \
+                >&gt;</button> \
+                <button class="pageControl pageNext2" \
+                    v-bind:disabled="resultPaging.currentPageNo == resultPaging.totalPageCount" \
+                    v-on:click="changePageNo($event, resultPaging.totalPageCount);" \
+                >&gt;&gt;</button> \
+            </div> \
+        </div> \
+    ',
+    computed: {
+        titleMessage: function() {
+            var titleMessage;
+            var emptyMessage;
+            var $table = $(this.$el).children('table');
+            var $tbody = $table.children('tbody:last');
+
+            $tbody.children('tr[empty-message-row=""]').remove();
+
+            if (this.result.error === true) {
+                titleMessage = '(Error)';
+            } else if (this.result.paging != null && this.result.paging.totalRecordCount != null) {
+                titleMessage = '총 ' + this.result.paging.totalRecordCount + ' 건';
+                emptyMessage = (this.result.paging.totalRecordCount == 0);
+            } else if (this.result.loadStarted) {
+                titleMessage = 'Loading...';
+            } else {
+                titleMessage = '(Ready)';
+            }
+
+            if (emptyMessage === true) {
+                var $thead = $table.children('thead');
+
+                var $tr = $('<tr>').attr({ "empty-message-row": "" }).appendTo($tbody);
+
+                $('<td>').attr({ "colspan": $thead.find('th').length })
+                    .css({ "text-align": "center" })
+                    .text("(검색된 결과가 존재하지 않습니다)")
+                    .appendTo($tr);
+            }
+
+            return titleMessage;
+        },
+        recordCountPerPageList: function() {
+            return GridUtil.globalProps.paging.recordCountPerPageList;
+        },
+        resultPaging: function() {
+            if (this.result == null || this.result.paging == null) {
+                return GridUtil.globalProps.paging;
+            }
+
+            return this.result.paging;
+        },
+        pageList: function() {
+            var list = [];
+
+            if (this.result.paging != null) {
+                for (var i = this.result.paging.firstPageNoOnPageList; i <= this.result.paging.lastPageNoOnPageList; i++) {
+                    list.push(i);
+                }
+            }
+
+            return list;
+        }
+    },
+    mounted: function() {
+        var changeRecordCountPerPage = this.changeRecordCountPerPage;
+
+        $(this.$el).find('[name="recordCountPerPage"]').on("change", function() {
+            var newRecordCountPerPage = $(this).val();
+
+            if (newRecordCountPerPage != null) {
+                changeRecordCountPerPage(newRecordCountPerPage);
+            }
+        });
+
+        this.initSortColumns();
+    },
+    methods: {
+        initSortColumns: function() {
+            var vue = this;
+            var $table = $(vue.$el).children('table');
+            var $ths = $table.children('thead').find('th[column-name][column-sort]');
+            var sortClassNames = { ASC: "btn_sort_up", DESC: "btn_sort_down" };
+
+            $ths.each(function() {
+                var $th = $(this);
+                var columnName = $th.attr("column-name");
+
+                if (columnName == "" || $th.children('span.sort').length > 0) {
+                    return;
+                }
+
+                var $span = $('<span class="sort btn_sort_basic">↕</span>').prependTo(this);
+                var columnSort = $th.attr("column-sort").toUpperCase();
+
+                if (columnSort != "") {
+                    if (vue.request.paging.orderBy.columnList == null) {
+                        vue.request.paging.orderBy.columnList = [];
+                    }
+
+                    vue.request.paging.orderBy.columnList.push({
+                        columnName: columnName,
+                        sortDirection: columnSort
+                    });
+
+                    $span.addClass(sortClassNames[columnSort]);
+                }
+
+                $th.css({ "cursor": "pointer" }).click(function() {
+                    var $th = $(this);
+                    var $span = $th.children('span.sort');
+                    var orderByDirection;
+
+                    $th.siblings().children('span.sort').removeClass(sortClassNames.ASC).removeClass(sortClassNames.DESC);
+
+                    if ($span.hasClass(sortClassNames.ASC)) {
+                        $span.removeClass(sortClassNames.ASC);
+                        $span.addClass(sortClassNames.DESC);
+                        orderByDirection = "DESC";
+                    } else {
+                        $span.removeClass(sortClassNames.DESC);
+                        $span.addClass(sortClassNames.ASC);
+                        orderByDirection = "ASC";
+                    }
+
+                    vue.request.paging.orderBy.columnList = [];
+                    vue.request.paging.orderBy.columnList.push({
+                        columnName: columnName,
+                        sortDirection: orderByDirection
+                    });
+
+                    vue.request.paging.currentPageNo = 1;
+
+                    vue.readList();
+                });
+            });
+        },
+        changeRecordCountPerPage: function(newRecordCountPerPage) {
+            this.request.paging.recordCountPerPage = newRecordCountPerPage;
+            this.request.paging.currentPageNo = 1;
+
+            this.readList();
+        },
+        changePageNo: function(event, newPageNo) {
+            if ($(event.target).hasClass("disable")) {
+                return;
+            }
+
+            this.request.paging.currentPageNo = newPageNo;
+
+            this.readList();
+        },
+        downloadExcel: function(event) {
+        }
+    }
+});
+
+Vue.component('ui-data-table', {
+    props: {
+        data: {
+            type: Array
+        }
+    },
+    template: ' \
+        <table class="list"> \
+            <colgroup v-if="!!$slots.colgroup"> \
+                <slot name="colgroup"></slot> \
+            </colgroup> \
+            <thead> \
+                <slot name="thead"></slot> \
+            </thead> \
+            <tbody> \
+                <slot name="tbody"></slot> \
+            </tbody> \
+            <tfoot v-if="!!$slots.tfoot"> \
+                <slot name="tfoot"></slot> \
+            </tfoot> \
+        </table> \
+    '
+});
+
+Vue.component('ui-list-button-append', {
+    props: {
+        data: {
+            type: Array
+        },
+        idColumnName: {
+            type: String
+        },
+        sortColumnName: {
+            type: String
+        },
+        newRowData: {
+            type: Object
+        },
+        appendFunction: {
+            type: Function
+        }
+    },
+    template: ' \
+        <button v-on:click="appendRow();"> \
+            <slot>추가</slot> \
+        </button> \
+    ',
+    methods: {
+        appendRow: function() {
+            var vue = this;
+
+            if (vue.appendFunction == null) {
+                vue.pushData(vue.newRowData);
+            } else {
+                vue.appendFunction(function(data) {
+                    if ($.type(data) === "array") {
+                        for (var i = 0; i < data.length; i++) {
+                            vue.pushData(data[i]);
+                        }
+                    } else {
+                        vue.pushData(data);
+                    }
+                });
+            }
+        },
+        pushData: function(rowData) {
+            if (rowData == null) {
+                return;
+            }
+
+            if (rowData[this.idColumnName] == null) {
+                if (Vue.idValueIndex == null) {
+                    Vue.idValueIndex = 0;
+                }
+
+                rowData[this.idColumnName] = ++Vue.idValueIndex;
+            } else {
+                for (var i = 0; i < this.data.length; i++) {
+                    if (this.data[i][this.idColumnName] == rowData[this.idColumnName]) {
+                        return;
+                    }
+                }
+            }
+
+            rowData._JOB_TYPE = "C";
+            rowData._rowCheck_ = false;
+
+            if (this.sortColumnName != null && this.sortColumnName != "") {
+                var sortNo = 0;
+
+                for (var i = 0; i < this.data.length; i++) {
+                    if (this.data[i]._JOB_TYPE != "D") {
+                        this.data[i][this.sortColumnName] = ++sortNo;
+                    }
+                }
+
+                rowData[this.sortColumnName] = sortNo + 1;
+            }
+
+            this.data.push(rowData);
+        }
+    }
+});
+
+Vue.component('ui-list-button-delete', {
+    props: {
+        data: {
+            type: Array
+        },
+        sortColumnName: {
+            type: String
+        }
+    },
+    template: ' \
+        <button v-on:click="deleteSelectedRow();"> \
+            <slot>삭제</slot> \
+        </button> \
+    ',
+    methods: {
+        deleteSelectedRow: function() {
+            for (var i = this.data.length - 1; i >= 0; i--) {
+                if (this.data[i]._rowCheck_ == true) {
+                    if (this.data[i]._JOB_TYPE == "C") {
+                        this.data.splice(i, 1);
+                    } else {
+                        this.data[i]._JOB_TYPE = "D";
+
+                        if (this.sortColumnName != null && this.sortColumnName != "") {
+                            this.data[i][this.sortColumnName] = 0;
+                        }
+                    }
+                }
+            }
+
+            var sortNo = 0;
+
+            if (this.sortColumnName != null && this.sortColumnName != "") {
+                for (var i = 0; i < this.data.length; i++) {
+                    if (this.data[i]._JOB_TYPE != "D") {
+                        this.data[i][this.sortColumnName] = ++sortNo;
+                    }
+                }
+            }
+        }
+    }
+});

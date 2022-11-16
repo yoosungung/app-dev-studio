@@ -1,0 +1,1147 @@
+2020-07-03 09:06:21.535 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:21.537 INFO  [19892:http-nio-48080-exec-7] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectUserIdByLoginNm
+2020-07-03 09:06:21.538 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.a.c.u.m.UserMapper.selectUserIdByLoginNm   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectUserIdByLoginNm */ SELECT TSU.USER_ID FROM TB_SYS_USER TSU LEFT JOIN TB_COM_PERSON_USER TCPU ON TCPU.USER_ID = TSU.USER_ID LEFT JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPU.PERSON_ID WHERE TSU.LOGIN_NM = ? AND TSU.USE_YN = '1' AND (TCP.PERSON_ID IS NULL OR TCP.HFFC_STTUS = 'C') 
+2020-07-03 09:06:21.538 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.a.c.u.m.UserMapper.selectUserIdByLoginNm   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 20380(String)
+2020-07-03 09:06:21.538 INFO  [19892:http-nio-48080-exec-7] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectUserIdByLoginNm */  
+
+            SELECT TSU.USER_ID
+            FROM   TB_SYS_USER TSU
+                   LEFT JOIN TB_COM_PERSON_USER TCPU ON TCPU.USER_ID = TSU.USER_ID
+                   LEFT JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPU.PERSON_ID
+            WHERE  TSU.LOGIN_NM = '20380'
+            AND    TSU.USE_YN = '1'
+            AND    (TCP.PERSON_ID IS NULL OR TCP.HFFC_STTUS = 'C')
+ {executed in 0 msec}
+2020-07-03 09:06:21.538 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.a.c.u.m.UserMapper.selectUserIdByLoginNm   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:06:21.539 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:21.539 INFO  [19892:http-nio-48080-exec-7] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserEntityMapper.select
+2020-07-03 09:06:21.539 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.d.m.m.s.user.TbSysUserEntityMapper.select  [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserEntityMapper.select */ SELECT TSU.USER_ID , FN_USER_NAME(TSU.USER_ID, ?) AS USER_NM , TSU.LOGIN_NM , TSU.LOGIN_PASSWORD , TSU.USE_YN , TSU.USER_LOCALE , TSU.PASSWORD_END_DE , TSU.BEFORE_LOGIN_DT , TSU.LAST_LOGIN_DT FROM TB_SYS_USER TSU WHERE TSU.USER_ID = ? 
+2020-07-03 09:06:21.539 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.d.m.m.s.user.TbSysUserEntityMapper.select  [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: ko(String), 75S19VAJSC5132510S(String)
+2020-07-03 09:06:21.540 INFO  [19892:http-nio-48080-exec-7] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserEntityMapper.select */  
+
+            SELECT TSU.USER_ID
+                 , FN_USER_NAME(TSU.USER_ID, 'ko') AS USER_NM
+                 , TSU.LOGIN_NM
+                 , TSU.LOGIN_PASSWORD
+                 , TSU.USE_YN
+                 , TSU.USER_LOCALE
+                 , TSU.PASSWORD_END_DE
+                 , TSU.BEFORE_LOGIN_DT
+                 , TSU.LAST_LOGIN_DT
+            FROM   TB_SYS_USER TSU
+
+            WHERE  TSU.USER_ID = '75S19VAJSC5132510S'
+ {executed in 1 msec}
+2020-07-03 09:06:21.540 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.d.m.m.s.user.TbSysUserEntityMapper.select  [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:06:21.541 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:21.541 INFO  [19892:http-nio-48080-exec-7] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectAuthorCodeList
+2020-07-03 09:06:21.541 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.a.c.u.m.UserMapper.selectAuthorCodeList    [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectAuthorCodeList */ SELECT TSA.AUTHOR_CODE FROM TB_SYS_USER_AUTHOR TSUA INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TSUA.AUTHOR_ID WHERE TSUA.USER_ID = ? UNION SELECT TSA.AUTHOR_CODE FROM TB_COM_PERSON_USER TCPU INNER JOIN TB_COM_PERSON_DEPT TCPD ON TCPD.PERSON_ID = TCPU.PERSON_ID INNER JOIN TB_COM_DEPT_AUTHOR TCDA ON TCDA.DEPT_ID = TCPD.DEPT_ID INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TCDA.AUTHOR_ID WHERE TCPU.USER_ID = ? UNION SELECT TSA.AUTHOR_CODE FROM TB_COM_PERSON_USER TCPU INNER JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPU.PERSON_ID INNER JOIN TB_COM_DTY TCD ON CONCAT_WS('', ',', TCP.OFCPS_NM, ',') LIKE CONCAT_WS('', '%,', TCD.DTY_NM, ',%') INNER JOIN TB_COM_DTY_AUTHOR TCDA ON TCDA.DTY_ID = TCD.DTY_ID INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TCDA.AUTHOR_ID WHERE TCPU.USER_ID = ? 
+2020-07-03 09:06:21.541 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.a.c.u.m.UserMapper.selectAuthorCodeList    [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 75S19VAJSC5132510S(String), 75S19VAJSC5132510S(String), 75S19VAJSC5132510S(String)
+2020-07-03 09:06:21.542 INFO  [19892:http-nio-48080-exec-7] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectAuthorCodeList */  
+
+            SELECT TSA.AUTHOR_CODE
+            FROM   TB_SYS_USER_AUTHOR TSUA
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TSUA.AUTHOR_ID
+            WHERE  TSUA.USER_ID = '75S19VAJSC5132510S'
+            UNION
+            SELECT TSA.AUTHOR_CODE
+            FROM   TB_COM_PERSON_USER TCPU
+                   INNER JOIN TB_COM_PERSON_DEPT TCPD ON TCPD.PERSON_ID = TCPU.PERSON_ID
+                   INNER JOIN TB_COM_DEPT_AUTHOR TCDA ON TCDA.DEPT_ID = TCPD.DEPT_ID
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TCDA.AUTHOR_ID
+            WHERE  TCPU.USER_ID = '75S19VAJSC5132510S'
+            UNION
+            SELECT TSA.AUTHOR_CODE
+            FROM   TB_COM_PERSON_USER TCPU
+                   INNER JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPU.PERSON_ID
+                   INNER JOIN TB_COM_DTY TCD ON CONCAT_WS('', ',', TCP.OFCPS_NM, ',') LIKE CONCAT_WS('', '%,', TCD.DTY_NM, ',%')
+                   INNER JOIN TB_COM_DTY_AUTHOR TCDA ON TCDA.DTY_ID = TCD.DTY_ID
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TCDA.AUTHOR_ID
+            WHERE  TCPU.USER_ID = '75S19VAJSC5132510S'
+ {executed in 1 msec}
+2020-07-03 09:06:21.542 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.a.c.u.m.UserMapper.selectAuthorCodeList    [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:06:21.543 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:21.543 INFO  [19892:http-nio-48080-exec-7] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.select
+2020-07-03 09:06:21.543 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.d.m.m.s.u.l.T.select                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.select */ SELECT TSULF.LOGIN_NM , TSULF.FAILR_CO , TSULF.LAST_FAILR_DT FROM TB_SYS_USER_LOGIN_FAILR TSULF WHERE TSULF.LOGIN_NM = ? 
+2020-07-03 09:06:21.543 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.d.m.m.s.u.l.T.select                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 20380(String)
+2020-07-03 09:06:21.543 INFO  [19892:http-nio-48080-exec-7] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.select */  
+
+            SELECT TSULF.LOGIN_NM
+                 , TSULF.FAILR_CO
+                 , TSULF.LAST_FAILR_DT
+            FROM   TB_SYS_USER_LOGIN_FAILR TSULF
+            WHERE  TSULF.LOGIN_NM = '20380'
+ {executed in 0 msec}
+2020-07-03 09:06:21.544 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.d.m.m.s.u.l.T.select                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==      Total: 0
+2020-07-03 09:06:21.545 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.a.common.user.provider.UserLoginProvider   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] Authentication failed: password does not match stored value
+2020-07-03 09:06:21.546 INFO  [19892:http-nio-48080-exec-7] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.update
+2020-07-03 09:06:21.546 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.d.m.m.s.u.l.T.update                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.update */ UPDATE TB_SYS_USER_LOGIN_FAILR SET FAILR_CO = FAILR_CO + 1 , LAST_FAILR_DT = ? WHERE LOGIN_NM = ? 
+2020-07-03 09:06:21.546 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.d.m.m.s.u.l.T.update                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 2020-07-03 09:06:21.546(Timestamp), 20380(String)
+2020-07-03 09:06:21.546 INFO  [19892:http-nio-48080-exec-7] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.update */ 
+
+            UPDATE TB_SYS_USER_LOGIN_FAILR SET
+                   FAILR_CO                         = FAILR_CO + 1
+                 , LAST_FAILR_DT                    = '07/03/2020 09:06:21.546'
+            WHERE  LOGIN_NM = '20380'
+ {executed in 0 msec}
+2020-07-03 09:06:21.547 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.d.m.m.s.u.l.T.update                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==    Updates: 0
+2020-07-03 09:06:21.547 INFO  [19892:http-nio-48080-exec-7] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.insert
+2020-07-03 09:06:21.547 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.d.m.m.s.u.l.T.insert                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.insert */ INSERT INTO TB_SYS_USER_LOGIN_FAILR ( LOGIN_NM , FAILR_CO , LAST_FAILR_DT ) VALUES ( ? , 1 , ? ) 
+2020-07-03 09:06:21.547 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.d.m.m.s.u.l.T.insert                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 20380(String), 2020-07-03 09:06:21.547(Timestamp)
+2020-07-03 09:06:21.547 INFO  [19892:http-nio-48080-exec-7] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.insert */ 
+
+            INSERT INTO TB_SYS_USER_LOGIN_FAILR (
+                   LOGIN_NM
+                 , FAILR_CO
+                 , LAST_FAILR_DT
+            ) VALUES (
+                   '20380'
+                 , 1
+                 , '07/03/2020 09:06:21.547'
+            )
+ {executed in 0 msec}
+2020-07-03 09:06:21.547 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.d.m.m.s.u.l.T.insert                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==    Updates: 1
+2020-07-03 09:06:21.659 ERROR [19892:http-nio-48080-exec-7] o.a.c.c.C.[.[.[/jj-dashboard].[dispatcherServlet]  [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] Servlet.service() for servlet [dispatcherServlet] in context with path [/jj-dashboard] threw exception
+org.springframework.security.authentication.BadCredentialsException: Bad credentials
+	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.additionalAuthenticationChecks(DaoAuthenticationProvider.java:93)
+	at org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider.authenticate(AbstractUserDetailsAuthenticationProvider.java:166)
+	at kr.ac.jj.shared.application.common.user.provider.UserLoginProvider.authenticate(UserLoginProvider.java:60)
+	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:199)
+	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:219)
+	at org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.attemptAuthentication(UsernamePasswordAuthenticationFilter.java:95)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:212)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:141)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at kr.ac.jj.shared.infrastructure.logging.filter.LoggingFilter.doFilter(LoggingFilter.java:68)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:373)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+2020-07-03 09:06:24.698 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:24.699 INFO  [19892:http-nio-48080-exec-3] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectUserIdByLoginNm
+2020-07-03 09:06:24.699 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.a.c.u.m.UserMapper.selectUserIdByLoginNm   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectUserIdByLoginNm */ SELECT TSU.USER_ID FROM TB_SYS_USER TSU LEFT JOIN TB_COM_PERSON_USER TCPU ON TCPU.USER_ID = TSU.USER_ID LEFT JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPU.PERSON_ID WHERE TSU.LOGIN_NM = ? AND TSU.USE_YN = '1' AND (TCP.PERSON_ID IS NULL OR TCP.HFFC_STTUS = 'C') 
+2020-07-03 09:06:24.699 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.a.c.u.m.UserMapper.selectUserIdByLoginNm   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 20380(String)
+2020-07-03 09:06:24.699 INFO  [19892:http-nio-48080-exec-3] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectUserIdByLoginNm */  
+
+            SELECT TSU.USER_ID
+            FROM   TB_SYS_USER TSU
+                   LEFT JOIN TB_COM_PERSON_USER TCPU ON TCPU.USER_ID = TSU.USER_ID
+                   LEFT JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPU.PERSON_ID
+            WHERE  TSU.LOGIN_NM = '20380'
+            AND    TSU.USE_YN = '1'
+            AND    (TCP.PERSON_ID IS NULL OR TCP.HFFC_STTUS = 'C')
+ {executed in 0 msec}
+2020-07-03 09:06:24.700 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.a.c.u.m.UserMapper.selectUserIdByLoginNm   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:06:24.700 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:24.700 INFO  [19892:http-nio-48080-exec-3] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserEntityMapper.select
+2020-07-03 09:06:24.700 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.d.m.m.s.user.TbSysUserEntityMapper.select  [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserEntityMapper.select */ SELECT TSU.USER_ID , FN_USER_NAME(TSU.USER_ID, ?) AS USER_NM , TSU.LOGIN_NM , TSU.LOGIN_PASSWORD , TSU.USE_YN , TSU.USER_LOCALE , TSU.PASSWORD_END_DE , TSU.BEFORE_LOGIN_DT , TSU.LAST_LOGIN_DT FROM TB_SYS_USER TSU WHERE TSU.USER_ID = ? 
+2020-07-03 09:06:24.701 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.d.m.m.s.user.TbSysUserEntityMapper.select  [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: ko(String), 75S19VAJSC5132510S(String)
+2020-07-03 09:06:24.701 INFO  [19892:http-nio-48080-exec-3] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserEntityMapper.select */  
+
+            SELECT TSU.USER_ID
+                 , FN_USER_NAME(TSU.USER_ID, 'ko') AS USER_NM
+                 , TSU.LOGIN_NM
+                 , TSU.LOGIN_PASSWORD
+                 , TSU.USE_YN
+                 , TSU.USER_LOCALE
+                 , TSU.PASSWORD_END_DE
+                 , TSU.BEFORE_LOGIN_DT
+                 , TSU.LAST_LOGIN_DT
+            FROM   TB_SYS_USER TSU
+
+            WHERE  TSU.USER_ID = '75S19VAJSC5132510S'
+ {executed in 0 msec}
+2020-07-03 09:06:24.701 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.d.m.m.s.user.TbSysUserEntityMapper.select  [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:06:24.701 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:24.701 INFO  [19892:http-nio-48080-exec-3] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectAuthorCodeList
+2020-07-03 09:06:24.702 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.a.c.u.m.UserMapper.selectAuthorCodeList    [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectAuthorCodeList */ SELECT TSA.AUTHOR_CODE FROM TB_SYS_USER_AUTHOR TSUA INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TSUA.AUTHOR_ID WHERE TSUA.USER_ID = ? UNION SELECT TSA.AUTHOR_CODE FROM TB_COM_PERSON_USER TCPU INNER JOIN TB_COM_PERSON_DEPT TCPD ON TCPD.PERSON_ID = TCPU.PERSON_ID INNER JOIN TB_COM_DEPT_AUTHOR TCDA ON TCDA.DEPT_ID = TCPD.DEPT_ID INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TCDA.AUTHOR_ID WHERE TCPU.USER_ID = ? UNION SELECT TSA.AUTHOR_CODE FROM TB_COM_PERSON_USER TCPU INNER JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPU.PERSON_ID INNER JOIN TB_COM_DTY TCD ON CONCAT_WS('', ',', TCP.OFCPS_NM, ',') LIKE CONCAT_WS('', '%,', TCD.DTY_NM, ',%') INNER JOIN TB_COM_DTY_AUTHOR TCDA ON TCDA.DTY_ID = TCD.DTY_ID INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TCDA.AUTHOR_ID WHERE TCPU.USER_ID = ? 
+2020-07-03 09:06:24.702 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.a.c.u.m.UserMapper.selectAuthorCodeList    [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 75S19VAJSC5132510S(String), 75S19VAJSC5132510S(String), 75S19VAJSC5132510S(String)
+2020-07-03 09:06:24.702 INFO  [19892:http-nio-48080-exec-3] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectAuthorCodeList */  
+
+            SELECT TSA.AUTHOR_CODE
+            FROM   TB_SYS_USER_AUTHOR TSUA
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TSUA.AUTHOR_ID
+            WHERE  TSUA.USER_ID = '75S19VAJSC5132510S'
+            UNION
+            SELECT TSA.AUTHOR_CODE
+            FROM   TB_COM_PERSON_USER TCPU
+                   INNER JOIN TB_COM_PERSON_DEPT TCPD ON TCPD.PERSON_ID = TCPU.PERSON_ID
+                   INNER JOIN TB_COM_DEPT_AUTHOR TCDA ON TCDA.DEPT_ID = TCPD.DEPT_ID
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TCDA.AUTHOR_ID
+            WHERE  TCPU.USER_ID = '75S19VAJSC5132510S'
+            UNION
+            SELECT TSA.AUTHOR_CODE
+            FROM   TB_COM_PERSON_USER TCPU
+                   INNER JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPU.PERSON_ID
+                   INNER JOIN TB_COM_DTY TCD ON CONCAT_WS('', ',', TCP.OFCPS_NM, ',') LIKE CONCAT_WS('', '%,', TCD.DTY_NM, ',%')
+                   INNER JOIN TB_COM_DTY_AUTHOR TCDA ON TCDA.DTY_ID = TCD.DTY_ID
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TCDA.AUTHOR_ID
+            WHERE  TCPU.USER_ID = '75S19VAJSC5132510S'
+ {executed in 0 msec}
+2020-07-03 09:06:24.702 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.a.c.u.m.UserMapper.selectAuthorCodeList    [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:06:24.703 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:24.703 INFO  [19892:http-nio-48080-exec-3] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.select
+2020-07-03 09:06:24.703 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.d.m.m.s.u.l.T.select                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.select */ SELECT TSULF.LOGIN_NM , TSULF.FAILR_CO , TSULF.LAST_FAILR_DT FROM TB_SYS_USER_LOGIN_FAILR TSULF WHERE TSULF.LOGIN_NM = ? 
+2020-07-03 09:06:24.703 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.d.m.m.s.u.l.T.select                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 20380(String)
+2020-07-03 09:06:24.703 INFO  [19892:http-nio-48080-exec-3] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.select */  
+
+            SELECT TSULF.LOGIN_NM
+                 , TSULF.FAILR_CO
+                 , TSULF.LAST_FAILR_DT
+            FROM   TB_SYS_USER_LOGIN_FAILR TSULF
+            WHERE  TSULF.LOGIN_NM = '20380'
+ {executed in 0 msec}
+2020-07-03 09:06:24.703 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.d.m.m.s.u.l.T.select                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:06:24.704 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.a.common.user.provider.UserLoginProvider   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] Authentication failed: password does not match stored value
+2020-07-03 09:06:24.704 INFO  [19892:http-nio-48080-exec-3] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.update
+2020-07-03 09:06:24.704 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.d.m.m.s.u.l.T.update                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.update */ UPDATE TB_SYS_USER_LOGIN_FAILR SET FAILR_CO = FAILR_CO + 1 , LAST_FAILR_DT = ? WHERE LOGIN_NM = ? 
+2020-07-03 09:06:24.705 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.d.m.m.s.u.l.T.update                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 2020-07-03 09:06:24.704(Timestamp), 20380(String)
+2020-07-03 09:06:24.705 INFO  [19892:http-nio-48080-exec-3] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.update */ 
+
+            UPDATE TB_SYS_USER_LOGIN_FAILR SET
+                   FAILR_CO                         = FAILR_CO + 1
+                 , LAST_FAILR_DT                    = '07/03/2020 09:06:24.704'
+            WHERE  LOGIN_NM = '20380'
+ {executed in 0 msec}
+2020-07-03 09:06:24.705 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.d.m.m.s.u.l.T.update                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==    Updates: 1
+2020-07-03 09:06:24.733 ERROR [19892:http-nio-48080-exec-3] o.a.c.c.C.[.[.[/jj-dashboard].[dispatcherServlet]  [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] Servlet.service() for servlet [dispatcherServlet] in context with path [/jj-dashboard] threw exception
+org.springframework.security.authentication.BadCredentialsException: Bad credentials
+	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.additionalAuthenticationChecks(DaoAuthenticationProvider.java:93)
+	at org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider.authenticate(AbstractUserDetailsAuthenticationProvider.java:166)
+	at kr.ac.jj.shared.application.common.user.provider.UserLoginProvider.authenticate(UserLoginProvider.java:60)
+	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:199)
+	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:219)
+	at org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.attemptAuthentication(UsernamePasswordAuthenticationFilter.java:95)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:212)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:141)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at kr.ac.jj.shared.infrastructure.logging.filter.LoggingFilter.doFilter(LoggingFilter.java:68)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:373)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:835)
+2020-07-03 09:06:28.566 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:28.566 INFO  [19892:http-nio-48080-exec-6] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectUserIdByLoginNm
+2020-07-03 09:06:28.566 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.a.c.u.m.UserMapper.selectUserIdByLoginNm   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectUserIdByLoginNm */ SELECT TSU.USER_ID FROM TB_SYS_USER TSU LEFT JOIN TB_COM_PERSON_USER TCPU ON TCPU.USER_ID = TSU.USER_ID LEFT JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPU.PERSON_ID WHERE TSU.LOGIN_NM = ? AND TSU.USE_YN = '1' AND (TCP.PERSON_ID IS NULL OR TCP.HFFC_STTUS = 'C') 
+2020-07-03 09:06:28.566 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.a.c.u.m.UserMapper.selectUserIdByLoginNm   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 20380(String)
+2020-07-03 09:06:28.566 INFO  [19892:http-nio-48080-exec-6] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectUserIdByLoginNm */  
+
+            SELECT TSU.USER_ID
+            FROM   TB_SYS_USER TSU
+                   LEFT JOIN TB_COM_PERSON_USER TCPU ON TCPU.USER_ID = TSU.USER_ID
+                   LEFT JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPU.PERSON_ID
+            WHERE  TSU.LOGIN_NM = '20380'
+            AND    TSU.USE_YN = '1'
+            AND    (TCP.PERSON_ID IS NULL OR TCP.HFFC_STTUS = 'C')
+ {executed in 0 msec}
+2020-07-03 09:06:28.566 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.a.c.u.m.UserMapper.selectUserIdByLoginNm   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:06:28.567 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:28.567 INFO  [19892:http-nio-48080-exec-6] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserEntityMapper.select
+2020-07-03 09:06:28.567 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.s.user.TbSysUserEntityMapper.select  [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserEntityMapper.select */ SELECT TSU.USER_ID , FN_USER_NAME(TSU.USER_ID, ?) AS USER_NM , TSU.LOGIN_NM , TSU.LOGIN_PASSWORD , TSU.USE_YN , TSU.USER_LOCALE , TSU.PASSWORD_END_DE , TSU.BEFORE_LOGIN_DT , TSU.LAST_LOGIN_DT FROM TB_SYS_USER TSU WHERE TSU.USER_ID = ? 
+2020-07-03 09:06:28.567 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.s.user.TbSysUserEntityMapper.select  [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: ko(String), 75S19VAJSC5132510S(String)
+2020-07-03 09:06:28.567 INFO  [19892:http-nio-48080-exec-6] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserEntityMapper.select */  
+
+            SELECT TSU.USER_ID
+                 , FN_USER_NAME(TSU.USER_ID, 'ko') AS USER_NM
+                 , TSU.LOGIN_NM
+                 , TSU.LOGIN_PASSWORD
+                 , TSU.USE_YN
+                 , TSU.USER_LOCALE
+                 , TSU.PASSWORD_END_DE
+                 , TSU.BEFORE_LOGIN_DT
+                 , TSU.LAST_LOGIN_DT
+            FROM   TB_SYS_USER TSU
+
+            WHERE  TSU.USER_ID = '75S19VAJSC5132510S'
+ {executed in 0 msec}
+2020-07-03 09:06:28.568 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.s.user.TbSysUserEntityMapper.select  [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:06:28.568 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:28.568 INFO  [19892:http-nio-48080-exec-6] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectAuthorCodeList
+2020-07-03 09:06:28.568 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.a.c.u.m.UserMapper.selectAuthorCodeList    [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectAuthorCodeList */ SELECT TSA.AUTHOR_CODE FROM TB_SYS_USER_AUTHOR TSUA INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TSUA.AUTHOR_ID WHERE TSUA.USER_ID = ? UNION SELECT TSA.AUTHOR_CODE FROM TB_COM_PERSON_USER TCPU INNER JOIN TB_COM_PERSON_DEPT TCPD ON TCPD.PERSON_ID = TCPU.PERSON_ID INNER JOIN TB_COM_DEPT_AUTHOR TCDA ON TCDA.DEPT_ID = TCPD.DEPT_ID INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TCDA.AUTHOR_ID WHERE TCPU.USER_ID = ? UNION SELECT TSA.AUTHOR_CODE FROM TB_COM_PERSON_USER TCPU INNER JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPU.PERSON_ID INNER JOIN TB_COM_DTY TCD ON CONCAT_WS('', ',', TCP.OFCPS_NM, ',') LIKE CONCAT_WS('', '%,', TCD.DTY_NM, ',%') INNER JOIN TB_COM_DTY_AUTHOR TCDA ON TCDA.DTY_ID = TCD.DTY_ID INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TCDA.AUTHOR_ID WHERE TCPU.USER_ID = ? 
+2020-07-03 09:06:28.568 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.a.c.u.m.UserMapper.selectAuthorCodeList    [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 75S19VAJSC5132510S(String), 75S19VAJSC5132510S(String), 75S19VAJSC5132510S(String)
+2020-07-03 09:06:28.569 INFO  [19892:http-nio-48080-exec-6] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.application.common.user.mapper.UserMapper.selectAuthorCodeList */  
+
+            SELECT TSA.AUTHOR_CODE
+            FROM   TB_SYS_USER_AUTHOR TSUA
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TSUA.AUTHOR_ID
+            WHERE  TSUA.USER_ID = '75S19VAJSC5132510S'
+            UNION
+            SELECT TSA.AUTHOR_CODE
+            FROM   TB_COM_PERSON_USER TCPU
+                   INNER JOIN TB_COM_PERSON_DEPT TCPD ON TCPD.PERSON_ID = TCPU.PERSON_ID
+                   INNER JOIN TB_COM_DEPT_AUTHOR TCDA ON TCDA.DEPT_ID = TCPD.DEPT_ID
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TCDA.AUTHOR_ID
+            WHERE  TCPU.USER_ID = '75S19VAJSC5132510S'
+            UNION
+            SELECT TSA.AUTHOR_CODE
+            FROM   TB_COM_PERSON_USER TCPU
+                   INNER JOIN TB_COM_PERSON TCP ON TCP.PERSON_ID = TCPU.PERSON_ID
+                   INNER JOIN TB_COM_DTY TCD ON CONCAT_WS('', ',', TCP.OFCPS_NM, ',') LIKE CONCAT_WS('', '%,', TCD.DTY_NM, ',%')
+                   INNER JOIN TB_COM_DTY_AUTHOR TCDA ON TCDA.DTY_ID = TCD.DTY_ID
+                   INNER JOIN TB_SYS_AUTHOR TSA ON TSA.AUTHOR_ID = TCDA.AUTHOR_ID
+            WHERE  TCPU.USER_ID = '75S19VAJSC5132510S'
+ {executed in 1 msec}
+2020-07-03 09:06:28.569 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.a.c.u.m.UserMapper.selectAuthorCodeList    [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:06:28.569 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:28.569 INFO  [19892:http-nio-48080-exec-6] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.select
+2020-07-03 09:06:28.569 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.s.u.l.T.select                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.select */ SELECT TSULF.LOGIN_NM , TSULF.FAILR_CO , TSULF.LAST_FAILR_DT FROM TB_SYS_USER_LOGIN_FAILR TSULF WHERE TSULF.LOGIN_NM = ? 
+2020-07-03 09:06:28.569 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.s.u.l.T.select                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 20380(String)
+2020-07-03 09:06:28.569 INFO  [19892:http-nio-48080-exec-6] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrEntityMapper.select */  
+
+            SELECT TSULF.LOGIN_NM
+                 , TSULF.FAILR_CO
+                 , TSULF.LAST_FAILR_DT
+            FROM   TB_SYS_USER_LOGIN_FAILR TSULF
+            WHERE  TSULF.LOGIN_NM = '20380'
+ {executed in 0 msec}
+2020-07-03 09:06:28.570 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.s.u.l.T.select                       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:06:28.570 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:28.570 INFO  [19892:http-nio-48080-exec-6] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.com.person.user.TbComPersonUserMapper.selectPersonIdByUserId
+2020-07-03 09:06:28.571 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.c.p.u.T.selectPersonIdByUserId       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.com.person.user.TbComPersonUserMapper.selectPersonIdByUserId */ SELECT TCPU.PERSON_ID FROM TB_COM_PERSON_USER TCPU WHERE TCPU.USER_ID = ? 
+2020-07-03 09:06:28.571 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.c.p.u.T.selectPersonIdByUserId       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 75S19VAJSC5132510S(String)
+2020-07-03 09:06:28.571 INFO  [19892:http-nio-48080-exec-6] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.domain.main.mapper.com.person.user.TbComPersonUserMapper.selectPersonIdByUserId */  
+
+            SELECT TCPU.PERSON_ID
+            FROM   TB_COM_PERSON_USER TCPU
+            WHERE  TCPU.USER_ID = '75S19VAJSC5132510S'
+ {executed in 0 msec}
+2020-07-03 09:06:28.571 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.c.p.u.T.selectPersonIdByUserId       [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:06:28.571 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:28.571 INFO  [19892:http-nio-48080-exec-6] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.com.person.TbComPersonEntityMapper.select
+2020-07-03 09:06:28.571 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.c.p.TbComPersonEntityMapper.select   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.com.person.TbComPersonEntityMapper.select */ SELECT TCP.PERSON_ID , TCP.PERSON_SE , TCP.EMPL_NO , TCP.EMAIL_ADRES , TCP.WRITNG_PSN_ID , TCP.WRITNG_DT , TCP.CHANGE_PSN_ID , TCP.CHANGE_DT , TCP.KOREAN_NM , TCP.ENGL_NM , TCP.CHCRT_NM , TCP.DEPT_ID , TCP.DEPT_LEVEL , TCP.UNIV , TCP.UNDEG , TCP.SUBJCT , TCP.HFFC_STTUS , TCP.ECNY_DE , TCP.RETIRE_DE , TCP.OFCPS_NM , TCP.CLSF_NM , TCP.RSPOFC_NM , TCP.TLPHON_NO , TCP.ATCH_FILE_ID , TCP.RM , FN_DEPT_NAMES(TCP.PERSON_ID) AS DEPT_NAMES FROM TB_COM_PERSON TCP WHERE TCP.PERSON_ID = ? 
+2020-07-03 09:06:28.571 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.c.p.TbComPersonEntityMapper.select   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 75S19VA9640B4AACDS(String)
+2020-07-03 09:06:28.572 INFO  [19892:http-nio-48080-exec-6] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.domain.main.mapper.com.person.TbComPersonEntityMapper.select */  
+
+            SELECT TCP.PERSON_ID
+                 , TCP.PERSON_SE
+                 , TCP.EMPL_NO
+                 , TCP.EMAIL_ADRES
+                 , TCP.WRITNG_PSN_ID
+                 , TCP.WRITNG_DT
+                 , TCP.CHANGE_PSN_ID
+                 , TCP.CHANGE_DT
+                 , TCP.KOREAN_NM
+                 , TCP.ENGL_NM
+                 , TCP.CHCRT_NM
+                 , TCP.DEPT_ID
+                 , TCP.DEPT_LEVEL
+                 , TCP.UNIV
+                 , TCP.UNDEG
+                 , TCP.SUBJCT
+                 , TCP.HFFC_STTUS
+                 , TCP.ECNY_DE
+                 , TCP.RETIRE_DE
+                 , TCP.OFCPS_NM
+                 , TCP.CLSF_NM
+                 , TCP.RSPOFC_NM
+                 , TCP.TLPHON_NO
+                 , TCP.ATCH_FILE_ID
+                 , TCP.RM
+                 , FN_DEPT_NAMES(TCP.PERSON_ID) AS DEPT_NAMES
+            FROM   TB_COM_PERSON TCP
+
+            WHERE  TCP.PERSON_ID = '75S19VA9640B4AACDS'
+ {executed in 1 msec}
+2020-07-03 09:06:28.574 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.c.p.TbComPersonEntityMapper.select   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:06:28.574 INFO  [19892:http-nio-48080-exec-6] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserMapper.updateLoginDt
+2020-07-03 09:06:28.574 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.s.user.TbSysUserMapper.updateLoginDt [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserMapper.updateLoginDt */ UPDATE TB_SYS_USER SET BEFORE_LOGIN_DT = LAST_LOGIN_DT , LAST_LOGIN_DT = ? WHERE USER_ID = ? 
+2020-07-03 09:06:28.574 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.s.user.TbSysUserMapper.updateLoginDt [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 2020-07-03 09:06:28.574(Timestamp), 75S19VAJSC5132510S(String)
+2020-07-03 09:06:28.575 INFO  [19892:http-nio-48080-exec-6] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.domain.main.mapper.sys.user.TbSysUserMapper.updateLoginDt */ 
+
+            UPDATE TB_SYS_USER SET
+                   BEFORE_LOGIN_DT                  = LAST_LOGIN_DT
+                 , LAST_LOGIN_DT                    = '07/03/2020 09:06:28.574'
+            WHERE  USER_ID = '75S19VAJSC5132510S'
+ {executed in 1 msec}
+2020-07-03 09:06:28.575 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.s.user.TbSysUserMapper.updateLoginDt [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==    Updates: 1
+2020-07-03 09:06:28.610 INFO  [19892:http-nio-48080-exec-6] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrMapper.updateZero
+2020-07-03 09:06:28.610 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.s.u.l.T.updateZero                   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrMapper.updateZero */ UPDATE TB_SYS_USER_LOGIN_FAILR SET FAILR_CO = 0 WHERE LOGIN_NM = ? 
+2020-07-03 09:06:28.610 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.s.u.l.T.updateZero                   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] ==> Parameters: 20380(String)
+2020-07-03 09:06:28.611 INFO  [19892:http-nio-48080-exec-6] jdbc.sqltiming                                     [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.domain.main.mapper.sys.user.loginfailr.TbSysUserLoginFailrMapper.updateZero */ 
+
+            UPDATE TB_SYS_USER_LOGIN_FAILR SET
+                   FAILR_CO                         = 0
+            WHERE  LOGIN_NM = '20380'
+ {executed in 1 msec}
+2020-07-03 09:06:28.611 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.d.m.m.s.u.l.T.updateZero                   [ANONYMOUS-USER-000-0:0:0:0:0:0:0:1] <==    Updates: 1
+2020-07-03 09:06:28.663 DEBUG [19892:http-nio-48080-exec-2] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:28.663 INFO  [19892:http-nio-48080-exec-2] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.selectMenuIdsByMenuPath
+2020-07-03 09:06:28.663 DEBUG [19892:http-nio-48080-exec-2] k.a.j.s.a.c.m.m.M.selectMenuIdsByMenuPath          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.selectMenuIdsByMenuPath */ SELECT TSM.MENU_ID FROM TB_SYS_MENU TSM WHERE TSM.MENU_PATH = ? ORDER BY TSM.MENU_LEVEL DESC, TSM.MENU_ORDR 
+2020-07-03 09:06:28.663 DEBUG [19892:http-nio-48080-exec-2] k.a.j.s.a.c.m.m.M.selectMenuIdsByMenuPath          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: /(String)
+2020-07-03 09:06:28.664 INFO  [19892:http-nio-48080-exec-2] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.selectMenuIdsByMenuPath */  
+
+            SELECT TSM.MENU_ID
+            FROM   TB_SYS_MENU TSM
+            WHERE  TSM.MENU_PATH = '/'
+            ORDER BY TSM.MENU_LEVEL DESC, TSM.MENU_ORDR
+ {executed in 1 msec}
+2020-07-03 09:06:28.664 DEBUG [19892:http-nio-48080-exec-2] k.a.j.s.a.c.m.m.M.selectMenuIdsByMenuPath          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 0
+2020-07-03 09:06:29.391 DEBUG [19892:http-nio-48080-exec-5] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:29.391 INFO  [19892:http-nio-48080-exec-5] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.selectMenuIdsByMenuPath
+2020-07-03 09:06:29.391 DEBUG [19892:http-nio-48080-exec-5] k.a.j.s.a.c.m.m.M.selectMenuIdsByMenuPath          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.selectMenuIdsByMenuPath */ SELECT TSM.MENU_ID FROM TB_SYS_MENU TSM WHERE TSM.MENU_PATH = ? ORDER BY TSM.MENU_LEVEL DESC, TSM.MENU_ORDR 
+2020-07-03 09:06:29.392 DEBUG [19892:http-nio-48080-exec-5] k.a.j.s.a.c.m.m.M.selectMenuIdsByMenuPath          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: /supercompetence/SuperCompetence/(String)
+2020-07-03 09:06:29.392 INFO  [19892:http-nio-48080-exec-5] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.selectMenuIdsByMenuPath */  
+
+            SELECT TSM.MENU_ID
+            FROM   TB_SYS_MENU TSM
+            WHERE  TSM.MENU_PATH = '/supercompetence/SuperCompetence/'
+            ORDER BY TSM.MENU_LEVEL DESC, TSM.MENU_ORDR
+ {executed in 0 msec}
+2020-07-03 09:06:29.392 DEBUG [19892:http-nio-48080-exec-5] k.a.j.s.a.c.m.m.M.selectMenuIdsByMenuPath          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 2
+2020-07-03 09:06:29.401 DEBUG [19892:http-nio-48080-exec-5] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:29.401 INFO  [19892:http-nio-48080-exec-5] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.selectAuthCount
+2020-07-03 09:06:29.402 DEBUG [19892:http-nio-48080-exec-5] k.a.j.s.a.c.m.m.MenuLoadMapper.selectAuthCount     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.selectAuthCount */ SELECT COUNT(*) AS AUTH_CO FROM TB_SYS_MENU TSM WHERE TSM.MENU_ID = ? AND TSM.USE_YN = '1' AND TSM.MENU_ID IN ( SELECT TSMA.MENU_ID FROM TB_SYS_AUTHOR TSA INNER JOIN TB_SYS_MENU_AUTHOR TSMA ON TSMA.AUTHOR_ID = TSA.AUTHOR_ID WHERE TSA.USE_YN = '1' AND TSA.AUTHOR_CODE IN ( ? , ? , ? , ? , ? , ? ) ) 
+2020-07-03 09:06:29.402 DEBUG [19892:http-nio-48080-exec-5] k.a.j.s.a.c.m.m.MenuLoadMapper.selectAuthCount     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: 000000001001000SM0(String), ROLE_RESTRICTED(String), ROLE_USER(String), ROLE_ADMIN(String), IS_AUTHENTICATED_REMEMBERED(String), IS_AUTHENTICATED_FULLY(String), IS_AUTHENTICATED_ANONYMOUSLY(String)
+2020-07-03 09:06:29.403 INFO  [19892:http-nio-48080-exec-5] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.selectAuthCount */  
+
+            SELECT COUNT(*) AS AUTH_CO
+            FROM   TB_SYS_MENU TSM
+            WHERE  TSM.MENU_ID = '000000001001000SM0'
+            AND    TSM.USE_YN = '1'
+            AND    TSM.MENU_ID IN (
+                        SELECT TSMA.MENU_ID
+                        FROM   TB_SYS_AUTHOR TSA
+                               INNER JOIN TB_SYS_MENU_AUTHOR TSMA ON TSMA.AUTHOR_ID = TSA.AUTHOR_ID
+                        WHERE  TSA.USE_YN = '1'
+                        AND    TSA.AUTHOR_CODE IN (
+
+                                    'ROLE_RESTRICTED'
+
+             , 
+                                    'ROLE_USER'
+
+             , 
+                                    'ROLE_ADMIN'
+
+             , 
+                                    'IS_AUTHENTICATED_REMEMBERED'
+
+             , 
+                                    'IS_AUTHENTICATED_FULLY'
+
+             , 
+                                    'IS_AUTHENTICATED_ANONYMOUSLY'
+
+                               )
+                   )
+ {executed in 1 msec}
+2020-07-03 09:06:29.403 DEBUG [19892:http-nio-48080-exec-5] k.a.j.s.a.c.m.m.MenuLoadMapper.selectAuthCount     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:06:29.409 DEBUG [19892:http-nio-48080-exec-4] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:29.409 INFO  [19892:http-nio-48080-exec-4] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.readAllList
+2020-07-03 09:06:29.409 DEBUG [19892:http-nio-48080-exec-4] k.a.j.s.a.c.menu.mapper.MenuLoadMapper.readAllList [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.readAllList */ SELECT TSM.MENU_ID , TSM.UPPER_MENU_ID , TSM.MENU_LEVEL , TSM.MENU_NM , TSM.MENU_PATH FROM TB_SYS_MENU TSM WHERE TSM.MENU_KND = ? AND TSM.USE_YN = '1' AND TSM.MENU_ID IN ( SELECT TSMA.MENU_ID FROM TB_SYS_AUTHOR TSA INNER JOIN TB_SYS_MENU_AUTHOR TSMA ON TSMA.AUTHOR_ID = TSA.AUTHOR_ID WHERE TSA.USE_YN = '1' AND TSA.AUTHOR_CODE IN ( ? , ? , ? , ? , ? , ? ) ) ORDER BY TSM.MENU_LEVEL, TSM.MENU_ORDR 
+2020-07-03 09:06:29.409 DEBUG [19892:http-nio-48080-exec-4] k.a.j.s.a.c.menu.mapper.MenuLoadMapper.readAllList [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: MAIN(String), ROLE_RESTRICTED(String), ROLE_USER(String), ROLE_ADMIN(String), IS_AUTHENTICATED_REMEMBERED(String), IS_AUTHENTICATED_FULLY(String), IS_AUTHENTICATED_ANONYMOUSLY(String)
+2020-07-03 09:06:29.410 INFO  [19892:http-nio-48080-exec-4] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.readAllList */  
+
+            SELECT TSM.MENU_ID
+                 , TSM.UPPER_MENU_ID
+                 , TSM.MENU_LEVEL
+                 , TSM.MENU_NM
+                 , TSM.MENU_PATH
+            FROM   TB_SYS_MENU TSM
+            WHERE  TSM.MENU_KND = 'MAIN'
+            AND    TSM.USE_YN = '1'
+            AND    TSM.MENU_ID IN (
+                        SELECT TSMA.MENU_ID
+                        FROM   TB_SYS_AUTHOR TSA
+                               INNER JOIN TB_SYS_MENU_AUTHOR TSMA ON TSMA.AUTHOR_ID = TSA.AUTHOR_ID
+                        WHERE  TSA.USE_YN = '1'
+                        AND    TSA.AUTHOR_CODE IN (
+
+                                    'ROLE_RESTRICTED'
+
+             , 
+                                    'ROLE_USER'
+
+             , 
+                                    'ROLE_ADMIN'
+
+             , 
+                                    'IS_AUTHENTICATED_REMEMBERED'
+
+             , 
+                                    'IS_AUTHENTICATED_FULLY'
+
+             , 
+                                    'IS_AUTHENTICATED_ANONYMOUSLY'
+
+                               )
+                   )
+            ORDER BY TSM.MENU_LEVEL, TSM.MENU_ORDR
+ {executed in 1 msec}
+2020-07-03 09:06:29.411 DEBUG [19892:http-nio-48080-exec-4] k.a.j.s.a.c.menu.mapper.MenuLoadMapper.readAllList [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 23
+2020-07-03 09:06:30.664 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:30.664 INFO  [19892:http-nio-48080-exec-6] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.readAllList
+2020-07-03 09:06:30.665 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.a.c.menu.mapper.MenuLoadMapper.readAllList [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.readAllList */ SELECT TSM.MENU_ID , TSM.UPPER_MENU_ID , TSM.MENU_LEVEL , TSM.MENU_NM , TSM.MENU_PATH FROM TB_SYS_MENU TSM WHERE TSM.MENU_KND = ? AND TSM.USE_YN = '1' AND TSM.MENU_ID IN ( SELECT TSMA.MENU_ID FROM TB_SYS_AUTHOR TSA INNER JOIN TB_SYS_MENU_AUTHOR TSMA ON TSMA.AUTHOR_ID = TSA.AUTHOR_ID WHERE TSA.USE_YN = '1' AND TSA.AUTHOR_CODE IN ( ? , ? , ? , ? , ? , ? ) ) ORDER BY TSM.MENU_LEVEL, TSM.MENU_ORDR 
+2020-07-03 09:06:30.665 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.a.c.menu.mapper.MenuLoadMapper.readAllList [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: MAIN(String), ROLE_RESTRICTED(String), ROLE_USER(String), ROLE_ADMIN(String), IS_AUTHENTICATED_REMEMBERED(String), IS_AUTHENTICATED_FULLY(String), IS_AUTHENTICATED_ANONYMOUSLY(String)
+2020-07-03 09:06:30.666 INFO  [19892:http-nio-48080-exec-6] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.readAllList */  
+
+            SELECT TSM.MENU_ID
+                 , TSM.UPPER_MENU_ID
+                 , TSM.MENU_LEVEL
+                 , TSM.MENU_NM
+                 , TSM.MENU_PATH
+            FROM   TB_SYS_MENU TSM
+            WHERE  TSM.MENU_KND = 'MAIN'
+            AND    TSM.USE_YN = '1'
+            AND    TSM.MENU_ID IN (
+                        SELECT TSMA.MENU_ID
+                        FROM   TB_SYS_AUTHOR TSA
+                               INNER JOIN TB_SYS_MENU_AUTHOR TSMA ON TSMA.AUTHOR_ID = TSA.AUTHOR_ID
+                        WHERE  TSA.USE_YN = '1'
+                        AND    TSA.AUTHOR_CODE IN (
+
+                                    'ROLE_RESTRICTED'
+
+             , 
+                                    'ROLE_USER'
+
+             , 
+                                    'ROLE_ADMIN'
+
+             , 
+                                    'IS_AUTHENTICATED_REMEMBERED'
+
+             , 
+                                    'IS_AUTHENTICATED_FULLY'
+
+             , 
+                                    'IS_AUTHENTICATED_ANONYMOUSLY'
+
+                               )
+                   )
+            ORDER BY TSM.MENU_LEVEL, TSM.MENU_ORDR
+ {executed in 1 msec}
+2020-07-03 09:06:30.667 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.a.c.menu.mapper.MenuLoadMapper.readAllList [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 23
+2020-07-03 09:06:30.694 DEBUG [19892:http-nio-48080-exec-8] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:30.694 DEBUG [19892:http-nio-48080-exec-5] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:30.694 INFO  [19892:http-nio-48080-exec-8] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> dashboard-codedata.supercompetence.readHakbuCode
+2020-07-03 09:06:30.694 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:30.694 INFO  [19892:http-nio-48080-exec-5] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> dashboard-codedata.supercompetence.readYearCode
+2020-07-03 09:06:30.695 DEBUG [19892:http-nio-48080-exec-4] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:30.695 INFO  [19892:http-nio-48080-exec-7] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.dashboard.application.supercompetence.mapper.SuperCompetenceMapper.readTotalAvgData
+2020-07-03 09:06:30.696 INFO  [19892:http-nio-48080-exec-4] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.dashboard.application.supercompetence.mapper.SuperCompetenceMapper.readAvgDaehakData
+2020-07-03 09:06:30.698 DEBUG [19892:http-nio-48080-exec-9] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:06:30.698 INFO  [19892:http-nio-48080-exec-8] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* dashboard-codedata.supercompetence.readHakbuCode */  
+
+            SELECT HAKBU_NAME AS CODE
+                  ,HAKBU_NAME AS NAME
+            FROM   DM_ON_SUPER_N
+            WHERE  DAEHAK_NAME = NULL
+            AND HAKBU_NAME NOT IN ('공연방송연기학과', '신학과경배찬양학과',
+                '경영학부', '금융보험부동산학부', '대체건강관리학부', '산업디자인학부')
+            GROUP BY HAKBU_NAME
+ {executed in 3 msec}
+2020-07-03 09:06:30.698 INFO  [19892:http-nio-48080-exec-9] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> dashboard-codedata.supercompetence.readDaehakCode
+2020-07-03 09:06:30.699 DEBUG [19892:http-nio-48080-exec-7] k.a.j.d.a.s.m.S.readTotalAvgData                   [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.dashboard.application.supercompetence.mapper.SuperCompetenceMapper.readTotalAvgData */ SELECT ROUND(AVG(S_POINT),2) AS S_POINT , ROUND(AVG(U_POINT),2) AS U_POINT , ROUND(AVG(P_POINT),2) AS P_POINT , ROUND(AVG(E_POINT),2) AS E_POINT , ROUND(AVG(R_POINT),2) AS R_POINT FROM DM_ON_SUPER_N 
+2020-07-03 09:06:30.699 DEBUG [19892:http-nio-48080-exec-7] k.a.j.d.a.s.m.S.readTotalAvgData                   [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: 
+2020-07-03 09:06:30.699 INFO  [19892:http-nio-48080-exec-5] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* dashboard-codedata.supercompetence.readYearCode */  
+
+            SELECT HAKG_YEAR AS CODE
+                  ,HAKG_YEAR AS NAME
+            FROM   DM_ON_SUPER_N
+            WHERE  DAEHAK_NAME = NULL
+            AND HAKG_YEAR IS NOT NULL
+
+            GROUP BY HAKG_YEAR
+ {executed in 4 msec}
+2020-07-03 09:06:30.700 INFO  [19892:http-nio-48080-exec-7] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.dashboard.application.supercompetence.mapper.SuperCompetenceMapper.readTotalAvgData */  
+
+            SELECT ROUND(AVG(S_POINT),2) AS S_POINT
+                   , ROUND(AVG(U_POINT),2) AS U_POINT
+                   , ROUND(AVG(P_POINT),2) AS P_POINT
+                   , ROUND(AVG(E_POINT),2) AS E_POINT
+                   , ROUND(AVG(R_POINT),2) AS R_POINT
+            FROM   DM_ON_SUPER_N
+ {executed in 1 msec}
+2020-07-03 09:06:30.700 DEBUG [19892:http-nio-48080-exec-4] k.a.j.d.a.s.m.S.readAvgDaehakData                  [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.dashboard.application.supercompetence.mapper.SuperCompetenceMapper.readAvgDaehakData */ SELECT DAEHAK_NAME , ROUND(AVG(S_POINT),2) AS S_POINT , ROUND(AVG(U_POINT),2) AS U_POINT , ROUND(AVG(P_POINT),2) AS P_POINT , ROUND(AVG(E_POINT),2) AS E_POINT , ROUND(AVG(R_POINT),2) AS R_POINT FROM DM_ON_SUPER_N WHERE DAEHAK_NAME IS NOT NULL GROUP BY DAEHAK_NAME 
+2020-07-03 09:06:30.700 DEBUG [19892:http-nio-48080-exec-4] k.a.j.d.a.s.m.S.readAvgDaehakData                  [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: 
+2020-07-03 09:06:30.702 INFO  [19892:http-nio-48080-exec-4] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.dashboard.application.supercompetence.mapper.SuperCompetenceMapper.readAvgDaehakData */  
+
+            SELECT DAEHAK_NAME
+                   , ROUND(AVG(S_POINT),2) AS S_POINT
+                   , ROUND(AVG(U_POINT),2) AS U_POINT
+                   , ROUND(AVG(P_POINT),2) AS P_POINT
+                   , ROUND(AVG(E_POINT),2) AS E_POINT
+                   , ROUND(AVG(R_POINT),2) AS R_POINT
+            FROM   DM_ON_SUPER_N
+            WHERE DAEHAK_NAME IS NOT NULL
+            GROUP BY DAEHAK_NAME
+ {executed in 2 msec}
+2020-07-03 09:06:30.702 DEBUG [19892:http-nio-48080-exec-7] k.a.j.d.a.s.m.S.readTotalAvgData                   [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:06:30.703 INFO  [19892:http-nio-48080-exec-9] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* dashboard-codedata.supercompetence.readDaehakCode */  
+
+            SELECT DAEHAK_NAME AS CODE
+                  ,DAEHAK_NAME AS NAME
+            FROM   DM_ON_SUPER_N
+            WHERE  DAEHAK_NAME IS NOT NULL
+            GROUP BY DAEHAK_NAME
+ {executed in 1 msec}
+2020-07-03 09:06:30.703 DEBUG [19892:http-nio-48080-exec-4] k.a.j.d.a.s.m.S.readAvgDaehakData                  [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 8
+2020-07-03 09:07:10.641 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:07:10.641 INFO  [19892:http-nio-48080-exec-3] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.selectMenuIdsByMenuPath
+2020-07-03 09:07:10.641 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.a.c.m.m.M.selectMenuIdsByMenuPath          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.selectMenuIdsByMenuPath */ SELECT TSM.MENU_ID FROM TB_SYS_MENU TSM WHERE TSM.MENU_PATH = ? ORDER BY TSM.MENU_LEVEL DESC, TSM.MENU_ORDR 
+2020-07-03 09:07:10.641 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.a.c.m.m.M.selectMenuIdsByMenuPath          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: /ipsy/Ipsy1/(String)
+2020-07-03 09:07:10.642 INFO  [19892:http-nio-48080-exec-3] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.selectMenuIdsByMenuPath */  
+
+            SELECT TSM.MENU_ID
+            FROM   TB_SYS_MENU TSM
+            WHERE  TSM.MENU_PATH = '/ipsy/Ipsy1/'
+            ORDER BY TSM.MENU_LEVEL DESC, TSM.MENU_ORDR
+ {executed in 1 msec}
+2020-07-03 09:07:10.642 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.a.c.m.m.M.selectMenuIdsByMenuPath          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:07:10.643 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:07:10.643 INFO  [19892:http-nio-48080-exec-3] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.selectAuthCount
+2020-07-03 09:07:10.643 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.a.c.m.m.MenuLoadMapper.selectAuthCount     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.selectAuthCount */ SELECT COUNT(*) AS AUTH_CO FROM TB_SYS_MENU TSM WHERE TSM.MENU_ID = ? AND TSM.USE_YN = '1' AND TSM.MENU_ID IN ( SELECT TSMA.MENU_ID FROM TB_SYS_AUTHOR TSA INNER JOIN TB_SYS_MENU_AUTHOR TSMA ON TSMA.AUTHOR_ID = TSA.AUTHOR_ID WHERE TSA.USE_YN = '1' AND TSA.AUTHOR_CODE IN ( ? , ? , ? , ? , ? , ? ) ) 
+2020-07-03 09:07:10.644 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.a.c.m.m.MenuLoadMapper.selectAuthCount     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: 000000001008000SM0(String), ROLE_RESTRICTED(String), ROLE_USER(String), ROLE_ADMIN(String), IS_AUTHENTICATED_REMEMBERED(String), IS_AUTHENTICATED_FULLY(String), IS_AUTHENTICATED_ANONYMOUSLY(String)
+2020-07-03 09:07:10.644 INFO  [19892:http-nio-48080-exec-3] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.selectAuthCount */  
+
+            SELECT COUNT(*) AS AUTH_CO
+            FROM   TB_SYS_MENU TSM
+            WHERE  TSM.MENU_ID = '000000001008000SM0'
+            AND    TSM.USE_YN = '1'
+            AND    TSM.MENU_ID IN (
+                        SELECT TSMA.MENU_ID
+                        FROM   TB_SYS_AUTHOR TSA
+                               INNER JOIN TB_SYS_MENU_AUTHOR TSMA ON TSMA.AUTHOR_ID = TSA.AUTHOR_ID
+                        WHERE  TSA.USE_YN = '1'
+                        AND    TSA.AUTHOR_CODE IN (
+
+                                    'ROLE_RESTRICTED'
+
+             , 
+                                    'ROLE_USER'
+
+             , 
+                                    'ROLE_ADMIN'
+
+             , 
+                                    'IS_AUTHENTICATED_REMEMBERED'
+
+             , 
+                                    'IS_AUTHENTICATED_FULLY'
+
+             , 
+                                    'IS_AUTHENTICATED_ANONYMOUSLY'
+
+                               )
+                   )
+ {executed in 0 msec}
+2020-07-03 09:07:10.644 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.a.c.m.m.MenuLoadMapper.selectAuthCount     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:07:10.648 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:07:10.648 INFO  [19892:http-nio-48080-exec-3] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.dashboard.application.ipsy.mapper.IpsyHeaderMapper.readData
+2020-07-03 09:07:10.648 DEBUG [19892:http-nio-48080-exec-3] k.a.j.d.a.ipsy.mapper.IpsyHeaderMapper.readData    [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.dashboard.application.ipsy.mapper.IpsyHeaderMapper.readData */ SELECT T1.ipsy_yy, FORMAT(T1.apply_cnt,0) apply_cnt , FORMAT(T1.entrance_cnt,0) entrance_cnt , FORMAT(T2.required_cnt,0) required_cnt , FORMAT(ROUND(T1.ENTRANCE_CNT / T2.REQUIRED_CNT * 100,2),0) recruit_cnt FROM ( SELECT IPSY_YY, COUNT(*) apply_cnt , SUM(CASE WHEN LENGTH(IPSY_SUHUMNO) > 8 AND IPSY_HAPGYUK_YN = 'Y' AND IPSY_JUNG_GBN = 1 THEN 1 ELSE 0 END) entrance_cnt FROM DW_IPSY_HIGHSCOOL_MAT WHERE IPSY_YY = DATE_FORMAT(NOW(),'%Y') GROUP BY IPSY_YY ) T1 LEFT JOIN ( SELECT IPGD_YY AS ipsy_yy, SUM(IPGD_MOJIB_MAX) required_cnt FROM DW_IPSY_MOJIB_GUIDE WHERE IPGD_JEONGWON = '정원내' AND IPGD_YY = DATE_FORMAT(NOW(),'%Y') GROUP BY IPGD_YY ) T2 ON T2.ipsy_yy = T1.ipsy_yy 
+2020-07-03 09:07:10.648 DEBUG [19892:http-nio-48080-exec-3] k.a.j.d.a.ipsy.mapper.IpsyHeaderMapper.readData    [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: 
+2020-07-03 09:07:10.742 INFO  [19892:http-nio-48080-exec-3] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.dashboard.application.ipsy.mapper.IpsyHeaderMapper.readData */  
+        SELECT T1.ipsy_yy, FORMAT(T1.apply_cnt,0) apply_cnt
+             , FORMAT(T1.entrance_cnt,0) entrance_cnt
+             , FORMAT(T2.required_cnt,0) required_cnt
+             , FORMAT(ROUND(T1.ENTRANCE_CNT / T2.REQUIRED_CNT * 100,2),0) recruit_cnt
+        FROM (
+            SELECT IPSY_YY, COUNT(*) apply_cnt
+                 , SUM(CASE WHEN LENGTH(IPSY_SUHUMNO) > 8 AND IPSY_HAPGYUK_YN = 'Y' AND IPSY_JUNG_GBN = 1 THEN 1 ELSE 0 END) entrance_cnt
+            FROM DW_IPSY_HIGHSCOOL_MAT
+            WHERE IPSY_YY = DATE_FORMAT(NOW(),'%Y')
+            GROUP BY IPSY_YY
+        ) T1
+        LEFT JOIN (
+            SELECT IPGD_YY AS ipsy_yy, SUM(IPGD_MOJIB_MAX) required_cnt
+            FROM DW_IPSY_MOJIB_GUIDE
+            WHERE IPGD_JEONGWON = '정원내'
+            AND IPGD_YY = DATE_FORMAT(NOW(),'%Y')
+            GROUP BY IPGD_YY
+        ) T2 ON T2.ipsy_yy = T1.ipsy_yy
+ {executed in 94 msec}
+2020-07-03 09:07:10.742 DEBUG [19892:http-nio-48080-exec-3] k.a.j.d.a.ipsy.mapper.IpsyHeaderMapper.readData    [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 1
+2020-07-03 09:07:11.953 DEBUG [19892:http-nio-48080-exec-2] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:07:11.954 INFO  [19892:http-nio-48080-exec-2] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.readAllList
+2020-07-03 09:07:11.954 DEBUG [19892:http-nio-48080-exec-7] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:07:11.954 INFO  [19892:http-nio-48080-exec-7] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> dashboard-codedata.ipsy.readYear
+2020-07-03 09:07:11.954 DEBUG [19892:http-nio-48080-exec-2] k.a.j.s.a.c.menu.mapper.MenuLoadMapper.readAllList [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.readAllList */ SELECT TSM.MENU_ID , TSM.UPPER_MENU_ID , TSM.MENU_LEVEL , TSM.MENU_NM , TSM.MENU_PATH FROM TB_SYS_MENU TSM WHERE TSM.MENU_KND = ? AND TSM.USE_YN = '1' AND TSM.MENU_ID IN ( SELECT TSMA.MENU_ID FROM TB_SYS_AUTHOR TSA INNER JOIN TB_SYS_MENU_AUTHOR TSMA ON TSMA.AUTHOR_ID = TSA.AUTHOR_ID WHERE TSA.USE_YN = '1' AND TSA.AUTHOR_CODE IN ( ? , ? , ? , ? , ? , ? ) ) ORDER BY TSM.MENU_LEVEL, TSM.MENU_ORDR 
+2020-07-03 09:07:11.954 DEBUG [19892:http-nio-48080-exec-2] k.a.j.s.a.c.menu.mapper.MenuLoadMapper.readAllList [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: MAIN(String), ROLE_RESTRICTED(String), ROLE_USER(String), ROLE_ADMIN(String), IS_AUTHENTICATED_REMEMBERED(String), IS_AUTHENTICATED_FULLY(String), IS_AUTHENTICATED_ANONYMOUSLY(String)
+2020-07-03 09:07:11.955 INFO  [19892:http-nio-48080-exec-7] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* dashboard-codedata.ipsy.readYear */  
+        SELECT year AS CODE, year as NAME
+        FROM (
+            SELECT DATE_FORMAT(NOW(),'%Y') as year
+            UNION SELECT DATE_FORMAT(NOW(),'%Y')-1
+            UNION SELECT DATE_FORMAT(NOW(),'%Y')-2
+            UNION SELECT DATE_FORMAT(NOW(),'%Y')-3
+            UNION SELECT DATE_FORMAT(NOW(),'%Y')-4
+        ) T
+ {executed in 1 msec}
+2020-07-03 09:07:11.955 INFO  [19892:http-nio-48080-exec-2] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.shared.application.common.menu.mapper.MenuLoadMapper.readAllList */  
+
+            SELECT TSM.MENU_ID
+                 , TSM.UPPER_MENU_ID
+                 , TSM.MENU_LEVEL
+                 , TSM.MENU_NM
+                 , TSM.MENU_PATH
+            FROM   TB_SYS_MENU TSM
+            WHERE  TSM.MENU_KND = 'MAIN'
+            AND    TSM.USE_YN = '1'
+            AND    TSM.MENU_ID IN (
+                        SELECT TSMA.MENU_ID
+                        FROM   TB_SYS_AUTHOR TSA
+                               INNER JOIN TB_SYS_MENU_AUTHOR TSMA ON TSMA.AUTHOR_ID = TSA.AUTHOR_ID
+                        WHERE  TSA.USE_YN = '1'
+                        AND    TSA.AUTHOR_CODE IN (
+
+                                    'ROLE_RESTRICTED'
+
+             , 
+                                    'ROLE_USER'
+
+             , 
+                                    'ROLE_ADMIN'
+
+             , 
+                                    'IS_AUTHENTICATED_REMEMBERED'
+
+             , 
+                                    'IS_AUTHENTICATED_FULLY'
+
+             , 
+                                    'IS_AUTHENTICATED_ANONYMOUSLY'
+
+                               )
+                   )
+            ORDER BY TSM.MENU_LEVEL, TSM.MENU_ORDR
+ {executed in 1 msec}
+2020-07-03 09:07:11.956 DEBUG [19892:http-nio-48080-exec-1] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:07:11.956 DEBUG [19892:http-nio-48080-exec-9] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:07:11.956 INFO  [19892:http-nio-48080-exec-1] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readChartList
+2020-07-03 09:07:11.956 INFO  [19892:http-nio-48080-exec-9] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readList
+2020-07-03 09:07:11.956 DEBUG [19892:http-nio-48080-exec-2] k.a.j.s.a.c.menu.mapper.MenuLoadMapper.readAllList [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 23
+2020-07-03 09:07:11.956 DEBUG [19892:http-nio-48080-exec-1] k.a.j.d.a.ipsy.mapper.IpsyMapper.readChartList     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readChartList */ WITH IPSY_CTE AS ( SELECT CASE WHEN IPSY_GUBUN_NAME LIKE '정시%' THEN '정시' WHEN IPSY_GUBUN_NAME = '수시(학생부종합)' THEN '학생부종합' WHEN IPSY_GUBUN_NAME ='수시(학생부교과)' THEN '학생부교과' END IPSY_GUBUN_NAME , IPSY_YY , IFNULL(IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/ , IFNULL(IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/ , IFNULL(IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/ FROM DW_IPSY_ACCEPTANCE_RATE WHERE 1=1 AND (IPSY_GUBUN_NAME LIKE '정시%' OR IPSY_GUBUN_NAME IN ('수시(학생부종합)','수시(학생부교과)')) GROUP BY CASE WHEN IPSY_GUBUN_NAME LIKE '정시%' THEN '정시' WHEN IPSY_GUBUN_NAME = '수시(학생부종합)' THEN '학생부종합' WHEN IPSY_GUBUN_NAME ='수시(학생부교과)' THEN '학생부교과' END, IPSY_YY ) SELECT A.IPSY_YY, A.IPSY_GUBUN_NAME , IFNULL(B.IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/ , IFNULL(B.IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/ , IFNULL(B.IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/ FROM ( SELECT * FROM ( SELECT '정시' AS IPSY_GUBUN_NAME UNION ALL SELECT '학생부종합' AS IPSY_GUBUN_NAME UNION ALL SELECT '학생부교과' AS IPSY_GUBUN_NAME ) T1, ( SELECT DATE_FORMAT(NOW(),'%Y') -4 IPSY_YY UNION ALL SELECT DATE_FORMAT(NOW(),'%Y') -3 IPSY_YY UNION ALL SELECT DATE_FORMAT(NOW(),'%Y') -2 IPSY_YY UNION ALL SELECT DATE_FORMAT(NOW(),'%Y') -1 IPSY_YY UNION ALL SELECT DATE_FORMAT(NOW(),'%Y') IPSY_YY ) T2 ) A LEFT JOIN IPSY_CTE B ON B.IPSY_GUBUN_NAME = A.IPSY_GUBUN_NAME AND B.IPSY_YY = A.IPSY_YY ORDER BY IPSY_YY 
+2020-07-03 09:07:11.957 DEBUG [19892:http-nio-48080-exec-1] k.a.j.d.a.ipsy.mapper.IpsyMapper.readChartList     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: 
+2020-07-03 09:07:11.957 DEBUG [19892:http-nio-48080-exec-9] k.a.j.d.a.ipsy.mapper.IpsyMapper.readList          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readList */ WITH IPSY_CTE AS ( SELECT IPSY_HAKKWA1_NAME , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_ACCP_RATE ELSE 0 END) ACCP_JONG , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_ACCP_RATE ELSE 0 END) ACCP_GYO , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_MIN_ACCP_RATE ELSE 0 END) MIN_JONG , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_MIN_ACCP_RATE ELSE 0 END) MIN_GYO , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_REAL_ACCP_RATE ELSE 0 END) REAL_JONG , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_REAL_ACCP_RATE ELSE 0 END) REAL_GYO , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_HIGH_100_AVG ELSE 0 END) HIGH_JONG , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_HIGH_100_AVG ELSE 0 END) HIGH_GYO , COUNT(*) CNT , COUNT(*) OVER() CNT_ALL , DATE_FORMAT(NOW(),'%Y') IPSY_YY FROM ( SELECT IPSY_HAKKWA1_NAME , CASE WHEN IPSY_JUNHYUNG_NAME LIKE '학생부교과%' THEN '학생부교과' WHEN IPSY_JUNHYUNG_NAME LIKE '학생부종합%' THEN '학생부종합' WHEN IPSY_JUNHYUNG_NAME LIKE '정시%' THEN '정시' ELSE IPSY_JUNHYUNG_NAME END IPSY_JUNHYUNG_NAME , IFNULL(IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/ , IFNULL(IPSY_GYULSY_RATE,0) IPSY_GYULSY_RATE /*결시율*/ , IFNULL(IPSY_YESANG_HAP,0) IPSY_YESANG_HAP /*예상합격순위*/ , IFNULL(IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/ , IFNULL(IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/ , IFNULL(IPSY_HIGH_100_AVG,0) IPSY_HIGH_100_AVG /*평균 내신등급*/ FROM DW_IPSY_ACCEPTANCE_RATE WHERE 1=1 AND (IPSY_JUNHYUNG_NAME LIKE '학생부교과%' OR IPSY_JUNHYUNG_NAME LIKE '학생부종합%' OR IPSY_JUNHYUNG_NAME LIKE '정시%') AND IPSY_YY = ? ) T GROUP BY IPSY_HAKKWA1_NAME ) SELECT '전체' header , ROUND(SUM(ACCP_JONG)/CNT_ALL,2) AS ACCP_JONG , ROUND(SUM(ACCP_GYO)/CNT_ALL,2) AS ACCP_GYO , ROUND(SUM(MIN_JONG)/CNT_ALL,2) AS MIN_JONG , ROUND(SUM(MIN_GYO)/CNT_ALL,2) AS MIN_GYO , ROUND(SUM(REAL_JONG)/CNT_ALL,2) AS REAL_JONG , ROUND(SUM(REAL_GYO)/CNT_ALL,2) AS REAL_GYO , ROUND(SUM(HIGH_JONG)/CNT_ALL,2) AS HIGH_JONG , ROUND(SUM(HIGH_GYO)/CNT_ALL,2) AS HIGH_GYO , IPSY_YY FROM (SELECT * FROM IPSY_CTE) T UNION ALL SELECT IPSY_HAKKWA1_NAME , ROUND(ACCP_JONG/CNT,2) AS ACCP_JONG_RATE , ROUND(ACCP_GYO/CNT,2) AS ACCP_GYO_RATE , ROUND(MIN_JONG/CNT,2) AS MIN_JONG_RATE , ROUND(MIN_GYO/CNT,2) AS MIN_GYO_RATE , ROUND(REAL_JONG/CNT,2) AS REAL_JONG_RATE , ROUND(REAL_GYO/CNT,2) AS REAL_GYO_RATE , ROUND(HIGH_JONG/CNT,2) AS HIGH_JONG_RATE , ROUND(HIGH_GYO/CNT,2) AS HIGH_GYO_RATE , IPSY_YY FROM IPSY_CTE 
+2020-07-03 09:07:11.957 DEBUG [19892:http-nio-48080-exec-9] k.a.j.d.a.ipsy.mapper.IpsyMapper.readList          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: 2020(Integer)
+2020-07-03 09:07:11.966 INFO  [19892:http-nio-48080-exec-1] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readChartList */  
+
+            WITH IPSY_CTE AS (
+                SELECT CASE WHEN IPSY_GUBUN_NAME LIKE '정시%' THEN '정시'
+                            WHEN IPSY_GUBUN_NAME = '수시(학생부종합)' THEN '학생부종합'
+                            WHEN IPSY_GUBUN_NAME ='수시(학생부교과)' THEN '학생부교과'
+                    END IPSY_GUBUN_NAME
+                    , IPSY_YY
+                    , IFNULL(IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/
+                    , IFNULL(IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/
+                    , IFNULL(IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/
+                FROM DW_IPSY_ACCEPTANCE_RATE
+                WHERE 1=1
+                AND (IPSY_GUBUN_NAME LIKE '정시%' OR IPSY_GUBUN_NAME IN ('수시(학생부종합)','수시(학생부교과)'))
+                GROUP BY CASE WHEN IPSY_GUBUN_NAME LIKE '정시%' THEN '정시'
+                            WHEN IPSY_GUBUN_NAME = '수시(학생부종합)' THEN '학생부종합'
+                            WHEN IPSY_GUBUN_NAME ='수시(학생부교과)' THEN '학생부교과'
+                        END, IPSY_YY
+            )
+            SELECT A.IPSY_YY, A.IPSY_GUBUN_NAME
+                 , IFNULL(B.IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/
+                 , IFNULL(B.IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/
+                 , IFNULL(B.IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/
+            FROM (
+                    SELECT *
+                    FROM (
+                        SELECT '정시' AS IPSY_GUBUN_NAME
+                        UNION ALL
+                        SELECT '학생부종합' AS IPSY_GUBUN_NAME
+                        UNION ALL
+                        SELECT '학생부교과' AS IPSY_GUBUN_NAME
+                    ) T1, (
+                        SELECT DATE_FORMAT(NOW(),'%Y') -4 IPSY_YY
+                        UNION ALL
+                        SELECT DATE_FORMAT(NOW(),'%Y') -3 IPSY_YY
+                        UNION ALL
+                        SELECT DATE_FORMAT(NOW(),'%Y') -2 IPSY_YY
+                        UNION ALL
+                        SELECT DATE_FORMAT(NOW(),'%Y') -1 IPSY_YY
+                        UNION ALL
+                        SELECT DATE_FORMAT(NOW(),'%Y') IPSY_YY
+                    ) T2
+                ) A
+            LEFT JOIN IPSY_CTE B ON B.IPSY_GUBUN_NAME = A.IPSY_GUBUN_NAME AND B.IPSY_YY = A.IPSY_YY
+            ORDER BY IPSY_YY
+ {executed in 9 msec}
+2020-07-03 09:07:11.966 DEBUG [19892:http-nio-48080-exec-1] k.a.j.d.a.ipsy.mapper.IpsyMapper.readChartList     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 15
+2020-07-03 09:07:11.975 INFO  [19892:http-nio-48080-exec-9] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readList */  
+
+            WITH IPSY_CTE AS (
+                SELECT IPSY_HAKKWA1_NAME
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_ACCP_RATE ELSE 0 END) ACCP_JONG
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_ACCP_RATE ELSE 0 END) ACCP_GYO
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_MIN_ACCP_RATE ELSE 0 END) MIN_JONG
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_MIN_ACCP_RATE ELSE 0 END) MIN_GYO
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_REAL_ACCP_RATE ELSE 0 END) REAL_JONG
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_REAL_ACCP_RATE ELSE 0 END) REAL_GYO
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_HIGH_100_AVG ELSE 0 END) HIGH_JONG
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_HIGH_100_AVG ELSE 0 END) HIGH_GYO
+                , COUNT(*) CNT
+                , COUNT(*) OVER() CNT_ALL
+                , DATE_FORMAT(NOW(),'%Y') IPSY_YY
+                FROM ( SELECT IPSY_HAKKWA1_NAME
+                            , CASE WHEN IPSY_JUNHYUNG_NAME LIKE '학생부교과%' THEN '학생부교과'
+                                   WHEN IPSY_JUNHYUNG_NAME LIKE '학생부종합%' THEN '학생부종합'
+                                   WHEN IPSY_JUNHYUNG_NAME LIKE '정시%' THEN '정시'
+                                   ELSE IPSY_JUNHYUNG_NAME
+                                   END IPSY_JUNHYUNG_NAME
+                            , IFNULL(IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/
+                            , IFNULL(IPSY_GYULSY_RATE,0) IPSY_GYULSY_RATE /*결시율*/
+                            , IFNULL(IPSY_YESANG_HAP,0) IPSY_YESANG_HAP /*예상합격순위*/
+                            , IFNULL(IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/
+                            , IFNULL(IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/
+                            , IFNULL(IPSY_HIGH_100_AVG,0) IPSY_HIGH_100_AVG /*평균 내신등급*/
+                        FROM DW_IPSY_ACCEPTANCE_RATE
+                        WHERE 1=1
+                        AND (IPSY_JUNHYUNG_NAME LIKE '학생부교과%' OR IPSY_JUNHYUNG_NAME LIKE '학생부종합%' OR IPSY_JUNHYUNG_NAME LIKE '정시%')
+
+                        AND IPSY_YY = 2020
+
+                ) T
+                GROUP BY IPSY_HAKKWA1_NAME
+            )
+            SELECT '전체' header
+                , ROUND(SUM(ACCP_JONG)/CNT_ALL,2) AS ACCP_JONG
+                , ROUND(SUM(ACCP_GYO)/CNT_ALL,2) AS ACCP_GYO
+                , ROUND(SUM(MIN_JONG)/CNT_ALL,2) AS MIN_JONG
+                , ROUND(SUM(MIN_GYO)/CNT_ALL,2) AS MIN_GYO
+                , ROUND(SUM(REAL_JONG)/CNT_ALL,2) AS REAL_JONG
+                , ROUND(SUM(REAL_GYO)/CNT_ALL,2) AS REAL_GYO
+                , ROUND(SUM(HIGH_JONG)/CNT_ALL,2) AS HIGH_JONG
+                , ROUND(SUM(HIGH_GYO)/CNT_ALL,2) AS HIGH_GYO
+                , IPSY_YY
+            FROM (SELECT * FROM IPSY_CTE) T
+            UNION ALL
+            SELECT IPSY_HAKKWA1_NAME
+                 , ROUND(ACCP_JONG/CNT,2) AS ACCP_JONG_RATE
+                 , ROUND(ACCP_GYO/CNT,2) AS ACCP_GYO_RATE
+                 , ROUND(MIN_JONG/CNT,2) AS MIN_JONG_RATE
+                 , ROUND(MIN_GYO/CNT,2) AS MIN_GYO_RATE
+                 , ROUND(REAL_JONG/CNT,2) AS REAL_JONG_RATE
+                 , ROUND(REAL_GYO/CNT,2) AS REAL_GYO_RATE
+                 , ROUND(HIGH_JONG/CNT,2) AS HIGH_JONG_RATE
+                 , ROUND(HIGH_GYO/CNT,2) AS HIGH_GYO_RATE
+                 , IPSY_YY
+            FROM IPSY_CTE
+ {executed in 18 msec}
+2020-07-03 09:07:11.977 DEBUG [19892:http-nio-48080-exec-9] k.a.j.d.a.ipsy.mapper.IpsyMapper.readList          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 64
+2020-07-03 09:07:33.023 DEBUG [19892:http-nio-48080-exec-6] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:07:33.023 INFO  [19892:http-nio-48080-exec-6] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readList
+2020-07-03 09:07:33.023 DEBUG [19892:http-nio-48080-exec-4] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:07:33.024 INFO  [19892:http-nio-48080-exec-4] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readChartList
+2020-07-03 09:07:33.024 DEBUG [19892:http-nio-48080-exec-6] k.a.j.d.a.ipsy.mapper.IpsyMapper.readList          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readList */ WITH IPSY_CTE AS ( SELECT IPSY_HAKKWA1_NAME , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_ACCP_RATE ELSE 0 END) ACCP_JONG , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_ACCP_RATE ELSE 0 END) ACCP_GYO , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_MIN_ACCP_RATE ELSE 0 END) MIN_JONG , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_MIN_ACCP_RATE ELSE 0 END) MIN_GYO , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_REAL_ACCP_RATE ELSE 0 END) REAL_JONG , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_REAL_ACCP_RATE ELSE 0 END) REAL_GYO , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_HIGH_100_AVG ELSE 0 END) HIGH_JONG , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_HIGH_100_AVG ELSE 0 END) HIGH_GYO , COUNT(*) CNT , COUNT(*) OVER() CNT_ALL , DATE_FORMAT(NOW(),'%Y') IPSY_YY FROM ( SELECT IPSY_HAKKWA1_NAME , CASE WHEN IPSY_JUNHYUNG_NAME LIKE '학생부교과%' THEN '학생부교과' WHEN IPSY_JUNHYUNG_NAME LIKE '학생부종합%' THEN '학생부종합' WHEN IPSY_JUNHYUNG_NAME LIKE '정시%' THEN '정시' ELSE IPSY_JUNHYUNG_NAME END IPSY_JUNHYUNG_NAME , IFNULL(IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/ , IFNULL(IPSY_GYULSY_RATE,0) IPSY_GYULSY_RATE /*결시율*/ , IFNULL(IPSY_YESANG_HAP,0) IPSY_YESANG_HAP /*예상합격순위*/ , IFNULL(IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/ , IFNULL(IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/ , IFNULL(IPSY_HIGH_100_AVG,0) IPSY_HIGH_100_AVG /*평균 내신등급*/ FROM DW_IPSY_ACCEPTANCE_RATE WHERE 1=1 AND (IPSY_JUNHYUNG_NAME LIKE '학생부교과%' OR IPSY_JUNHYUNG_NAME LIKE '학생부종합%' OR IPSY_JUNHYUNG_NAME LIKE '정시%') AND IPSY_YY = ? ) T GROUP BY IPSY_HAKKWA1_NAME ) SELECT '전체' header , ROUND(SUM(ACCP_JONG)/CNT_ALL,2) AS ACCP_JONG , ROUND(SUM(ACCP_GYO)/CNT_ALL,2) AS ACCP_GYO , ROUND(SUM(MIN_JONG)/CNT_ALL,2) AS MIN_JONG , ROUND(SUM(MIN_GYO)/CNT_ALL,2) AS MIN_GYO , ROUND(SUM(REAL_JONG)/CNT_ALL,2) AS REAL_JONG , ROUND(SUM(REAL_GYO)/CNT_ALL,2) AS REAL_GYO , ROUND(SUM(HIGH_JONG)/CNT_ALL,2) AS HIGH_JONG , ROUND(SUM(HIGH_GYO)/CNT_ALL,2) AS HIGH_GYO , IPSY_YY FROM (SELECT * FROM IPSY_CTE) T UNION ALL SELECT IPSY_HAKKWA1_NAME , ROUND(ACCP_JONG/CNT,2) AS ACCP_JONG_RATE , ROUND(ACCP_GYO/CNT,2) AS ACCP_GYO_RATE , ROUND(MIN_JONG/CNT,2) AS MIN_JONG_RATE , ROUND(MIN_GYO/CNT,2) AS MIN_GYO_RATE , ROUND(REAL_JONG/CNT,2) AS REAL_JONG_RATE , ROUND(REAL_GYO/CNT,2) AS REAL_GYO_RATE , ROUND(HIGH_JONG/CNT,2) AS HIGH_JONG_RATE , ROUND(HIGH_GYO/CNT,2) AS HIGH_GYO_RATE , IPSY_YY FROM IPSY_CTE 
+2020-07-03 09:07:33.024 DEBUG [19892:http-nio-48080-exec-6] k.a.j.d.a.ipsy.mapper.IpsyMapper.readList          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: 2018(String)
+2020-07-03 09:07:33.024 DEBUG [19892:http-nio-48080-exec-4] k.a.j.d.a.ipsy.mapper.IpsyMapper.readChartList     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readChartList */ WITH IPSY_CTE AS ( SELECT CASE WHEN IPSY_GUBUN_NAME LIKE '정시%' THEN '정시' WHEN IPSY_GUBUN_NAME = '수시(학생부종합)' THEN '학생부종합' WHEN IPSY_GUBUN_NAME ='수시(학생부교과)' THEN '학생부교과' END IPSY_GUBUN_NAME , IPSY_YY , IFNULL(IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/ , IFNULL(IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/ , IFNULL(IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/ FROM DW_IPSY_ACCEPTANCE_RATE WHERE 1=1 AND (IPSY_GUBUN_NAME LIKE '정시%' OR IPSY_GUBUN_NAME IN ('수시(학생부종합)','수시(학생부교과)')) GROUP BY CASE WHEN IPSY_GUBUN_NAME LIKE '정시%' THEN '정시' WHEN IPSY_GUBUN_NAME = '수시(학생부종합)' THEN '학생부종합' WHEN IPSY_GUBUN_NAME ='수시(학생부교과)' THEN '학생부교과' END, IPSY_YY ) SELECT A.IPSY_YY, A.IPSY_GUBUN_NAME , IFNULL(B.IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/ , IFNULL(B.IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/ , IFNULL(B.IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/ FROM ( SELECT * FROM ( SELECT '정시' AS IPSY_GUBUN_NAME UNION ALL SELECT '학생부종합' AS IPSY_GUBUN_NAME UNION ALL SELECT '학생부교과' AS IPSY_GUBUN_NAME ) T1, ( SELECT DATE_FORMAT(NOW(),'%Y') -4 IPSY_YY UNION ALL SELECT DATE_FORMAT(NOW(),'%Y') -3 IPSY_YY UNION ALL SELECT DATE_FORMAT(NOW(),'%Y') -2 IPSY_YY UNION ALL SELECT DATE_FORMAT(NOW(),'%Y') -1 IPSY_YY UNION ALL SELECT DATE_FORMAT(NOW(),'%Y') IPSY_YY ) T2 ) A LEFT JOIN IPSY_CTE B ON B.IPSY_GUBUN_NAME = A.IPSY_GUBUN_NAME AND B.IPSY_YY = A.IPSY_YY ORDER BY IPSY_YY 
+2020-07-03 09:07:33.024 DEBUG [19892:http-nio-48080-exec-4] k.a.j.d.a.ipsy.mapper.IpsyMapper.readChartList     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: 
+2020-07-03 09:07:33.033 INFO  [19892:http-nio-48080-exec-4] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readChartList */  
+
+            WITH IPSY_CTE AS (
+                SELECT CASE WHEN IPSY_GUBUN_NAME LIKE '정시%' THEN '정시'
+                            WHEN IPSY_GUBUN_NAME = '수시(학생부종합)' THEN '학생부종합'
+                            WHEN IPSY_GUBUN_NAME ='수시(학생부교과)' THEN '학생부교과'
+                    END IPSY_GUBUN_NAME
+                    , IPSY_YY
+                    , IFNULL(IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/
+                    , IFNULL(IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/
+                    , IFNULL(IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/
+                FROM DW_IPSY_ACCEPTANCE_RATE
+                WHERE 1=1
+                AND (IPSY_GUBUN_NAME LIKE '정시%' OR IPSY_GUBUN_NAME IN ('수시(학생부종합)','수시(학생부교과)'))
+                GROUP BY CASE WHEN IPSY_GUBUN_NAME LIKE '정시%' THEN '정시'
+                            WHEN IPSY_GUBUN_NAME = '수시(학생부종합)' THEN '학생부종합'
+                            WHEN IPSY_GUBUN_NAME ='수시(학생부교과)' THEN '학생부교과'
+                        END, IPSY_YY
+            )
+            SELECT A.IPSY_YY, A.IPSY_GUBUN_NAME
+                 , IFNULL(B.IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/
+                 , IFNULL(B.IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/
+                 , IFNULL(B.IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/
+            FROM (
+                    SELECT *
+                    FROM (
+                        SELECT '정시' AS IPSY_GUBUN_NAME
+                        UNION ALL
+                        SELECT '학생부종합' AS IPSY_GUBUN_NAME
+                        UNION ALL
+                        SELECT '학생부교과' AS IPSY_GUBUN_NAME
+                    ) T1, (
+                        SELECT DATE_FORMAT(NOW(),'%Y') -4 IPSY_YY
+                        UNION ALL
+                        SELECT DATE_FORMAT(NOW(),'%Y') -3 IPSY_YY
+                        UNION ALL
+                        SELECT DATE_FORMAT(NOW(),'%Y') -2 IPSY_YY
+                        UNION ALL
+                        SELECT DATE_FORMAT(NOW(),'%Y') -1 IPSY_YY
+                        UNION ALL
+                        SELECT DATE_FORMAT(NOW(),'%Y') IPSY_YY
+                    ) T2
+                ) A
+            LEFT JOIN IPSY_CTE B ON B.IPSY_GUBUN_NAME = A.IPSY_GUBUN_NAME AND B.IPSY_YY = A.IPSY_YY
+            ORDER BY IPSY_YY
+ {executed in 9 msec}
+2020-07-03 09:07:33.034 DEBUG [19892:http-nio-48080-exec-4] k.a.j.d.a.ipsy.mapper.IpsyMapper.readChartList     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 15
+2020-07-03 09:07:33.036 INFO  [19892:http-nio-48080-exec-6] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readList */  
+
+            WITH IPSY_CTE AS (
+                SELECT IPSY_HAKKWA1_NAME
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_ACCP_RATE ELSE 0 END) ACCP_JONG
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_ACCP_RATE ELSE 0 END) ACCP_GYO
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_MIN_ACCP_RATE ELSE 0 END) MIN_JONG
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_MIN_ACCP_RATE ELSE 0 END) MIN_GYO
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_REAL_ACCP_RATE ELSE 0 END) REAL_JONG
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_REAL_ACCP_RATE ELSE 0 END) REAL_GYO
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_HIGH_100_AVG ELSE 0 END) HIGH_JONG
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_HIGH_100_AVG ELSE 0 END) HIGH_GYO
+                , COUNT(*) CNT
+                , COUNT(*) OVER() CNT_ALL
+                , DATE_FORMAT(NOW(),'%Y') IPSY_YY
+                FROM ( SELECT IPSY_HAKKWA1_NAME
+                            , CASE WHEN IPSY_JUNHYUNG_NAME LIKE '학생부교과%' THEN '학생부교과'
+                                   WHEN IPSY_JUNHYUNG_NAME LIKE '학생부종합%' THEN '학생부종합'
+                                   WHEN IPSY_JUNHYUNG_NAME LIKE '정시%' THEN '정시'
+                                   ELSE IPSY_JUNHYUNG_NAME
+                                   END IPSY_JUNHYUNG_NAME
+                            , IFNULL(IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/
+                            , IFNULL(IPSY_GYULSY_RATE,0) IPSY_GYULSY_RATE /*결시율*/
+                            , IFNULL(IPSY_YESANG_HAP,0) IPSY_YESANG_HAP /*예상합격순위*/
+                            , IFNULL(IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/
+                            , IFNULL(IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/
+                            , IFNULL(IPSY_HIGH_100_AVG,0) IPSY_HIGH_100_AVG /*평균 내신등급*/
+                        FROM DW_IPSY_ACCEPTANCE_RATE
+                        WHERE 1=1
+                        AND (IPSY_JUNHYUNG_NAME LIKE '학생부교과%' OR IPSY_JUNHYUNG_NAME LIKE '학생부종합%' OR IPSY_JUNHYUNG_NAME LIKE '정시%')
+
+                        AND IPSY_YY = '2018'
+
+                ) T
+                GROUP BY IPSY_HAKKWA1_NAME
+            )
+            SELECT '전체' header
+                , ROUND(SUM(ACCP_JONG)/CNT_ALL,2) AS ACCP_JONG
+                , ROUND(SUM(ACCP_GYO)/CNT_ALL,2) AS ACCP_GYO
+                , ROUND(SUM(MIN_JONG)/CNT_ALL,2) AS MIN_JONG
+                , ROUND(SUM(MIN_GYO)/CNT_ALL,2) AS MIN_GYO
+                , ROUND(SUM(REAL_JONG)/CNT_ALL,2) AS REAL_JONG
+                , ROUND(SUM(REAL_GYO)/CNT_ALL,2) AS REAL_GYO
+                , ROUND(SUM(HIGH_JONG)/CNT_ALL,2) AS HIGH_JONG
+                , ROUND(SUM(HIGH_GYO)/CNT_ALL,2) AS HIGH_GYO
+                , IPSY_YY
+            FROM (SELECT * FROM IPSY_CTE) T
+            UNION ALL
+            SELECT IPSY_HAKKWA1_NAME
+                 , ROUND(ACCP_JONG/CNT,2) AS ACCP_JONG_RATE
+                 , ROUND(ACCP_GYO/CNT,2) AS ACCP_GYO_RATE
+                 , ROUND(MIN_JONG/CNT,2) AS MIN_JONG_RATE
+                 , ROUND(MIN_GYO/CNT,2) AS MIN_GYO_RATE
+                 , ROUND(REAL_JONG/CNT,2) AS REAL_JONG_RATE
+                 , ROUND(REAL_GYO/CNT,2) AS REAL_GYO_RATE
+                 , ROUND(HIGH_JONG/CNT,2) AS HIGH_JONG_RATE
+                 , ROUND(HIGH_GYO/CNT,2) AS HIGH_GYO_RATE
+                 , IPSY_YY
+            FROM IPSY_CTE
+ {executed in 12 msec}
+2020-07-03 09:07:33.037 DEBUG [19892:http-nio-48080-exec-6] k.a.j.d.a.ipsy.mapper.IpsyMapper.readList          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 58
+2020-07-03 09:07:37.873 DEBUG [19892:http-nio-48080-exec-8] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:07:37.874 INFO  [19892:http-nio-48080-exec-8] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readChartList
+2020-07-03 09:07:37.874 DEBUG [19892:http-nio-48080-exec-3] k.a.j.s.i.f.c.persistence.dao.helper.SqlHelperUtil [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] DatabaseMetaData.getDatabaseProductName() ==> MariaDB
+2020-07-03 09:07:37.874 INFO  [19892:http-nio-48080-exec-3] k.a.j.s.i.f.m.p.dao.interceptor.BaseSqlInterceptor [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] === SQL Mapper ==> kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readList
+2020-07-03 09:07:37.874 DEBUG [19892:http-nio-48080-exec-8] k.a.j.d.a.ipsy.mapper.IpsyMapper.readChartList     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readChartList */ WITH IPSY_CTE AS ( SELECT CASE WHEN IPSY_GUBUN_NAME LIKE '정시%' THEN '정시' WHEN IPSY_GUBUN_NAME = '수시(학생부종합)' THEN '학생부종합' WHEN IPSY_GUBUN_NAME ='수시(학생부교과)' THEN '학생부교과' END IPSY_GUBUN_NAME , IPSY_YY , IFNULL(IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/ , IFNULL(IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/ , IFNULL(IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/ FROM DW_IPSY_ACCEPTANCE_RATE WHERE 1=1 AND (IPSY_GUBUN_NAME LIKE '정시%' OR IPSY_GUBUN_NAME IN ('수시(학생부종합)','수시(학생부교과)')) GROUP BY CASE WHEN IPSY_GUBUN_NAME LIKE '정시%' THEN '정시' WHEN IPSY_GUBUN_NAME = '수시(학생부종합)' THEN '학생부종합' WHEN IPSY_GUBUN_NAME ='수시(학생부교과)' THEN '학생부교과' END, IPSY_YY ) SELECT A.IPSY_YY, A.IPSY_GUBUN_NAME , IFNULL(B.IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/ , IFNULL(B.IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/ , IFNULL(B.IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/ FROM ( SELECT * FROM ( SELECT '정시' AS IPSY_GUBUN_NAME UNION ALL SELECT '학생부종합' AS IPSY_GUBUN_NAME UNION ALL SELECT '학생부교과' AS IPSY_GUBUN_NAME ) T1, ( SELECT DATE_FORMAT(NOW(),'%Y') -4 IPSY_YY UNION ALL SELECT DATE_FORMAT(NOW(),'%Y') -3 IPSY_YY UNION ALL SELECT DATE_FORMAT(NOW(),'%Y') -2 IPSY_YY UNION ALL SELECT DATE_FORMAT(NOW(),'%Y') -1 IPSY_YY UNION ALL SELECT DATE_FORMAT(NOW(),'%Y') IPSY_YY ) T2 ) A LEFT JOIN IPSY_CTE B ON B.IPSY_GUBUN_NAME = A.IPSY_GUBUN_NAME AND B.IPSY_YY = A.IPSY_YY ORDER BY IPSY_YY 
+2020-07-03 09:07:37.874 DEBUG [19892:http-nio-48080-exec-3] k.a.j.d.a.ipsy.mapper.IpsyMapper.readList          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==>  Preparing: /* kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readList */ WITH IPSY_CTE AS ( SELECT IPSY_HAKKWA1_NAME , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_ACCP_RATE ELSE 0 END) ACCP_JONG , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_ACCP_RATE ELSE 0 END) ACCP_GYO , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_MIN_ACCP_RATE ELSE 0 END) MIN_JONG , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_MIN_ACCP_RATE ELSE 0 END) MIN_GYO , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_REAL_ACCP_RATE ELSE 0 END) REAL_JONG , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_REAL_ACCP_RATE ELSE 0 END) REAL_GYO , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_HIGH_100_AVG ELSE 0 END) HIGH_JONG , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_HIGH_100_AVG ELSE 0 END) HIGH_GYO , COUNT(*) CNT , COUNT(*) OVER() CNT_ALL , DATE_FORMAT(NOW(),'%Y') IPSY_YY FROM ( SELECT IPSY_HAKKWA1_NAME , CASE WHEN IPSY_JUNHYUNG_NAME LIKE '학생부교과%' THEN '학생부교과' WHEN IPSY_JUNHYUNG_NAME LIKE '학생부종합%' THEN '학생부종합' WHEN IPSY_JUNHYUNG_NAME LIKE '정시%' THEN '정시' ELSE IPSY_JUNHYUNG_NAME END IPSY_JUNHYUNG_NAME , IFNULL(IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/ , IFNULL(IPSY_GYULSY_RATE,0) IPSY_GYULSY_RATE /*결시율*/ , IFNULL(IPSY_YESANG_HAP,0) IPSY_YESANG_HAP /*예상합격순위*/ , IFNULL(IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/ , IFNULL(IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/ , IFNULL(IPSY_HIGH_100_AVG,0) IPSY_HIGH_100_AVG /*평균 내신등급*/ FROM DW_IPSY_ACCEPTANCE_RATE WHERE 1=1 AND (IPSY_JUNHYUNG_NAME LIKE '학생부교과%' OR IPSY_JUNHYUNG_NAME LIKE '학생부종합%' OR IPSY_JUNHYUNG_NAME LIKE '정시%') AND IPSY_YY = ? ) T GROUP BY IPSY_HAKKWA1_NAME ) SELECT '전체' header , ROUND(SUM(ACCP_JONG)/CNT_ALL,2) AS ACCP_JONG , ROUND(SUM(ACCP_GYO)/CNT_ALL,2) AS ACCP_GYO , ROUND(SUM(MIN_JONG)/CNT_ALL,2) AS MIN_JONG , ROUND(SUM(MIN_GYO)/CNT_ALL,2) AS MIN_GYO , ROUND(SUM(REAL_JONG)/CNT_ALL,2) AS REAL_JONG , ROUND(SUM(REAL_GYO)/CNT_ALL,2) AS REAL_GYO , ROUND(SUM(HIGH_JONG)/CNT_ALL,2) AS HIGH_JONG , ROUND(SUM(HIGH_GYO)/CNT_ALL,2) AS HIGH_GYO , IPSY_YY FROM (SELECT * FROM IPSY_CTE) T UNION ALL SELECT IPSY_HAKKWA1_NAME , ROUND(ACCP_JONG/CNT,2) AS ACCP_JONG_RATE , ROUND(ACCP_GYO/CNT,2) AS ACCP_GYO_RATE , ROUND(MIN_JONG/CNT,2) AS MIN_JONG_RATE , ROUND(MIN_GYO/CNT,2) AS MIN_GYO_RATE , ROUND(REAL_JONG/CNT,2) AS REAL_JONG_RATE , ROUND(REAL_GYO/CNT,2) AS REAL_GYO_RATE , ROUND(HIGH_JONG/CNT,2) AS HIGH_JONG_RATE , ROUND(HIGH_GYO/CNT,2) AS HIGH_GYO_RATE , IPSY_YY FROM IPSY_CTE 
+2020-07-03 09:07:37.874 DEBUG [19892:http-nio-48080-exec-8] k.a.j.d.a.ipsy.mapper.IpsyMapper.readChartList     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: 
+2020-07-03 09:07:37.875 DEBUG [19892:http-nio-48080-exec-3] k.a.j.d.a.ipsy.mapper.IpsyMapper.readList          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] ==> Parameters: 2016(String)
+2020-07-03 09:07:37.884 INFO  [19892:http-nio-48080-exec-8] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readChartList */  
+
+            WITH IPSY_CTE AS (
+                SELECT CASE WHEN IPSY_GUBUN_NAME LIKE '정시%' THEN '정시'
+                            WHEN IPSY_GUBUN_NAME = '수시(학생부종합)' THEN '학생부종합'
+                            WHEN IPSY_GUBUN_NAME ='수시(학생부교과)' THEN '학생부교과'
+                    END IPSY_GUBUN_NAME
+                    , IPSY_YY
+                    , IFNULL(IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/
+                    , IFNULL(IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/
+                    , IFNULL(IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/
+                FROM DW_IPSY_ACCEPTANCE_RATE
+                WHERE 1=1
+                AND (IPSY_GUBUN_NAME LIKE '정시%' OR IPSY_GUBUN_NAME IN ('수시(학생부종합)','수시(학생부교과)'))
+                GROUP BY CASE WHEN IPSY_GUBUN_NAME LIKE '정시%' THEN '정시'
+                            WHEN IPSY_GUBUN_NAME = '수시(학생부종합)' THEN '학생부종합'
+                            WHEN IPSY_GUBUN_NAME ='수시(학생부교과)' THEN '학생부교과'
+                        END, IPSY_YY
+            )
+            SELECT A.IPSY_YY, A.IPSY_GUBUN_NAME
+                 , IFNULL(B.IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/
+                 , IFNULL(B.IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/
+                 , IFNULL(B.IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/
+            FROM (
+                    SELECT *
+                    FROM (
+                        SELECT '정시' AS IPSY_GUBUN_NAME
+                        UNION ALL
+                        SELECT '학생부종합' AS IPSY_GUBUN_NAME
+                        UNION ALL
+                        SELECT '학생부교과' AS IPSY_GUBUN_NAME
+                    ) T1, (
+                        SELECT DATE_FORMAT(NOW(),'%Y') -4 IPSY_YY
+                        UNION ALL
+                        SELECT DATE_FORMAT(NOW(),'%Y') -3 IPSY_YY
+                        UNION ALL
+                        SELECT DATE_FORMAT(NOW(),'%Y') -2 IPSY_YY
+                        UNION ALL
+                        SELECT DATE_FORMAT(NOW(),'%Y') -1 IPSY_YY
+                        UNION ALL
+                        SELECT DATE_FORMAT(NOW(),'%Y') IPSY_YY
+                    ) T2
+                ) A
+            LEFT JOIN IPSY_CTE B ON B.IPSY_GUBUN_NAME = A.IPSY_GUBUN_NAME AND B.IPSY_YY = A.IPSY_YY
+            ORDER BY IPSY_YY
+ {executed in 8 msec}
+2020-07-03 09:07:37.884 DEBUG [19892:http-nio-48080-exec-8] k.a.j.d.a.ipsy.mapper.IpsyMapper.readChartList     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 15
+2020-07-03 09:07:37.885 INFO  [19892:http-nio-48080-exec-3] jdbc.sqltiming                                     [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] /* kr.ac.jj.dashboard.application.ipsy.mapper.IpsyMapper.readList */  
+
+            WITH IPSY_CTE AS (
+                SELECT IPSY_HAKKWA1_NAME
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_ACCP_RATE ELSE 0 END) ACCP_JONG
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_ACCP_RATE ELSE 0 END) ACCP_GYO
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_MIN_ACCP_RATE ELSE 0 END) MIN_JONG
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_MIN_ACCP_RATE ELSE 0 END) MIN_GYO
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_REAL_ACCP_RATE ELSE 0 END) REAL_JONG
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_REAL_ACCP_RATE ELSE 0 END) REAL_GYO
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부종합' THEN IPSY_HIGH_100_AVG ELSE 0 END) HIGH_JONG
+                , SUM(CASE IPSY_JUNHYUNG_NAME WHEN '학생부교과' THEN IPSY_HIGH_100_AVG ELSE 0 END) HIGH_GYO
+                , COUNT(*) CNT
+                , COUNT(*) OVER() CNT_ALL
+                , DATE_FORMAT(NOW(),'%Y') IPSY_YY
+                FROM ( SELECT IPSY_HAKKWA1_NAME
+                            , CASE WHEN IPSY_JUNHYUNG_NAME LIKE '학생부교과%' THEN '학생부교과'
+                                   WHEN IPSY_JUNHYUNG_NAME LIKE '학생부종합%' THEN '학생부종합'
+                                   WHEN IPSY_JUNHYUNG_NAME LIKE '정시%' THEN '정시'
+                                   ELSE IPSY_JUNHYUNG_NAME
+                                   END IPSY_JUNHYUNG_NAME
+                            , IFNULL(IPSY_ACCP_RATE,0) IPSY_ACCP_RATE /*일반 경쟁률*/
+                            , IFNULL(IPSY_GYULSY_RATE,0) IPSY_GYULSY_RATE /*결시율*/
+                            , IFNULL(IPSY_YESANG_HAP,0) IPSY_YESANG_HAP /*예상합격순위*/
+                            , IFNULL(IPSY_MIN_ACCP_RATE,0) IPSY_MIN_ACCP_RATE /*최소요구경쟁률*/
+                            , IFNULL(IPSY_REAL_ACCP_RATE,0) IPSY_REAL_ACCP_RATE /*실질경쟁률*/
+                            , IFNULL(IPSY_HIGH_100_AVG,0) IPSY_HIGH_100_AVG /*평균 내신등급*/
+                        FROM DW_IPSY_ACCEPTANCE_RATE
+                        WHERE 1=1
+                        AND (IPSY_JUNHYUNG_NAME LIKE '학생부교과%' OR IPSY_JUNHYUNG_NAME LIKE '학생부종합%' OR IPSY_JUNHYUNG_NAME LIKE '정시%')
+
+                        AND IPSY_YY = '2016'
+
+                ) T
+                GROUP BY IPSY_HAKKWA1_NAME
+            )
+            SELECT '전체' header
+                , ROUND(SUM(ACCP_JONG)/CNT_ALL,2) AS ACCP_JONG
+                , ROUND(SUM(ACCP_GYO)/CNT_ALL,2) AS ACCP_GYO
+                , ROUND(SUM(MIN_JONG)/CNT_ALL,2) AS MIN_JONG
+                , ROUND(SUM(MIN_GYO)/CNT_ALL,2) AS MIN_GYO
+                , ROUND(SUM(REAL_JONG)/CNT_ALL,2) AS REAL_JONG
+                , ROUND(SUM(REAL_GYO)/CNT_ALL,2) AS REAL_GYO
+                , ROUND(SUM(HIGH_JONG)/CNT_ALL,2) AS HIGH_JONG
+                , ROUND(SUM(HIGH_GYO)/CNT_ALL,2) AS HIGH_GYO
+                , IPSY_YY
+            FROM (SELECT * FROM IPSY_CTE) T
+            UNION ALL
+            SELECT IPSY_HAKKWA1_NAME
+                 , ROUND(ACCP_JONG/CNT,2) AS ACCP_JONG_RATE
+                 , ROUND(ACCP_GYO/CNT,2) AS ACCP_GYO_RATE
+                 , ROUND(MIN_JONG/CNT,2) AS MIN_JONG_RATE
+                 , ROUND(MIN_GYO/CNT,2) AS MIN_GYO_RATE
+                 , ROUND(REAL_JONG/CNT,2) AS REAL_JONG_RATE
+                 , ROUND(REAL_GYO/CNT,2) AS REAL_GYO_RATE
+                 , ROUND(HIGH_JONG/CNT,2) AS HIGH_JONG_RATE
+                 , ROUND(HIGH_GYO/CNT,2) AS HIGH_GYO_RATE
+                 , IPSY_YY
+            FROM IPSY_CTE
+ {executed in 10 msec}
+2020-07-03 09:07:37.886 DEBUG [19892:http-nio-48080-exec-3] k.a.j.d.a.ipsy.mapper.IpsyMapper.readList          [75S19VAJSC5132510S-0:0:0:0:0:0:0:1] <==      Total: 60

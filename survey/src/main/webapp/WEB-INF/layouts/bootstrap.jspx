@@ -1,0 +1,270 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:jsp="http://java.sun.com/JSP/Page" 
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"  
+	  xmlns:tiles="http://tiles.apache.org/tags-tiles" 
+	  xmlns:spring="http://www.springframework.org/tags" 
+	  xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" >  
+	
+	<jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
+	<jsp:output omit-xml-declaration="yes" />
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />  
+	<jsp:directive.page pageEncoding="UTF-8" /> 
+			
+<head>
+	<meta charset="utf-8" />
+	<title>:: 전주대학교 설문조사 관리서비스 ::</title>
+	
+	<meta name="description" content="Dashboard" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<!--Basic Styles-->
+	<link href="${pageContext.request.contextPath}/wcom/assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/wcom/assets/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/wcom/assets/css/weather-icons.min.css" rel="stylesheet" />
+	
+	<!--Fonts-->
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300" rel="stylesheet" type="text/css" />
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css' />
+	
+	<!--Beyond styles-->
+	<link href="${pageContext.request.contextPath}/wcom/assets/css/beyond.min.css" rel="stylesheet" type="text/css" />
+	<link href="${pageContext.request.contextPath}/wcom/assets/css/demo.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/wcom/assets/css/typicons.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/wcom/assets/css/animate.min.css" rel="stylesheet" />
+	<link id="skin-link" href="" rel="stylesheet" type="text/css" />
+	
+	<!--Page Related styles-->
+	<link href="${pageContext.request.contextPath}/wcom/assets/css/dataTables.bootstrap.css" rel="stylesheet" />
+	
+	
+	<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family: '맑은 고딕', '굴림', '돋움', 'gulim', 'dotum', 'Arial', 'Helvetica', 'sans-serif';
+		}
+		body {
+			font-family: '맑은 고딕', '굴림', '돋움', 'gulim', 'dotum', 'Arial', 'Helvetica', 'sans-serif';
+			padding-right:0 !important;
+		}
+		.widget {
+			margin: 0 0 20px 0;
+		}
+		.widget-header>.widget-caption {
+			font-weight: 600 !important;
+		}
+		hr {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		.tooltip>.tooltip-inner {
+			font-size: 12px !important;
+			font-family: '맑은 고딕', '굴림', '돋움', 'gulim', 'dotum', 'Arial', 'Helvetica', 'sans-serif';
+		}
+		.widget-header.header-large>.widget-custom-buttons {
+			padding-right: 50px;
+			position: absolute;
+			width: 300px;
+			left: 1000px;
+			text-align: right;
+		}
+		.badge {
+			font-weight: bold;
+  		}
+	</style>
+	
+	<script src="${pageContext.request.contextPath}/wcom/assets/js/skins.min.js" type="text/javascript"><!-- required for FF3 and Opera --></script>
+	
+	<!-- Get the user local from the page context (it was set by Spring MVC's locale resolver) -->
+	<c:set var="userLocale">
+		<c:set var="plocale">${pageContext.response.locale}</c:set>
+		<c:out value="${fn:replace(plocale, '_', '-')}" default="en" />
+	</c:set>
+	
+	<!--Basic Scripts-->
+	<script src="${pageContext.request.contextPath}/wcom/assets/js/jquery-1.11.2.js" type="text/javascript"><!-- required for FF3 and Opera --></script>
+	<script src="${pageContext.request.contextPath}/wcom/assets/js/jquery-ui-1.11.3.js" type="text/javascript"><!-- required for FF3 and Opera --></script>
+	<script src="${pageContext.request.contextPath}/wcom/assets/js/bootstrap.min.js" type="text/javascript"><!-- required for FF3 and Opera --></script>
+	<script src="${pageContext.request.contextPath}/wcom/assets/js/slimscroll/jquery.slimscroll.min.js" type="text/javascript"><!-- required for FF3 and Opera --></script>
+	<script src="${pageContext.request.contextPath}/wcom/assets/js/jquery.scrollstop.js"><!-- required for FF3 and Opera --></script>
+	
+	
+	<!--Page Related Scripts-->
+	<script src="${pageContext.request.contextPath}/wcom/assets/js/bootbox/bootbox.js"><!-- required for FF3 and Opera --></script>
+	<script src="${pageContext.request.contextPath}/wcom/assets/js/editors/summernote2/summernote.js"><!-- required for FF3 and Opera --></script>
+	<script src="${pageContext.request.contextPath}/wcom/assets/js/editors/summernote2/summernote-ext-fontstyle.js"><!-- required for FF3 and Opera --></script>
+	<script src="${pageContext.request.contextPath}/wcom/assets/js/editors/summernote2/summernote-ko-KR.js"><!-- required for FF3 and Opera --></script>
+	<script src="${pageContext.request.contextPath}/wcom/assets/js/datetime/bootstrap-datepicker.js"><!-- required for FF3 and Opera --></script>
+    <script src="${pageContext.request.contextPath}/wcom/assets/js/datetime/bootstrap-timepicker.js"><!-- required for FF3 and Opera --></script>
+
+</head>
+<body>
+	<div class="loading-container">
+		<div class="loader"><!----></div>
+	</div>
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner" style="background-color: #438eb9;">
+			<div class="navbar-container">
+				<div class="navbar-header pull-left" style="margin: 0 0 0 6px;">
+					<c:url var="rootUrl" value="/" />
+					<a href="${rootUrl}" class="navbar-brand">
+						<img alt="전주대학교 로고" src="${pageContext.request.contextPath}/jj/images/logo.png" />
+					</a>
+				</div>
+				<div class="sidebar-collapse" id="sidebar-collapse" style="display: none;">
+                    <i class="collapse-icon fa fa-bars"><!----></i>
+                </div>
+				<div class="navbar-header pull-right">
+					<div class="navbar-account">
+						
+						<tiles:importAttribute name="activeTab"/>
+						
+						<ul class="account-area">
+							<li class="${fn:startsWith(activeTab, 'survey_') ? 'open' : ''}">
+								<spring:url var="settingsSurveyDefinitionsUrl" value="/settings/surveyDefinitions"/>
+								<a href="${settingsSurveyDefinitionsUrl}" class="login-area">
+									<section>
+										<h2><span class="profile"><span>설문조사</span></span></h2>
+									</section>
+								</a>
+							</li>
+							<li class="${fn:startsWith(activeTab, 'department') ? 'open' : ''}">
+								<spring:url var="securityDepartmentsUrl" value="/security/departments?page=1&amp;size=10"/>
+								<a href="${securityDepartmentsUrl}" class="login-area">
+									<section>
+										<h2><span class="profile"><span>설문분류</span></span></h2>
+									</section>
+								</a>
+							</li>
+							<li class="${fn:startsWith(activeTab, 'dataset_') ? 'open' : ''}">
+								<spring:url var="settingsDatasetsUrl" value="/settings/datasets?page=1&amp;size=10"/>
+								<a href="${settingsDatasetsUrl}" class="login-area">
+									<section>
+										<h2><span class="profile"><span>데이터집합</span></span></h2>
+									</section>
+								</a>
+							</li>
+							<li class="${fn:startsWith(activeTab, 'mask_') ? 'open' : ''}">
+								<spring:url var="adminMasksUrl" value="/admin/masks?page=1&amp;size=10"/>
+								<a href="${adminMasksUrl}" class="login-area">
+									<section>
+										<h2><span class="profile"><span>마스크</span></span></h2>
+									</section>
+								</a>
+							</li>
+							<li class="${fn:startsWith(activeTab, 'user_') ? 'open' : ''}">
+								<spring:url var="mngUsersUrl" value="/mng/users"/>
+								<a href="${mngUsersUrl}" class="login-area">
+									<section>
+										<h2><span class="profile"><span>사용자</span></span></h2>
+									</section>
+								</a>
+							</li>
+							<li class="${fn:startsWith(activeTab, 'stat_') ? 'open' : ''}">
+								<spring:url var="statisticsUrl" value="/statistics"/>
+								<a href="${statisticsUrl}" class="login-area">
+									<section>
+										<h2><span class="profile"><span>설문결과</span></span></h2>
+									</section>
+								</a>
+							</li>
+							<li>
+								<spring:url var="resourcesLogoutUrl" value="/resources/logout"/>
+								<a href="${resourcesLogoutUrl}" class="login-area">
+									<section>
+										<h2><span class="profile"><span>로그아웃</span></span></h2>
+									</section>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="main-container container-fluid" style="width: 1300px;">
+		<div class="page-container">
+			<div class="page-sidebar sidebar-fixed" id="sidebar" style="display: none;">
+			
+				<ul class="nav sidebar-menu">
+					 <li class="${fn:startsWith(activeTab, 'survey_') ? 'active open' : ''}">
+						<a class="menu-dropdown">
+							<i class="menu-icon glyphicon glyphicon-edit"><!----></i>
+							<span class="menu-text"> 설문조사 </span>
+							<i class="menu-expand"><!----></i>
+						</a>
+						<ul class="submenu" style="display: block;">
+							<li class="${activeTab == 'survey_list' ? 'active' : ''}">
+								<a href="${pageContext.request.contextPath}/settings/surveyDefinitions"><span class="menu-text">설문조사 목록</span></a>
+							</li>
+							<li class="${activeTab == 'survey_create' ? 'active' : ''}">
+								<a href="${pageContext.request.contextPath}/settings/surveyDefinitions/0?create"><span class="menu-text">설문조사 생성</span></a>
+							</li>
+						</ul>
+					</li>
+					<li class="${fn:startsWith(activeTab, 'dataset_') ? 'active' : ''}">
+						<a href="${pageContext.request.contextPath}/settings/datasets?page=1&amp;size=10">
+							<i class="menu-icon glyphicon glyphicon-tasks"><!----></i>
+							<span class="menu-text"> 데이터집합</span>
+						</a>
+					</li>
+					<li class="${fn:startsWith(activeTab, 'mask_') ? 'active' : ''}">
+						<a href="${pageContext.request.contextPath}/admin/masks?page=1&amp;size=10">
+							<i class="menu-icon glyphicon glyphicon-filter"><!----></i>
+							<span class="menu-text"> 마스크</span>
+						</a>
+					</li>
+					<!--
+						<li class="${fn:startsWith(activeTab, 'user_') ? 'active open' : ''}">
+							<a class="menu-dropdown">
+								<i class="menu-icon glyphicon glyphicon-user"></i>
+								<span class="menu-text"> 사용자</span>
+								<i class="menu-expand"></i>
+							</a>
+							<ul class="submenu" style="display: block;">
+								<li class="${activeTab == 'user_list' ? 'active' : ''}">
+									<a href="${pageContext.request.contextPath}/security/users/external?page=1&amp;size=10"><span class="menu-text">사용자 목록</span></a>
+								</li>
+								<li class="${activeTab == 'user_create' ? 'active' : ''}">
+									<a href="${pageContext.request.contextPath}/security/users/?ecreate"><span class="menu-text">사용자 생성</span></a>
+								</li>
+							</ul>
+						</li>
+					-->
+					<li class="${fn:startsWith(activeTab, 'stat_') ? 'active' : ''}">
+						<a href="${pageContext.request.contextPath}/statistics">
+							<i class="menu-icon glyphicon glyphicon-stats"><!----></i>
+							<span class="menu-text"> 통계</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="page-content" style="margin-left: 0;">
+			   	<tiles:insertAttribute name="body"/>
+			</div>
+		</div>
+		<div class="page-container">
+			<div class="row">
+				<div class="col-lg-6 col-sm-6 col-xs-6">
+					<p class="text-muted" style="margin: 0 20px 20px 20px;">Copyright © 2019 ARGONET. All rights reserved.</p>
+				</div>
+				<div class="col-lg-6 col-sm-6 col-xs-6 text-right">
+					<p class="text-muted" style="margin: 0 20px 20px 20px;">
+						<span class="glyphicon glyphicon-phone-alt"><!----></span>
+						<span style="margin-left: 5px; margin-right: 15px;">042) 864-1436</span>
+						<span class="glyphicon glyphicon-envelope"><!----></span>
+						<span style="margin-left: 5px;">info@argonet.co.kr</span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--Beyond Scripts-->
+	<script src="${pageContext.request.contextPath}/wcom/assets/js/beyond.js" type="text/javascript"><!-- required for FF3 and Opera --></script>
+	
+</body>
+</html>

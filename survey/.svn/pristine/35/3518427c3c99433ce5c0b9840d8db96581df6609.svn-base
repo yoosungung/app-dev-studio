@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jd.survey.pub.mapper.SurveyMapper">
+
+	<select id="getSurvey" resultType="com.jd.survey.pub.domain.Survey">
+		/* 설문조사 조회 */
+		SELECT survey_definition_id,			id AS surveyId,		ip_address,		login,		email,				first_name,				middle_name,
+				last_name,						status,				creation_date,		last_update_date,	submission_date,	type_name						
+		FROM survey
+		WHERE survey_definition_id = #{surveyDefinitionId}
+		AND login = #{login} 
+	</select>
+	
+	<select id="getSurveyCount" resultType="int">
+		/* 설문조사 건수 조회 */
+		SELECT COUNT(*)						
+		FROM survey
+		WHERE survey_definition_id = #{surveyDefinitionId}
+		AND login = #{login} 
+	</select>
+	
+	<update id="modSurveyStatus">
+		/*설문조사 수정으로 상태 변경*/
+		UPDATE survey SET
+		STATUS = 'I'
+		WHERE id = #{surveyId}
+		AND login = #{login}
+	</update>
+			
+</mapper>

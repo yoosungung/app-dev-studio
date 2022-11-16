@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 직무 관리 Mapper
+ -->
+<mapper namespace="kr.ac.jj.shared.application.admin.appmanage.dtymanage.mapper.DutyManageMapper">
+
+    <!-- 목록 조회 -->
+    <select id="selectList" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        <![CDATA[
+            SELECT TCD.DTY_ID
+                 , TCD.DTY_SE
+                 , ${$var.getCodeData("/domain.main.tbComDty/dtySe", "TCD.DTY_SE", "TCD.DTY_SE")} AS DTY_SE_NM
+                 , TCD.DTY_CODE
+                 , TCD.DTY_NM
+                 , TCD.USE_YN
+                 , ${$var.getCodeData("/common/useYn", "TCD.USE_YN", "TCD.USE_YN")} AS USE_YN_NM
+            FROM   TB_COM_DTY TCD
+            WHERE  1 = 1
+        ]]>
+
+        <!-- 직무 구분 -->
+        <if test='search != null and search.dtySe != null and search.dtySe != ""'>
+            <![CDATA[
+            AND    TCD.DTY_SE = #{search.dtySe}
+            ]]>
+        </if>
+
+        <!-- 검색어 -->
+        <if test='search != null and search.searchText != null and search.searchText != ""'>
+            <![CDATA[
+            AND    (UPPER(TCD.DTY_CODE) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%') OR
+                    UPPER(TCD.DTY_NM) LIKE CONCAT_WS('', '%', UPPER(#{search.searchText}), '%')
+                   )
+            ]]>
+        </if>
+
+        <!-- 사용여부 -->
+        <if test='search != null and search.useYn != null'>
+            <![CDATA[
+            AND    TCD.USE_YN = #{search.useYn}
+            ]]>
+        </if>
+    </select>
+
+</mapper>

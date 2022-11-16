@@ -1,0 +1,154 @@
+@charset "utf-8";
+
+@font-face {
+    font-family: 'Nanumgothic';
+}
+
+.bbs_list th, .bbs_list td.tal {
+    text-align: left;
+}
+
+.bbs_list th, .bbs_list td.tac {
+    text-align: center;
+}
+
+.bbs_list th, .bbs_list td.tar {
+    text-align: right;
+}
+
+table.form, table.list {
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table.form th, table.form td, table.list th, table.list td, div.box {
+    border: 1px solid #dddddd;
+}
+
+table.form th {
+    background-color: #eeeeee;
+    text-align: right;
+    padding: 5px 10px 5px 5px;
+}
+
+table.list thead th {
+    background-color: #eeeeee;
+    padding: 5px;
+}
+
+table.list tbody th {
+    background-color: #f7f7f7;
+    padding: 4px;
+}
+
+table.form td, table.list td {
+    padding: 4px;
+}
+
+pre {
+    white-space: pre-wrap;
+}
+
+#footer {
+    width: 100%;
+    border-top: solid 1px #d5d5d5;
+    background: #fff;
+    height: 60px;
+    box-sizing: border-box;
+    padding: 15px;
+    font-size: 11px;
+    color: #666;
+    line-height: 1.0;
+    letter-spacing: 0;
+    margin-top: 40px;
+    text-align:left;
+}
+
+#footer ul {
+    display: block;
+    width: 1295px;
+    margin: 0 auto;
+}
+
+#footer li {
+    display: block;
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+#footer .boldtx {
+    font-weight: 600;
+    color: #333;
+}
+
+#footer .bar {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    padding: 0 3px;
+    color: #ccc;
+    text-align: center;
+}
+
+.ck.ck-content {
+    min-height: 150px;
+    margin: 0px !important;
+    padding: 3% !important;
+}
+
+.ck.ck-content ul li {
+    margin-left: 3% !important;
+    list-style: square !important;
+}
+
+.ck.ck-content ol{
+    margin-left: 3% !important;
+    list-style: unset !important;
+}
+
+.ck.ck-content ol li {
+    margin-left: 3% !important;
+    list-style: unset !important;
+}
+
+.editorcontent {
+    padding:none !important;
+/*     margin:auto !important; */
+}
+
+.editorcontent ol li {
+    margin-left:5%;
+    list-style: unset !important;
+}
+
+.editorcontent ul li {
+    margin-left:5%;
+    list-style: disc !important;
+}
+
+.editorcontent ul ul li {
+    margin-left:5%;
+    list-style: circle !important;
+}
+
+.editorcontent ul ul ul li {
+    /*     margin-left:5%!important; */
+    margin-left:5%;
+    list-style: square !important;
+}
+
+.editprop{
+    margin: auto !important;
+}
+
+
+.textbold {
+    /*     color:orange; */
+    color: black;
+    font-weight: bold;
+}
+
+.textlightblue {
+    color: hsl(233, 100%, 60%);
+}

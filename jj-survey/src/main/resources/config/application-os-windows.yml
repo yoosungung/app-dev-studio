@@ -1,0 +1,11 @@
+################################################################################
+# OS - 윈도우
+################################################################################
+config:
+  shared:
+    logs-directory: D:/app/data/jj-survey/logs
+    temp-directory: D:/app/data/jj-survey/temp
+    file:
+      repository:
+        repositories:
+          repository1: D:/app/data/jj-survey/files

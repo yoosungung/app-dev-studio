@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="page-body"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"  
+	xmlns:jsp="http://java.sun.com/JSP/Page" 
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:table="urn:jsptagdir:/WEB-INF/tags/2015/table" 
+	version="2.0">
+	
+	<jsp:directive.page contentType="text/html;charset=UTF-8"/>
+	<jsp:output omit-xml-declaration="yes"/>
+	
+	<!-- container -->
+   	<div id="container">
+   		<div class="section_wrap">
+   			<div class="progress_visual">
+				<div class="arr_tab">
+					<ul>
+						<li class="active"><a href="" class="edge">설문조사<br />(2건)</a></li>
+						<li><a href="">국가연구시설<br />장비 관리<br />실태조사</a></li>
+						<li><a href="">전담<br />운영인력<br />실태조사</a></li>
+						<li><a href="">국가대형<br />연구시설<br />실태조사</a></li>
+					</ul>
+				</div>
+				
+				<!-- 설문조사 -->
+				<div class="fade_wrap" style="display:none">
+					<div class="inner">
+						<div class="item01" style="display:block">
+							<div class="timer">
+								<p class="clock">남은시간 <strong class="f_red">09:12:23</strong></p>
+								<p class="bar">현재참여 <strong class="f_red">3,654</strong></p>
+							</div>
+							<div class="share">
+								<a href="" class="edge"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/icon_fb.png" alt="페이스북" /></a>
+								<a href=""><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/icon_twt.png" alt="트위터" /></a>
+								<a href=""><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/icon_mail.png" alt="이메일" /></a>
+							</div>
+							<img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/img_visual01.jpg" alt="2015연구장비전문자격제도에관한인식조사" />
+							<a href="" class="btn_red">투표하기</a>
+						</div>
+
+						<div class="item02" style="display:none">
+							<div class="timer">
+								<p class="clock">남은시간 <strong class="f_red">09:12:23</strong></p>
+								<p class="bar">현재참여 <strong class="f_red">3,654</strong></p>
+							</div>
+							<div class="share">
+								<a href="" class="edge"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/icon_fb.png" alt="페이스북" /></a>
+								<a href=""><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/icon_twt.png" alt="트위터" /></a>
+								<a href=""><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/icon_mail.png" alt="이메일" /></a>
+							</div>
+							<img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/img_visual01.jpg" alt="2015연구장비전문자격제도에관한인식조사" />
+							<a href="" class="btn_red">투표하기</a>
+						</div>
+
+						<div class="btn_box">
+							<a href="" class="btn_prev">이전</a>
+							<a href="" class="btn_next">다음</a>
+						</div>
+					</div>
+
+					<div class="aside_box">
+						<div class="label"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/label_01.png" alt="현재진행중" /></div>
+						<div class="brn_txt">
+							<p><span class="b_font">2015</span>년 <span class="b_font">4</span>월 <span class="b_font">15</span>일까지</p>
+							<p class="icon01"><span class="b_font">24</span>건의 설문에</p>
+							<p class="icon02"><span class="b_font f_yellow">54,000</span>명이</p>
+							참여하셨습니다.
+						</div>
+						<div class="brn_img">
+							<a href=""><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/img_brn01.jpg" alt="설문주제를 제안해주세요." /></a>
+						</div>
+					</div>
+				</div>
+				<!-- //설문조사 -->
+
+				<!-- 국가연구시설장비 관리 실태조사 -->
+				<div class="fade_wrap" style="display:none">
+					<div class="inner">
+						<img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/img_visual02.jpg" alt="2015국가연구시설장비 관리 실태조사" />
+
+						<ul class="list_type_dt">
+							<li>
+								<dl>
+									<dt>목적</dt>
+									<dd>
+										국가 RD 사업으로 도입된 시설장비의 「국가연구시설 장비 관리 표준지침」에 따라 체계적 관리 여부 및 활용도 제고에 관한 현황 파악
+									</dd>
+								</dl>
+							</li>
+							<li>
+								<dl>
+									<dt>대상</dt>
+									<dd>
+										1. 연구기관 : 국가 RD 예산으로 2점 이상의 시설장비를 구축한 연구기관 (NTIS 등록기준)<br />
+										2. 연구관리 전문기관 : 국가 RD 사업을 수행하며 시설장비 구축 비용을 펀딩한 기관
+									</dd>
+								</dl>
+							</li>
+							<li>
+								<dl>
+									<dt>일시</dt>
+									<dd>2015.06.01~2015.06.30 (30일간)</dd>
+								</dl>
+							</li>
+						</ul>
+
+						<a href="" class="btn_red">시작하기</a>
+					</div>
+
+					<div class="aside_box">
+						<div class="label"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/label_01.png" alt="현재진행중" /></div>
+						<div class="brn_txt2">
+							<p class="tit">제출현황 <span>(2015.04.15)</span></p>
+							<ul>
+								<li class="edge">
+									<dl>
+										<dt>제출</dt>
+										<dd class="f_zeus">300</dd>
+									</dl>
+								</li>
+								<li>
+									<dl>
+										<dt>미제출</dt>
+										<dd class="f_pink">100</dd>
+									</dl>
+								</li>
+							</ul>
+						</div>
+						<div class="brn_txt3">
+							<a href="">
+								<p class="tit">대상확인</p>
+								<p class="txt">
+									국가연구기설장비 실태조사<br />
+									대상기관 목록을 조회해 보세요.
+								</p>
+							</a>
+						</div>
+						<div class="brn_txt4">
+							<p class="tit">다운로드</p>
+							<ul>
+								<li class="edge"><a href="">공문</a></li>
+								<li><a href="">계획서</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- //국가연구시설장비 관리 실태조사 -->
+				
+				<!-- 전담운영인력 실태조사 -->
+				<div class="fade_wrap" style="display:none">
+					<div class="inner">
+						<img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/img_visual03.jpg" alt="2015 국가연구시설장비 전담운영인력 실태조사" />
+
+						<ul class="list_type_dt">
+							<li>
+								<dl>
+									<dt>목적</dt>
+									<dd>
+										국가 RD 사업으로 도입된 대형연구시설의 전주기 단계별 체계적 관리 여부 및 활용도 제고에 관한 현황파악
+									</dd>
+								</dl>
+							</li>
+							<li>
+								<dl>
+									<dt>대상</dt>
+									<dd>
+										국가 RD 예산이 50억원 이상 투입된 대형연구시설
+									</dd>
+								</dl>
+							</li>
+							<li>
+								<dl>
+									<dt>일시</dt>
+									<dd>2015.06.01~2015.06.30 (30일간)</dd>
+								</dl>
+							</li>
+						</ul>
+
+						<a href="" class="btn_red">시작하기</a>
+					</div>
+
+					<div class="aside_box">
+						<div class="label"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/label_01.png" alt="현재진행중" /></div>
+						<div class="brn_txt2">
+							<p class="tit">제출현황 <span>(2015.04.15)</span></p>
+							<ul>
+								<li class="edge">
+									<dl>
+										<dt>제출</dt>
+										<dd class="f_zeus">300</dd>
+									</dl>
+								</li>
+								<li>
+									<dl>
+										<dt>미제출</dt>
+										<dd class="f_pink">100</dd>
+									</dl>
+								</li>
+							</ul>
+						</div>
+						<div class="brn_txt3">
+							<a href="">
+								<p class="tit">대상확인</p>
+								<p class="txt">
+									국가연구기설장비 실태조사<br />
+									대상기관 목록을 조회해 보세요.
+								</p>
+							</a>
+						</div>
+						<div class="brn_txt4">
+							<p class="tit">다운로드</p>
+							<ul>
+								<li class="edge"><a href="">공문</a></li>
+								<li><a href="">계획서</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- //전담운영인력 실태조사 -->
+
+				<!-- 전담운영인력 실태조사 -->
+				<div class="fade_wrap" style="display:block">
+					<div class="inner">
+						<img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/img_visual04.jpg" alt="2015 국가대형연구시설 실태조사" />
+
+						<ul class="list_type_dt">
+							<li>
+								<dl>
+									<dt>목적</dt>
+									<dd>
+										국가 RD 사업으로 도입된 대형연구시설의 전주기 단계별 체계적 관리 여부 및 활용도 제고에 관한 현황파악
+									</dd>
+								</dl>
+							</li>
+							<li>
+								<dl>
+									<dt>대상</dt>
+									<dd>
+										국가 RD 예산이 50억원 이상 투입된 대형연구시설
+									</dd>
+								</dl>
+							</li>
+							<li>
+								<dl>
+									<dt>일시</dt>
+									<dd>2015.06.01~2015.06.30 (30일간)</dd>
+								</dl>
+							</li>
+						</ul>
+
+						<a href="" class="btn_red">시작하기</a>
+					</div>
+
+					<div class="aside_box">
+						<div class="label"><img src="${pageContext.request.contextPath}/wcom/img/zeus2014/content/resrch/label_01.png" alt="현재진행중" /></div>
+						<div class="brn_txt2">
+							<p class="tit">제출현황 <span>(2015.04.15)</span></p>
+							<ul>
+								<li class="edge">
+									<dl>
+										<dt>제출</dt>
+										<dd class="f_zeus">300</dd>
+									</dl>
+								</li>
+								<li>
+									<dl>
+										<dt>미제출</dt>
+										<dd class="f_pink">100</dd>
+									</dl>
+								</li>
+							</ul>
+						</div>
+						<div class="brn_txt3">
+							<a href="">
+								<p class="tit">대상확인</p>
+								<p class="txt">
+									국가연구기설장비 실태조사<br />
+									대상기관 목록을 조회해 보세요.
+								</p>
+							</a>
+						</div>
+						<div class="brn_txt4">
+							<p class="tit">다운로드</p>
+							<ul>
+								<li class="edge"><a href="">공문</a></li>
+								<li><a href="">계획서</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- //전담운영인력 실태조사 -->
+
+   			</div>
+
+   			<div class="resrch_notice_wrap">
+				<div class="section type01">
+					<h2>QA</h2>
+					<div class="exp_box">
+						궁금하신 점이 있으신가요?<br />
+						ZEUS가 빠르게 답변드립니다.
+					</div>
+					<ul class="qna_list">
+						<li><a href="">타기관이 등록한 연구시설정보를 제공받으려면 어떻게 해야 하나요?</a></li>
+						<li><a href="">타기관이 등록한 연구시설정보를 제공받으려면 어떻게 해야 하나요?</a></li>
+						<li><a href="">타기관이 등록한 연구시설정보를 제공받으려면 어떻게 해야 하나요?</a></li>
+						<li><a href="">타기관이 등록한 연구시설정보를 제공받으려면 어떻게 해야 하나요?</a></li>
+						<li><a href="">타기관이 등록한 연구시설정보를 제공받으려면 어떻게 해야 하나요?</a></li>
+						<li><a href="">타기관이 등록한 연구시설정보를 제공받으려면 어떻게 해야 하나요?</a></li>
+						<li><a href="">타기관이 등록한 연구시설정보를 제공받으려면 어떻게 해야 하나요?</a></li>
+					</ul>
+					<a href="" class="btn_more">더보기</a>
+				</div>
+				<div class="section type02">
+					<div class="brn_header">
+						<p>실태조사에 대해 자세히 알고 싶으신가요?</p>
+						'원하시는 실태조사를 클릭하시면 자세히 알려드립니다!'
+					</div>
+					<ul class="brn_list">
+						<li><a href="">국가연구시설장비 관리 실태조사</a></li>
+						<li><a href="">국가연구시설장비 관리 실태조사</a></li>
+						<li><a href="">국가연구시설장비 관리 실태조사</a></li>
+					</ul>
+				</div>
+				<div class="section type03">
+					<h2>최신설문조사</h2>
+					<ul class="news_list">
+						<li class="edge">
+							<span class="alram on">투표중</span>
+							<a href="">장동민, 무한도전 식스맨 자진하차...어떻게 생각하시나요?</a>
+							<div class="info">
+								<span class="bar">현재참여 <em class="f_red">22,970</em></span>
+								<span>2015.02.02</span>
+							</div>
+						</li>
+						<li>
+							<span class="alram">종료</span>
+							<a href="">장동민, 무한도전 식스맨 자진하차...어떻게 생각하시나요?</a>
+							<div class="info">
+								<span class="bar">현재참여 <em class="f_red">22,970</em></span>
+								<span>2015.02.02</span>
+							</div>
+						</li>
+						<li>
+							<span class="alram">종료</span>
+							<a href="">장동민, 무한도전 식스맨 자진하차...어떻게 생각하시나요?</a>
+							<div class="info">
+								<span class="bar">현재참여 <em class="f_red">22,970</em></span>
+								<span>2015.02.02</span>
+							</div>
+						</li>
+						<li>
+							<span class="alram">종료</span>
+							<a href="">장동민, 무한도전 식스맨 자진하차...어떻게 생각하시나요?</a>
+							<div class="info">
+								<span class="bar">현재참여 <em class="f_red">22,970</em></span>
+								<span>2015.02.02</span>
+							</div>
+						</li>
+						<li>
+							<span class="alram">종료</span>
+							<a href="">장동민, 무한도전 식스맨 자진하차...어떻게 생각하시나요?</a>
+							<div class="info">
+								<span class="bar">현재참여 <em class="f_red">22,970</em></span>
+								<span>2015.02.02</span>
+							</div>
+						</li>
+					</ul>
+					<a href="" class="btn_more">더보기</a>
+				</div>
+   			</div>
+   		</div>
+   	</div>
+   	<!-- end container -->
+</div>	
+

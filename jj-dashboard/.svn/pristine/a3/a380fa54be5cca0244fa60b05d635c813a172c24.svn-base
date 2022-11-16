@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+ 선도학생 codedata
+ -->
+<mapper namespace="dashboard-codedata.dropout">
+
+    <select id="readYearCode" resultType="kr.ac.jj.shared.infrastructure.framework.core.support.collection.CamelKeyMap">
+        SELECT DISTINCT
+        IPSY_YY AS CODE,
+        IPSY_YY AS NAME
+        FROM DW_DROPOUT
+        WHERE IPSY_YY IS NOT NULL
+    </select>
+
+</mapper>
